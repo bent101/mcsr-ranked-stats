@@ -4,8 +4,8 @@
 	export let data;
 </script>
 
-<div class="mx-auto h-screen max-h-screen overflow-hidden flex">
-	<Leaderboard {data} />
+<div class="mx-auto flex h-screen max-h-screen overflow-hidden">
+	<Leaderboard lb={data.lb?.users} />
 	<div class="flex-1">
 		<slot />
 	</div>

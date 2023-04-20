@@ -1,35 +1,28 @@
+import type { PlayerInfo, Match, EloLeaderboard } from "./ranked-api";
+
 const base = "https://mcsrranked.com/api";
 
-export const getUUID = async (name: string) => {
-	const res = await fetch(`https://playerdb.co/api/player/minecraft/${name}`);
-	const data = await res.json();
-	if (data.code !== "player.found") return null;
-	return data.data.player.raw_id;
-};
-
 export const getLeaderboard = async () => {
-	const res = await fetch(`${base}/leaderboard`);
-	const data = await res.json();
+	const data = await fetch(`${base}/leaderboard`).then((res) => res.json());
 	if (data.status !== "success") return null;
-	return data.data;
+	return data.data as EloLeaderboard;
 };
 
 export const getPlayer = async (name: string) => {
-	const res = await fetch(`${base}/users/${name}`);
-	const data = await res.json();
+	const data = await fetch(`${base}/users/${name}`).then((res) => res.json());
 	if (data.status !== "success") return null;
-	return data.data;
+	return data.data as PlayerInfo;
 };
 
 export const getMatches = async (name: string, page: number) => {
 	const res = await fetch(`${base}/users/${name}/matches?page=${page}&filter=2`);
 	const data = await res.json();
 	if (data.status !== "success") return null;
-	let matches = data.data.map(
-		({ is_decay, winner, final_time, members, score_changes, forfeit }) => {
+	return (data.data as Match[]).map(
+		({ is_decay, winner, final_time, members, score_changes, forfeit }: Match) => {
 			let opponent = undefined;
 			let time = undefined;
-			let outcome = undefined;
+			let outcome: "won" | "lost" | "draw" | undefined = undefined;
 			const uuid = members.find((member) => member.nickname === name).uuid;
 			if (!is_decay) {
 				opponent = members.find((member) => member.nickname !== name).nickname;
@@ -38,19 +31,20 @@ export const getMatches = async (name: string, page: number) => {
 				time = formatTime(final_time);
 			}
 
-			const { change, score } = score_changes.find((member) => member.uuid === uuid);
+			const scoreChange = score_changes?.find((member) => member.uuid === uuid);
+			const eloChange = scoreChange?.change;
+			const eloAfter = scoreChange?.score;
 			return {
 				isDecay: is_decay,
 				opponent,
 				outcome,
 				forfeit,
 				time,
-				eloChange: change,
-				eloAfter: score,
+				eloChange,
+				eloAfter,
 			};
 		}
 	);
-	return matches;
 };
 
 export const getAvatar = (uuid: string, size = 64) => {

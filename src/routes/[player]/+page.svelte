@@ -6,6 +6,7 @@
 	import twitch from "$lib/assets/twitch.svg";
 	import { Tooltip } from "@svelte-plugins/tooltips";
 	import { afterNavigate } from "$app/navigation";
+	import { svg_element } from "svelte/internal";
 
 	export let data;
 	let curPage = 1;
@@ -51,11 +52,15 @@
 	};
 </script>
 
+<svelte:head>
+	<title>{data.playerData.nickname}'s stats</title>
+</svelte:head>
+
 <div bind:this={matchesContainer} class="max-h-full overflow-y-scroll overscroll-y-contain">
 	<div class="sticky top-0 z-10 flex items-center gap-4 bg-zinc-900/70 px-12 py-2 backdrop-blur-md">
 		<img
 			class="rounded-lg"
-			src={getAvatar(data.uuid)}
+			src={getAvatar(data.playerData.uuid)}
 			width="48"
 			height="48"
 			alt="{data.playerData.nickname}'s avatar" />
