@@ -1,18 +1,24 @@
 <script lang="ts">
-	import { getAvatar, formatTime, getMatches } from "$lib/utils.js";
-	import { page } from "$app/stores";
+	import {
+		getAvatar,
+		formatTime,
+		getMatchesURL,
+		formatMatches,
+		getLeaderboardURL,
+	} from "$lib/utils.js";
 	import discord from "$lib/assets/discord.svg";
 	import youtube from "$lib/assets/youtube.svg";
 	import twitch from "$lib/assets/twitch.svg";
 	import { Tooltip } from "@svelte-plugins/tooltips";
-	import { afterNavigate } from "$app/navigation";
-	import { svg_element } from "svelte/internal";
+	import { afterNavigate, invalidate } from "$app/navigation";
+	import { writable } from "svelte/store";
 
 	export let data;
 	let curPage = 1;
 	let noMoreMatches = true;
 	let justCopiedDiscord = false;
 	let matchesContainer: Element;
+	let matchDetailsId = writable<number>(-1);
 
 	const getNumMatches = () => {
 		return (data.playerData.records[2].win +
@@ -33,18 +39,31 @@
 		numMatches = getNumMatches();
 		winrate = getWinrate();
 		curPage = 1;
-		noMoreMatches = data?.recentMatches?.length < 20;
+		$matchDetailsId = -1;
+		noMoreMatches = data.recentMatches.length < 20;
+		for (const i in data.lb.users) {
+			data.lb.users[i].elo_rate += ~~(100 * Math.random() - 50);
+		}
+
+		if (
+			data.lb.users.find((user) => user.nickname === data.playerData.nickname)?.elo_rate !==
+			data.playerData.elo_rate
+		) {
+			invalidate(getLeaderboardURL());
+		}
 	});
 
 	const addMoreMatches = async () => {
 		if (noMoreMatches) return;
-		const matches = await getMatches($page.params.player, curPage++);
+		const matches = await fetch(getMatchesURL(data.playerData.nickname, curPage++))
+			.then((res) => res.json())
+			.then((res) => formatMatches(res.data ?? [], data.playerData.nickname));
 		data.recentMatches = [...data.recentMatches, ...matches];
 		if (matches.length < 20) noMoreMatches = true;
 	};
 
 	const copyDiscord = () => {
-		navigator.clipboard.writeText(data.playerData.connections.discord.name);
+		navigator.clipboard.writeText(data.playerData.connections.discord!.name);
 		justCopiedDiscord = true;
 		setTimeout(() => {
 			justCopiedDiscord = false;
@@ -65,38 +84,38 @@
 			height="48"
 			alt="{data.playerData.nickname}'s avatar" />
 		<div>
-			<div class="flex items-center gap-2">
-				<h1 class="text-3xl font-bold leading-10 text-zinc-300">{data.playerData.nickname}</h1>
-				<div class="flex items-center">
-					{#if data.playerData.connections.twitch}
-						<a
-							class="h-10 w-10 p-1 opacity-20 hover:opacity-100"
-							href="https://twitch.tv/{data.playerData.connections.twitch.name}"
-							rel="noreferrer"
-							target="_blank"><img src={twitch} alt="Twitch logo" /></a>
-					{/if}
-					{#if data.playerData.connections.youtube}
-						<a
-							class="h-10 w-10 p-1 opacity-20 hover:opacity-100"
-							rel="noreferrer"
-							target="_blank"
-							href="https://youtube.com/channel/{data.playerData.connections.youtube.id}"
-							><img src={youtube} alt="Youtube logo" /></a>
-					{/if}
-					{#if data.playerData.connections.discord}
-						<Tooltip content={justCopiedDiscord ? "Copied!" : "Copy&nbsp;discord"} position="right">
-							<button class="h-10 w-10 p-1 opacity-20 hover:opacity-100" on:click={copyDiscord}
-								><img src={discord} alt="Discord logo" /></button>
-						</Tooltip>
-					{:else if data.playerData.elo_rank === null}
-						<Tooltip content={"Needs&nbsp;to&nbsp;link&nbsp;discord"} position="right">
-							<span
-								class="ml-2 rounded-full bg-zinc-700 px-3 py-1 text-sm font-semibold uppercase tracking-wide text-zinc-300">
-								Unverified
-							</span>
-						</Tooltip>
-					{/if}
-				</div>
+			<div class="flex h-12 items-center">
+				<h1 class="mr-2 fill-zinc-200 text-3xl font-bold leading-10 text-zinc-300">
+					{data.playerData.nickname}
+				</h1>
+				{#if data.playerData.connections.twitch}
+					<a
+						class="h-10 w-10 p-1 opacity-20 hover:opacity-100"
+						href="https://twitch.tv/{data.playerData.connections.twitch.name}"
+						rel="noreferrer"
+						target="_blank"><img src={twitch} alt="Twitch logo" /></a>
+				{/if}
+				{#if data.playerData.connections.youtube}
+					<a
+						class="h-10 w-10 p-1 opacity-20 hover:opacity-100"
+						rel="noreferrer"
+						target="_blank"
+						href="https://youtube.com/channel/{data.playerData.connections.youtube.id}"
+						><img src={youtube} alt="Youtube logo" /></a>
+				{/if}
+				{#if data.playerData.connections.discord}
+					<Tooltip content={justCopiedDiscord ? "Copied!" : "Copy&nbsp;discord"} position="right">
+						<button class="h-10 w-10 p-1 opacity-20 hover:opacity-100" on:click={copyDiscord}
+							><img src={discord} alt="Discord logo" /></button>
+					</Tooltip>
+				{:else if data.playerData.elo_rank === null}
+					<Tooltip content={"Needs&nbsp;to&nbsp;link&nbsp;discord"} position="right">
+						<span
+							class="ml-2 rounded-full bg-zinc-700 px-3 py-1 text-sm font-semibold uppercase tracking-wide text-zinc-300">
+							Unverified
+						</span>
+					</Tooltip>
+				{/if}
 			</div>
 			<span class="text-lg text-zinc-500">
 				{#if data.playerData.elo_rate === -1}
@@ -126,37 +145,45 @@
 				>{numMatches}</span>
 		</h2>
 		<ol class="">
-			{#each data.recentMatches as { isDecay, opponent, outcome, forfeit, time, eloChange, eloAfter }}
-				<li class="group flex items-center gap-2 rounded-lg px-4 py-1.5 hocus-within:bg-zinc-800">
+			{#each data.recentMatches as { isDecay, opponent, outcome, forfeit, time, eloChange, date, id }}
+				{@const selected = id === $matchDetailsId}
+				{@const color = outcome ? { won: "green", lost: "red", draw: "blue" }[outcome] : "zinc"}
+				<li>
 					{#if isDecay}
-						<div class="w-64 text-sm font-bold uppercase text-zinc-500">
-							Elo decay (due to inactivity)
-						</div>
-						<div class="w-24 text-sm font-bold uppercase text-red-400">
-							{eloChange >= 0 ? "+" : ""}{eloChange} elo
+						<div
+							class="group flex items-center gap-2 rounded-lg px-4 py-1.5 hocus-within:bg-zinc-800">
+							<div class="w-40 italic text-zinc-500">Elo decay</div>
+							<div class="w-20 text-sm font-bold uppercase text-red-400">
+								{eloChange >= 0 ? "+" : ""}{eloChange} elo
+							</div>
+							<div class="w-20" />
+							<div class=" w-36 text-zinc-600">{date}</div>
 						</div>
 					{:else}
-						<div class="w-64 text-zinc-300">
-							<a href="/{opponent}" class="hover:underline hover:underline-offset-4">{opponent}</a>
-						</div>
-						<div
-							class="w-24 uppercase {outcome === 'draw'
-								? 'text-blue-400'
-								: outcome === 'won'
-								? 'text-green-400'
-								: 'text-red-400'} text-sm font-bold">
-							{outcome}
-							<span class="invisible ml-1 opacity-30 group-hocus-within:visible"
-								>{eloChange >= 0 ? "+" : ""}{eloChange}</span>
-						</div>
-						{#if outcome !== "draw"}
-							<div
-								class="w-16 font-semibold uppercase tracking-wider {forfeit
-									? 'text-sm font-bold text-zinc-600'
-									: ''}">
-								{forfeit ? "forfeit" : time}
+						<button
+							on:click={() => ($matchDetailsId = id)}
+							class="group flex items-center gap-2 rounded-lg border px-4 py-1.5 text-left {selected
+								? 'border-zinc-500 bg-zinc-800'
+								: 'border-transparent hocus-within:bg-zinc-800'}">
+							<div class="w-40 overflow-hidden overflow-ellipsis text-zinc-{selected ? 50 : 300}">
+								<a href="/{opponent}" class=" hover:underline hover:underline-offset-4"
+									>{opponent}</a>
 							</div>
-						{/if}
+							<div class="w-20 uppercase text-{color}-400 text-sm font-bold">
+								<span class="{selected ? ' hidden' : 'inline'} inline group-hocus-within:hidden"
+									>{outcome}</span>
+								<span class="{selected ? ' inline' : 'hidden'} hidden group-hocus-within:inline"
+									>{eloChange >= 0 ? "+" : ""}{eloChange} elo</span>
+							</div>
+							<div
+								class:text-zinc-50={selected}
+								class="w-20 font-semibold {forfeit
+									? `text-sm font-bold uppercase text-zinc-600`
+									: ''}">
+								{outcome !== "draw" ? (forfeit ? "Forfeit" : time) : ""}
+							</div>
+							<div class=" w-36 text-zinc-{selected ? 50 : 600}">{date}</div>
+						</button>
 					{/if}
 				</li>
 			{/each}

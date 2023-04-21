@@ -110,13 +110,13 @@ export type DetailedMatch = {
 	category: string;
 	match_date: Date;
 	is_decay: boolean;
-	timelines: [
-		{
-			time: number;
-			timeline: string;
-			uuid: string;
-		}
-	];
+	timelines:
+		| null
+		| {
+				time: number;
+				timeline: string;
+				uuid: string;
+		  }[];
 };
 
 export type EloLeaderboard = {

@@ -3,6 +3,7 @@
 	import { page } from "$app/stores";
 	import type { PlayerInfo } from "$lib/ranked-api";
 	import { tick } from "svelte";
+	import { flip } from "svelte/animate";
 
 	export let lb: PlayerInfo[] | undefined;
 
@@ -15,16 +16,16 @@
 </script>
 
 <div
-	class="h-full w-max overflow-y-scroll overscroll-y-contain border-r-2 border-zinc-800 bg-zinc-950 pt-0">
+	class="h-full w-max min-w-max overflow-y-scroll overscroll-y-contain border-r-2 border-zinc-800 bg-zinc-950 pt-0">
 	<h1
-		class="sticky top-0 bg-zinc-950/70 p-4 text-center font-extrabold uppercase tracking-wider text-zinc-600 backdrop-blur-md">
+		class="sticky top-0 z-10 bg-zinc-950/70 p-4 text-center font-extrabold uppercase tracking-wider text-zinc-600 backdrop-blur-md">
 		MSCR Ranked Leaderboard
 	</h1>
 	{#if lb}
 		<ol class="p-4 pl-0">
-			{#each lb as { nickname, elo_rate, elo_rank }}
+			{#each lb as { nickname, elo_rate, elo_rank, uuid } (uuid)}
 				{@const selected = nickname === $page.params.player}
-				<li class="" class:selected>
+				<li class="" class:selected animate:flip={{ duration: 1000 }}>
 					<a
 						href="/{nickname}"
 						class="group flex items-center rounded-r-full {selected

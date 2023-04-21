@@ -1,5 +1,10 @@
 lockfileVersion: '6.0'
 
+dependencies:
+  moment:
+    specifier: ^2.29.4
+    version: 2.29.4
+
 devDependencies:
   '@svelte-plugins/tooltips':
     specifier: ^0.1.6
@@ -49,7 +54,7 @@ devDependencies:
   tailwindcss:
     specifier: ^3.3.1
     version: 3.3.1(postcss@8.4.22)
-  tailwindcss-hover:
+  tailwindcss-hocus:
     specifier: ^0.0.7
     version: 0.0.7(tailwindcss@3.3.1)
   tslib:
@@ -1369,6 +1374,10 @@ packages:
     dependencies:
       minimist: 1.2.8
     dev: true
+
+  /moment@2.29.4:
+    resolution: {integrity: sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==}
+    dev: false
 
   /mri@1.2.0:
     resolution: {integrity: sha512-tzzskb3bG8LvYGFF/mDTpq3jpI6Q9wc3LEmBaghu+DdCssd1FakN7Bc0hVNmEyGq1bq3RgfkCb3cmQLpNPOroA==}
