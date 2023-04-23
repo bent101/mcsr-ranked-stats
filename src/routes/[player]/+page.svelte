@@ -12,13 +12,15 @@
 	import { Tooltip } from "@svelte-plugins/tooltips";
 	import { afterNavigate, invalidate } from "$app/navigation";
 	import { writable } from "svelte/store";
+	import Timeline from "./MatchDetails.svelte";
+	import MatchDetails from "./MatchDetails.svelte";
 
 	export let data;
 	let curPage = 1;
 	let noMoreMatches = true;
 	let justCopiedDiscord = false;
 	let matchesContainer: Element;
-	let matchDetailsId = writable<number>(-1);
+	let matchDetailsId = -1;
 
 	const getNumMatches = () => {
 		return (data.playerData.records[2].win +
@@ -39,16 +41,12 @@
 		numMatches = getNumMatches();
 		winrate = getWinrate();
 		curPage = 1;
-		$matchDetailsId = -1;
+		matchDetailsId = -1;
 		noMoreMatches = data.recentMatches.length < 20;
-		for (const i in data.lb.users) {
-			data.lb.users[i].elo_rate += ~~(100 * Math.random() - 50);
-		}
 
-		if (
-			data.lb.users.find((user) => user.nickname === data.playerData.nickname)?.elo_rate !==
-			data.playerData.elo_rate
-		) {
+		const curPlayerOnLb = data.lb.users.find((user) => user.nickname === data.playerData.nickname);
+
+		if (curPlayerOnLb && curPlayerOnLb.elo_rate !== data.playerData.elo_rate) {
 			invalidate(getLeaderboardURL());
 		}
 	});
@@ -137,6 +135,7 @@
 			</span>
 		</div>
 	</div>
+
 	<div class="m-4 flex w-max flex-col items-center p-4">
 		<h2
 			class="mx-4 mb-2 mt-0 w-full border-b-2 border-zinc-800 px-4 pb-2 font-bold uppercase text-zinc-400">
@@ -146,9 +145,9 @@
 		</h2>
 		<ol class="">
 			{#each data.recentMatches as { isDecay, opponent, outcome, forfeit, time, eloChange, date, id }}
-				{@const selected = id === $matchDetailsId}
+				{@const selected = id === matchDetailsId}
 				{@const color = outcome ? { won: "green", lost: "red", draw: "blue" }[outcome] : "zinc"}
-				<li>
+				<li class={selected ? "sticky" : ""}>
 					{#if isDecay}
 						<div
 							class="group flex items-center gap-2 rounded-lg px-4 py-1.5 hocus-within:bg-zinc-800">
@@ -161,28 +160,30 @@
 						</div>
 					{:else}
 						<button
-							on:click={() => ($matchDetailsId = id)}
+							on:click={() => (matchDetailsId = id)}
 							class="group flex items-center gap-2 rounded-lg border px-4 py-1.5 text-left {selected
 								? 'border-zinc-500 bg-zinc-800'
 								: 'border-transparent hocus-within:bg-zinc-800'}">
 							<div class="w-40 overflow-hidden overflow-ellipsis text-zinc-{selected ? 50 : 300}">
-								<a href="/{opponent}" class=" hover:underline hover:underline-offset-4"
-									>{opponent}</a>
+								<a
+									on:click|stopPropagation
+									href="/{opponent}"
+									class=" hover:underline hover:underline-offset-4">{opponent}</a>
 							</div>
-							<div class="w-20 uppercase text-{color}-400 text-sm font-bold">
-								<span class="{selected ? ' hidden' : 'inline'} inline group-hocus-within:hidden"
+							<div class="w-20 text-center uppercase text-{color}-400 text-sm font-bold">
+								<span class="{selected ? ' hidden' : 'inline group-hocus-within:hidden'} "
 									>{outcome}</span>
-								<span class="{selected ? ' inline' : 'hidden'} hidden group-hocus-within:inline"
+								<span class={selected ? " inline" : "hidden group-hocus-within:inline"}
 									>{eloChange >= 0 ? "+" : ""}{eloChange} elo</span>
 							</div>
 							<div
 								class:text-zinc-50={selected}
-								class="w-20 font-semibold {forfeit
+								class="w-20 text-center font-semibold {forfeit
 									? `text-sm font-bold uppercase text-zinc-600`
 									: ''}">
 								{outcome !== "draw" ? (forfeit ? "Forfeit" : time) : ""}
 							</div>
-							<div class=" w-36 text-zinc-{selected ? 50 : 600}">{date}</div>
+							<!-- <div class="w-36 text-right text-zinc-{selected ? 50 : 600}">{date}</div> -->
 						</button>
 					{/if}
 				</li>
@@ -190,15 +191,18 @@
 		</ol>
 		{#if !noMoreMatches}
 			<button
-				class="m-2 rounded-full px-4 py-2 text-zinc-500 hover:bg-zinc-800 hover:text-zinc-300"
+				class=" m-2 mb-96 rounded-full px-4 py-2 text-zinc-500 hover:bg-zinc-800 hover:text-zinc-300"
 				on:click={addMoreMatches}>Show more</button>
 		{:else if curPage > 1}
 			<div class="m-2 px-4 py-2 text-zinc-500">No more to show</div>
 		{/if}
 	</div>
+	<div class="fixed bottom-4 right-4">
+		<MatchDetails matchID={matchDetailsId} curPlayerID={data.playerData.uuid} />
+	</div>
 </div>
 
-<style>
+<style lang="postcss">
 	b {
 		@apply font-bold;
 	}

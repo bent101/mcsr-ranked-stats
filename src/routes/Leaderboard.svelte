@@ -6,47 +6,60 @@
 	import { flip } from "svelte/animate";
 
 	export let lb: PlayerInfo[] | undefined;
+	let titleContainer: HTMLElement;
+	let lbContainer: HTMLElement;
+	let windowHeight: number;
 
 	afterNavigate(async () => {
 		await tick();
 		const element = document.querySelector(".selected");
 		if (!element) return;
-		element.scrollIntoView({ behavior: "smooth", block: "center" });
+		const { top, bottom } = element.getBoundingClientRect();
+		const minTop = titleContainer.getBoundingClientRect().height;
+		console.log({ minTop, top });
+		const maxBottom = windowHeight;
+
+		if (top < minTop || bottom > maxBottom) {
+			element.scrollIntoView({ behavior: "smooth", block: "center" });
+		}
 	});
 </script>
 
-<div
-	class="h-full w-max min-w-max overflow-y-scroll overscroll-y-contain border-r-2 border-zinc-800 bg-zinc-950 pt-0">
+<svelte:window bind:innerHeight={windowHeight} />
+
+<div class="w-max min-w-max bg-zinc-950 pt-0">
 	<h1
-		class="sticky top-0 z-10 bg-zinc-950/70 p-4 text-center font-extrabold uppercase tracking-wider text-zinc-600 backdrop-blur-md">
+		bind:this={titleContainer}
+		class="sticky top-0 z-20 border-r-2 border-zinc-800 bg-zinc-950/70 p-4 text-center font-extrabold uppercase tracking-wider text-zinc-600 backdrop-blur-md">
 		MSCR Ranked Leaderboard
 	</h1>
 	{#if lb}
-		<ol class="p-4 pl-0">
+		<ol class="pl-4" bind:this={lbContainer}>
 			{#each lb as { nickname, elo_rate, elo_rank, uuid } (uuid)}
 				{@const selected = nickname === $page.params.player}
-				<li class="" class:selected animate:flip={{ duration: 1000 }}>
+				<li class={selected ? "z-10" : ""} animate:flip={{ duration: 1000 }}>
 					<a
 						href="/{nickname}"
-						class="group flex items-center rounded-r-full {selected
-							? 'bg-zinc-400'
-							: 'hover:bg-zinc-900'}">
+						class="group flex h-8 items-center rounded-l-full border-l-2 border-zinc-800 leading-normal {selected
+							? 'border-2 border-r-zinc-900 bg-zinc-900'
+							: 'border-0 border-x-2 border-l-transparent bg-zinc-950 hover:bg-zinc-900 '}">
 						<span
-							class="inline-block w-12 px-2 py-1 text-right font-extrabold {selected
-								? 'text-zinc-600'
+							class="inline-block w-12 px-2 text-right font-extrabold {selected
+								? 'text-zinc-400'
 								: 'text-zinc-800 group-hover:text-zinc-400'}">{elo_rank ?? "???"}</span>
 						<span
-							class="inline-block flex-1 px-2 py-1 {selected
-								? 'font-bold tracking-tight text-zinc-900'
-								: 'text-zinc-400 group-hover:text-white'}">{nickname}</span>
+							class="inline-block flex-1 px-2 text-center {selected
+								? ' text-zinc-300'
+								: 'text-zinc-400 group-hover:text-zinc-300'}">{nickname}</span>
 						<span
-							class="inline-block w-20 px-2 py-1 font-semibold text-zinc-700 {selected
-								? ''
-								: 'group-hover:text-zinc-500'}">{elo_rate}</span>
+							class="inline-block w-20 px-2 font-semibold {selected
+								? 'text-zinc-500'
+								: ' text-zinc-700  group-hover:text-zinc-500'}">{elo_rate}</span>
 					</a>
 				</li>
 			{/each}
 		</ol>
+		<div class="h-32 border-r-2 border-zinc-800" />
 	{:else}
 		<div class="mt-32 text-center font-bold text-red-700">Couldn't get leaderboard :/</div>
 	{/if}

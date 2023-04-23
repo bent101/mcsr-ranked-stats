@@ -19,8 +19,58 @@ export const getMatchesURL = (name: string, page: number) => {
 	return `${base}/users/${name}/matches?filter=2&page=${page}`;
 };
 
-export const getDetailedMatchURL = (id: string) => {
+export const getDetailedMatchURL = (id: number) => {
 	return `${base}/matches/${id}`;
+};
+
+export const formatDetailedMatch = (match: DetailedMatch, curPlayerID: string) => {
+	type Timeline = { where: string; when: string }[];
+	let curPlayerTimeline: Timeline | undefined;
+	let opponentTimeline: Timeline | undefined;
+
+	if (match.timelines) {
+		const advancementsMap = new Map([
+			["story.enter_the_nether", "nether enter"],
+			["nether.find_bastion", "bastion"],
+			["nether.find_fortress", "fortress"],
+			["projectelo.timeline.blind_travel", "blind"],
+			["story.follow_ender_eye", "stronghold"],
+			["story.enter_the_end", "end enter"],
+		]);
+
+		curPlayerTimeline = [];
+		opponentTimeline = [];
+
+		match.timelines.reverse(); // the api gives the timeline from last to first
+
+		for (const { time, timeline: eventName, uuid } of match.timelines) {
+			const where = advancementsMap.get(eventName);
+			if (where) {
+				const event = { where, when: formatTime(time) };
+				if (uuid === curPlayerID) {
+					curPlayerTimeline.push(event);
+				} else {
+					opponentTimeline.push(event);
+				}
+			}
+		}
+	}
+
+	const seedType = match.seed_type
+		.split("_")
+		.map((word) => {
+			return word.charAt(0).toUpperCase() + word.slice(1);
+		})
+		.join(" ");
+
+	return {
+		seedType,
+		date: formatDate(match.match_date),
+		curPlayerTimeline,
+		opponentTimeline,
+		curPlayerName: match.members.find((player) => player.uuid === curPlayerID)?.nickname,
+		opponentName: match.members.find((player) => player.uuid !== curPlayerID)?.nickname,
+	};
 };
 
 export const formatMatch = (match: DetailedMatch, playerName: string) => {
