@@ -7,41 +7,23 @@
 		getLeaderboardURL,
 		getPlayerURL,
 	} from "$lib/utils.js";
-	import discord from "$lib/assets/discord.svg";
-	import youtube from "$lib/assets/youtube.svg";
-	import twitch from "$lib/assets/twitch.svg";
-	import { Tooltip } from "@svelte-plugins/tooltips";
 	import { afterNavigate, invalidate } from "$app/navigation";
 	import { onMount } from "svelte";
 	import { page } from "$app/stores";
+	import PlayerProfile from "./PlayerProfile.svelte";
 
 	export let data;
 	let curPage = 1;
 	let noMoreMatches = true;
-	let justCopiedDiscord = false;
 	let matchesContainer: Element;
 
-	const getNumMatches = () => {
-		return (data.playerData.records[2].win +
-			data.playerData.records[2].lose +
-			data.playerData.records[2].draw) as number;
-	};
-
-	let numMatches = getNumMatches();
-
-	const getWinrate = () => {
-		return Math.round((100 * data.playerData.records[2].win) / numMatches);
-	};
-
-	let winrate = getWinrate();
-
-	onMount(() => {
-		matchesContainer.scrollTop = 0;
-	});
+	$: numMatches =
+		data.playerData.records[2].win +
+		data.playerData.records[2].lose +
+		data.playerData.records[2].draw;
 
 	afterNavigate(() => {
-		numMatches = getNumMatches();
-		winrate = getWinrate();
+		// matchesContainer.scrollTop = 0;
 		curPage = 1;
 		noMoreMatches = data.recentMatches.length < 20;
 
@@ -60,14 +42,6 @@
 		data.recentMatches = [...data.recentMatches, ...matches];
 		if (matches.length < 20) noMoreMatches = true;
 	};
-
-	const copyDiscord = () => {
-		navigator.clipboard.writeText(data.playerData.connections.discord!.name);
-		justCopiedDiscord = true;
-		setTimeout(() => {
-			justCopiedDiscord = false;
-		}, 1200);
-	};
 </script>
 
 <svelte:head>
@@ -75,66 +49,8 @@
 </svelte:head>
 
 <div bind:this={matchesContainer} class="max-h-full overflow-y-scroll overscroll-y-contain">
-	<div class="sticky top-0 z-10 flex items-center gap-4 bg-zinc-900/70 px-12 py-2 backdrop-blur-md">
-		<img
-			class="rounded-lg"
-			src={getAvatar(data.playerData.uuid)}
-			width="48"
-			height="48"
-			alt="{data.playerData.nickname}'s avatar" />
-		<div>
-			<div class="flex h-12 items-center">
-				<h1 class="mr-2 fill-zinc-200 text-3xl font-bold leading-10 text-zinc-300">
-					{data.playerData.nickname}
-				</h1>
-				{#if data.playerData.connections.twitch}
-					<a
-						class="h-10 w-10 p-1 opacity-20 hover:opacity-100"
-						href="https://twitch.tv/{data.playerData.connections.twitch.name}"
-						rel="noreferrer"
-						target="_blank"><img src={twitch} alt="Twitch logo" /></a>
-				{/if}
-				{#if data.playerData.connections.youtube}
-					<a
-						class="h-10 w-10 p-1 opacity-20 hover:opacity-100"
-						rel="noreferrer"
-						target="_blank"
-						href="https://youtube.com/channel/{data.playerData.connections.youtube.id}"
-						><img src={youtube} alt="Youtube logo" /></a>
-				{/if}
-				{#if data.playerData.connections.discord}
-					<Tooltip content={justCopiedDiscord ? "Copied!" : "Copy&nbsp;discord"} position="right">
-						<button class="h-10 w-10 p-1 opacity-20 hover:opacity-100" on:click={copyDiscord}
-							><img src={discord} alt="Discord logo" /></button>
-					</Tooltip>
-				{:else if data.playerData.elo_rank === null}
-					<Tooltip content={"Needs&nbsp;to&nbsp;link&nbsp;discord"} position="right">
-						<span
-							class="ml-2 rounded-full bg-zinc-700 px-3 py-1 text-sm font-semibold uppercase tracking-wide text-zinc-300">
-							Unverified
-						</span>
-					</Tooltip>
-				{/if}
-			</div>
-			<span class="text-lg text-zinc-500">
-				{#if data.playerData.elo_rate === -1}
-					Doing placements
-				{:else}
-					<b>{data.playerData.elo_rate}</b> elo
-				{/if}
-				{#if data.playerData.elo_rank}
-					(#<b>{data.playerData.elo_rank}</b>)
-				{/if}
-				{#if winrate !== -1 && !isNaN(winrate)}
-					<span class="px-1 font-extrabold text-zinc-600">•</span>
-					<b>{winrate}</b>% winrate
-				{/if}
-				{#if data.playerData.best_record_time !== 0}
-					<span class="px-1 font-extrabold text-zinc-600">•</span>
-					<b>{formatTime(data.playerData.best_record_time)}</b> ranked pb
-				{/if}
-			</span>
-		</div>
+	<div class="sticky top-0 z-10 bg-zinc-900/70 backdrop-blur-md">
+		<PlayerProfile playerData={data.playerData} />
 	</div>
 
 	<div class="m-4 flex w-max flex-col items-center p-4">
@@ -173,7 +89,7 @@
 									? 'text-zinc-50'
 									: 'text-zinc-300'}">
 								<a
-									on:click|stopPropagation
+									data-sveltekit-replacestate="off"
 									href="/{opponent}"
 									class=" hover:underline hover:underline-offset-4">{opponent}</a>
 							</div>
@@ -209,9 +125,3 @@
 		<slot />
 	</div>
 </div>
-
-<style lang="postcss">
-	b {
-		@apply font-bold;
-	}
-</style>
