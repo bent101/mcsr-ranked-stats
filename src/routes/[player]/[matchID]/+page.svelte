@@ -1,42 +1,27 @@
-<!-- <script lang="ts">
-	import { formatDetailedMatch, formatTime, getDetailedMatchURL, type Outcome } from "$lib/utils";
+<script lang="ts">
+	import { formatTime } from "$lib/utils.js";
 
-	// import { crossfade } from "svelte/transition";
-
-	export let matchID: number;
-	export let curPlayerID: string;
-	export let outcome: Outcome;
-	let match: ReturnType<typeof formatDetailedMatch> | null;
-	$: promise =
-		match: matchID === -1
-			? null
-			: fetch(getDetailedMatchURL(matchID))
-					.then((res) => res.json())
-					.then((res) => formatDetailedMatch(res.data, curPlayerID, outcome));
-
-	// const [send, receive] = crossfade({ duration: 250 });
+	export let data;
 </script>
 
-{matchID}
-{match}
 <div
 	class="relative w-[30rem] overflow-clip rounded-3xl bg-zinc-800 px-8 py-4 shadow-lg shadow-black/30">
-	{#await promise}
+	<!-- {#await promise}
 		<div class="absolute inset-0 grid place-items-center bg-zinc-800/70">
 			<div class="text-xl font-bold text-zinc-100" />
 		</div>
-	{/await}
-	{#if match}
+	{/await} -->
+	{#if data.match}
 		<h2 class="mb-2 text-sm font-bold uppercase tracking-wide text-zinc-400">
-			{match.seedType} seed <span class="mx-1 text-zinc-500">•</span>
-			{match.date}
+			{data.match.seedType} seed <span class="mx-1 text-zinc-500">•</span>
+			{data.match.date}
 		</h2>
-		{#if match.curPlayerTimeline && match.opponentTimeline}
+		{#if data.match.curPlayerTimeline && data.match.opponentTimeline}
 			<div class="flex w-full">
 				<div class="flex-1">
 					<div class="flex items-baseline">
 						<h3 class="text-lg font-semibold text-zinc-300">
-							{match.curPlayerName}
+							{data.match.curPlayerName}
 						</h3>
 						<div class="flex-1 text-center text-lg font-bold leading-3 tracking-wide text-zinc-600">
 							vs
@@ -44,7 +29,7 @@
 					</div>
 
 					<ol class="mt-2">
-						{#each match.curPlayerTimeline as { what, when }}
+						{#each data.match.curPlayerTimeline as { what, when }}
 							<li class="py-0.5">
 								<span class="mr-1 inline-block w-12 rounded-md bg-zinc-800 text-sm font-extrabold"
 									>{formatTime(when)}</span>
@@ -54,9 +39,9 @@
 					</ol>
 				</div>
 				<div class="flex-1">
-					<h3 class="text-lg font-semibold text-zinc-300">{match.opponentName}</h3>
+					<h3 class="text-lg font-semibold text-zinc-300">{data.match.opponentName}</h3>
 					<ol class="mt-2">
-						{#each match.opponentTimeline as { what, when }}
+						{#each data.match.opponentTimeline as { what, when }}
 							<li class="py-0.5">
 								<span class="mr-1 inline-block w-12 rounded-md bg-zinc-800 text-sm font-extrabold"
 									>{formatTime(when)}</span>
@@ -72,4 +57,4 @@
 	{:else}
 		<div class="py-12 text-center text-zinc-500">Click a match to see its details</div>
 	{/if}
-</div> -->
+</div>

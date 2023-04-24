@@ -1,6 +1,6 @@
 import type { DetailedPlayer } from "$lib/ranked-api";
-import type { PageLoad } from "./$types";
-import { error } from "@sveltejs/kit";
+import type { LayoutLoad } from "./$types";
+import { error, redirect } from "@sveltejs/kit";
 import { formatMatches, getAvatar, getMatchesURL, getPlayerURL } from "$lib/utils";
 
 export const load = (async ({ fetch, params }) => {
@@ -8,6 +8,11 @@ export const load = (async ({ fetch, params }) => {
 		.then((res) => res.json())
 		.then((res) => res.data);
 	if (!playerData) throw error(404);
+
+	const capitalizedName = playerData.nickname;
+	if (capitalizedName !== params.player) {
+		throw redirect(301, `/${capitalizedName}`);
+	}
 	return {
 		playerData,
 		recentMatches: fetch(getMatchesURL(playerData.nickname, 0))
@@ -15,4 +20,4 @@ export const load = (async ({ fetch, params }) => {
 			.then((res) => formatMatches(res.data ?? [], playerData.nickname)),
 		_: fetch(getAvatar(playerData.uuid)),
 	};
-}) satisfies PageLoad;
+}) satisfies LayoutLoad;

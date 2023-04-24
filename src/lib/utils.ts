@@ -19,66 +19,18 @@ export const getMatchesURL = (name: string, page: number) => {
 	return `${base}/users/${name}/matches?filter=2&page=${page}`;
 };
 
-export const getDetailedMatchURL = (id: number) => {
+export const getDetailedMatchURL = (id: string) => {
 	return `${base}/matches/${id}`;
 };
 
-export const formatDetailedMatch = (match: DetailedMatch, curPlayerID: string) => {
-	type Timeline = { where: string; when: string }[];
-	let curPlayerTimeline: Timeline | undefined;
-	let opponentTimeline: Timeline | undefined;
-
-	if (match.timelines) {
-		const advancementsMap = new Map([
-			["story.enter_the_nether", "nether enter"],
-			["nether.find_bastion", "bastion"],
-			["nether.find_fortress", "fortress"],
-			["projectelo.timeline.blind_travel", "blind"],
-			["story.follow_ender_eye", "stronghold"],
-			["story.enter_the_end", "end enter"],
-		]);
-
-		curPlayerTimeline = [];
-		opponentTimeline = [];
-
-		match.timelines.reverse(); // the api gives the timeline from last to first
-
-		for (const { time, timeline: eventName, uuid } of match.timelines) {
-			const where = advancementsMap.get(eventName);
-			if (where) {
-				const event = { where, when: formatTime(time) };
-				if (uuid === curPlayerID) {
-					curPlayerTimeline.push(event);
-				} else {
-					opponentTimeline.push(event);
-				}
-			}
-		}
-	}
-
-	const seedType = match.seed_type
-		.split("_")
-		.map((word) => {
-			return word.charAt(0).toUpperCase() + word.slice(1);
-		})
-		.join(" ");
-
-	return {
-		seedType,
-		date: formatDate(match.match_date),
-		curPlayerTimeline,
-		opponentTimeline,
-		curPlayerName: match.members.find((player) => player.uuid === curPlayerID)?.nickname,
-		opponentName: match.members.find((player) => player.uuid !== curPlayerID)?.nickname,
-	};
-};
+export type Outcome = "won" | "lost" | "draw" | undefined;
 
 export const formatMatch = (match: DetailedMatch, playerName: string) => {
 	const { is_decay, winner, final_time, members, score_changes, forfeit, match_date, match_id } =
 		match;
 	let opponent = undefined;
 	let time = undefined;
-	let outcome: "won" | "lost" | "draw" | undefined = undefined;
+	let outcome: Outcome = undefined;
 	const uuid = members.find((member) => member.nickname === playerName)?.uuid;
 	if (!is_decay) {
 		opponent = members.find((member) => member.nickname !== playerName)?.nickname;
@@ -103,8 +55,76 @@ export const formatMatch = (match: DetailedMatch, playerName: string) => {
 	};
 };
 
-export const formatMatches = (matches: DetailedMatch[], playerName: string) => {
-	return matches.map((match) => formatMatch(match, playerName));
+export const formatMatches = (matches: DetailedMatch[], curPlayerName: string) => {
+	return matches.map((match) => formatMatch(match, curPlayerName));
+};
+
+export type Timeline = { what: string; when: number }[];
+
+export const formatDetailedMatch = (match: DetailedMatch, curPlayerName: string) => {
+	let curPlayerTimeline: Timeline | undefined;
+	let opponentTimeline: Timeline | undefined;
+
+	const curPlayerUUID = match.members.find((member) => member.nickname === curPlayerName)?.uuid;
+	const outcome: Outcome =
+		match.winner === null ? "draw" : match.winner === curPlayerUUID ? "won" : "lost";
+
+	if (match.timelines) {
+		const advancementsMap = new Map([
+			["story.enter_the_nether", "nether enter"],
+			["nether.find_bastion", "bastion"],
+			["nether.find_fortress", "fortress"],
+			["projectelo.timeline.blind_travel", "blind"],
+			["story.follow_ender_eye", "stronghold"],
+			["story.enter_the_end", "end enter"],
+		]);
+
+		curPlayerTimeline = [];
+		opponentTimeline = [];
+
+		match.timelines.reverse(); // the api gives the timeline from last to first
+
+		for (const { time, timeline: eventName, uuid } of match.timelines) {
+			const what = advancementsMap.get(eventName);
+			if (what) {
+				const event = { what, when: time };
+				if (uuid === curPlayerUUID) {
+					curPlayerTimeline.push(event);
+				} else {
+					opponentTimeline.push(event);
+				}
+			}
+		}
+
+		if (outcome === "won") {
+			if (match.forfeit) {
+				opponentTimeline.push({ what: "forfeit", when: match.final_time });
+			} else {
+				curPlayerTimeline.push({ what: "win", when: match.final_time });
+			}
+		} else if (outcome === "lost") {
+			if (match.forfeit) {
+				curPlayerTimeline.push({ what: "forfeit", when: match.final_time });
+			} else {
+				opponentTimeline.push({ what: "win", when: match.final_time });
+			}
+		}
+	}
+
+	const seedType = ((s) => s.charAt(0).toUpperCase() + s.slice(1))(
+		match.seed_type.replaceAll("_", " ")
+	);
+
+	return {
+		seedType,
+		date: formatDate(match.match_date),
+		curPlayerTimeline,
+		opponentTimeline,
+		curPlayerName,
+		opponentName: match.members.find((player) => player.uuid !== curPlayerUUID)?.nickname,
+		time: match.final_time,
+		outcome,
+	};
 };
 
 export const formatTime = (timeInMs: number) => {
