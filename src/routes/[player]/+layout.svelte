@@ -112,7 +112,7 @@
 		{/each}
 	</ol>
 	{#if !data.noMoreMatches}
-		<div class="pb-[100vh] text-center text-zinc-600" bind:this={infiniteScrollPadding}>
+		<div class="mb-[100vh] text-center text-zinc-600" bind:this={infiniteScrollPadding}>
 			Loading...
 		</div>
 	{/if}
