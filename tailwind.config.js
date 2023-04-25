@@ -1,4 +1,5 @@
-const hocusPlugin = require("tailwindcss-hocus");
+const hocus = require("tailwindcss-hocus");
+const scrollbar = require("tailwind-scrollbar");
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -6,5 +7,5 @@ export default {
 	theme: {
 		extend: {},
 	},
-	plugins: [hocusPlugin],
+	plugins: [hocus, scrollbar],
 };

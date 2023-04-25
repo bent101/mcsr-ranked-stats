@@ -9,7 +9,9 @@ export const load = (async ({ fetch, params }) => {
 		.then((res) => res.json())
 		.then((res) => res.data);
 
-	if (!playerData) throw error(404);
+	if (!playerData) {
+		throw error(404);
+	}
 
 	const capitalizedName = playerData.nickname;
 	if (capitalizedName !== params.player) {

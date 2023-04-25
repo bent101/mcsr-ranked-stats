@@ -30,7 +30,7 @@
 		class="bg-zinc-950/70 p-4 text-center text-sm font-extrabold uppercase tracking-wide text-zinc-500">
 		MSCR Ranked Leaderboard
 	</h1>
-	<div class="sticky top-0 z-20 mb-2 bg-zinc-950/70 px-6 py-2 text-zinc-500 backdrop-blur-md">
+	<div class="sticky top-0 z-20 mb-2 bg-zinc-950/70 p-4 pl-2 text-zinc-500 backdrop-blur-md">
 		<input
 			on:focus={() => (inputIsFocused = true)}
 			on:blur={() => (inputIsFocused = false)}
@@ -42,12 +42,12 @@
 			}}
 			bind:value={rawQuery}
 			placeholder="Search for players"
-			class="w-full rounded-lg border border-zinc-700 bg-transparent px-4 py-2 text-zinc-400 placeholder:text-zinc-600" />
+			class="w-full rounded-lg border border-zinc-800 bg-transparent px-4 py-2 text-zinc-400 placeholder:text-zinc-600" />
 	</div>
 
 	{#if lb}
 		{#if filteredLb && filteredLb.length > 0}
-			<ol class="pb-32 pl-4" bind:this={lbContainer}>
+			<ol class="pb-32 pl-2" bind:this={lbContainer}>
 				{#each filteredLb as { nickname, elo_rate: elo, elo_rank: rank, uuid } (uuid)}
 					{@const selected = nickname === $page.params.player}
 					<li
