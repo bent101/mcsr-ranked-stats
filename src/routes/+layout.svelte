@@ -2,10 +2,12 @@
 	import "../app.css";
 	import Leaderboard from "./Leaderboard.svelte";
 	import { navigating } from "$app/stores";
+	import Loading from "./Loading.svelte";
 	export let data;
 </script>
 
 <!-- {JSON.stringify($navigating)} -->
+<Loading />
 <div class="mx-auto flex">
 	<div class="sticky top-0 h-screen overflow-y-scroll overscroll-y-contain [direction:rtl]">
 		<div class="h-full [direction:ltr]">
