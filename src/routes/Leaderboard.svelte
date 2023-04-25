@@ -24,7 +24,7 @@
 
 <svelte:window bind:innerHeight={windowHeight} />
 
-<div class="min-h-screen w-64 border-r-2 border-zinc-700 bg-zinc-950 text-sm lg:w-80">
+<div class="min-h-screen w-64 border-r-2 border-zinc-700 bg-zinc-950 text-sm xl:w-80">
 	<h1
 		bind:this={titleContainer}
 		class="bg-zinc-950/70 p-4 pl-2 text-center font-extrabold uppercase tracking-wide text-zinc-500">
@@ -72,7 +72,7 @@
 								{nickname}
 							</div>
 							<div
-								class=" hidden w-16 px-2 font-semibold lg:block {selected
+								class=" hidden w-16 px-2 font-semibold xl:block {selected
 									? 'text-zinc-500'
 									: ' text-zinc-600  group-hover:text-zinc-500'}">
 								{elo}

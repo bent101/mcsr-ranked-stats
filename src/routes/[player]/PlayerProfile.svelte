@@ -76,8 +76,10 @@
 				(#<b>{playerData.elo_rank}</b>)
 			{/if}
 			{#if winrate !== -1 && !isNaN(winrate)}
-				<span class="px-1 font-extrabold text-zinc-600">•</span>
-				<b>{winrate}</b>% winrate
+				<span class="inline-block">
+					<span class="px-1 font-extrabold text-zinc-600">•</span>
+					<b>{winrate}</b>% winrate
+				</span>
 			{/if}
 			{#if playerData.best_record_time !== 0}
 				<span class="px-1 font-extrabold text-zinc-600">•</span>

@@ -26,6 +26,18 @@ export const getDetailedMatchURL = (id: string) => {
 
 export type Outcome = "won" | "lost" | "draw" | undefined;
 
+export type FormattedMatch = {
+	isDecay: boolean;
+	opponent: string | undefined;
+	outcome: Outcome;
+	forfeit: boolean;
+	time: string | undefined;
+	eloChange: number;
+	eloAfter: number | undefined;
+	date: string;
+	id: number;
+};
+
 export const formatMatch = (match: DetailedMatch, playerName: string) => {
 	const { is_decay, winner, final_time, members, score_changes, forfeit, match_date, match_id } =
 		match;
@@ -53,7 +65,7 @@ export const formatMatch = (match: DetailedMatch, playerName: string) => {
 		eloAfter,
 		date: formatDate(match_date),
 		id: match_id,
-	};
+	} as FormattedMatch;
 };
 
 export const formatMatches = (matches: DetailedMatch[], curPlayerName: string) => {
