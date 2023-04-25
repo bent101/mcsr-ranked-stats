@@ -58,7 +58,7 @@
 		Matches <span class="ml-2 rounded-full bg-zinc-400 px-2 py-0.5 text-sm font-bold text-zinc-900"
 			>{numMatches}</span>
 	</h2>
-	<ol class="">
+	<ol class="pb-16">
 		{#each data.matches as { isDecay, opponent, outcome, forfeit, time, eloChange, date, id }}
 			{@const selected = $page.url.pathname === `/${data.playerData.nickname}/${id}`}
 			{@const color = outcome
@@ -111,9 +111,11 @@
 			</li>
 		{/each}
 	</ol>
-	<div class="py-16 text-center text-zinc-600" bind:this={infiniteScrollPadding}>
-		{data.noMoreMatches ? "" : "Loading..."}
-	</div>
+	{#if !data.noMoreMatches}
+		<div class="pb-[100vh] text-center text-zinc-600" bind:this={infiniteScrollPadding}>
+			Loading...
+		</div>
+	{/if}
 </div>
 <div class="fixed bottom-4 right-4">
 	<slot />

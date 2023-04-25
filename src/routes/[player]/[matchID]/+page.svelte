@@ -6,7 +6,7 @@
 
 	const shortenSplitName = (splitName: string) => {
 		const map = new Map([
-			["stronghold to end enter", "nav"],
+			["stronghold to end enter", "stronghold nav"],
 			["end enter to win", "end split"],
 			["nether enter", "overworld"],
 			["nether enter to bastion", "terrain to bastion"],
