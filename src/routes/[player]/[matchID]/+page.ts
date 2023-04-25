@@ -7,7 +7,6 @@ export const load = (async ({ fetch, params }) => {
 	const match = await fetch(getDetailedMatchURL(params.matchID))
 		.then((res) => res.json())
 		.then((res: { data: DetailedMatch | null }) => {
-			console.log(JSON.stringify(res.data));
 			if (res.data) {
 				return formatDetailedMatch(res.data, params.player);
 			} else {

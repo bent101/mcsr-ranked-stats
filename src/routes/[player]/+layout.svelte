@@ -69,7 +69,7 @@
 					<div
 						class="group flex items-center gap-2 rounded-lg px-4 py-1.5 hocus-within:bg-zinc-800">
 						<div class="w-40 italic text-zinc-500">Elo decay</div>
-						<div class="w-20 text-sm font-bold uppercase text-red-400">
+						<div class="w-20 text-center text-sm font-bold uppercase text-red-400">
 							{eloChange >= 0 ? "+" : ""}{eloChange} elo
 						</div>
 						<div class="w-20" />
