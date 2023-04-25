@@ -16,7 +16,6 @@
 	// 	if (!element) return;
 	// 	const { top, bottom } = element.getBoundingClientRect();
 	// 	const minTop = titleContainer.getBoundingClientRect().height;
-	// 	console.log({ minTop, top });
 	// 	const maxBottom = windowHeight;
 
 	// 	if (top < minTop || bottom > maxBottom) {

@@ -1,3 +1,4 @@
+import { matchesPerPage } from "./globals";
 import type { EloLeaderboard, Date, DetailedMatch } from "./ranked-api";
 import moment from "moment";
 
@@ -16,7 +17,7 @@ export const getPlayerURL = (name: string) => {
 };
 
 export const getMatchesURL = (name: string, page: number) => {
-	return `${base}/users/${name}/matches?filter=2&page=${page}`;
+	return `${base}/users/${name}/matches?filter=2&page=${page}&count=${matchesPerPage}`;
 };
 
 export const getDetailedMatchURL = (id: string) => {
@@ -40,7 +41,7 @@ export const formatMatch = (match: DetailedMatch, playerName: string) => {
 	}
 
 	const scoreChange = score_changes?.find((member) => member.uuid === uuid);
-	const eloChange = scoreChange?.change;
+	const eloChange = scoreChange?.change ?? 0;
 	const eloAfter = scoreChange?.score;
 	return {
 		isDecay: is_decay,
