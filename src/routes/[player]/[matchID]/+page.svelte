@@ -6,10 +6,11 @@
 
 	const shortenSplitName = (splitName: string) => {
 		const map = new Map([
-			["stronghold to end enter", "stronghold nav"],
-			["end enter to win", "end split"],
+			["stronghold → end enter", "stronghold nav"],
+			["end enter → win", "end split"],
 			["nether enter", "overworld"],
-			["nether enter to bastion", "terrain to bastion"],
+			["nether enter → bastion", "terrain to bastion"],
+			["nether enter → fortress", "terrain to fortress"],
 		]);
 		return map.get(splitName) ?? splitName;
 	};
@@ -51,7 +52,7 @@
 							{#each timeline as { what, when }, i}
 								{@const prev = timeline[i - 1]}
 								{@const prevTime = prev?.when ?? 0}
-								{@const splitName = prev ? `${prev.what} to ${what}` : what}
+								{@const splitName = prev ? `${prev.what} → ${what}` : what}
 								<li class="py-0.5">
 									<span class="mr-1 inline-block w-12 rounded-md bg-zinc-800 text-sm font-extrabold"
 										>{formatTime(showingSplits ? when - prevTime : when)}</span>

@@ -1,8 +1,8 @@
 import type { DetailedPlayer } from "$lib/ranked-api";
 import type { LayoutLoad } from "./$types";
-import { error, redirect } from "@sveltejs/kit";
 import { formatMatches, getAvatar, getMatchesURL, getPlayerURL } from "$lib/utils";
 import { matchesPerPage } from "$lib/globals";
+import { error, redirect } from "@sveltejs/kit";
 
 export const load = (async ({ fetch, params }) => {
 	const playerData: DetailedPlayer = await fetch(getPlayerURL(params.player))
@@ -15,7 +15,7 @@ export const load = (async ({ fetch, params }) => {
 
 	const capitalizedName = playerData.nickname;
 	if (capitalizedName !== params.player) {
-		throw redirect(301, `/${capitalizedName}`);
+		throw redirect(301, `/${capitalizedName}/${params.matchID ?? ""}`);
 	}
 
 	const matches = await fetch(getMatchesURL(capitalizedName, 0))

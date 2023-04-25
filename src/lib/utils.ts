@@ -63,16 +63,17 @@ export const formatMatches = (matches: DetailedMatch[], curPlayerName: string) =
 export type Timeline = { what: string; when: number }[];
 
 export const formatDetailedMatch = (match: DetailedMatch, curPlayerName: string) => {
+	const seedType = match.seed_type?.replaceAll("_", " ") ?? "unknown";
+
 	let curPlayerTimeline: Timeline | undefined;
 	let opponentTimeline: Timeline | undefined;
-	let curPlayerSplits: Timeline | undefined;
-	let opponentSplits: Timeline | undefined;
 
 	const curPlayerUUID = match.members.find((member) => member.nickname === curPlayerName)?.uuid;
+
 	const outcome: Outcome =
 		match.winner === null ? "draw" : match.winner === curPlayerUUID ? "won" : "lost";
 
-	if (match.timelines) {
+	if (match.timelines && curPlayerUUID) {
 		const advancementsMap = new Map([
 			["story.enter_the_nether", "nether enter"],
 			["nether.find_bastion", "bastion"],
@@ -113,10 +114,6 @@ export const formatDetailedMatch = (match: DetailedMatch, curPlayerName: string)
 			}
 		}
 	}
-
-	const seedType = ((s) => s.charAt(0).toUpperCase() + s.slice(1))(
-		match.seed_type.replaceAll("_", " ")
-	);
 
 	return {
 		seedType,
