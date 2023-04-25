@@ -4,7 +4,7 @@
 	import { fade } from "svelte/transition";
 	import { beforeNavigate, afterNavigate } from "$app/navigation";
 
-	let progress = spring(0, { stiffness: 0.05, damping: 1 });
+	let progress = spring(0, { stiffness: 0.03, damping: 1 });
 
 	const animate = () => {
 		if ($navigating) {
@@ -24,6 +24,7 @@
 	const beforeNavigationStart = () => {
 		if ($navigating !== null) {
 			timeoutId = setTimeout(() => {
+				progress.stiffness = 0.03;
 				$progress = 80;
 				timeoutId = -1;
 			}, 250);
