@@ -65,6 +65,8 @@ export type Timeline = { what: string; when: number }[];
 export const formatDetailedMatch = (match: DetailedMatch, curPlayerName: string) => {
 	let curPlayerTimeline: Timeline | undefined;
 	let opponentTimeline: Timeline | undefined;
+	let curPlayerSplits: Timeline | undefined;
+	let opponentSplits: Timeline | undefined;
 
 	const curPlayerUUID = match.members.find((member) => member.nickname === curPlayerName)?.uuid;
 	const outcome: Outcome =
