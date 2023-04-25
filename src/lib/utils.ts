@@ -1,5 +1,5 @@
 import { matchesPerPage } from "./globals";
-import type { EloLeaderboard, Date, DetailedMatch } from "./ranked-api";
+import type { Date, DetailedMatch } from "./ranked-api";
 import moment from "moment";
 
 const base = "https://mcsrranked.com/api";
