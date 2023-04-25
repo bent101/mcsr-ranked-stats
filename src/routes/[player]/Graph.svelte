@@ -15,10 +15,11 @@
 		}))
 		.filter(({ y }) => y && y !== -1) as DataRecord[];
 
-	$: yDomain = [
-		Math.floor(Math.min(...data.map(({ y }) => y)) / 150) * 150,
-		Math.ceil(Math.max(Math.max(...data.map(({ y }) => y)), 0) / 150) * 150,
-	];
+	$: yMin = Math.min(...data.map(({ y }) => y));
+	$: yMax = Math.max(Math.max(...data.map(({ y }) => y)), 0);
+	$: roundedMin = Math.floor(yMin / 100) * 100;
+	$: roundedMax = Math.ceil(yMax / 100) * 100;
+	$: yDomain = [roundedMin, roundedMax];
 
 	$: xDomain = [data.length, 1];
 
@@ -37,8 +38,8 @@
 			{data}
 			x={(d) => d.x}
 			y={(d) => d.y} />
-		<VisAxis type="x" label="Matches ago" />
-		<VisAxis type="y" label="Elo" />
+		<VisAxis type="x" numTicks={5} label="Matches ago" />
+		<VisAxis type="y" numTicks={3} label="Elo" />
 		<!-- <VisTooltip {triggers} /> -->
 	</VisXYContainer>
 {/if}
