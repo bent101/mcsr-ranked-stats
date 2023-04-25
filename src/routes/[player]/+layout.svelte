@@ -11,7 +11,9 @@
 	let infiniteScrollPadding: HTMLElement;
 
 	const addMoreMatches = async () => {
+		console.log("add more matches");
 		if (data.noMoreMatches) return;
+		console.log("more matches");
 		const matches = await fetch(getMatchesURL(data.playerData.nickname, data.curPage++))
 			.then((res) => res.json())
 			.then((res) => formatMatches(res.data ?? [], data.playerData.nickname));
@@ -111,11 +113,9 @@
 			</li>
 		{/each}
 	</ol>
-	{#if !data.noMoreMatches}
-		<div class="mb-[100vh] text-center text-zinc-600" bind:this={infiniteScrollPadding}>
-			Loading...
-		</div>
-	{/if}
+	<div class="mb-[80vh] text-center text-zinc-600" bind:this={infiniteScrollPadding}>
+		{data.noMoreMatches ? "No more matches" : "Loading..."}
+	</div>
 </div>
 <div class="fixed bottom-4 right-4">
 	<slot />
