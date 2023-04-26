@@ -12,7 +12,18 @@
 	let rawQuery: string | undefined;
 	$: query = rawQuery?.toLowerCase() ?? "";
 	$: filteredLb = lb?.filter((player) => {
-		return player.nickname.toLowerCase().includes(query);
+		if (query === "") return true;
+		const name = player.nickname.toLowerCase();
+		const start = name.indexOf(query[0]);
+		if (start === -1) return false;
+		let i = 1;
+		for (let j = start + 1; j < name.length; j++) {
+			if (name[j] === query[i]) {
+				i++;
+				if (i === query.length) break;
+			}
+		}
+		return i === query.length;
 	});
 
 	let inputIsFocused = false;
