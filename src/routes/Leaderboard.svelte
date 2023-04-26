@@ -93,7 +93,10 @@
 				{/each}
 			</ol>
 		{:else}
-			<div class="mt-16 text-center text-zinc-500">No results in the top 150</div>
+			<div class="mt-16 text-center text-zinc-500">
+				No results in the top 150. Press enter to see if <span class="font-semibold text-zinc-300"
+					>{rawQuery}</span> has played Ranked
+			</div>
 		{/if}
 	{:else}
 		<div class="mt-32 text-center font-bold text-red-800">Couldn't get leaderboard :/</div>

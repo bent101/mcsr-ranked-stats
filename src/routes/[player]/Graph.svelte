@@ -1,5 +1,12 @@
 <script lang="ts">
-	import { VisXYContainer, VisLine, VisAxis, VisCrosshair, VisTooltip } from "@unovis/svelte";
+	import {
+		VisXYContainer,
+		VisLine,
+		VisAxis,
+		VisCrosshair,
+		VisTooltip,
+		VisArea,
+	} from "@unovis/svelte";
 	import { Line } from "@unovis/ts";
 	import { browser } from "$app/environment";
 	import type { FormattedMatch } from "$lib/utils";
@@ -30,22 +37,9 @@
 
 {#if browser}
 	<VisXYContainer {xDomain} {yDomain} width="100%" height="50vh" {data}>
-		<VisLine
-			highlightOnHover
-			color="#000"
-			curveType="linear"
-			lineWidth={5}
-			{data}
-			x={(d) => d.x + 0.15}
-			y={(d) => d.y + 0.2} />
-		<VisLine
-			highlightOnHover
-			color="#ddd"
-			curveType="linear"
-			lineWidth={5}
-			{data}
-			x={(d) => d.x}
-			y={(d) => d.y} />
+		<VisArea color="#ddd4" curveType="linear" {data} x={(d) => d.x} y={(d) => d.y} />
+		<VisLine color="#ddd" curveType="linear" lineWidth={3} {data} x={(d) => d.x} y={(d) => d.y} />
+
 		<VisAxis type="x" numTicks={5} label="Matches ago" />
 		<VisAxis type="y" numTicks={3} label="Elo" />
 		<!-- <VisTooltip {triggers} /> -->

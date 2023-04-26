@@ -41,8 +41,13 @@
 	afterNavigate((navigation: AfterNavigate) => {
 		const curPlayerOnLb = data.lb.users.find((user) => user.nickname === data.playerData.nickname);
 
-		if (curPlayerOnLb && curPlayerOnLb.elo_rate !== data.playerData.elo_rate) {
-			invalidate(getLeaderboardURL());
+		if (curPlayerOnLb) {
+			if (
+				curPlayerOnLb.elo_rate !== data.playerData.elo_rate ||
+				curPlayerOnLb.elo_rank !== data.playerData.elo_rank
+			) {
+				invalidate(getLeaderboardURL());
+			}
 		}
 	});
 </script>
@@ -60,7 +65,7 @@
 			<h2
 				class="mx-4 mb-2 mt-0 w-full border-b-2 border-zinc-800 px-4 pb-2 text-sm font-bold uppercase text-zinc-400">
 				Matches <span
-					class="ml-2 rounded-full bg-zinc-400 px-2 py-0.5 text-xs font-bold text-zinc-900"
+					class="ml-2 rounded-full bg-zinc-400 px-2 py-0.5 text-xs font-extrabold text-zinc-900"
 					>{numMatches}</span>
 			</h2>
 			<ol class="relative pb-16">
@@ -106,7 +111,7 @@
 								</div>
 								<div
 									class="w-20 text-center font-extrabold tracking-wider {forfeit
-										? `text-xs font-bold uppercase tracking-tight ${
+										? `text-xs font-semibold uppercase tracking-normal ${
 												selected ? 'text-zinc-300' : 'text-zinc-600'
 										  }`
 										: ''} {selected ? 'text-zinc-300' : 'text-zinc-500'} ">
