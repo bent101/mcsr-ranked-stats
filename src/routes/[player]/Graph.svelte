@@ -29,7 +29,15 @@
 </script>
 
 {#if browser}
-	<VisXYContainer {xDomain} {yDomain} width="100%" height="50vh" {data}>
+	<VisXYContainer {xDomain} {yDomain} width="100%" height="45vh" {data}>
+		<VisLine
+			highlightOnHover
+			color="#000"
+			curveType="linear"
+			lineWidth={5}
+			{data}
+			x={(d) => d.x + 0.15}
+			y={(d) => d.y + 0.2} />
 		<VisLine
 			highlightOnHover
 			color="#ddd"

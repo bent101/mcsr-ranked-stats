@@ -51,11 +51,11 @@
 	<title>{data.playerData.nickname}'s stats</title>
 </svelte:head>
 
-<div class="sticky top-0 z-10 bg-zinc-900/70 backdrop-blur-md">
-	<PlayerProfile playerData={data.playerData} />
-</div>
-<div class="flex">
-	<div class="m-4 flex w-max flex-col items-center p-4">
+<div class="relative flex">
+	<div class="fixed top-0 z-10 w-full bg-zinc-900/70 backdrop-blur-md">
+		<PlayerProfile playerData={data.playerData} />
+	</div>
+	<div class="m-4 mt-32 flex w-max flex-col items-center p-4">
 		<h2
 			class="mx-4 mb-2 mt-0 w-full border-b-2 border-zinc-800 px-4 pb-2 font-bold uppercase text-zinc-400">
 			Matches <span
@@ -121,13 +121,11 @@
 			{data.noMoreMatches ? "No more matches" : "Loading..."}
 		</div>
 	</div>
-	<div class="relative flex-1 pr-16">
-		<div class="sticky top-40">
-			<Graph matches={data.matches} />
+	<div class="sticky top-0 h-screen w-full p-8 pt-32">
+		<Graph matches={data.matches} />
+		<div
+			class="absolute bottom-6 left-16 w-[32rem] rounded-3xl bg-zinc-800 p-4 pl-8 shadow-lg shadow-black/30">
+			<slot />
 		</div>
 	</div>
-</div>
-
-<div class="fixed bottom-4 right-4">
-	<slot />
 </div>

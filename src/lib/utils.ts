@@ -124,6 +124,9 @@ export const formatDetailedMatch = (match: DetailedMatch, curPlayerName: string)
 			} else {
 				opponentTimeline.push({ what: "win", when: match.final_time });
 			}
+		} else {
+			curPlayerTimeline.push({ what: "draw", when: match.final_time });
+			opponentTimeline.push({ what: "draw", when: match.final_time });
 		}
 	}
 
