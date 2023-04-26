@@ -37,12 +37,6 @@
 						<h3 class="text-lg font-semibold text-zinc-300">
 							{name}
 						</h3>
-						{#if i === 0}
-							<div
-								class="flex-1 text-center text-lg font-bold leading-3 tracking-wide text-zinc-600">
-								vs
-							</div>
-						{/if}
 					</div>
 
 					<ol class="mt-2">

@@ -8,7 +8,7 @@ export const getLeaderboardURL = () => {
 	return `${base}/leaderboard`;
 };
 
-export const getAvatar = (uuid: string, size = 64) => {
+export const getAvatar = (uuid: string, size = 256) => {
 	return `https://crafatar.com/avatars/${uuid}?overlay&size=${size}`;
 };
 
@@ -63,7 +63,7 @@ export const formatMatch = (match: DetailedMatch, playerName: string) => {
 		time,
 		eloChange,
 		eloAfter,
-		date: formatDate(match_date),
+		date: formatDateShort(match_date),
 		id: match_id,
 	} as FormattedMatch;
 };
@@ -149,6 +149,26 @@ export const formatTime = (timeInMs: number) => {
 	return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
 };
 
+const formatDateShort = (date: Date) => {
+	const seconds = Math.floor(Date.now() / 1000 - date);
+	const minutes = Math.floor(seconds / 60);
+	const hours = Math.floor(minutes / 60);
+	const days = Math.floor(hours / 24);
+
+	if (days) return `${days}d`;
+	if (hours) return `${hours}h`;
+	if (minutes) return `${minutes}m`;
+	return `${seconds}s`;
+};
+
 export const formatDate = (date: Date) => {
-	return moment(date * 1000).fromNow();
+	const seconds = Math.floor(Date.now() / 1000 - date);
+	const minutes = Math.floor(seconds / 60);
+	const hours = Math.floor(minutes / 60);
+	const days = Math.floor(hours / 24);
+
+	if (days) return `${days} day${days > 1 ? "s" : ""} ago`;
+	if (hours) return `${hours} hour${hours > 1 ? "s" : ""} ago`;
+	if (minutes) return `${minutes} minute${minutes > 1 ? "s" : ""} ago`;
+	return `${seconds} second${seconds > 1 ? "s" : ""} ago`;
 };

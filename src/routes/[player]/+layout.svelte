@@ -51,81 +51,85 @@
 	<title>{data.playerData.nickname}'s stats</title>
 </svelte:head>
 
-<div class="relative flex">
-	<div class="fixed top-0 z-10 w-full bg-zinc-900/70 backdrop-blur-md">
-		<PlayerProfile playerData={data.playerData} />
-	</div>
-	<div class="m-4 mt-32 flex w-max flex-col items-center p-4">
-		<h2
-			class="mx-4 mb-2 mt-0 w-full border-b-2 border-zinc-800 px-4 pb-2 font-bold uppercase text-zinc-400">
-			Matches <span
-				class="ml-2 rounded-full bg-zinc-400 px-2 py-0.5 text-sm font-bold text-zinc-900"
-				>{numMatches}</span>
-		</h2>
-		<ol class="pb-16">
-			{#each data.matches as { isDecay, opponent, outcome, forfeit, time, eloChange, date, id }}
-				{@const selected = $page.url.pathname === `/${data.playerData.nickname}/${id}`}
-				{@const color = outcome
-					? { won: "text-green-400", lost: "text-red-400", draw: "text-blue-400" }[outcome]
-					: "text-zinc-400"}
-				<li class={selected ? "sticky" : ""}>
-					{#if isDecay}
-						<div
-							class="group flex items-center gap-2 rounded-lg px-4 py-1.5 hocus-within:bg-zinc-800">
-							<div class="w-40 italic text-zinc-500">Elo decay</div>
-							<div class="w-20 text-center text-sm font-bold uppercase text-red-400">
-								{eloChange >= 0 ? "+" : ""}{eloChange} elo
-							</div>
-							<div class="w-20" />
-							<!-- <div class=" w-36 text-zinc-600">{date}</div> -->
-						</div>
-					{:else}
-						<a
-							data-sveltekit-replacestate
-							data-sveltekit-noscroll
-							href="/{data.playerData.nickname}/{id}"
-							class="group flex items-center gap-2 rounded-lg border px-4 py-1.5 text-left {selected
-								? 'border-zinc-500 bg-zinc-800'
-								: 'border-transparent hocus-within:bg-zinc-800'}">
+<div class="flex">
+	<div class="flex flex-col">
+		<div class="sticky top-0 z-10 w-full bg-zinc-900/70 backdrop-blur-md">
+			<PlayerProfile playerData={data.playerData} />
+		</div>
+		<div class="m-4 flex w-max flex-col items-center p-4">
+			<h2
+				class="mx-4 mb-2 mt-0 w-full border-b-2 border-zinc-800 px-4 pb-2 text-sm font-bold uppercase text-zinc-400">
+				Matches <span
+					class="ml-2 rounded-full bg-zinc-400 px-2 py-0.5 text-xs font-bold text-zinc-900"
+					>{numMatches}</span>
+			</h2>
+			<ol class="relative pb-16">
+				{#each data.matches as { isDecay, opponent, outcome, forfeit, time, eloChange, date, id }}
+					{@const selected = $page.url.pathname === `/${data.playerData.nickname}/${id}`}
+					{@const color = outcome
+						? { won: "text-green-400", lost: "text-red-400", draw: "text-blue-400" }[outcome]
+						: "text-zinc-400"}
+					<li>
+						{#if isDecay}
 							<div
-								class="w-40 overflow-hidden overflow-ellipsis {selected
-									? 'text-zinc-50'
-									: 'text-zinc-300'}">
-								<a
-									data-sveltekit-replacestate="off"
-									data-sveltekit-noscroll="off"
-									href="/{opponent}"
-									class=" hover:underline hover:underline-offset-4">{opponent}</a>
+								class="group flex items-center gap-2 rounded-lg px-4 py-1.5 hocus-within:bg-zinc-800">
+								<div class="w-40 italic text-zinc-500">Elo decay</div>
+								<div class="w-20 text-center text-sm font-bold uppercase text-red-400">
+									{eloChange >= 0 ? "+" : ""}{eloChange} elo
+								</div>
+								<div class="w-20" />
+								<div class=" w-12 text-right text-zinc-600">{date}</div>
 							</div>
-							<div class="w-20 text-center uppercase {color} text-sm font-bold">
-								<span class="{selected ? ' hidden' : 'inline group-hocus-within:hidden'} "
-									>{outcome}</span>
-								<span class={selected ? " inline" : "hidden group-hocus-within:inline"}
-									>{eloChange >= 0 ? "+" : ""}{eloChange} elo</span>
-							</div>
-							<div
-								class="w-20 text-center font-extrabold tracking-wider {forfeit
-									? `text-sm font-semibold uppercase ${
-											selected ? 'text-zinc-300' : 'text-zinc-600'
-									  }`
-									: ''} {selected ? 'text-zinc-300' : 'text-zinc-500'} ">
-								{outcome === "draw" ? "" : forfeit ? "Forfeit" : time}
-							</div>
-							<!-- <div class="w-36 text-right text-zinc-{selected ? 50 : 600}">{date}</div> -->
-						</a>
-					{/if}
-				</li>
-			{/each}
-		</ol>
-		<div class="mb-[80vh] text-center text-zinc-600" bind:this={infiniteScrollPadding}>
-			{data.noMoreMatches ? "No more matches" : "Loading..."}
+						{:else}
+							<a
+								data-sveltekit-replacestate
+								data-sveltekit-noscroll
+								href="/{data.playerData.nickname}/{id}"
+								class="group flex items-center gap-2 rounded-lg border px-4 py-1.5 text-left {selected
+									? 'border-zinc-500 bg-zinc-800'
+									: 'border-transparent hocus-within:bg-zinc-800'}">
+								<div
+									class="w-40 overflow-hidden overflow-ellipsis {selected
+										? 'text-zinc-50'
+										: 'text-zinc-300'}">
+									<a
+										data-sveltekit-replacestate="off"
+										data-sveltekit-noscroll="off"
+										href="/{opponent}"
+										class=" hover:underline hover:underline-offset-4">{opponent}</a>
+								</div>
+								<div class="w-20 text-center uppercase {color} text-sm font-bold">
+									<span class="{selected ? ' hidden' : 'inline group-hocus-within:hidden'} "
+										>{outcome}</span>
+									<span class={selected ? " inline" : "hidden group-hocus-within:inline"}
+										>{eloChange >= 0 ? "+" : ""}{eloChange} elo</span>
+								</div>
+								<div
+									class="w-20 text-center font-extrabold tracking-wider {forfeit
+										? `text-xs font-bold uppercase tracking-tight ${
+												selected ? 'text-zinc-300' : 'text-zinc-600'
+										  }`
+										: ''} {selected ? 'text-zinc-300' : 'text-zinc-500'} ">
+									{outcome === "draw" ? "" : forfeit ? "Forfeit" : time}
+								</div>
+								<div class="w-12 text-right text-zinc-{selected ? 50 : 600}">{date}</div>
+							</a>
+						{/if}
+					</li>
+				{/each}
+			</ol>
+			<div class="mb-[80vh] text-center text-zinc-600" bind:this={infiniteScrollPadding}>
+				{data.noMoreMatches ? "No more matches" : "Loading..."}
+			</div>
 		</div>
 	</div>
-	<div class="sticky top-0 h-screen w-full p-8 pt-32">
+	<div class="sticky top-0 flex h-screen flex-1 flex-col gap-4 border-green-500 p-8 pl-0">
 		<Graph matches={data.matches} />
-		<div
-			class="absolute bottom-6 left-16 w-[32rem] rounded-3xl bg-zinc-800 p-4 pl-8 shadow-lg shadow-black/30">
-			<slot />
+		<div class="relative max-w-lg flex-1">
+			<div
+				class="absolute bottom-0 left-4 w-full rounded-3xl bg-zinc-800 p-4 shadow-lg shadow-black/30">
+				<slot />
+			</div>
 		</div>
 	</div>
 </div>

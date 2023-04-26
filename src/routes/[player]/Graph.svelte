@@ -17,8 +17,8 @@
 
 	$: yMin = Math.min(...data.map(({ y }) => y));
 	$: yMax = Math.max(Math.max(...data.map(({ y }) => y)), 0);
-	$: roundedMin = Math.floor(yMin / 100) * 100;
-	$: roundedMax = Math.ceil(yMax / 100) * 100;
+	$: roundedMin = Math.floor(yMin / 50) * 50;
+	$: roundedMax = Math.ceil(yMax / 50) * 50;
 	$: yDomain = [roundedMin, roundedMax];
 
 	$: xDomain = [data.length, 1];
@@ -29,7 +29,7 @@
 </script>
 
 {#if browser}
-	<VisXYContainer {xDomain} {yDomain} width="100%" height="45vh" {data}>
+	<VisXYContainer {xDomain} {yDomain} width="100%" height="50vh" {data}>
 		<VisLine
 			highlightOnHover
 			color="#000"
