@@ -1,6 +1,6 @@
 <script>
 	import { page } from "$app/stores";
-	const player = $page.params.player;
+	$: player = $page.params.player;
 </script>
 
 <div class="grid h-screen place-items-center">
