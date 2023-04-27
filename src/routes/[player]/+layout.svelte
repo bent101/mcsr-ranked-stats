@@ -12,9 +12,7 @@
 	let infiniteScrollPadding: HTMLElement;
 
 	const addMoreMatches = async () => {
-		console.log("add more matches");
 		if (data.noMoreMatches) return;
-		console.log("more matches");
 		const matches = await fetch(getMatchesURL(data.playerData.nickname, data.curPage++))
 			.then((res) => res.json())
 			.then((res) => formatMatches(res.data ?? [], data.playerData.nickname));
@@ -128,11 +126,11 @@
 			</div>
 		</div>
 	</div>
-	<div class="sticky top-0 flex h-screen flex-1 flex-col gap-4 border-green-500 p-8 pl-0">
+	<div class="sticky top-0 flex h-screen flex-1 flex-col gap-4 p-8 pl-0">
 		<Graph matches={data.matches} />
-		<div class="relative max-w-lg flex-1">
+		<div class="relative flex-1">
 			<div
-				class="absolute bottom-0 left-4 w-full rounded-3xl bg-zinc-800 p-4 shadow-lg shadow-black/30">
+				class="absolute bottom-0 left-0 w-max min-w-[30rem] rounded-3xl bg-zinc-800 p-4 shadow-lg shadow-black/30">
 				<slot />
 			</div>
 		</div>
