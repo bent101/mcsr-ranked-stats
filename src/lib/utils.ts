@@ -10,7 +10,11 @@ export const createLocalStorageStore = <Type>(
 	if (!browser) return;
 	let val = init;
 	if (localStorage.getItem(name)) {
-		val = JSON.parse(localStorage.getItem(name) ?? "{}");
+		try {
+			val = JSON.parse(localStorage.getItem(name) ?? "{}");
+		} catch (error) {
+			localStorage.setItem(name, JSON.stringify(init));
+		}
 	}
 	const store = writable(val);
 	store.subscribe((value) => {
