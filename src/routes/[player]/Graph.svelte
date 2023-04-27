@@ -26,7 +26,8 @@
 	$: yMax = Math.max(Math.max(...data.map(({ y }) => y)), 0);
 	$: roundedMin = Math.floor(yMin / 50) * 50;
 	$: roundedMax = Math.ceil(yMax / 50) * 50;
-	$: yDomain = [roundedMin, roundedMax];
+	$: yRange = roundedMax - roundedMin;
+	$: yDomain = [roundedMax - Math.max(yRange, 250), roundedMax];
 
 	$: xDomain = [data.length, 1];
 
