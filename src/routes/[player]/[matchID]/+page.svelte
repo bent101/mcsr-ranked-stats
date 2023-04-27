@@ -32,7 +32,7 @@
 					</div>
 
 					<ol class="mt-2">
-						{#each showingSplits ? splits : timeline as { what, when, diff, importance, hasMatch }}
+						{#each $showingSplits ? splits : timeline as { what, when, diff, importance, hasMatch }}
 							{@const color = `hsl(${diff >= 0 ? 0 : 142}, 70%, ${Math.round(
 								90 - 40 * importance ** 1.5
 							)}%)`}
