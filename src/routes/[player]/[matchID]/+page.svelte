@@ -1,9 +1,9 @@
 <script lang="ts">
 	import Switch from "$lib/Switch.svelte";
-	import { formatTime } from "$lib/utils.js";
+	import { createLocalStorageStore, formatTime } from "$lib/utils.js";
 	import { shallowDiff } from "@unovis/ts";
 	export let data;
-	let showingSplits = true;
+	let showingSplits = createLocalStorageStore("showingSplits", true);
 </script>
 
 {#if data.match}
@@ -17,7 +17,7 @@
 		</h2>
 
 		<div class="ml-auto self-start">
-			<Switch bind:onFirst={showingSplits} options={["Splits", "Timestamps"]} />
+			<Switch bind:onFirst={$showingSplits} options={["Splits", "Timestamps"]} />
 		</div>
 	</div>
 	{#if data.match.timelinePair}

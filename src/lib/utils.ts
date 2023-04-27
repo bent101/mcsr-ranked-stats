@@ -1,6 +1,24 @@
 import { matchesPerPage } from "./globals";
 import type { Date, DetailedMatch } from "./ranked-api";
-import moment from "moment";
+import { writable, type Writable } from "svelte/store";
+import { browser } from "$app/environment";
+
+export const createLocalStorageStore = <Type>(
+	name: string,
+	init: Type
+): Writable<Type> | undefined => {
+	if (!browser) return;
+	let val = init;
+	if (localStorage.getItem(name)) {
+		val = JSON.parse(localStorage.getItem(name) ?? "{}");
+	}
+	const store = writable(val);
+	store.subscribe((value) => {
+		localStorage.setItem(name, JSON.stringify(value));
+	});
+
+	return store;
+};
 
 const base = "https://mcsrranked.com/api";
 

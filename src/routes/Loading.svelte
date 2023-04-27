@@ -2,7 +2,7 @@
 	import { navigating } from "$app/stores";
 	import { spring } from "svelte/motion";
 	import { fade } from "svelte/transition";
-	import { beforeNavigate, afterNavigate } from "$app/navigation";
+	import { afterNavigate } from "$app/navigation";
 
 	let progress = spring(0, { stiffness: 0.03, damping: 1 });
 
