@@ -3,17 +3,6 @@
 	import { formatTime } from "$lib/utils.js";
 	export let data;
 	let showingSplits = true;
-
-	const shortenSplitName = (splitName: string) => {
-		const map = new Map([
-			["stronghold → end enter", "stronghold nav"],
-			["end enter → win", "end split"],
-			["nether enter", "overworld"],
-			["nether enter → bastion", "terrain to bastion"],
-			["nether enter → fortress", "terrain to fortress"],
-		]);
-		return map.get(splitName) ?? splitName;
-	};
 </script>
 
 {#if data.match}
@@ -29,9 +18,9 @@
 			<Switch bind:onFirst={showingSplits} options={["Splits", "Timestamps"]} />
 		</div>
 	</div>
-	{#if data.match.curPlayerTimeline && data.match.opponentTimeline}
-		<div class="flex w-full">
-			{#each [{ name: data.match.curPlayerName, timeline: data.match.curPlayerTimeline }, { name: data.match.opponentName, timeline: data.match.opponentTimeline }] as { name, timeline }, i}
+	{#if data.match.timelinePair}
+		<div class="flex w-full gap-2">
+			{#each data.match.timelinePair as { name, timeline, splits }}
 				<div class="flex-1">
 					<div class="flex items-baseline">
 						<h3 class="text-lg font-semibold text-zinc-300">
@@ -40,14 +29,11 @@
 					</div>
 
 					<ol class="mt-2">
-						{#each timeline as { what, when }, i}
-							{@const prev = timeline[i - 1]}
-							{@const prevTime = prev?.when ?? 0}
-							{@const splitName = prev ? `${prev.what} → ${what}` : what}
+						{#each showingSplits ? splits : timeline as { what, when, diff, importance }}
 							<li class="py-0.5">
 								<span class="mr-1 inline-block w-12 rounded-md bg-zinc-800 text-sm font-extrabold"
-									>{formatTime(showingSplits ? when - prevTime : when)}</span>
-								<span class="">{showingSplits ? shortenSplitName(splitName) : what}</span>
+									>{formatTime(when)}</span>
+								<span class="">{what}</span>
 							</li>
 						{/each}
 					</ol>
