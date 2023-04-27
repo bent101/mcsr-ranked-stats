@@ -43,7 +43,7 @@
 								<span class="inline-block"
 									>{what}
 									{#if isCurPlayer && hasMatch}
-										<span class="font-semibold" style="color: {color};"
+										<span class="ml-2 font-semibold" style="color: {color};"
 											>{formatTime(diff, true)}</span>
 									{/if}
 								</span>
