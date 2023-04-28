@@ -4,6 +4,11 @@
 	import Leaderboard from "./Leaderboard.svelte";
 	import Loading from "./Loading.svelte";
 	import { afterNavigate } from "$app/navigation";
+	import { dev } from "$app/environment";
+	import { inject } from "@vercel/analytics";
+
+	inject({ mode: dev ? "development" : "production" });
+
 	export let data;
 
 	let width: number;
