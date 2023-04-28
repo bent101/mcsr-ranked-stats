@@ -1,7 +1,6 @@
 <script lang="ts">
 	import Switch from "$lib/Switch.svelte";
 	import { createLocalStorageStore, formatTime } from "$lib/utils.js";
-	import { shallowDiff } from "@unovis/ts";
 	export let data;
 	let showingSplits = createLocalStorageStore("showingSplits", true);
 </script>

@@ -35,7 +35,7 @@
 
 <svelte:window bind:innerHeight={windowHeight} />
 
-<div class="min-h-screen w-64 border-r-2 border-zinc-700 bg-zinc-950 text-sm xl:w-80">
+<div class="min-h-screen w-80 border-r-2 border-zinc-700 bg-zinc-950 text-sm">
 	<h1
 		bind:this={titleContainer}
 		class="bg-zinc-950/70 p-4 pl-2 text-center font-extrabold uppercase tracking-wide text-zinc-500">
@@ -67,8 +67,8 @@
 						animate:flip={{ duration: inputIsFocused ? 0 : 400 }}>
 						<a
 							href="/{nickname}"
-							class="group flex h-8 items-center rounded-l-full border-2 leading-normal transition-all {selected
-								? ' translate-x-0.5 border-zinc-700 border-r-zinc-900 bg-zinc-900'
+							class=" group flex h-8 items-center rounded-l-full border-2 leading-normal transition-transform duration-300 {selected
+								? ' translate-x-1 border-zinc-700 border-r-zinc-900 bg-zinc-900'
 								: 'border-transparent hover:bg-zinc-900/50 '}">
 							<div
 								class=" w-12 px-2 text-right font-extrabold {selected
@@ -83,7 +83,7 @@
 								{nickname}
 							</div>
 							<div
-								class=" hidden w-16 px-2 font-semibold xl:block {selected
+								class=" w-16 px-2 font-semibold {selected
 									? 'text-zinc-500'
 									: ' text-zinc-600  group-hover:text-zinc-500'}">
 								{elo}
@@ -99,6 +99,6 @@
 			</div>
 		{/if}
 	{:else}
-		<div class="mt-32 text-center font-bold text-red-800">Couldn't get leaderboard :/</div>
+		<div class="mt-32 text-center font-bold text-red-400">Couldn't get leaderboard :/</div>
 	{/if}
 </div>

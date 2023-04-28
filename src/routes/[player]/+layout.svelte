@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { formatMatches, getLeaderboardURL, getMatchesURL } from "$lib/utils.js";
-	import { afterNavigate, goto, invalidate } from "$app/navigation";
+	import { afterNavigate, invalidate } from "$app/navigation";
 	import { onMount } from "svelte";
 	import { page } from "$app/stores";
 	import PlayerProfile from "./PlayerProfile.svelte";
@@ -61,7 +61,7 @@
 		</div>
 		<div class="m-4 flex w-max flex-col items-center p-4">
 			<h2
-				class="mx-4 mb-2 mt-0 w-full border-b-2 border-zinc-800 px-4 pb-2 text-sm font-bold uppercase text-zinc-400">
+				class="mx-4 mb-2 mt-8 w-full border-b-2 border-zinc-800 px-4 pb-2 text-sm font-bold uppercase text-zinc-400">
 				Matches <span
 					class="ml-2 rounded-full bg-zinc-400 px-2 py-0.5 text-xs font-extrabold text-zinc-900"
 					>{numMatches}</span>
