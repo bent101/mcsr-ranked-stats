@@ -19,6 +19,10 @@
 	afterNavigate(hideLb);
 </script>
 
+<svelte:head>
+	<meta name="darkreader-lock" />
+</svelte:head>
+
 <svelte:window
 	bind:innerWidth={width}
 	on:keydown={(e) => {
