@@ -44,7 +44,7 @@
 	$: rank = getRank(playerData.elo_rate);
 </script>
 
-<div class="flex items-start gap-2 px-4 py-2">
+<div class="flex w-max items-start gap-2 border px-4 py-2">
 	<img
 		class="m-2 rounded-lg"
 		src={getAvatar(playerData.uuid)}

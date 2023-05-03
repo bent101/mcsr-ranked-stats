@@ -18,7 +18,7 @@
 	$: data = matches
 		.map((match, i) => ({
 			x: i + 1,
-			y: match.eloAfter,
+			y: match.eloBefore,
 		}))
 		.filter(({ y }) => y && y !== -1) as DataRecord[];
 
