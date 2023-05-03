@@ -55,7 +55,7 @@ export type FormattedMatch = {
 	forfeit: boolean;
 	time: string | undefined;
 	eloChange: number;
-	eloAfter: number | undefined;
+	eloBefore: number | undefined;
 	date: string;
 	id: number;
 };
@@ -76,7 +76,7 @@ export const formatMatch = (match: DetailedMatch, playerName: string) => {
 
 	const scoreChange = score_changes?.find((member) => member.uuid === uuid);
 	const eloChange = scoreChange?.change ?? 0;
-	const eloAfter = scoreChange?.score;
+	const eloBefore = scoreChange?.score;
 	return {
 		isDecay: is_decay,
 		opponent,
@@ -84,7 +84,7 @@ export const formatMatch = (match: DetailedMatch, playerName: string) => {
 		forfeit,
 		time,
 		eloChange,
-		eloAfter,
+		eloBefore: eloBefore,
 		date: formatDateShort(match_date),
 		id: match_id,
 	} as FormattedMatch;
@@ -265,7 +265,7 @@ export const formatDetailedMatch = (match: DetailedMatch, curPlayerName: string)
 };
 
 export const formatTime = (timeInMs: number, signed = false) => {
-	const seconds = Math.round(Math.abs(timeInMs) / 1000);
+	const seconds = Math.floor(Math.abs(timeInMs) / 1000);
 	const minutes = Math.floor(seconds / 60);
 	const remainingSeconds = seconds % 60;
 	const sign = timeInMs < 0 ? "-" : "+";
