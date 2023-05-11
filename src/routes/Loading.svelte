@@ -48,7 +48,7 @@
 	});
 </script>
 
-<div class="fixed inset-x-0 top-0 z-40 h-1.5">
+<div class="fixed inset-x-0 top-0 z-50 h-1.5">
 	{#if $progress > 0}
 		<div
 			transition:fade={{ duration: 100 }}

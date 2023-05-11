@@ -29,7 +29,6 @@
 		if (e.key === "Escape") hideLb();
 	}} />
 
-<Loading />
 {#if width < 1280}
 	<button
 		class="fixed left-0 top-24 z-50 rounded-r-full border-2 border-l-0 border-zinc-700 bg-zinc-950 px-4 py-2 text-sm font-extrabold uppercase tracking-wide text-zinc-500 shadow-lg shadow-black/30"
@@ -66,3 +65,5 @@
 		</div>
 	</div>
 {/if}
+
+<Loading />
