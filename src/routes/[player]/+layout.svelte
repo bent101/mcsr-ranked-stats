@@ -51,7 +51,7 @@
 </script>
 
 <svelte:head>
-	<title>{data.playerData.nickname}'s stats</title>
+	<title>{data.playerData.nickname}'s stats | MCSR Ranked stats</title>
 </svelte:head>
 
 <div class="flex">
