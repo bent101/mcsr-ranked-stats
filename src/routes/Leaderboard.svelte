@@ -146,10 +146,13 @@
 					animate:flip={{ duration: inputIsFocused ? 0 : 400 }}>
 					<a
 						{href}
-						class=" group flex h-8 items-center rounded-l-full border-2 leading-normal transition-transform duration-300 {selected
-							? ' translate-x-1 border-zinc-700 border-r-zinc-900 bg-zinc-900'
-							: `border-transparent ${
-									arrowSelected ? 'bg-zinc-900/90' : 'hover:bg-zinc-900/50'
+						class="group flex h-8 items-center rounded-l-full border-2 border-r-0 transition-transform duration-300
+						{selected
+							? `translate-x-1 ${arrowSelected ? 'border-blue-500' : 'border-zinc-700'} bg-zinc-900`
+							: `${
+									arrowSelected
+										? 'border-blue-500 bg-zinc-900/90'
+										: 'border-transparent hover:bg-zinc-900/50'
 							  } `}">
 						<div
 							class=" w-12 px-2 text-right font-extrabold {selected
