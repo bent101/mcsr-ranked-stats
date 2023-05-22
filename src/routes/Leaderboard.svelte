@@ -28,7 +28,7 @@
 			return i === query.length;
 		}) ?? [];
 
-	$: filteredLb, (arrowSelectedIdx = 0);
+	$: filteredLb, (arrowSelectedIdx = rawQuery ? 0 : -1);
 
 	$: isMatch = filteredLb.find((player) => player.nickname.toLowerCase() === query);
 
@@ -40,7 +40,6 @@
 
 	afterNavigate(() => {
 		rawQuery = "";
-		arrowSelectedIdx = -1;
 	});
 </script>
 
