@@ -9,7 +9,7 @@
 	let lbContainer: HTMLElement | undefined;
 	let searchInput: HTMLElement | undefined;
 
-	let rawQuery: string | undefined;
+	let rawQuery = "";
 	$: rawQuery = rawQuery?.replace(/[^a-zA-Z0-9_]/g, "").slice(0, 16);
 	$: query = rawQuery?.toLowerCase() ?? "";
 	$: filteredLb =
@@ -31,9 +31,26 @@
 	$: filteredLb, (arrowSelectedIdx = rawQuery ? 0 : -1);
 
 	$: isMatch = filteredLb.find((player) => player.nickname.toLowerCase() === query);
-
 	$: isExtra = rawQuery !== "" && !isMatch;
-	$: numResults = filteredLb.length + (isExtra ? 1 : 0);
+
+	$: extraOption = {
+		name: `"${rawQuery}"`,
+		href: `/${rawQuery}`,
+		elo: "????",
+		rank: "??",
+		uuid: "extra",
+	};
+
+	$: cleanedLb = filteredLb.map((player) => ({
+		name: player.nickname,
+		href: `/${player.nickname}`,
+		elo: player.elo_rate.toString(),
+		rank: player.elo_rank?.toString() ?? "??",
+		uuid: player.uuid,
+	}));
+
+	$: displayedLb = isExtra ? [...cleanedLb, extraOption] : cleanedLb;
+
 	let arrowSelectedIdx = -1;
 
 	let inputIsFocused = false;
@@ -65,31 +82,55 @@
 				on:focus={() => {
 					inputIsFocused = true;
 				}}
-				on:blur={() => {
+				on:blur={(e) => {
 					inputIsFocused = false;
 					arrowSelectedIdx = -1;
 				}}
 				on:keydown={(e) => {
+					const n = displayedLb.length;
 					if (e.key === "ArrowDown") {
-						arrowSelectedIdx = (arrowSelectedIdx + 1) % numResults;
+						arrowSelectedIdx = (arrowSelectedIdx + 1) % n;
+						e.preventDefault();
 					} else if (e.key === "ArrowUp") {
-						arrowSelectedIdx = (arrowSelectedIdx + numResults - 1) % numResults;
+						arrowSelectedIdx = (arrowSelectedIdx + n - 1) % n;
+						e.preventDefault();
 					} else if (e.key === "Enter") {
-						if (arrowSelectedIdx === numResults - 1) {
-							goto(`/${rawQuery}`);
-						} else if (filteredLb[arrowSelectedIdx]?.nickname) {
-							goto(`/${filteredLb[arrowSelectedIdx].nickname}`);
-						}
+						goto(displayedLb[arrowSelectedIdx].href);
 					} else if (e.key === "Escape") {
+						rawQuery = "";
 						searchInput?.blur();
 					}
 				}}
 				placeholder="Search for players"
-				class="w-full rounded-lg border border-zinc-800 bg-transparent px-3 py-1.5 text-zinc-400 placeholder:text-zinc-600 search-cancel:hidden" />
-			{#if !inputIsFocused}
+				class="w-full rounded-lg border border-zinc-800 bg-transparent px-4 py-2 text-zinc-400 placeholder:text-zinc-600 search-cancel:hidden" />
+			{#if rawQuery !== ""}
+				<button
+					on:click={() => {
+						rawQuery = "";
+						searchInput?.blur();
+					}}
+					class="absolute inset-y-0 right-2 my-auto h-6 w-6 rounded-full border border-zinc-600 bg-zinc-900">
+					<svg
+						class="stroke-zinc-500 stroke-2"
+						xmlns="http://www.w3.org/2000/svg"
+						width="100%"
+						height="100%"
+						viewBox="0 0 24 24">
+						<line x1="6" y1="6" x2="18" y2="18" />
+						<line x1="6" y1="18" x2="18" y2="6" />
+					</svg>
+				</button>
+			{:else if !inputIsFocused}
 				<kbd
-					class="pointer-events-none absolute inset-y-0 right-1.5 my-auto h-6 w-6 rounded-sm border border-zinc-800 bg-zinc-900/50 text-center font-extrabold text-zinc-500">
-					/
+					class="pointer-events-none absolute inset-y-0 right-2 my-auto h-6 w-6 select-none rounded-[4px] border border-zinc-600 bg-zinc-900">
+					<svg
+						class="stroke-zinc-500 stroke-2"
+						xmlns="http://www.w3.org/2000/svg"
+						width="100%"
+						height="100%"
+						viewBox="0 0 24 24">
+						<line x1="8" y1="20" x2="16" y2="4" />
+					</svg>
 				</kbd>
 			{/if}
 		</div>
@@ -97,14 +138,14 @@
 
 	{#if lb}
 		<ol class="pb-16 pl-2" bind:this={lbContainer}>
-			{#each filteredLb as { nickname, elo_rate: elo, elo_rank: rank, uuid }, i (uuid)}
-				{@const selected = nickname === $page.params.player}
+			{#each displayedLb as { name, elo, rank, uuid, href }, i (uuid)}
+				{@const selected = name === $page.params.player}
 				{@const arrowSelected = arrowSelectedIdx === i}
 				<li
 					class={selected ? "sticky bottom-12 top-20 z-10" : ""}
 					animate:flip={{ duration: inputIsFocused ? 0 : 400 }}>
 					<a
-						href="/{nickname}"
+						{href}
 						class=" group flex h-8 items-center rounded-l-full border-2 leading-normal transition-transform duration-300 {selected
 							? ' translate-x-1 border-zinc-700 border-r-zinc-900 bg-zinc-900'
 							: `border-transparent ${
@@ -120,7 +161,7 @@
 							class="flex-1 px-2 text-center {selected
 								? ' text-zinc-300'
 								: 'text-zinc-400 group-hover:text-zinc-300'}">
-							{nickname}
+							{name}
 						</div>
 						<div
 							class=" w-16 px-2 font-semibold {selected
@@ -131,25 +172,6 @@
 					</a>
 				</li>
 			{/each}
-			{#if isExtra}
-				{@const arrowSelected = arrowSelectedIdx === numResults - 1}
-				<li>
-					<a
-						href="/{rawQuery}"
-						class="group flex h-8 items-center rounded-l-full border-2 border-transparent leading-normal transition-transform duration-300 {arrowSelected
-							? 'bg-zinc-900/90'
-							: 'hover:bg-zinc-900/50'}">
-						<div
-							class=" w-12 px-2 text-right font-extrabold text-zinc-700 group-hover:text-zinc-400">
-							??
-						</div>
-						<div class="flex-1 px-2 text-center text-zinc-400 group-hover:text-zinc-300">
-							{rawQuery}
-						</div>
-						<div class=" w-16 px-2 font-semibold text-zinc-600 group-hover:text-zinc-500">????</div>
-					</a>
-				</li>
-			{/if}
 		</ol>
 	{:else}
 		<div class="mt-32 text-center font-bold text-red-400">Couldn't get leaderboard :/</div>
