@@ -36,7 +36,7 @@
 								90 - 40 * importance ** 1.5
 							)}%)`}
 							<li class="w-max py-0.5">
-								<span class="mr-1 inline-block w-12 rounded-md bg-zinc-800 text-sm font-extrabold"
+								<span class="mr-1 inline-block w-12 text-sm font-extrabold"
 									>{formatTime(when)}
 								</span>
 								<span class="inline-block"
