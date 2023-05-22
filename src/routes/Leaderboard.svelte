@@ -64,7 +64,6 @@
 				bind:this={searchInput}
 				on:focus={() => {
 					inputIsFocused = true;
-					arrowSelectedIdx = 0;
 				}}
 				on:blur={() => {
 					inputIsFocused = false;
