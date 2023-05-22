@@ -10,6 +10,7 @@
 	let windowHeight: number;
 
 	let rawQuery: string | undefined;
+	$: rawQuery = rawQuery?.replace(/[^a-zA-Z0-9_]/g, "").slice(0, 16);
 	$: query = rawQuery?.toLowerCase() ?? "";
 	$: filteredLb = lb?.filter((player) => {
 		if (query === "") return true;
@@ -59,7 +60,7 @@
 
 	{#if lb}
 		{#if filteredLb && filteredLb.length > 0}
-			<ol class="pb-32 pl-2" bind:this={lbContainer}>
+			<ol class="pb-16 pl-2" bind:this={lbContainer}>
 				{#each filteredLb as { nickname, elo_rate: elo, elo_rank: rank, uuid } (uuid)}
 					{@const selected = nickname === $page.params.player}
 					<li
@@ -92,10 +93,15 @@
 					</li>
 				{/each}
 			</ol>
+
+			<div class="p-4 text-center text-zinc-500">
+				Press enter to see if <span class="font-semibold text-zinc-300">{rawQuery}</span> has played
+				MCSR Ranked
+			</div>
 		{:else}
-			<div class="mt-16 text-center text-zinc-500">
+			<div class="mt-16 p-4 text-center text-zinc-500">
 				No results in the top 150. Press enter to see if <span class="font-semibold text-zinc-300"
-					>{rawQuery}</span> has played Ranked
+					>{rawQuery}</span> has played MCSR Ranked
 			</div>
 		{/if}
 	{:else}
