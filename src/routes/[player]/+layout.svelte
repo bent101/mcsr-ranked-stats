@@ -118,7 +118,9 @@
 											: ''} {selected ? 'text-zinc-300' : 'text-zinc-500'} ">
 										{outcome === "draw" ? "" : forfeit ? "Forfeit" : time}
 									</div>
-									<div class="w-12 text-right text-zinc-{selected ? 50 : 600}">{date}</div>
+									<div class="w-12 text-right {selected ? 'text-zinc-50' : 'text-zinc-600'}">
+										{date}
+									</div>
 								</a>
 							{/if}
 						</li>
@@ -128,7 +130,7 @@
 					{data.noMoreMatches ? "No more matches" : "Loading..."}
 				</div>
 			{:else}
-				<div class="w-[26.625rem] text-center text-zinc-600">No matches this season</div>
+				<div class="w-[26.625rem] text-center text-zinc-600">No matches yet this season</div>
 			{/if}
 		</div>
 	</div>

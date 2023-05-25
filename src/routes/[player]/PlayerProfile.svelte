@@ -5,6 +5,7 @@
 	import discord from "$lib/assets/discord.svg";
 	import youtube from "$lib/assets/youtube.svg";
 	import twitch from "$lib/assets/twitch.svg";
+	import fire from "$lib/assets/fire.png";
 	import { Tooltip } from "@svelte-plugins/tooltips";
 
 	export let playerData: DetailedPlayer;
@@ -96,19 +97,25 @@
 				(<span class="bg-gradient-to-r bg-clip-text font-extrabold text-transparent {rank.color}"
 					>{playerData.elo_rate}</span> elo)
 			{/if}
-			{#if winrate !== -1 && !isNaN(winrate)}
+			{#if playerData.best_elo_rate > playerData.elo_rate}
 				<span class="font-extrabold text-zinc-600">•</span>
-				<b>{winrate}</b>% winrate
+				<b>{playerData.best_elo_rate}</b> peak elo
+			{:else}
+				<span
+					class="ml-2 inline-block -translate-y-0.5 items-center rounded-full bg-gradient-to-r from-red-700 to-orange-500 py-0.5 pl-1 pr-2 text-xs font-semibold uppercase tracking-wide text-white">
+					<img class="inline w-4" src={fire} alt="" />
+					<span class="inline-block translate-y-px">peak elo</span>
+				</span>
 			{/if}
 		</div>
 		<div class="text-zinc-500">
+			{#if winrate !== -1 && !isNaN(winrate)}
+				<b>{winrate}</b>% winrate
+			{/if}
 			{#if playerData.best_record_time !== 0}
+				<span class="font-extrabold text-zinc-600">•</span>
 				<b>{formatTime(playerData.best_record_time)}</b> ranked pb
 			{/if}
-			<!-- {#if playerData.best_elo_rate > playerData.elo_rate}
-				<span class="font-extrabold text-zinc-600">•</span>
-				<b>{playerData.best_elo_rate}</b> peak elo
-			{/if} -->
 			{#if playerData.highest_winstreak > 1}
 				<span class="font-extrabold text-zinc-600">•</span>
 				<b>{playerData.highest_winstreak}</b> best winstreak
