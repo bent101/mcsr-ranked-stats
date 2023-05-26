@@ -6,6 +6,7 @@
 	import { getPlayerURL, getSkin } from "./utils";
 	import { scale } from "svelte/transition";
 	import { afterNavigate } from "$app/navigation";
+	import { backOut } from "svelte/easing";
 
 	let playerData: DetailedPlayer | undefined;
 
@@ -57,9 +58,8 @@
 	{name}
 	{#if showing && playerData}
 		<div
-			in:scale={{ start: 0.8, duration: 150 }}
-			out:scale={{ start: 0.8, duration: 100 }}
-			class="pointer-events-none absolute -inset-y-[999rem] left-full z-50 my-auto ml-4 h-min origin-left rounded-3xl bg-zinc-800 p-2 shadow-lg shadow-black/30">
+			transition:scale={{ start: 0.8, duration: 150, easing: backOut }}
+			class="pointer-events-none absolute -inset-y-[999rem] left-full z-50 my-auto ml-4 h-min origin-left rounded-3xl bg-zinc-950 p-2 shadow-lg shadow-black/30">
 			<PlayerProfile {playerData} />
 		</div>
 	{/if}

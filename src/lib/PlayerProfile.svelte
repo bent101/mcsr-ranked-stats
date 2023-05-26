@@ -52,7 +52,7 @@
 	<PlayerHead3D {rotate} skinURL={getSkin(playerData.uuid)} />
 	<div>
 		<div class="flex items-center">
-			<h1 class="mr-2 fill-zinc-200 text-xl font-bold text-zinc-300">
+			<h1 class="mr-2 text-xl font-bold text-zinc-300">
 				{#if playerData.elo_rank}
 					<span class="mr-2 font-extrabold text-zinc-600">#{playerData.elo_rank}</span>
 				{/if}{playerData.nickname}
