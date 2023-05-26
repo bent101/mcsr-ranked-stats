@@ -1,8 +1,14 @@
 <script lang="ts">
 	import { afterNavigate, goto } from "$app/navigation";
 	import { page } from "$app/stores";
+	import { derived } from "svelte/store";
 	import type { PlayerInfo } from "$lib/ranked-api";
 	import Leaderboard from "./Leaderboard.svelte";
+	import SidebarTab from "./SidebarTab.svelte";
+	import stopwatch from "$lib/assets/stopwatch.png";
+
+	const bestTimesSelected = derived(page, (page) => $page.url.pathname === "/best-times");
+	const compareSelected = derived(page, (page) => $page.url.pathname === "/vs");
 
 	export let lb: PlayerInfo[] | undefined;
 	let searchInput: HTMLElement | undefined;
@@ -139,9 +145,46 @@
 		</div>
 	</div>
 
-	{#if lb}
-		<Leaderboard lb={displayedLb} animating={!inputIsFocused} />
-	{:else}
-		<div class="mt-32 text-center font-bold text-red-400">Couldn't get leaderboard :/</div>
-	{/if}
+	<div class="pb-16 pl-2">
+		<SidebarTab href={"/best-times"} selected={$bestTimesSelected}>
+			<div class="flex items-center pr-8">
+				<img
+					src={stopwatch}
+					alt=""
+					class=" mr-4 h-5 w-20 select-none object-contain {$bestTimesSelected
+						? 'opacity-80'
+						: 'opacity-30'} invert" />
+				<div
+					class="font-extrabold uppercase {$bestTimesSelected
+						? 'text-zinc-300'
+						: 'text-zinc-500 group-hover:text-zinc-400'}">
+					Best times
+				</div>
+			</div>
+		</SidebarTab>
+		<SidebarTab href={"/vs"} selected={$compareSelected}>
+			<div class="flex items-center pr-8">
+				<div
+					class="mr-4 w-20 select-none text-center font-extrabold leading-3 text-white {$compareSelected
+						? 'opacity-80'
+						: 'opacity-30'}">
+					vs
+				</div>
+				<div
+					class="font-extrabold uppercase {$compareSelected
+						? 'text-zinc-300'
+						: 'text-zinc-500 group-hover:text-zinc-400'}">
+					Compare
+				</div>
+			</div>
+		</SidebarTab>
+
+		<hr class="my-2 ml-2 mr-6 border-zinc-800" />
+
+		{#if lb}
+			<Leaderboard lb={displayedLb} animating={!inputIsFocused} />
+		{:else}
+			<div class="mt-32 text-center font-bold text-red-400">Couldn't get leaderboard :/</div>
+		{/if}
+	</div>
 </div>
