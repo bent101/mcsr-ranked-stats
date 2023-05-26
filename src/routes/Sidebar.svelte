@@ -151,7 +151,7 @@
 				<img
 					src={stopwatch}
 					alt=""
-					class=" mr-4 h-5 w-20 select-none object-contain {$bestTimesSelected
+					class="h-5 w-20 select-none object-contain {$bestTimesSelected
 						? 'opacity-80'
 						: 'opacity-30'} invert" />
 				<div
@@ -165,10 +165,10 @@
 		<SidebarTab href={"/vs"} selected={$compareSelected}>
 			<div class="flex items-center pr-8">
 				<div
-					class="mr-4 w-20 select-none text-center font-extrabold leading-3 text-white {$compareSelected
+					class="w-20 select-none text-center text-xs font-extrabold leading-3 text-white {$compareSelected
 						? 'opacity-80'
 						: 'opacity-30'}">
-					vs
+					VS
 				</div>
 				<div
 					class="font-extrabold uppercase {$compareSelected
