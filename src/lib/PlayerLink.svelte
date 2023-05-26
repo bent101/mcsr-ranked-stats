@@ -17,6 +17,7 @@
 
 	const onMouseEnter = async () => {
 		hovering = true;
+		const delayPromise = new Promise((res) => setTimeout(res, 500));
 
 		if (!justFetched) {
 			const playerDataPromise = fetch(getPlayerURL(name))
@@ -25,12 +26,14 @@
 
 			const imagePromise = fetch(getSkin(uuid));
 
-			[playerData] = await Promise.all([playerDataPromise, imagePromise]);
+			[playerData] = await Promise.all([playerDataPromise, imagePromise, delayPromise]);
 
 			justFetched = true;
 			setTimeout(() => {
 				justFetched = false;
 			}, 10_000);
+		} else {
+			await delayPromise;
 		}
 
 		if (hovering) showing = true;
@@ -54,7 +57,8 @@
 	{name}
 	{#if showing && playerData}
 		<div
-			transition:scale={{ start: 0.8, duration: 100 }}
+			in:scale={{ start: 0.8, duration: 150 }}
+			out:scale={{ start: 0.8, duration: 100 }}
 			class="pointer-events-none absolute -inset-y-[999rem] left-full z-50 my-auto ml-4 h-min origin-left rounded-3xl bg-zinc-800 p-2 shadow-lg shadow-black/30">
 			<PlayerProfile {playerData} />
 		</div>
