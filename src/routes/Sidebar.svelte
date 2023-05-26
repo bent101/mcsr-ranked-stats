@@ -158,7 +158,7 @@
 					class="font-extrabold uppercase {$bestTimesSelected
 						? 'text-zinc-300'
 						: 'text-zinc-500 group-hover:text-zinc-400'}">
-					Best times
+					Fastest times
 				</div>
 			</div>
 		</SidebarTab>
@@ -174,7 +174,7 @@
 					class="font-extrabold uppercase {$compareSelected
 						? 'text-zinc-300'
 						: 'text-zinc-500 group-hover:text-zinc-400'}">
-					Compare
+					Compare players
 				</div>
 			</div>
 		</SidebarTab>

@@ -8,9 +8,10 @@
 	import fire from "$lib/assets/fire.png";
 
 	import { Tooltip } from "@svelte-plugins/tooltips";
-	import PlayerHead3D from "./PlayerHead3D.svelte";
+	import PlayerHead3D from "../routes/[player]/PlayerHead3D.svelte";
 
 	export let playerData: DetailedPlayer;
+	export let rotate = false;
 
 	let justCopiedDiscord = false;
 
@@ -48,7 +49,7 @@
 </script>
 
 <div class="flex w-max items-start gap-2 px-4 py-2">
-	<PlayerHead3D skinURL={getSkin(playerData.uuid)} />
+	<PlayerHead3D {rotate} skinURL={getSkin(playerData.uuid)} />
 	<div>
 		<div class="flex items-center">
 			<h1 class="mr-2 fill-zinc-200 text-xl font-bold text-zinc-300">
@@ -99,7 +100,7 @@
 				<b>{playerData.best_elo_rate}</b> peak elo
 			{:else}
 				<span
-					class="ml-2 inline-block -translate-y-0.5 items-center rounded-full bg-gradient-to-r from-red-700 to-orange-500 py-px pl-1 pr-2 text-xs font-semibold tracking-wide text-white">
+					class="ml-2 inline-block -translate-y-0.5 rounded-full bg-gradient-to-r from-red-700 to-orange-500 py-px pl-1 pr-2 text-xs font-semibold tracking-wide text-white">
 					<img class="inline w-4" src={fire} alt="" />
 					<span class="inline-block translate-y-px">PEAK ELO</span>
 				</span>

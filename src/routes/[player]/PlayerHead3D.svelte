@@ -1,5 +1,6 @@
 <script lang="ts">
 	export let skinURL: string;
+	export let rotate = false;
 
 	let cube: HTMLElement | undefined;
 	let cubeRect = undefined;
@@ -16,8 +17,10 @@
 
 <svelte:window
 	on:mousemove={(e) => {
-		rotateX = (Math.atan((centerY - e.clientY) / 800) / Math.PI) * 180;
-		rotateY = (Math.atan(-(centerX - e.clientX) / 800) / Math.PI) * 180;
+		if (rotate) {
+			rotateX = (Math.atan((centerY - e.clientY) / 800) / Math.PI) * 180;
+			rotateY = (Math.atan(-(centerX - e.clientX) / 800) / Math.PI) * 180;
+		}
 	}} />
 
 <div class="viewport m-2">

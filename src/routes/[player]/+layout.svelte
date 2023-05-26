@@ -3,10 +3,11 @@
 	import { afterNavigate, invalidate } from "$app/navigation";
 	import { onMount } from "svelte";
 	import { page } from "$app/stores";
-	import PlayerProfile from "./PlayerProfile.svelte";
+	import PlayerProfile from "$lib/PlayerProfile.svelte";
 	import type { AfterNavigate } from "@sveltejs/kit";
 	import { matchesPerPage } from "$lib/globals";
 	import Graph from "./Graph.svelte";
+	import PlayerLink from "$lib/PlayerLink.svelte";
 
 	export let data;
 	let infiniteScrollPadding: HTMLElement | undefined;
@@ -59,7 +60,7 @@
 <div class="flex">
 	<div class="flex flex-col">
 		<div class="sticky top-0 z-10 w-full bg-zinc-900/70 backdrop-blur-md">
-			<PlayerProfile playerData={data.playerData} />
+			<PlayerProfile playerData={data.playerData} rotate />
 		</div>
 		<div class="m-4 flex w-max flex-col items-center p-4">
 			<h2
@@ -70,12 +71,12 @@
 			</h2>
 			{#if data.matches && data.matches.length > 0}
 				<ol class="relative pb-16">
-					{#each data.matches as { isDecay, opponent, outcome, forfeit, time, eloChange, date, id }}
+					{#each data.matches as { isDecay, opponent, opponentUUID, outcome, forfeit, time, eloChange, date, id }}
 						{@const selected = $page.url.pathname === `/${data.playerData.nickname}/${id}`}
 						{@const color = outcome
 							? { won: "text-green-400", lost: "text-red-400", draw: "text-blue-400" }[outcome]
 							: "text-zinc-400"}
-						<li>
+						<li class="relative">
 							{#if isDecay}
 								<div
 									class="group flex items-center gap-2 rounded-lg px-4 py-1.5 hocus-within:bg-zinc-800">
@@ -94,15 +95,8 @@
 									class="group flex items-center gap-2 rounded-lg border px-4 py-1.5 text-left {selected
 										? 'border-zinc-500 bg-zinc-800'
 										: 'border-transparent hocus-within:bg-zinc-800'}">
-									<div
-										class="w-40 overflow-hidden overflow-ellipsis {selected
-											? 'text-zinc-50'
-											: 'text-zinc-300'}">
-										<a
-											data-sveltekit-replacestate="off"
-											data-sveltekit-noscroll="off"
-											href="/{opponent}"
-											class=" hover:underline hover:underline-offset-4">{opponent}</a>
+									<div class="w-40 {selected ? 'text-zinc-50' : 'text-zinc-300'}">
+										<PlayerLink name={opponent} uuid={opponentUUID} />
 									</div>
 									<div class="w-20 text-center uppercase {color} text-sm font-bold">
 										<span class="{selected ? ' hidden' : 'inline group-hocus-within:hidden'} "
@@ -138,7 +132,7 @@
 		<Graph matches={data.matches} />
 		<div class="relative flex-1">
 			<div
-				class="absolute bottom-0 left-0 w-max min-w-[30rem] rounded-3xl bg-zinc-800 p-4 shadow-lg shadow-black/30">
+				class="absolute bottom-0 left-0 min-w-[30rem] rounded-3xl bg-zinc-800 p-4 shadow-lg shadow-black/30">
 				<slot />
 			</div>
 		</div>
