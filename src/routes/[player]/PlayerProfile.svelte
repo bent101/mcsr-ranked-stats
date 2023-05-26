@@ -1,12 +1,14 @@
 <script lang="ts">
-	import { formatTime, getAvatar } from "$lib/utils";
+	import { formatTime, getSkin } from "$lib/utils";
 	import type { DetailedPlayer } from "$lib/ranked-api";
 
 	import discord from "$lib/assets/discord.svg";
 	import youtube from "$lib/assets/youtube.svg";
 	import twitch from "$lib/assets/twitch.svg";
 	import fire from "$lib/assets/fire.png";
+
 	import { Tooltip } from "@svelte-plugins/tooltips";
+	import PlayerHead3D from "./PlayerHead3D.svelte";
 
 	export let playerData: DetailedPlayer;
 
@@ -46,12 +48,7 @@
 </script>
 
 <div class="flex w-max items-start gap-2 px-4 py-2">
-	<img
-		class="m-2 rounded-lg"
-		src={getAvatar(playerData.uuid)}
-		width="48"
-		height="48"
-		alt="{playerData.nickname}'s avatar" />
+	<PlayerHead3D skinURL={getSkin(playerData.uuid)} />
 	<div>
 		<div class="flex items-center">
 			<h1 class="mr-2 fill-zinc-200 text-xl font-bold text-zinc-300">
@@ -88,7 +85,7 @@
 				</Tooltip>
 			{/if}
 		</div>
-		<div class="text-zinc-500">
+		<div class="leading- text-zinc-500">
 			{#if playerData.elo_rate === -1}
 				Doing placements
 			{:else}
@@ -102,9 +99,9 @@
 				<b>{playerData.best_elo_rate}</b> peak elo
 			{:else}
 				<span
-					class="ml-2 inline-block -translate-y-0.5 items-center rounded-full bg-gradient-to-r from-red-700 to-orange-500 py-0.5 pl-1 pr-2 text-xs font-semibold uppercase tracking-wide text-white">
+					class="ml-2 inline-block -translate-y-0.5 items-center rounded-full bg-gradient-to-r from-red-700 to-orange-500 py-px pl-1 pr-2 text-xs font-semibold tracking-wide text-white">
 					<img class="inline w-4" src={fire} alt="" />
-					<span class="inline-block translate-y-px">peak elo</span>
+					<span class="inline-block translate-y-px">PEAK ELO</span>
 				</span>
 			{/if}
 		</div>

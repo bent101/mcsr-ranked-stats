@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { fade, fly } from "svelte/transition";
 	import "../app.css";
-	import Leaderboard from "./Leaderboard.svelte";
+	import Sidebar from "./Sidebar.svelte";
 	import Loading from "./Loading.svelte";
 	import { afterNavigate } from "$app/navigation";
 	import { dev } from "$app/environment";
@@ -48,7 +48,7 @@
 			transition:fly={{ x: -40, duration: 200 }}
 			class="fixed top-0 z-50 h-screen overflow-y-scroll overscroll-y-contain scrollbar-thin scrollbar-track-zinc-950 scrollbar-thumb-zinc-900 [direction:rtl] hover:scrollbar-thumb-zinc-800">
 			<div class="[direction:ltr]">
-				<Leaderboard lb={data.lb?.users} />
+				<Sidebar lb={data.lb?.users} />
 			</div>
 		</div>
 	{/if}
@@ -57,7 +57,7 @@
 		<div
 			class="sticky top-0 z-50 h-screen overflow-y-scroll overscroll-y-contain scrollbar-thin scrollbar-track-zinc-950 scrollbar-thumb-zinc-900 [direction:rtl] hover:scrollbar-thumb-zinc-800">
 			<div class="[direction:ltr]">
-				<Leaderboard lb={data.lb?.users} />
+				<Sidebar lb={data.lb?.users} />
 			</div>
 		</div>
 		<div class="flex-1">

@@ -30,8 +30,8 @@ export const getLeaderboardURL = () => {
 	return `${base}/leaderboard`;
 };
 
-export const getAvatar = (uuid: string, size = 256) => {
-	return `https://crafatar.com/avatars/${uuid}?overlay&size=${size}`;
+export const getSkin = (uuid: string) => {
+	return `https://crafatar.com/skins/${uuid}`;
 };
 
 export const getPlayerURL = (name: string) => {
