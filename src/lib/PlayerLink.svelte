@@ -7,35 +7,25 @@
 	import { scale } from "svelte/transition";
 	import { afterNavigate } from "$app/navigation";
 	import { backOut } from "svelte/easing";
+	import { sleep } from "$lib/utils";
 
 	let playerData: DetailedPlayer | undefined;
 
-	let justFetched = false;
 	let hovering = false;
 	let showing = false;
-	let fetchTimeout: number | undefined;
-	// let hoverTimeout: number | undefined;
 
 	const onMouseEnter = async () => {
 		hovering = true;
-		const delayPromise = new Promise((res) => setTimeout(res, 500));
+		await sleep(200);
+		if (!hovering) return;
 
-		if (!justFetched) {
-			const playerDataPromise = fetch(getPlayerURL(name))
-				.then((res) => res.json())
-				.then((res) => res.data);
+		const playerDataPromise = fetch(getPlayerURL(name))
+			.then((res) => res.json())
+			.then((res) => res.data);
 
-			const imagePromise = fetch(getSkin(uuid));
+		const imagePromise = fetch(getSkin(uuid));
 
-			[playerData] = await Promise.all([playerDataPromise, imagePromise, delayPromise]);
-
-			justFetched = true;
-			setTimeout(() => {
-				justFetched = false;
-			}, 10_000);
-		} else {
-			await delayPromise;
-		}
+		[playerData] = await Promise.all([playerDataPromise, imagePromise]);
 
 		if (hovering) showing = true;
 	};

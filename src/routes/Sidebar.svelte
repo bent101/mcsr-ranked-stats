@@ -182,7 +182,7 @@
 		<hr class="my-2 ml-2 mr-6 border-zinc-800" />
 
 		{#if lb}
-			<Leaderboard lb={displayedLb} animating={!inputIsFocused} />
+			<Leaderboard lb={displayedLb} animating={rawQuery === ""} />
 		{:else}
 			<div class="mt-32 text-center font-bold text-red-400">Couldn't get leaderboard :/</div>
 		{/if}

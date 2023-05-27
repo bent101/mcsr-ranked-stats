@@ -60,7 +60,7 @@
 <div class="flex">
 	<div class="flex flex-col">
 		<div class="sticky top-0 z-10 w-full bg-zinc-900/70 backdrop-blur-md">
-			<PlayerProfile playerData={data.playerData} rotate />
+			<PlayerProfile playerData={data.playerData} />
 		</div>
 		<div class="m-4 flex w-max flex-col items-center p-4">
 			<h2
@@ -109,7 +109,11 @@
 											? `text-xs font-semibold uppercase tracking-normal ${
 													selected ? 'text-zinc-300' : 'text-zinc-600'
 											  }`
-											: ''} {selected ? 'text-zinc-300' : 'text-zinc-500'} ">
+											: ''} {selected
+											? 'text-zinc-300'
+											: outcome === 'won'
+											? 'text-zinc-400'
+											: 'text-zinc-600'} ">
 										{outcome === "draw" ? "" : forfeit ? "Forfeit" : time}
 									</div>
 									<div class="w-12 text-right {selected ? 'text-zinc-50' : 'text-zinc-600'}">

@@ -18,12 +18,6 @@ export type VersusWinCount = {
 	[UUID2: string]: number;
 };
 
-export type MatchTimeline = {
-	uuid: string;
-	time: number;
-	timeline: string;
-};
-
 /** 1: casual, 2: ranked, 3: private */
 export type MatchType = 1 | 2 | 3;
 
@@ -131,4 +125,4 @@ export type RecordLeaderboard = {
 	final_time: MatchDuration;
 	match_date: Date;
 	user: PlayerInfo;
-};
+}[];

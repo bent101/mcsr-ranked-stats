@@ -1,4 +1,7 @@
 <script lang="ts">
+	import { beforeNavigate } from "$app/navigation";
+	import { spring } from "svelte/motion";
+
 	export let skinURL: string;
 	export let rotate = false;
 
@@ -6,8 +9,8 @@
 	let cubeRect = undefined;
 	let centerX = 0;
 	let centerY = 0;
-	let rotateX = 0;
-	let rotateY = 0;
+	let rotateX = -12;
+	let rotateY = 20;
 	$: if (cube) {
 		cubeRect = cube.getBoundingClientRect();
 		centerX = cubeRect.left + cubeRect.width / 2;
@@ -64,27 +67,39 @@
 		image-rendering: pixelated;
 	}
 
+	/* .inner::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background-color: black;
+	} */
+
 	.outer {
 		scale: 1.125 1.125 1.125;
 	}
 
-	.front {
+	.front,
+	.front::before {
 		transform: translateZ(23.8px);
 	}
 
-	.back {
+	.back,
+	.back::before {
 		transform: translateZ(-23.8px) rotateY(180deg);
 	}
 
-	.right {
+	.right,
+	.right::before {
 		transform: rotateY(90deg) translateZ(23.8px);
 	}
 
-	.left {
+	.left,
+	.left::before {
 		transform: rotateY(-90deg) translateZ(23.8px);
 	}
 
-	.top {
+	.top,
+	.top::before {
 		transform: rotateX(90deg) translateZ(23.8px);
 	}
 

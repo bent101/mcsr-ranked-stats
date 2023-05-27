@@ -50,7 +50,7 @@
 
 <div class="flex w-max items-start gap-2 px-4 py-2">
 	<PlayerHead3D {rotate} skinURL={getSkin(playerData.uuid)} />
-	<div>
+	<div class="pl-2">
 		<div class="flex items-center">
 			<h1 class="mr-2 text-xl font-bold text-zinc-300">
 				{#if playerData.elo_rank}
