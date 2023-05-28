@@ -1,5 +1,5 @@
 import { matchesPerPage } from "./globals";
-import type { Date, DetailedMatch } from "./ranked-api";
+import type { Date, DetailedMatch, RecordLeaderboard } from "./ranked-api";
 import { writable, type Writable } from "svelte/store";
 import { browser } from "$app/environment";
 
@@ -34,6 +34,10 @@ export const getSkin = (uuid: string) => {
 	return `https://crafatar.com/skins/${uuid}`;
 };
 
+export const getAvatar = (uuid: string, size = 16) => {
+	return `https://crafatar.com/avatars/${uuid}?overlay&size=${size}`;
+};
+
 export const getPlayerURL = (name: string) => {
 	return `${base}/users/${name}`;
 };
@@ -46,11 +50,16 @@ export const getDetailedMatchURL = (id: string) => {
 	return `${base}/matches/${id}`;
 };
 
+export const getBestTimesURL = (unique: boolean) => {
+	return `${base}/record-leaderboard${unique ? "?distinct" : ""}`;
+};
+
 export type Outcome = "won" | "lost" | "draw" | undefined;
 
 export type FormattedMatch = {
 	isDecay: boolean;
 	opponent: string | undefined;
+	opponentUUID: string | undefined;
 	outcome: Outcome;
 	forfeit: boolean;
 	time: string | undefined;
@@ -64,11 +73,14 @@ export const formatMatch = (match: DetailedMatch, playerName: string) => {
 	const { is_decay, winner, final_time, members, score_changes, forfeit, match_date, match_id } =
 		match;
 	let opponent = undefined;
+	let opponentUUID;
 	let time = undefined;
 	let outcome: Outcome = undefined;
 	const uuid = members.find((member) => member.nickname === playerName)?.uuid;
 	if (!is_decay) {
-		opponent = members.find((member) => member.nickname !== playerName)?.nickname;
+		const opponentInfo = members.find((member) => member.nickname !== playerName);
+		opponent = opponentInfo?.nickname;
+		opponentUUID = opponentInfo?.uuid;
 		outcome = "draw";
 		if (winner) outcome = winner === uuid ? "won" : "lost";
 		time = formatTime(final_time);
@@ -80,6 +92,7 @@ export const formatMatch = (match: DetailedMatch, playerName: string) => {
 	return {
 		isDecay: is_decay,
 		opponent,
+		opponentUUID,
 		outcome,
 		forfeit,
 		time,
@@ -296,4 +309,24 @@ export const formatDate = (date: Date) => {
 	if (hours) return `${hours} hour${hours > 1 ? "s" : ""} ago`;
 	if (minutes) return `${minutes} minute${minutes > 1 ? "s" : ""} ago`;
 	return `${seconds} second${seconds > 1 ? "s" : ""} ago`;
+};
+
+export const formatRecordLeaderboard = (lb: RecordLeaderboard) => {
+	return lb.map((entry) => ({
+		player: entry.user.nickname,
+		time: formatTime(entry.final_time),
+		date: formatDateShort(entry.match_date),
+		id: entry.match_id,
+	}));
+};
+
+export const sleep = async (ms: number) => {
+	await new Promise((resolve) => setTimeout(resolve, ms));
+};
+
+export const clamp = (num: number, lowerBound: number, upperBound: number) => {
+	if (lowerBound > upperBound) {
+		return (lowerBound + upperBound) / 2;
+	}
+	return Math.min(Math.max(num, lowerBound), upperBound);
 };
