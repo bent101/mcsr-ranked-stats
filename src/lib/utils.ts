@@ -330,3 +330,5 @@ export const clamp = (num: number, lowerBound: number, upperBound: number) => {
 	}
 	return Math.min(Math.max(num, lowerBound), upperBound);
 };
+
+export type Direction = "top" | "bottom" | "left" | "right";

@@ -6,9 +6,9 @@
 	import youtube from "$lib/assets/youtube.svg";
 	import twitch from "$lib/assets/twitch.svg";
 	import fire from "$lib/assets/fire.png";
-
-	import { Tooltip } from "@svelte-plugins/tooltips";
+	import info from "$lib/assets/info.png";
 	import PlayerHead3D from "../routes/[player]/PlayerHead3D.svelte";
+	import Tooltip from "./Tooltip.svelte";
 
 	export let playerData: DetailedPlayer;
 	export let rotate = false;
@@ -73,16 +73,22 @@
 					><img src={youtube} alt="Youtube logo" /></a>
 			{/if}
 			{#if playerData.connections.discord}
-				<Tooltip content={justCopiedDiscord ? "Copied!" : "Copy&nbsp;discord"} position="right">
-					<button class="h-8 w-8 p-1 opacity-20 hover:opacity-100" on:click={copyDiscord}
-						><img src={discord} alt="Discord logo" /></button>
+				<Tooltip>
+					<button
+						slot="anchor"
+						class="h-8 w-8 p-1 opacity-20 hover:opacity-100"
+						on:click={copyDiscord}><img src={discord} alt="Discord logo" /></button>
+					{justCopiedDiscord ? "Copied!" : "Copy Discord"}
 				</Tooltip>
 			{:else if playerData.elo_rank === null}
-				<Tooltip content={"Needs&nbsp;to&nbsp;link&nbsp;discord"} position="right">
+				<Tooltip>
 					<span
-						class="ml-2 rounded-full bg-zinc-700 px-3 py-1 text-sm font-semibold uppercase tracking-wide text-zinc-300">
+						slot="anchor"
+						class="ml-2 inline-flex items-center gap-2 rounded-full bg-zinc-700 py-0.5 pl-3 pr-1 text-sm font-semibold uppercase tracking-wide text-zinc-300">
 						Unverified
+						<img src={info} alt="" class="inline h-4 w-4 select-none opacity-70 invert" />
 					</span>
+					Needs to link Discord
 				</Tooltip>
 			{/if}
 		</div>

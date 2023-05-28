@@ -5,7 +5,13 @@ const scrollbar = require("tailwind-scrollbar");
 export default {
 	content: ["./src/**/*.{html,js,svelte,ts}"],
 	theme: {
-		extend: {},
+		extend: {
+			colors: {
+				zinc: {
+					925: "#121214",
+				},
+			},
+		},
 	},
 	plugins: [
 		hocus,
