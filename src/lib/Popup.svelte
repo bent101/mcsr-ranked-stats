@@ -14,8 +14,8 @@
 	];
 
 	/** in milliseconds */
-	export let delay: number = 300;
-	export let outDelay: number | undefined = 0;
+	export let inDelay: number = 300;
+	export let outDelay: number = 0;
 
 	/** in pixels, between the popup and anchor */
 	export let padding: number = 16;
@@ -41,18 +41,21 @@
 
 	let hovering = false;
 	let popupExists = false;
+	let popupSizerExists = false;
 
 	const onMouseEnter = async () => {
 		hovering = true;
-		await sleep(delay);
+		await sleep(inDelay);
 
 		if (!hovering) return;
 
 		if (load) {
+			console.log("started loading");
 			const entries = Object.entries(await load());
 			const promises = entries.map(([key, promise]) => promise.then((value) => [key, value]));
-
 			const resolvedEntries = await Promise.all(promises);
+			console.log("finished loading");
+
 			if (!hovering) return;
 
 			data = Object.fromEntries(resolvedEntries);
@@ -62,7 +65,11 @@
 		popupX = 0;
 		popupY = 0;
 
+		popupSizerExists = true;
+		await tick();
 		const popupBox = popupSizer.getBoundingClientRect();
+		popupSizerExists = false;
+
 		const anchorBox = anchorContainer.getBoundingClientRect();
 
 		// the following bit of code is for positioning the popup. It tries
@@ -113,7 +120,6 @@
 
 		/** higher is worse, 0 is perfect */
 		const scores = directionPreference.map((dir) => positionPopup(dir));
-		console.log(scores);
 
 		let minScore = Infinity;
 		for (let i = 0; i < scores.length; i++) {
@@ -156,9 +162,7 @@
 	class="inline-block"
 	bind:this={anchorContainer}
 	on:mouseenter={onMouseEnter}
-	on:mouseleave={onMouseLeave}
-	on:focus={onMouseEnter}
-	on:blur={onMouseLeave}>
+	on:mouseleave={onMouseLeave}>
 	<slot name="anchor" />
 </span>
 
@@ -170,11 +174,12 @@
 	{#if popupExists && (!load || data)}
 		<div
 			style="transform-origin: {transformOrigin};"
-			in:scale={{ start: 0.8, duration: transitionDuration, delay: delay, easing: backOut }}
+			class="w-max"
+			in:scale={{ start: 0.8, duration: transitionDuration, delay: inDelay, easing: backOut }}
 			out:scale={{
 				start: 0.8,
 				duration: transitionDuration,
-				delay: outDelay ?? delay,
+				delay: outDelay,
 				easing: backOut,
 			}}>
 			<slot {data} />
@@ -182,8 +187,8 @@
 	{/if}
 </div>
 
-<div bind:this={popupSizer} class="invisible absolute">
-	{#if !load || data}
+<div bind:this={popupSizer} class="invisible fixed">
+	{#if popupSizerExists}
 		<slot {data} />
 	{/if}
 </div>

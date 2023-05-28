@@ -5,7 +5,7 @@
 	export let directionPreference: Direction[] = ["right", "top", "bottom", "left"];
 </script>
 
-<Popup delay={0} padding={4} {directionPreference}>
+<Popup inDelay={0} padding={4} {directionPreference}>
 	<div slot="anchor">
 		<slot name="anchor" />
 	</div>
