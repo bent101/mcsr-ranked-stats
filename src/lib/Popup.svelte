@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { backOut } from "svelte/easing";
 	import { afterNavigate } from "$app/navigation";
-	import { clamp, sleep } from "./utils";
-	import { onMount, tick } from "svelte";
+	import { clamp, sleep, type Direction } from "./utils";
+	import { onDestroy, onMount, tick } from "svelte";
 	import { scale } from "svelte/transition";
+	import { browser } from "$app/environment";
 
-	type Direction = "top" | "bottom" | "left" | "right";
 	export let directionPreference: Direction[] = ["top", "right", "bottom", "left"];
 	let directionIndex = 0;
 
@@ -15,6 +15,7 @@
 
 	/** in milliseconds */
 	export let delay: number = 300;
+	export let outDelay: number | undefined = 0;
 
 	/** in pixels, between the popup and anchor */
 	export let padding: number = 16;
@@ -137,7 +138,15 @@
 	afterNavigate(onMouseLeave);
 
 	onMount(() => {
-		document.body.appendChild(popupContainer);
+		if (browser) {
+			document.body.appendChild(popupContainer);
+		}
+	});
+
+	onDestroy(() => {
+		if (browser) {
+			document.body.removeChild(popupContainer);
+		}
 	});
 </script>
 
@@ -161,7 +170,13 @@
 	{#if popupExists && (!load || data)}
 		<div
 			style="transform-origin: {transformOrigin};"
-			transition:scale={{ start: 0.8, duration: transitionDuration, easing: backOut }}>
+			in:scale={{ start: 0.8, duration: transitionDuration, delay: delay, easing: backOut }}
+			out:scale={{
+				start: 0.8,
+				duration: transitionDuration,
+				delay: outDelay ?? delay,
+				easing: backOut,
+			}}>
 			<slot {data} />
 		</div>
 	{/if}
