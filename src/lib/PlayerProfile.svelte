@@ -48,11 +48,11 @@
 	$: rank = getRank(playerData.elo_rate);
 </script>
 
-<div class="flex w-max items-start gap-2 px-4 py-2">
+<div class="flex w-max items-center gap-2 px-4 py-2">
 	<PlayerHead3D {rotate} skinURL={getSkin(playerData.uuid)} />
 	<div class="pl-2">
 		<div class="flex items-center">
-			<h1 class="mr-2 text-xl font-bold text-zinc-300">
+			<h1 class="mr-2 text-xl font-bold leading-9 text-zinc-300">
 				{#if playerData.elo_rank}
 					<span class="mr-2 font-extrabold text-zinc-600">#{playerData.elo_rank}</span>
 				{/if}{playerData.nickname}
@@ -92,38 +92,37 @@
 				</Tooltip>
 			{/if}
 		</div>
-		<div class="leading- text-zinc-500">
+		<div class="text-zinc-500">
 			{#if playerData.elo_rate === -1}
-				Doing placements
+				<b>Doing placements</b>
 			{:else}
 				<b class="bg-gradient-to-r bg-clip-text font-extrabold text-transparent {rank.color}"
 					>{rank.name}</b>
 				(<span class="bg-gradient-to-r bg-clip-text font-extrabold text-transparent {rank.color}"
-					>{playerData.elo_rate}</span> elo)
-			{/if}
-			{#if playerData.best_elo_rate > playerData.elo_rate}
-				<span class="font-extrabold text-zinc-600">•</span>
-				<b>{playerData.best_elo_rate}</b> peak elo
-			{:else}
-				<span
-					class="ml-2 inline-block -translate-y-0.5 rounded-full bg-gradient-to-r from-red-700 to-orange-500 py-px pl-1 pr-2 text-xs font-semibold tracking-wide text-white">
-					<img class="inline w-4" src={fire} alt="" />
-					<span class="inline-block translate-y-px">PEAK ELO</span>
-				</span>
+					>{playerData.elo_rate}</span>
+				elo)
+				{#if playerData.best_elo_rate > playerData.elo_rate}
+					<span class="inline-block h-[24.5px] font-extrabold text-zinc-600">•</span>
+					<b>{playerData.best_elo_rate}</b> peak elo
+				{:else}
+					<span
+						class="ml-2 inline-block -translate-y-0.5 rounded-full bg-gradient-to-r from-red-700 to-orange-500 py-px pl-1 pr-2 text-xs font-semibold tracking-wide text-white">
+						<img class="inline w-4" src={fire} alt="" />
+						<span class="inline-block translate-y-px">PEAK ELO</span>
+					</span>
+				{/if}
 			{/if}
 		</div>
 		<div class="text-zinc-500">
 			{#if winrate !== -1 && !isNaN(winrate)}
 				<b>{winrate}</b>% winrate
+				<span class="font-extrabold text-zinc-600">•</span>
 			{/if}
 			{#if playerData.best_record_time !== 0}
-				<span class="font-extrabold text-zinc-600">•</span>
 				<b>{formatTime(playerData.best_record_time)}</b> ranked pb
-			{/if}
-			{#if playerData.highest_winstreak > 1}
 				<span class="font-extrabold text-zinc-600">•</span>
-				<b>{playerData.highest_winstreak}</b> best winstreak
 			{/if}
+			<b>{playerData.highest_winstreak}</b> best winstreak
 		</div>
 	</div>
 </div>
