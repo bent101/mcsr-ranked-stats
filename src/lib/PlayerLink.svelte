@@ -26,7 +26,9 @@
 		class="relative hover:underline hover:underline-offset-4">
 		{name}
 	</a>
-	<a href="/{name}" class="block rounded-3xl bg-black p-2 shadow-lg shadow-black/30">
+	<a
+		href="/{name}"
+		class="block overflow-clip rounded-3xl bg-zinc-800 p-2 shadow-lg shadow-black/30">
 		<PlayerProfile playerData={data.playerData} />
 	</a>
 </Popup>

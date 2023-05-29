@@ -209,6 +209,7 @@ export const formatDetailedMatch = (match: DetailedMatch, curPlayerName: string)
 			["story.enter_the_nether", "nether enter"],
 			["nether.find_bastion", "bastion"],
 			["nether.find_fortress", "fortress"],
+			["nether.obtain_blaze_rod", "first rod"],
 			["projectelo.timeline.blind_travel", "blind"],
 			["story.follow_ender_eye", "stronghold"],
 			["story.enter_the_end", "end enter"],

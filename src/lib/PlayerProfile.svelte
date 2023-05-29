@@ -7,6 +7,10 @@
 	import twitch from "$lib/assets/twitch.svg";
 	import fire from "$lib/assets/fire.png";
 	import info from "$lib/assets/info.png";
+	import stone from "$lib/assets/stone.webp";
+	import iron from "$lib/assets/iron.webp";
+	import diamond from "$lib/assets/diamond.webp";
+
 	import PlayerHead3D from "../routes/[player]/PlayerHead3D.svelte";
 	import Tooltip from "./Tooltip.svelte";
 
@@ -20,7 +24,7 @@
 		justCopiedDiscord = true;
 		setTimeout(() => {
 			justCopiedDiscord = false;
-		}, 1200);
+		}, 2000);
 	};
 
 	$: numMatches =
@@ -53,22 +57,46 @@
 		<PlayerHead3D {rotate} skinURL={getSkin(playerData.uuid)} />
 	</div>
 	<div class="pl-2">
-		<div class="flex items-center">
-			<h1 class="mr-2 text-xl font-bold text-zinc-300">
+		<div class="flex h-8 items-center">
+			<h1 class="mr-2 text-xl font-bold text-white/80">
 				{#if playerData.elo_rank}
-					<span class="mr-2 font-extrabold text-zinc-600">#{playerData.elo_rank}</span>
+					<span class="mr-2 font-extrabold text-white/30">#{playerData.elo_rank}</span>
 				{/if}{playerData.nickname}
 			</h1>
+			{#if playerData.badge}
+				<Tooltip directionPreference={["top", "bottom", "right", "left"]}>
+					<a
+						slot="anchor"
+						href="https://www.patreon.com/mcsrranked"
+						rel="noreferrer"
+						class="relative"
+						target="_blank">
+						<div
+							class="glow-{playerData.badge} pointer-events-none absolute -inset-12 bg-gradient-radial" />
+						<div
+							class="glow-{playerData.badge} pointer-events-none absolute -inset-80 bg-gradient-radial opacity-50" />
+						<img
+							class="h-full w-8"
+							style="image-rendering: pixelated;"
+							src={[stone, iron, diamond][playerData.badge - 1]}
+							alt="" />
+					</a>
+					<div>
+						Tier {playerData.badge} patreon :D
+					</div>
+					<div class="text-xs text-zinc-600">Click to learn more</div>
+				</Tooltip>
+			{/if}
 			{#if playerData.connections.twitch}
 				<a
-					class="h-8 w-8 p-1 opacity-20 hover:opacity-100"
+					class="h-full w-8 p-1 opacity-20 hover:opacity-100"
 					href="https://twitch.tv/{playerData.connections.twitch.name}"
 					rel="noreferrer"
 					target="_blank"><img src={twitch} alt="Twitch logo" /></a>
 			{/if}
 			{#if playerData.connections.youtube}
 				<a
-					class="h-8 w-8 p-1 opacity-20 hover:opacity-100"
+					class="h-full w-8 p-1 opacity-20 hover:opacity-100"
 					rel="noreferrer"
 					target="_blank"
 					href="https://youtube.com/channel/{playerData.connections.youtube.id}"
@@ -78,7 +106,7 @@
 				<Tooltip>
 					<button
 						slot="anchor"
-						class="h-8 w-8 p-1 opacity-20 hover:opacity-100"
+						class="h-full w-8 p-1 opacity-20 hover:opacity-100"
 						on:click|preventDefault={copyDiscord}><img src={discord} alt="Discord logo" /></button>
 					{justCopiedDiscord ? "Copied!" : "Copy Discord"}
 				</Tooltip>
@@ -86,7 +114,7 @@
 				<Tooltip>
 					<span
 						slot="anchor"
-						class="ml-2 inline-flex items-center gap-2 rounded-full bg-zinc-700 py-0.5 pl-3 pr-1 text-sm font-semibold uppercase tracking-wide text-zinc-300">
+						class="ml-2 inline-flex items-center gap-2 rounded-full bg-zinc-700 py-0.5 pl-3 pr-1 text-sm font-semibold uppercase tracking-wide text-white/90">
 						Unverified
 						<img src={info} alt="" class="inline h-4 w-4 select-none opacity-30 invert" />
 					</span>
@@ -94,7 +122,7 @@
 				</Tooltip>
 			{/if}
 		</div>
-		<div class="text-zinc-500">
+		<div class="text-white/60">
 			{#if playerData.elo_rate === -1}
 				<b>Doing placements</b>
 			{:else}
@@ -104,7 +132,7 @@
 					>{playerData.elo_rate}</span>
 				elo)
 				{#if playerData.best_elo_rate > playerData.elo_rate}
-					<span class="inline-block h-[24.5px] font-extrabold text-zinc-600">•</span>
+					<span class="inline-block h-[24.5px] font-extrabold text-white/30">•</span>
 					<b>{playerData.best_elo_rate}</b> peak elo
 				{:else}
 					<span
@@ -115,14 +143,14 @@
 				{/if}
 			{/if}
 		</div>
-		<div class="text-zinc-500">
+		<div class="text-white/60">
 			{#if winrate !== -1 && !isNaN(winrate)}
 				<b>{winrate}</b>% winrate
-				<span class="font-extrabold text-zinc-600">•</span>
+				<span class="font-extrabold text-white/30">•</span>
 			{/if}
 			{#if playerData.best_record_time !== 0}
 				<b>{formatTime(playerData.best_record_time)}</b> ranked pb
-				<span class="font-extrabold text-zinc-600">•</span>
+				<span class="font-extrabold text-white/30">•</span>
 			{/if}
 			<b>{playerData.highest_winstreak}</b> best winstreak
 		</div>
@@ -132,5 +160,15 @@
 <style lang="postcss">
 	b {
 		@apply font-bold;
+	}
+
+	.glow-1 {
+		@apply from-white/10 via-transparent to-transparent;
+	}
+	.glow-2 {
+		@apply from-sky-200/20 via-transparent to-transparent;
+	}
+	.glow-3 {
+		@apply from-sky-500/20 via-transparent to-transparent;
 	}
 </style>
