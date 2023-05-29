@@ -78,8 +78,7 @@
 							: "text-zinc-400"}
 						<li class="relative">
 							{#if isDecay}
-								<div
-									class="group flex items-center gap-2 rounded-lg px-4 py-1.5 hocus-within:bg-zinc-800">
+								<div class="group flex items-center gap-2 rounded-lg px-4 py-1.5 hover:bg-zinc-800">
 									<div class="w-40 italic text-zinc-500">Elo decay</div>
 									<div class="w-20 text-center text-sm font-bold uppercase text-red-400">
 										{eloChange >= 0 ? "+" : ""}{eloChange} elo
@@ -94,14 +93,14 @@
 									href="/{data.playerData.nickname}/{id}"
 									class="group flex items-center gap-2 rounded-lg border px-4 py-1.5 text-left {selected
 										? 'border-zinc-500 bg-zinc-800'
-										: 'border-transparent hocus-within:bg-zinc-800'}">
+										: 'border-transparent hover:bg-zinc-800'}">
 									<div class="w-40 {selected ? 'text-zinc-50' : 'text-zinc-300'}">
 										<PlayerLink name={opponent} uuid={opponentUUID} />
 									</div>
 									<div class="w-20 text-center uppercase {color} text-sm font-bold">
-										<span class="{selected ? ' hidden' : 'inline group-hocus-within:hidden'} "
+										<span class="{selected ? ' hidden' : 'inline group-hover:hidden'} "
 											>{outcome}</span>
-										<span class={selected ? " inline" : "hidden group-hocus-within:inline"}
+										<span class={selected ? " inline" : "hidden group-hover:inline"}
 											>{eloChange >= 0 ? "+" : ""}{eloChange} elo</span>
 									</div>
 									<div
