@@ -6,6 +6,9 @@
 	import { scale } from "svelte/transition";
 	import { browser } from "$app/environment";
 
+	/** should the popup stay visible when you hover over it? */
+	export let hoverable = false;
+
 	/** optional function that loads data for the popup */
 	export let load: (() => Promise<object>) | undefined = undefined;
 
@@ -25,6 +28,9 @@
 
 	/** in pixels, between the popup and the window edge */
 	const windowPadding = 4;
+
+	/** in milliseconds; the grace period to switch mouse between anchor and popup */
+	const outDelay = 150;
 
 	let data: any;
 
@@ -137,8 +143,24 @@
 	};
 
 	const onMouseLeaveAnchor = async () => {
-		popupExists = false;
 		hovering = false;
+
+		await sleep(outDelay);
+
+		if (!hovering) {
+			popupExists = false;
+		}
+	};
+
+	const onMouseEnterPopup = () => {
+		if (hoverable && popupExists) {
+			hovering = true;
+		}
+	};
+
+	const onMouseLeavePopup = async () => {
+		hovering = false;
+		popupExists = false;
 	};
 
 	afterNavigate(() => {
@@ -171,9 +193,13 @@
 
 <div
 	bind:this={popupContainer}
+	on:mouseenter={onMouseEnterPopup}
+	on:mouseleave={onMouseLeavePopup}
+	class={hoverable ? "" : "pointer-events-none"}
 	style="position: fixed; z-index: 999;
     top: {popupY}px; 
-    left: {popupX}px">
+    left: {popupX}px;
+	">
 	{#if popupExists && (!load || data)}
 		<div
 			style="transform-origin: {transformOrigin};"

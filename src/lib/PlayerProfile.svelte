@@ -77,7 +77,7 @@
 					<button
 						slot="anchor"
 						class="h-8 w-8 p-1 opacity-20 hover:opacity-100"
-						on:click={copyDiscord}><img src={discord} alt="Discord logo" /></button>
+						on:click|preventDefault={copyDiscord}><img src={discord} alt="Discord logo" /></button>
 					{justCopiedDiscord ? "Copied!" : "Copy Discord"}
 				</Tooltip>
 			{:else if playerData.elo_rank === null}

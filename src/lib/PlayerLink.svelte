@@ -17,7 +17,7 @@
 	};
 </script>
 
-<Popup {load} let:data>
+<Popup hoverable {load} let:data>
 	<a
 		slot="anchor"
 		data-sveltekit-replacestate="off"
@@ -26,7 +26,7 @@
 		class="relative hover:underline hover:underline-offset-4">
 		{name}
 	</a>
-	<div class="rounded-3xl bg-zinc-925 p-2 shadow-lg shadow-black/30">
+	<a href="/{name}" class="block rounded-3xl bg-zinc-925 p-2 shadow-lg shadow-black/30">
 		<PlayerProfile playerData={data.playerData} />
-	</div>
+	</a>
 </Popup>
