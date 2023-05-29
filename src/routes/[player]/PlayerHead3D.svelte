@@ -67,13 +67,6 @@
 		image-rendering: pixelated;
 	}
 
-	/* .inner::before {
-		content: "";
-		position: absolute;
-		inset: 0;
-		background-color: black;
-	} */
-
 	.outer {
 		scale: 1.125 1.125 1.125;
 	}

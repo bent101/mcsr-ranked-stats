@@ -49,10 +49,12 @@
 </script>
 
 <div class="flex w-max items-center gap-2 px-4 py-2">
-	<PlayerHead3D {rotate} skinURL={getSkin(playerData.uuid)} />
+	<div class="pb-2">
+		<PlayerHead3D {rotate} skinURL={getSkin(playerData.uuid)} />
+	</div>
 	<div class="pl-2">
 		<div class="flex items-center">
-			<h1 class="mr-2 text-xl font-bold leading-9 text-zinc-300">
+			<h1 class="mr-2 text-xl font-bold text-zinc-300">
 				{#if playerData.elo_rank}
 					<span class="mr-2 font-extrabold text-zinc-600">#{playerData.elo_rank}</span>
 				{/if}{playerData.nickname}

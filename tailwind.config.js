@@ -11,6 +11,9 @@ export default {
 					925: "#121214",
 				},
 			},
+			backgroundImage: {
+				"gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+			},
 		},
 	},
 	plugins: [
