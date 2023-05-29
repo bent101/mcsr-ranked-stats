@@ -165,7 +165,7 @@
 		<SidebarTab href={"/vs"} selected={$compareSelected}>
 			<div class="flex items-center pr-8">
 				<div
-					class="w-20 select-none text-center text-xs font-extrabold leading-3 text-white {$compareSelected
+					class="w-20 select-none text-center font-mono text-xs font-extrabold leading-3 text-white {$compareSelected
 						? 'opacity-80'
 						: 'opacity-30'}">
 					VS

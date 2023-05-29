@@ -86,7 +86,7 @@
 						slot="anchor"
 						class="ml-2 inline-flex items-center gap-2 rounded-full bg-zinc-700 py-0.5 pl-3 pr-1 text-sm font-semibold uppercase tracking-wide text-zinc-300">
 						Unverified
-						<img src={info} alt="" class="inline h-4 w-4 select-none opacity-70 invert" />
+						<img src={info} alt="" class="inline h-4 w-4 select-none opacity-30 invert" />
 					</span>
 					Needs to link Discord
 				</Tooltip>

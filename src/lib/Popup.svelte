@@ -6,24 +6,25 @@
 	import { scale } from "svelte/transition";
 	import { browser } from "$app/environment";
 
+	/** optional function that loads data for the popup */
+	export let load: (() => Promise<object>) | undefined = undefined;
+
 	export let directionPreference: Direction[] = ["top", "right", "bottom", "left"];
+
+	/** in milliseconds */
+	export let delay: number = 300;
+
+	/** in pixels, between the popup and anchor */
+	export let padding: number = 16;
+
 	let directionIndex = 0;
 
 	$: transformOrigin = { top: "bottom", bottom: "top", left: "right", right: "left" }[
 		directionPreference[directionIndex]
 	];
 
-	/** in milliseconds */
-	export let inDelay: number = 300;
-	export let outDelay: number = 0;
-
-	/** in pixels, between the popup and anchor */
-	export let padding: number = 16;
-
 	/** in pixels, between the popup and the window edge */
 	const windowPadding = 4;
-
-	export let load: (() => Promise<object>) | undefined = undefined;
 
 	let data: any;
 
@@ -43,28 +44,7 @@
 	let popupExists = false;
 	let popupSizerExists = false;
 
-	const onMouseEnter = async () => {
-		hovering = true;
-		await sleep(inDelay);
-
-		if (!hovering) return;
-
-		if (load) {
-			console.log("started loading");
-			const entries = Object.entries(await load());
-			const promises = entries.map(([key, promise]) => promise.then((value) => [key, value]));
-			const resolvedEntries = await Promise.all(promises);
-			console.log("finished loading");
-
-			if (!hovering) return;
-
-			data = Object.fromEntries(resolvedEntries);
-			await tick();
-		}
-
-		popupX = 0;
-		popupY = 0;
-
+	const positionPopup = async () => {
 		popupSizerExists = true;
 		await tick();
 		const popupBox = popupSizer.getBoundingClientRect();
@@ -80,7 +60,7 @@
 		/**
 		 * @returns the score of the positioning; 0 is perfect, higher is worse
 		 */
-		const positionPopup = (direction: Direction) => {
+		const tryPopupPosition = (direction: Direction) => {
 			const minX = windowPadding;
 			const minY = windowPadding;
 			const maxX = screenWidth - popupBox.width - windowPadding;
@@ -119,7 +99,7 @@
 		};
 
 		/** higher is worse, 0 is perfect */
-		const scores = directionPreference.map((dir) => positionPopup(dir));
+		const scores = directionPreference.map((dir) => tryPopupPosition(dir));
 
 		let minScore = Infinity;
 		for (let i = 0; i < scores.length; i++) {
@@ -129,19 +109,42 @@
 			}
 		}
 
-		positionPopup(directionPreference[directionIndex]);
+		tryPopupPosition(directionPreference[directionIndex]);
+	};
+
+	const onMouseEnterAnchor = async () => {
+		hovering = true;
+		await sleep(delay);
+
+		if (!hovering) return;
+
+		if (load) {
+			const entries = Object.entries(await load());
+			const promises = entries.map(([key, promise]) => promise.then((value) => [key, value]));
+			const resolvedEntries = await Promise.all(promises);
+
+			if (!hovering) return;
+
+			data = Object.fromEntries(resolvedEntries);
+			await tick();
+		}
+
+		await positionPopup();
 
 		await tick();
 
 		popupExists = true;
 	};
 
-	const onMouseLeave = async () => {
+	const onMouseLeaveAnchor = async () => {
 		popupExists = false;
 		hovering = false;
 	};
 
-	afterNavigate(onMouseLeave);
+	afterNavigate(() => {
+		popupExists = false;
+		hovering = false;
+	});
 
 	onMount(() => {
 		if (browser) {
@@ -161,8 +164,8 @@
 <span
 	class="inline-block"
 	bind:this={anchorContainer}
-	on:mouseenter={onMouseEnter}
-	on:mouseleave={onMouseLeave}>
+	on:mouseenter={onMouseEnterAnchor}
+	on:mouseleave={onMouseLeaveAnchor}>
 	<slot name="anchor" />
 </span>
 
@@ -175,11 +178,10 @@
 		<div
 			style="transform-origin: {transformOrigin};"
 			class="w-max"
-			in:scale={{ start: 0.8, duration: transitionDuration, delay: inDelay, easing: backOut }}
+			in:scale={{ start: 0.8, duration: transitionDuration, delay: delay, easing: backOut }}
 			out:scale={{
 				start: 0.8,
 				duration: transitionDuration,
-				delay: outDelay,
 				easing: backOut,
 			}}>
 			<slot {data} />
