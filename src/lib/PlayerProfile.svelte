@@ -11,7 +11,7 @@
 	import iron from "$lib/assets/iron.webp";
 	import diamond from "$lib/assets/diamond.webp";
 
-	import PlayerHead3D from "../routes/[player]/PlayerHead3D.svelte";
+	import PlayerHead3D from "$lib/PlayerHead3D.svelte";
 	import Tooltip from "./Tooltip.svelte";
 
 	export let playerData: DetailedPlayer;

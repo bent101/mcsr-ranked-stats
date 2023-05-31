@@ -62,7 +62,7 @@
 		<div class="sticky top-0 z-10 w-full bg-zinc-900/70 backdrop-blur-md">
 			<PlayerProfile playerData={data.playerData} />
 		</div>
-		<div class="m-4 flex w-max flex-col items-center p-4">
+		<div class="m-4 flex w-[] flex-col items-center p-4">
 			<h2
 				class="mx-4 mb-2 mt-8 w-full border-b-2 border-zinc-800 px-4 pb-2 text-sm font-bold uppercase text-zinc-400">
 				Matches <span
