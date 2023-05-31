@@ -58,33 +58,34 @@
 </svelte:head>
 
 <div class="flex">
-	<div class="flex flex-col">
-		<div class="sticky top-0 z-10 w-full bg-zinc-900/70 backdrop-blur-md">
+	<div>
+		<div class="hidden h-8 xl:block" />
+		<div class="sticky top-0 z-10 w-[32rem] bg-zinc-900/70 backdrop-blur-md">
 			<PlayerProfile playerData={data.playerData} />
 		</div>
-		<div class="m-4 flex w-[] flex-col items-center p-4">
+		<div class="m-4 p-4">
 			<h2
-				class="mx-4 mb-2 mt-8 w-full border-b-2 border-zinc-800 px-4 pb-2 text-sm font-bold uppercase text-zinc-400">
+				class="mb-2 mt-4 border-b-2 border-zinc-800 pb-1 pl-4 text-sm font-bold uppercase text-zinc-400">
 				Matches <span
 					class="ml-2 rounded-full bg-zinc-400 px-2 py-0.5 text-xs font-extrabold text-zinc-900"
 					>{numMatches}</span>
 			</h2>
 			{#if data.matches && data.matches.length > 0}
-				<ol class="relative pb-16">
+				<ol class="pb-16">
 					{#each data.matches as { isDecay, opponent, opponentUUID, outcome, forfeit, time, eloChange, date, id }}
 						{@const selected = $page.url.pathname === `/${data.playerData.nickname}/${id}`}
 						{@const color = outcome
 							? { won: "text-green-400", lost: "text-red-400", draw: "text-blue-400" }[outcome]
 							: "text-zinc-400"}
-						<li class="relative">
+						<li>
 							{#if isDecay}
 								<div class="group flex items-center gap-2 rounded-lg px-4 py-1.5 hover:bg-zinc-800">
-									<div class="w-40 italic text-zinc-500">Elo decay</div>
-									<div class="w-20 text-center text-sm font-bold uppercase text-red-400">
+									<div class="flex-1 italic text-zinc-500">Elo decay</div>
+									<div class="w-28 text-center text-sm font-bold uppercase text-red-400">
 										{eloChange >= 0 ? "+" : ""}{eloChange} elo
 									</div>
 									<div class="w-20" />
-									<div class=" w-12 text-right text-zinc-600">{date}</div>
+									<div class="w-10 text-right text-zinc-600">{date}</div>
 								</div>
 							{:else}
 								<a
@@ -94,10 +95,10 @@
 									class="group flex items-center gap-2 rounded-lg border px-4 py-1.5 text-left {selected
 										? 'border-zinc-500 bg-zinc-800'
 										: 'border-transparent hover:bg-zinc-800'}">
-									<div class="w-40 {selected ? 'text-zinc-50' : 'text-zinc-300'}">
+									<div class="flex-1 text-zinc-300">
 										<PlayerLink name={opponent} uuid={opponentUUID} />
 									</div>
-									<div class="w-20 text-center uppercase {color} text-sm font-bold">
+									<div class="w-28 text-center uppercase {color} text-sm font-bold">
 										<span class="{selected ? ' hidden' : 'inline group-hover:hidden'} "
 											>{outcome}</span>
 										<span class={selected ? " inline" : "hidden group-hover:inline"}
@@ -115,7 +116,7 @@
 											: 'text-zinc-600'} ">
 										{outcome === "draw" ? "" : forfeit ? "Forfeit" : time}
 									</div>
-									<div class="w-12 text-right {selected ? 'text-zinc-50' : 'text-zinc-600'}">
+									<div class="w-10 text-right {selected ? 'text-zinc-300' : 'text-zinc-600'}">
 										{date}
 									</div>
 								</a>
@@ -127,7 +128,7 @@
 					{data.noMoreMatches ? "No more matches" : "Loading..."}
 				</div>
 			{:else}
-				<div class="w-[26.625rem] text-center text-zinc-600">No matches yet this season</div>
+				<div class="text-center text-zinc-600">No matches yet this season</div>
 			{/if}
 		</div>
 	</div>
