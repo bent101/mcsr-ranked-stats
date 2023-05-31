@@ -69,7 +69,7 @@
 						slot="anchor"
 						href="https://www.patreon.com/mcsrranked"
 						rel="noreferrer"
-						class="relative"
+						class="relative right-2"
 						target="_blank">
 						<div
 							class="glow-{playerData.badge} pointer-events-none absolute -inset-12 bg-gradient-radial" />

@@ -145,7 +145,7 @@
 	const onMouseLeaveAnchor = async () => {
 		hovering = false;
 
-		await sleep(outDelay);
+		if (hoverable) await sleep(outDelay);
 
 		if (!hovering) {
 			popupExists = false;
