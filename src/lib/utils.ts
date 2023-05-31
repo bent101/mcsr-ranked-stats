@@ -58,9 +58,11 @@ export type Outcome = "won" | "lost" | "draw" | undefined;
 
 export type FormattedMatch = {
 	isDecay: boolean;
-	opponent: string | undefined;
+	curPlayerName: string | undefined;
+	opponentName: string | undefined;
 	opponentUUID: string | undefined;
 	outcome: Outcome;
+	outcomeColor: string;
 	forfeit: boolean;
 	time: string | undefined;
 	eloChange: number;
@@ -69,17 +71,18 @@ export type FormattedMatch = {
 	id: number;
 };
 
-export const formatMatch = (match: DetailedMatch, playerName: string) => {
+export const formatMatch = (match: DetailedMatch, curPlayerName: string): FormattedMatch => {
 	const { is_decay, winner, final_time, members, score_changes, forfeit, match_date, match_id } =
 		match;
-	let opponent = undefined;
+	let opponentName = undefined;
 	let opponentUUID;
 	let time = undefined;
 	let outcome: Outcome = undefined;
-	const uuid = members.find((member) => member.nickname === playerName)?.uuid;
+
+	const uuid = members.find((member) => member.nickname === curPlayerName)?.uuid;
 	if (!is_decay) {
-		const opponentInfo = members.find((member) => member.nickname !== playerName);
-		opponent = opponentInfo?.nickname;
+		const opponentInfo = members.find((member) => member.nickname !== curPlayerName);
+		opponentName = opponentInfo?.nickname;
 		opponentUUID = opponentInfo?.uuid;
 		outcome = "draw";
 		if (winner) outcome = winner === uuid ? "won" : "lost";
@@ -89,18 +92,36 @@ export const formatMatch = (match: DetailedMatch, playerName: string) => {
 	const scoreChange = score_changes?.find((member) => member.uuid === uuid);
 	const eloChange = scoreChange?.change ?? 0;
 	const eloBefore = scoreChange?.score;
+
+	const getOutcomeColor = (outcome: Outcome) => {
+		switch (outcome) {
+			case "won":
+				return "text-green-400";
+			case "lost":
+				return "text-red-400";
+			case "draw":
+				return "text-blue-400";
+			default:
+				return "text-zinc-400";
+		}
+	};
+
+	const outcomeColor = getOutcomeColor(outcome);
+
 	return {
 		isDecay: is_decay,
-		opponent,
+		curPlayerName,
+		opponentName,
 		opponentUUID,
 		outcome,
+		outcomeColor,
 		forfeit,
 		time,
 		eloChange,
 		eloBefore: eloBefore,
 		date: formatDateShort(match_date),
 		id: match_id,
-	} as FormattedMatch;
+	};
 };
 
 export const formatMatches = (matches: DetailedMatch[], curPlayerName: string) => {

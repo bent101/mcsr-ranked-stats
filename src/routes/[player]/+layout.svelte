@@ -2,12 +2,10 @@
 	import { formatMatches, getLeaderboardURL, getMatchesURL } from "$lib/utils.js";
 	import { afterNavigate, invalidate } from "$app/navigation";
 	import { onMount } from "svelte";
-	import { page } from "$app/stores";
 	import PlayerProfile from "$lib/PlayerProfile.svelte";
-	import type { AfterNavigate } from "@sveltejs/kit";
 	import { matchesPerPage } from "$lib/globals";
 	import Graph from "./Graph.svelte";
-	import PlayerLink from "$lib/PlayerLink.svelte";
+	import MatchesTableRow from "$lib/MatchesTableRow.svelte";
 
 	export let data;
 	let infiniteScrollPadding: HTMLElement | undefined;
@@ -39,7 +37,7 @@
 		data.playerData.records[2].lose +
 		data.playerData.records[2].draw;
 
-	afterNavigate((navigation: AfterNavigate) => {
+	afterNavigate(() => {
 		const curPlayerOnLb = data.lb.users.find((user) => user.nickname === data.playerData.nickname);
 
 		if (curPlayerOnLb) {
@@ -72,55 +70,9 @@
 			</h2>
 			{#if data.matches && data.matches.length > 0}
 				<ol class="pb-16">
-					{#each data.matches as { isDecay, opponent, opponentUUID, outcome, forfeit, time, eloChange, date, id }}
-						{@const selected = $page.url.pathname === `/${data.playerData.nickname}/${id}`}
-						{@const color = outcome
-							? { won: "text-green-400", lost: "text-red-400", draw: "text-blue-400" }[outcome]
-							: "text-zinc-400"}
+					{#each data.matches as match}
 						<li>
-							{#if isDecay}
-								<div class="group flex items-center gap-2 rounded-lg px-4 py-1.5 hover:bg-zinc-800">
-									<div class="flex-1 italic text-zinc-500">Elo decay</div>
-									<div class="w-28 text-center text-sm font-bold uppercase text-red-400">
-										{eloChange >= 0 ? "+" : ""}{eloChange} elo
-									</div>
-									<div class="w-20" />
-									<div class="w-10 text-right text-zinc-600">{date}</div>
-								</div>
-							{:else}
-								<a
-									data-sveltekit-replacestate
-									data-sveltekit-noscroll
-									href="/{data.playerData.nickname}/{id}"
-									class="group flex items-center gap-2 rounded-lg border px-4 py-1.5 text-left {selected
-										? 'border-zinc-500 bg-zinc-800'
-										: 'border-transparent hover:bg-zinc-800'}">
-									<div class="flex-1 text-zinc-300">
-										<PlayerLink name={opponent} uuid={opponentUUID} />
-									</div>
-									<div class="w-28 text-center uppercase {color} text-sm font-bold">
-										<span class="{selected ? ' hidden' : 'inline group-hover:hidden'} "
-											>{outcome}</span>
-										<span class={selected ? " inline" : "hidden group-hover:inline"}
-											>{eloChange >= 0 ? "+" : ""}{eloChange} elo</span>
-									</div>
-									<div
-										class="w-20 text-center font-extrabold tracking-wider {forfeit
-											? `text-xs font-semibold uppercase tracking-normal ${
-													selected ? 'text-zinc-300' : 'text-zinc-600'
-											  }`
-											: ''} {selected
-											? 'text-zinc-300'
-											: outcome === 'won'
-											? 'text-zinc-400'
-											: 'text-zinc-600'} ">
-										{outcome === "draw" ? "" : forfeit ? "Forfeit" : time}
-									</div>
-									<div class="w-10 text-right {selected ? 'text-zinc-300' : 'text-zinc-600'}">
-										{date}
-									</div>
-								</a>
-							{/if}
+							<MatchesTableRow {match} />
 						</li>
 					{/each}
 				</ol>
