@@ -3,11 +3,16 @@
 	import { afterNavigate, invalidate } from "$app/navigation";
 	import { onMount } from "svelte";
 	import PlayerProfile from "$lib/PlayerProfile.svelte";
-	import { matchesPerPage } from "$lib/globals";
+	import { isLgScreen, matchesPerPage } from "$lib/globals";
 	import Graph from "./Graph.svelte";
 	import MatchesTableRow from "$lib/MatchesTableRow.svelte";
 
 	export let data;
+	$: numMatches =
+		data.playerData.records[2].win +
+		data.playerData.records[2].lose +
+		data.playerData.records[2].draw;
+
 	let infiniteScrollPadding: HTMLElement | undefined;
 
 	const addMoreMatches = async () => {
@@ -32,11 +37,6 @@
 		}
 	});
 
-	$: numMatches =
-		data.playerData.records[2].win +
-		data.playerData.records[2].lose +
-		data.playerData.records[2].draw;
-
 	afterNavigate(() => {
 		const curPlayerOnLb = data.lb.users.find((user) => user.nickname === data.playerData.nickname);
 
@@ -55,15 +55,24 @@
 	<title>{data.playerData.nickname}'s stats | MCSR Ranked stats</title>
 </svelte:head>
 
-<div class="flex">
+<div class="hidden h-8 xl:block" />
+<div class="sticky top-0 z-10 bg-zinc-900/70 backdrop-blur-md">
+	<div class="">
+		<PlayerProfile playerData={data.playerData} />
+	</div>
+</div>
+<div class="h-8 lg:hidden" />
+{#if !$isLgScreen}
+	<div class="mx-auto max-w-3xl p-8 pl-2">
+		<Graph matches={data.matches} />
+	</div>
+{/if}
+<div class="flex flex-col items-center px-4 md:flex-row md:items-start">
 	<div>
-		<div class="hidden h-8 xl:block" />
-		<div class="sticky top-0 z-10 w-[32rem] bg-zinc-900/70 backdrop-blur-md">
-			<PlayerProfile playerData={data.playerData} />
-		</div>
-		<div class="m-4 p-4">
+		<div class="h-8" />
+		<div class="w-[30rem] p-4">
 			<h2
-				class="mb-2 mt-4 border-b-2 border-zinc-800 pb-1 pl-4 text-sm font-bold uppercase text-zinc-400">
+				class="mb-2 border-b-2 border-zinc-800 pb-1 pl-4 text-sm font-bold uppercase text-zinc-400">
 				Matches <span
 					class="ml-2 rounded-full bg-zinc-400 px-2 py-0.5 text-xs font-extrabold text-zinc-900"
 					>{numMatches}</span>
@@ -84,13 +93,15 @@
 			{/if}
 		</div>
 	</div>
-	<div class="sticky top-0 flex h-screen flex-1 flex-col gap-4 p-8 pl-0">
-		<Graph matches={data.matches} />
-		<div class="relative flex-1">
-			<div
-				class="absolute bottom-0 left-0 min-w-[30rem] rounded-3xl bg-zinc-800 p-4 shadow-lg shadow-black/30">
-				<slot />
-			</div>
+	{#if $isLgScreen}
+		<div class="sticky top-32 h-max flex-1">
+			<Graph matches={data.matches} />
 		</div>
+	{/if}
+</div>
+<div class="fixed bottom-0 left-0 right-0">
+	<div
+		class="mx-auto w-[35rem] rounded-t-3xl bg-zinc-800 p-4 shadow-lg shadow-black/30 md:mr-0 lg:ml-[32rem] xl:ml-[52rem]">
+		<slot />
 	</div>
 </div>

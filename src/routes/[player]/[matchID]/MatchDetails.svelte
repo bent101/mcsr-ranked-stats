@@ -3,20 +3,22 @@
 	import { createLocalStorageStore, formatDetailedMatch, formatTime } from "$lib/utils.js";
 	export let match: ReturnType<typeof formatDetailedMatch>;
 	let showingSplits = createLocalStorageStore("showingSplits", true);
+	let detailLevel = 1;
 </script>
 
-<div
-	class="mb-2 ml-2 flex items-center gap-4 text-sm font-bold uppercase tracking-wide text-zinc-400">
+<div class="mb-2 ml-2 text-sm font-bold uppercase tracking-wide text-zinc-400">
+	<div class="mb-2 flex items-center justify-between">
+		<div>
+			<Switch bind:onFirst={$showingSplits} options={["Splits", "Timestamps"]} />
+		</div>
+	</div>
+
 	<h2>
 		<span class="mr-1.5">{match.seedType} seed</span>
 		<span class="inline-block text-zinc-500">
 			{match.date}
 		</span>
 	</h2>
-
-	<div class="ml-auto self-start">
-		<Switch bind:onFirst={$showingSplits} options={["Splits", "Timestamps"]} />
-	</div>
 </div>
 {#if match.timelinePair}
 	<div class="mx-2 flex w-full gap-4">

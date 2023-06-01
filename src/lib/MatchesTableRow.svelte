@@ -5,7 +5,7 @@
 	import type { FormattedMatch } from "./utils";
 	export let match: FormattedMatch;
 
-	const href = match.isDecay ? undefined : `/${match.curPlayerName}/${match.id}`;
+	$: href = match.isDecay ? undefined : `/${match.curPlayerName}/${match.id}`;
 	$: selected = $page.url.pathname === href;
 </script>
 

@@ -3,6 +3,7 @@
 	import Popup from "./Popup.svelte";
 	import type { DetailedPlayer } from "./ranked-api";
 	import { getPlayerURL, getSkin } from "./utils";
+
 	export let name = "";
 	export let uuid = "";
 
