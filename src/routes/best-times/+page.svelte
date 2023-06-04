@@ -1,15 +1,3 @@
-<script lang="ts">
-	import Switch from "$lib/components/Switch.svelte";
-
-	export let data;
-	let showingAll = true;
-</script>
-
-<div class="mx-auto max-w-4xl p-16">
-	<h1 class="pb-16 text-xl font-bold text-zinc-300">
-		Fastest times this season
-		<span class="ml-2 inline-block -translate-y-px">
-			<Switch options={["all", "unique"]} bind:onFirst={showingAll} />
-		</span>
-	</h1>
+<div class="absolute inset-x-0 top-10 mx-auto w-max font-semibold text-zinc-500">
+	Click a match to see its details
 </div>

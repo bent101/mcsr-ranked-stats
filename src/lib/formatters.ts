@@ -109,15 +109,19 @@ export const formatMatches = (matches: Match[], curPlayerName: string) => {
 };
 
 export const formatRecordLeaderboard = (lb: RecordLeaderboard) => {
-	return lb.map((entry) => ({
-		player: entry.user.nickname,
-		time: formatTime(entry.final_time),
-		date: formatDateShort(entry.match_date),
-		id: entry.match_id,
+	return lb.map((val) => ({
+		playerName: val.user.nickname,
+		playerUUID: val.user.uuid,
+		time: formatTime(val.final_time),
+		date: formatDateShort(val.match_date),
+		id: val.match_id,
 	}));
 };
 
-export function formatDetailedMatch(match: DetailedMatch, curPlayerName: string) {
+export function formatDetailedMatch(
+	match: DetailedMatch,
+	curPlayerName: string | undefined = undefined
+) {
 	const seedType = match.seed_type?.replaceAll("_", " ") ?? "unknown";
 
 	const curPlayerUUID = match.members.find((member) => member.nickname === curPlayerName)?.uuid;
@@ -127,10 +131,9 @@ export function formatDetailedMatch(match: DetailedMatch, curPlayerName: string)
 
 	// if `curPlayerUUID` is defined, put it first; otherwise, put the winner first
 	const playerOrder = match.members.map((member) => member.uuid);
-	if (!curPlayerUUID) {
+	if (!curPlayerName) {
 		[playerOrder[winnerIdx], playerOrder[0]] = [playerOrder[0], playerOrder[winnerIdx]];
-	}
-	if (curPlayerIdx === -1) {
+	} else if (curPlayerIdx === -1) {
 		console.error(`couldnt find ${curPlayerName} in match ${match.match_id}`);
 	} else {
 		[playerOrder[curPlayerIdx], playerOrder[0]] = [playerOrder[0], playerOrder[curPlayerIdx]];

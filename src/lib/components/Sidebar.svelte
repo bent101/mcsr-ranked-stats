@@ -7,7 +7,7 @@
 	import SidebarTab from "./SidebarTab.svelte";
 	import stopwatch from "$lib/assets/stopwatch.png";
 
-	const bestTimesSelected = derived(page, (page) => $page.url.pathname === "/best-times");
+	const bestTimesSelected = derived(page, (page) => $page.url.pathname.includes("/best-times"));
 	const compareSelected = derived(page, (page) => $page.url.pathname === "/vs");
 
 	export let lb: PlayerInfo[] | undefined;

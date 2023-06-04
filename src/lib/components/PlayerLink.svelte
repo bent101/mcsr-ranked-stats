@@ -31,7 +31,7 @@
 <Popup {anchor} hoverable {load} let:data>
 	<a
 		href="/{name}"
-		class="block overflow-clip rounded-3xl bg-zinc-800 p-2 shadow-lg shadow-black/30">
+		class="block overflow-clip rounded-3xl bg-zinc-800 p-2 shadow-lg shadow-black/50">
 		<PlayerProfile playerData={data.playerData} />
 	</a>
 </Popup>

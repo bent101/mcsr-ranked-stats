@@ -1,5 +1,5 @@
 import type { RecordLeaderboard } from "$lib/ranked-api";
-import { formatRecordLeaderboard } from "$lib/utils";
+import { formatRecordLeaderboard } from "$lib/formatters";
 import { getBestTimesURL } from "$lib/urls";
 
 export const load = async ({ fetch }) => {
