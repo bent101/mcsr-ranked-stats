@@ -7,7 +7,7 @@
 	import SidebarTab from "./SidebarTab.svelte";
 	import stopwatch from "$lib/assets/stopwatch.png";
 
-	const bestTimesSelected = derived(page, (page) => $page.url.pathname.includes("/best-times"));
+	const bestTimesSelected = derived(page, (page) => $page.url.pathname.includes("/lb"));
 	const compareSelected = derived(page, (page) => $page.url.pathname === "/vs");
 
 	export let lb: PlayerInfo[] | undefined;
@@ -146,7 +146,7 @@
 	</div>
 
 	<div class="pb-[150vh] pl-2">
-		<SidebarTab href={"/best-times"} selected={$bestTimesSelected}>
+		<SidebarTab href={"/lb"} selected={$bestTimesSelected}>
 			<div class="flex items-center pr-8">
 				<img
 					src={stopwatch}

@@ -10,6 +10,10 @@
 	const showingAll = createLocalStorageStore("showingAll", false);
 </script>
 
+<svelte:head>
+	<title>Best times | MCSR Ranked stats</title>
+</svelte:head>
+
 <div class="mx-auto max-w-sm py-[70px] md:ml-16">
 	<h1 class="pt-20 text-xl font-bold text-zinc-300">
 		Fastest times this season

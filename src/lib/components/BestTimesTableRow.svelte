@@ -7,7 +7,7 @@
 	export let match: ReturnType<typeof formatRecordLeaderboard>[0];
 	export let place: number;
 
-	$: href = `/best-times/${match.id}`;
+	$: href = `/lb/${match.id}`;
 	$: selected = $page.url.pathname === href;
 </script>
 

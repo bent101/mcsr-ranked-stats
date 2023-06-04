@@ -11,7 +11,7 @@ export const load = (async ({ fetch, params }) => {
 			if (res.data) {
 				return formatDetailedMatch(res.data);
 			} else {
-				throw redirect(301, `/best-times`);
+				throw redirect(301, `/lb`);
 			}
 		});
 
