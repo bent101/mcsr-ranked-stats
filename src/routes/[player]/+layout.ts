@@ -1,8 +1,9 @@
 import type { DetailedPlayer } from "$lib/ranked-api";
 import type { LayoutLoad } from "./$types";
-import { formatMatches, getSkin, getMatchesURL, getPlayerURL } from "$lib/utils";
+import { formatMatches } from "$lib/formatters";
 import { matchesPerPage } from "$lib/globals";
 import { error, redirect } from "@sveltejs/kit";
+import { getSkinURL, getMatchesURL, getPlayerURL } from "$lib/urls";
 
 export const load = (async ({ fetch, params }) => {
 	const playerData: DetailedPlayer = await fetch(getPlayerURL(params.player))
@@ -27,6 +28,6 @@ export const load = (async ({ fetch, params }) => {
 		noMoreMatches: matches.length < matchesPerPage,
 		curPage: 1,
 		playerData,
-		_: fetch(getSkin(playerData.uuid)),
+		_: fetch(getSkinURL(playerData.uuid)),
 	};
 }) satisfies LayoutLoad;

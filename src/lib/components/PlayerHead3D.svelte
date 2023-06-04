@@ -1,16 +1,21 @@
 <script lang="ts">
-	import { beforeNavigate } from "$app/navigation";
-	import { spring } from "svelte/motion";
+	import { getSkinURL } from "$lib/urls";
 
-	export let skinURL: string;
+	// import { beforeNavigate } from "$app/navigation";
+	// import { spring } from "svelte/motion";
+
+	export let uuid: string;
 	export let rotate = false;
+	export let facingForward = false;
+
+	$: skinURL = getSkinURL(uuid);
 
 	let cube: HTMLElement | undefined;
 	let cubeRect = undefined;
 	let centerX = 0;
 	let centerY = 0;
-	let rotateX = -12;
-	let rotateY = 20;
+	let rotateX = facingForward ? 0 : -12;
+	let rotateY = facingForward ? 0 : 20;
 	$: if (cube) {
 		cubeRect = cube.getBoundingClientRect();
 		centerX = cubeRect.left + cubeRect.width / 2;

@@ -9,7 +9,7 @@
 	} from "@unovis/svelte";
 	import { Line } from "@unovis/ts";
 	import { browser } from "$app/environment";
-	import type { FormattedMatch } from "$lib/utils";
+	import type { FormattedMatch } from "$lib/formatters";
 
 	type DataRecord = { x: number; y: number };
 

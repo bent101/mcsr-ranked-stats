@@ -24,3 +24,6 @@ export const isLgScreen = readable(true, (set) => {
 	mediaQuery.addEventListener("change", setMatches);
 	return () => mediaQuery.removeEventListener("change", setMatches);
 });
+
+export type Outcome = "won" | "lost" | "draw" | undefined;
+export type Direction = "top" | "bottom" | "left" | "right";

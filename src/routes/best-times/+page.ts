@@ -1,5 +1,6 @@
-import type { RecordLeaderboard } from "$lib/ranked-api.js";
-import { formatRecordLeaderboard, getBestTimesURL } from "$lib/utils.js";
+import type { RecordLeaderboard } from "$lib/ranked-api";
+import { formatRecordLeaderboard } from "$lib/utils";
+import { getBestTimesURL } from "$lib/urls";
 
 export const load = async ({ fetch }) => {
 	return {

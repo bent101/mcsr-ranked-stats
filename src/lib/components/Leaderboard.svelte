@@ -1,6 +1,6 @@
 <script lang="ts">
-	import SidebarTab from "./SidebarTab.svelte";
 	import { flip } from "svelte/animate";
+	import SidebarTab from "$lib/components/SidebarTab.svelte";
 
 	export let lb = [];
 	export let animating = true;

@@ -1,10 +1,13 @@
 <script lang="ts">
 	import { backOut } from "svelte/easing";
 	import { afterNavigate } from "$app/navigation";
-	import { clamp, sleep, type Direction } from "./utils";
+	import { clamp, sleep } from "$lib/utils";
+	import type { Direction } from "$lib/globals";
 	import { onDestroy, onMount, tick } from "svelte";
 	import { scale } from "svelte/transition";
 	import { browser } from "$app/environment";
+
+	export let anchor: Element | undefined;
 
 	/** should the popup stay visible when you hover over it? */
 	export let hoverable = false;
@@ -22,6 +25,15 @@
 
 	let directionIndex = 0;
 
+	const updateAnchor = (anchor: Element | undefined) => {
+		if (anchor) {
+			anchor.addEventListener("mouseenter", onMouseEnterAnchor);
+			anchor.addEventListener("mouseleave", onMouseLeaveAnchor);
+		}
+	};
+
+	$: updateAnchor(anchor);
+
 	$: transformOrigin = { top: "bottom", bottom: "top", left: "right", right: "left" }[
 		directionPreference[directionIndex]
 	];
@@ -38,8 +50,6 @@
 	let popupContainer: HTMLElement;
 	let transitionDuration = 200;
 
-	let anchorContainer: HTMLElement;
-
 	let popupX = 0;
 	let popupY = 0;
 
@@ -51,12 +61,19 @@
 	let popupSizerExists = false;
 
 	const positionPopup = async () => {
+		if (!anchor) {
+			console.error("could find anchor for popup");
+			return;
+		}
+
+		console.log({ anchor, popupSizer });
+
 		popupSizerExists = true;
 		await tick();
 		const popupBox = popupSizer.getBoundingClientRect();
 		popupSizerExists = false;
 
-		const anchorBox = anchorContainer.getBoundingClientRect();
+		const anchorBox = anchor.getBoundingClientRect();
 
 		// the following bit of code is for positioning the popup. It tries
 		// each of the directions in the preferred order, first with no clamping
@@ -176,20 +193,16 @@
 
 	onDestroy(() => {
 		if (browser) {
-			document.body.removeChild(popupContainer);
+			try {
+				document.body.removeChild(popupContainer);
+			} catch (error) {
+				console.error(`couldnt remove popup from body. load func: ${load}`);
+			}
 		}
 	});
 </script>
 
 <svelte:window bind:innerWidth={screenWidth} bind:innerHeight={screenHeight} />
-
-<span
-	class="inline-block"
-	bind:this={anchorContainer}
-	on:mouseenter={onMouseEnterAnchor}
-	on:mouseleave={onMouseLeaveAnchor}>
-	<slot name="anchor" />
-</span>
 
 <div
 	bind:this={popupContainer}

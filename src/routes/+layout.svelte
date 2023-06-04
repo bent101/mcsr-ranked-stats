@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { fade, fly } from "svelte/transition";
 	import "../app.css";
-	import Sidebar from "./Sidebar.svelte";
-	import Loading from "./Loading.svelte";
+	import Sidebar from "$lib/components/Sidebar.svelte";
+	import Loading from "$lib/components/Loading.svelte";
 	import { afterNavigate } from "$app/navigation";
 	import { dev } from "$app/environment";
 	import { inject } from "@vercel/analytics";
@@ -65,7 +65,7 @@
 {:else}
 	<div class="flex">
 		<div
-			class="sticky top-0 z-50 h-full overflow-y-scroll overscroll-y-contain scrollbar-thin scrollbar-track-zinc-950 scrollbar-thumb-zinc-900 [direction:rtl] hover:scrollbar-thumb-zinc-800">
+			class="sticky top-0 z-50 h-screen overflow-y-scroll overscroll-y-contain scrollbar-thin scrollbar-track-zinc-950 scrollbar-thumb-zinc-900 [direction:rtl] hover:scrollbar-thumb-zinc-800">
 			<div class="[direction:ltr]">
 				<Sidebar lb={data.lb?.users} />
 			</div>

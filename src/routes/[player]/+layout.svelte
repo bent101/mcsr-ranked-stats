@@ -1,11 +1,12 @@
 <script lang="ts">
-	import { formatMatches, getLeaderboardURL, getMatchesURL } from "$lib/utils.js";
+	import { formatMatches } from "$lib/formatters";
 	import { afterNavigate, invalidate } from "$app/navigation";
 	import { onMount } from "svelte";
-	import PlayerProfile from "$lib/PlayerProfile.svelte";
+	import PlayerProfile from "$lib/components/PlayerProfile.svelte";
 	import { isLgScreen, matchesPerPage } from "$lib/globals";
-	import Graph from "./Graph.svelte";
-	import MatchesTableRow from "$lib/MatchesTableRow.svelte";
+	import Graph from "../../lib/components/Graph.svelte";
+	import MatchesTableRow from "$lib/components/MatchesTableRow.svelte";
+	import { getLeaderboardURL, getMatchesURL } from "$lib/urls";
 
 	export let data;
 	$: numMatches =
@@ -99,9 +100,9 @@
 		</div>
 	{/if}
 </div>
-<div class="fixed bottom-0 left-0 right-0">
+<div class="pointer-events-none fixed bottom-0 left-0 right-0">
 	<div
-		class="mx-auto w-[35rem] rounded-t-3xl bg-zinc-800 p-4 shadow-lg shadow-black/30 md:mr-0 lg:ml-[32rem] xl:ml-[52rem]">
+		class="pointer-events-auto relative mx-auto min-h-[6rem] w-[35rem] rounded-t-3xl bg-zinc-800 shadow-lg shadow-black/30 md:mr-4 2xl:ml-[52rem] 2xl:w-[43rem]">
 		<slot />
 	</div>
 </div>

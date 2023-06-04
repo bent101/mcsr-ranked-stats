@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { formatTime, getSkin } from "$lib/utils";
+	import { formatTime } from "$lib/formatters";
 	import type { DetailedPlayer } from "$lib/ranked-api";
 
-	import discord from "$lib/assets/discord.svg";
+	import discordLogo from "$lib/assets/discord.svg";
 	import youtube from "$lib/assets/youtube.svg";
 	import twitch from "$lib/assets/twitch.svg";
 	import fire from "$lib/assets/fire.png";
@@ -11,13 +11,17 @@
 	import iron from "$lib/assets/iron.webp";
 	import diamond from "$lib/assets/diamond.webp";
 
-	import PlayerHead3D from "$lib/PlayerHead3D.svelte";
 	import Tooltip from "./Tooltip.svelte";
+	import PlayerHead3D from "./PlayerHead3D.svelte";
 
 	export let playerData: DetailedPlayer;
 	export let rotate = false;
 
 	let justCopiedDiscord = false;
+
+	let badge: Element | undefined;
+	let discord: Element | undefined;
+	let unverified: Element | undefined;
 
 	const copyDiscord = () => {
 		navigator.clipboard.writeText(playerData.connections.discord!.name);
@@ -54,7 +58,7 @@
 
 <div class="flex w-max items-center gap-2 px-4 py-2">
 	<div class="pb-2">
-		<PlayerHead3D {rotate} skinURL={getSkin(playerData.uuid)} />
+		<PlayerHead3D {rotate} uuid={playerData.uuid} />
 	</div>
 	<div class="pl-2">
 		<div class="flex h-8 items-center">
@@ -64,23 +68,23 @@
 				{/if}{playerData.nickname}
 			</h1>
 			{#if playerData.badge}
-				<Tooltip directionPreference={["top", "bottom", "right", "left"]}>
-					<a
-						slot="anchor"
-						href="https://www.patreon.com/mcsrranked"
-						rel="noreferrer"
-						class="relative right-2 grid place-items-center"
-						target="_blank">
-						<div
-							class="glow-{playerData.badge} pointer-events-none absolute -inset-12 bg-gradient-radial" />
-						<div
-							class="glow-{playerData.badge} pointer-events-none absolute -inset-80 bg-gradient-radial opacity-50" />
-						<img
-							class="h-full w-8"
-							style="image-rendering: pixelated;"
-							src={[stone, iron, diamond][playerData.badge - 1]}
-							alt="" />
-					</a>
+				<a
+					bind:this={badge}
+					href="https://www.patreon.com/mcsrranked"
+					rel="noreferrer"
+					class="relative right-2 grid place-items-center"
+					target="_blank">
+					<div
+						class="glow-{playerData.badge} pointer-events-none absolute -inset-12 bg-gradient-radial" />
+					<div
+						class="glow-{playerData.badge} pointer-events-none absolute -inset-80 bg-gradient-radial opacity-50" />
+					<img
+						class="h-full w-8"
+						style="image-rendering: pixelated;"
+						src={[stone, iron, diamond][playerData.badge - 1]}
+						alt="" />
+				</a>
+				<Tooltip anchor={badge} directionPreference={["top", "bottom", "right", "left"]}>
 					<div>
 						Tier {playerData.badge} patreon :D
 					</div>
@@ -103,23 +107,22 @@
 					><img src={youtube} alt="Youtube logo" /></a>
 			{/if}
 			{#if playerData.connections.discord}
-				<Tooltip>
-					<button
-						slot="anchor"
-						class="h-full w-8 p-1 opacity-20 hover:opacity-100"
-						on:click|preventDefault={copyDiscord}><img src={discord} alt="Discord logo" /></button>
+				<button
+					bind:this={discord}
+					class="h-full w-8 p-1 opacity-20 hover:opacity-100"
+					on:click|preventDefault={copyDiscord}
+					><img src={discordLogo} alt="Discord logo" /></button>
+				<Tooltip anchor={discord}>
 					{justCopiedDiscord ? "Copied!" : "Copy Discord"}
 				</Tooltip>
 			{:else if playerData.elo_rank === null}
-				<Tooltip>
-					<span
-						slot="anchor"
-						class="ml-2 inline-flex items-center gap-2 rounded-full bg-zinc-700 py-0.5 pl-3 pr-1 text-sm font-semibold uppercase tracking-wide text-white/90">
-						Unverified
-						<img src={info} alt="" class="inline h-4 w-4 select-none opacity-30 invert" />
-					</span>
-					Needs to link Discord
-				</Tooltip>
+				<span
+					bind:this={unverified}
+					class="ml-2 inline-flex items-center gap-2 rounded-full bg-zinc-700 py-0.5 pl-3 pr-1 text-sm font-semibold uppercase tracking-wide text-white/90">
+					Unverified
+					<img src={info} alt="" class="inline h-4 w-4 select-none opacity-30 invert" />
+				</span>
+				<Tooltip anchor={unverified}>Needs to link Discord</Tooltip>
 			{/if}
 		</div>
 		<div class="text-white/60">

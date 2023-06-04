@@ -1,5 +1,6 @@
 import type { PageLoad } from "./$types";
-import { getDetailedMatchURL, formatDetailedMatch } from "$lib/utils";
+import { formatDetailedMatch } from "$lib/formatters";
+import { getDetailedMatchURL, getSkinURL } from "$lib/urls";
 import { redirect } from "@sveltejs/kit";
 import type { DetailedMatch } from "$lib/ranked-api";
 
@@ -13,7 +14,9 @@ export const load = (async ({ fetch, params }) => {
 				throw redirect(301, `/${params.player}`);
 			}
 		});
+
 	return {
 		match,
+		_: Promise.all(match.playerUUIDs.map((uuid) => fetch(getSkinURL(uuid)))),
 	};
 }) satisfies PageLoad;

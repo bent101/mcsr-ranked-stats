@@ -1,1 +1,5 @@
-<div class="py-4 text-center text-zinc-500">Click a match to see its details</div>
+<script>
+	import MatchDetails from "$lib/components/MatchDetails.svelte";
+</script>
+
+<MatchDetails />

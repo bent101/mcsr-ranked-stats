@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { page } from "$app/stores";
 	import PlayerLink from "./PlayerLink.svelte";
+	import type { FormattedMatch } from "$lib/formatters";
 	import TableRow from "./TableRow.svelte";
-	import type { FormattedMatch } from "./utils";
 	export let match: FormattedMatch;
 
 	$: href = match.isDecay ? undefined : `/${match.curPlayerName}/${match.id}`;

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Switch from "$lib/Switch.svelte";
+	import Switch from "$lib/components/Switch.svelte";
 
 	export let data;
 	let showingAll = true;

@@ -1,5 +1,5 @@
 import type { EloLeaderboard } from "$lib/ranked-api";
-import { getLeaderboardURL } from "$lib/utils";
+import { getLeaderboardURL } from "$lib/urls";
 import type { LayoutLoad } from "./$types";
 
 export const load = (async ({ fetch }) => {

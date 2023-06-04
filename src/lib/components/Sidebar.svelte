@@ -77,7 +77,7 @@
 		}
 	}} />
 
-<div class="min-h-screen w-80 border-r-2 border-zinc-700 bg-zinc-950 text-sm">
+<div class="w-80 border-r-2 border-zinc-700 bg-zinc-950 text-sm">
 	<h1
 		class="bg-zinc-950/70 p-4 pl-2 text-center font-extrabold uppercase tracking-wide text-zinc-500">
 		MSCR Ranked Leaderboard
@@ -145,7 +145,7 @@
 		</div>
 	</div>
 
-	<div class="pb-16 pl-2">
+	<div class="pb-[150vh] pl-2">
 		<SidebarTab href={"/best-times"} selected={$bestTimesSelected}>
 			<div class="flex items-center pr-8">
 				<img
