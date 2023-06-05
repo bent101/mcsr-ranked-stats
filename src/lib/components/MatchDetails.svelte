@@ -50,9 +50,14 @@
 	</div>
 	{#if match.timelines}
 		<div class="m-2">
-			{#each match.timelines[$detailLevel] as timeline}
-				<div class="m-0.5">
-					<MatchTimeline {timeline} />
+			{#each match.timelines[$detailLevel] as timeline, i}
+				<div class="m-0.5 flex items-center gap-2">
+					<div class="-m-5 scale-[35%]">
+						<PlayerHead3D facingForward uuid={match.playerUUIDs[i]} />
+					</div>
+					<div class="flex-1">
+						<MatchTimeline {timeline} />
+					</div>
 				</div>
 			{/each}
 		</div>
@@ -72,6 +77,12 @@
 							<div class="flex-1">
 								<h3 class="-mb-2 origin-left text-lg font-semibold text-zinc-300">
 									{playerName}
+
+									{#if match.playerUUIDs[i] === match.winnerUUID}
+										<span
+											class="ml-1.5 inline-block -translate-y-0.5 rounded-full bg-green-400 px-1.5 text-[11px] font-extrabold leading-[14px] text-green-950"
+											>WINNER</span>
+									{/if}
 								</h3>
 								{#if eloChange}
 									{@const { before, change } = eloChange}
