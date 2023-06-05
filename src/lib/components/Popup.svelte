@@ -98,6 +98,7 @@
 				case "top":
 					popupX = clamp(centeredX, minX, maxX);
 					popupY = anchorBox.top - popupBox.height - padding;
+					console.log(popupBox);
 					score = Math.max(minY - popupY, popupY - maxY);
 					break;
 				case "bottom":
@@ -228,7 +229,7 @@
 	{/if}
 </div>
 
-<div bind:this={popupSizer} class="invisible fixed">
+<div bind:this={popupSizer} class="invisible fixed left-0 top-0">
 	{#if popupSizerExists}
 		<slot {data} />
 	{/if}

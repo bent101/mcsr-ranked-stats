@@ -106,7 +106,6 @@
 									{@const textColor = isDarkColor(event.color) ? "text-white/60" : "text-black/80"}
 									<div
 										in:scale={{ start: 0.7, duration: 150, delay: 150 }}
-										out:scale={{ start: 0.7, duration: 0 }}
 										class="flex h-7 items-center">
 										<div
 											class="w-full -translate-y-0.5 overflow-clip rounded-full px-1.5 text-center text-sm font-bold {textColor}"
@@ -128,7 +127,6 @@
 										: event.pairToLeft}
 									<li
 										in:scale={{ start: 0.7, duration: 150, delay: 150 }}
-										out:scale={{ start: 0.7, duration: 0 }}
 										class="h-7 w-full origin-left">
 										{#if pairToRight}
 											<div class="flex">
