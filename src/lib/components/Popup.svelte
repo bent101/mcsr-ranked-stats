@@ -66,8 +66,6 @@
 			return;
 		}
 
-		console.log({ anchor, popupSizer });
-
 		popupSizerExists = true;
 		await tick();
 		const popupBox = popupSizer.getBoundingClientRect();
@@ -98,7 +96,6 @@
 				case "top":
 					popupX = clamp(centeredX, minX, maxX);
 					popupY = anchorBox.top - popupBox.height - padding;
-					console.log(popupBox);
 					score = Math.max(minY - popupY, popupY - maxY);
 					break;
 				case "bottom":

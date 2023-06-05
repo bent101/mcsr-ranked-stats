@@ -9,10 +9,6 @@
 
 	/** in pixels */
 	const gap = 4;
-
-	$: console.log(
-		[...(timelineContainer?.children ?? [])].map((child) => child.getBoundingClientRect())
-	);
 </script>
 
 {#key timeline}
