@@ -24,7 +24,7 @@
 	$: match, resetScroll();
 </script>
 
-<div class="p-2 pl-4">
+<div class="p-2 pb-8 pl-4 md:pb-2">
 	<div class="mb-2 ml-2 text-sm font-bold uppercase text-zinc-400">
 		<h2 class="flex items-center">
 			<div class="mr-1.5">{match.seedType} seed</div>
@@ -65,7 +65,7 @@
 		<div
 			bind:this={scrollingContainer}
 			class="m-2 mr-0 overflow-scroll overscroll-none scrollbar-thin scrollbar-track-zinc-800 scrollbar-thumb-zinc-600 hover:scrollbar-thumb-zinc-500">
-			<div class="flex h-[19rem] w-max gap-4">
+			<div class="flex h-[24rem] w-max gap-4">
 				{#each match.timelines[$detailLevel] as timeline, i}
 					{@const displayedTimeline = $showingSplits ? timeline.slice(0, -1) : timeline.slice(1)}
 					{@const eloChange = match.eloChanges[i]}
