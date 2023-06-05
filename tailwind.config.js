@@ -5,7 +5,16 @@ const scrollbar = require("tailwind-scrollbar");
 export default {
 	content: ["./src/**/*.{html,js,svelte,ts}"],
 	theme: {
-		extend: {},
+		extend: {
+			colors: {
+				zinc: {
+					925: "#121214",
+				},
+			},
+			backgroundImage: {
+				"gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+			},
+		},
 	},
 	plugins: [
 		hocus,
@@ -13,5 +22,6 @@ export default {
 		require("tailwindcss/plugin")(({ addVariant }) => {
 			addVariant("search-cancel", "&::-webkit-search-cancel-button");
 		}),
+		require("@xpd/tailwind-3dtransforms"),
 	],
 };

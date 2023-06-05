@@ -9,9 +9,9 @@ export const load = (async ({ fetch, params }) => {
 		.then((res) => res.json())
 		.then((res: { data: DetailedMatch | null }) => {
 			if (res.data) {
-				return formatDetailedMatch(res.data, params.player);
+				return formatDetailedMatch(res.data);
 			} else {
-				throw redirect(301, `/${params.player}`);
+				throw redirect(301, `/lb`);
 			}
 		});
 

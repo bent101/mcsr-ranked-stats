@@ -9,7 +9,7 @@
 	} from "@unovis/svelte";
 	import { Line } from "@unovis/ts";
 	import { browser } from "$app/environment";
-	import type { FormattedMatch } from "$lib/utils";
+	import type { FormattedMatch } from "$lib/formatters";
 
 	type DataRecord = { x: number; y: number };
 
@@ -37,7 +37,7 @@
 </script>
 
 {#if browser}
-	<VisXYContainer {xDomain} {yDomain} width="100%" height="50vh" {data}>
+	<VisXYContainer {xDomain} {yDomain} width="100%" height="calc(max(24rem, 60vh))" {data}>
 		<VisArea color="#ddd4" curveType="linear" {data} x={(d) => d.x} y={(d) => d.y} />
 		<VisLine color="#ddd" curveType="linear" lineWidth={3} {data} x={(d) => d.x} y={(d) => d.y} />
 
