@@ -14,6 +14,9 @@ export default {
 			backgroundImage: {
 				"gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
 			},
+			screens: {
+				"3xl": "1792px",
+			},
 		},
 	},
 	plugins: [
