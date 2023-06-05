@@ -3,7 +3,7 @@
 	import Switch from "$lib/components/Switch.svelte";
 	import { createLocalStorageStore } from "$lib/utils";
 	import { flip } from "svelte/animate";
-	import { fade } from "svelte/transition";
+	import { fade, scale } from "svelte/transition";
 
 	export let data;
 
@@ -18,12 +18,12 @@
 	<h1 class="pt-20 text-xl font-bold text-zinc-300">
 		Fastest times this season
 		<span class="ml-2 inline-block -translate-y-1">
-			<Switch throttling={600} dark options={["all", "unique"]} bind:onFirst={$showingAll} />
+			<Switch dark options={["all", "unique"]} bind:onFirst={$showingAll} />
 		</span>
 	</h1>
 	<ol class="mt-5 max-w-sm border-t-2 border-zinc-800 pt-4">
 		{#each $showingAll ? data.allBestTimes : data.uniqueBestTimes as match, i (match.id)}
-			<li animate:flip={{ duration: 250 }} in:fade={{ duration: 150, delay: 150 }}>
+			<li in:scale={{ delay: 150, duration: 250, start: 0.7 }}>
 				<BestTimesTableRow place={i + 1} {match} />
 			</li>
 		{/each}

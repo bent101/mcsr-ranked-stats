@@ -140,7 +140,7 @@
 				{:else}
 					<span
 						class="ml-2 inline-block -translate-y-0.5 rounded-full bg-gradient-to-r from-red-700 to-orange-500 py-px pl-1 pr-2 text-xs font-semibold tracking-wide text-white">
-						<img class="inline w-4" src={fire} alt="" />
+						<img class="inline w-4 -translate-y-[0.7px]" src={fire} alt="" />
 						<span class="inline-block translate-y-px">PEAK ELO</span>
 					</span>
 				{/if}

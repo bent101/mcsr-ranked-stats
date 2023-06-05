@@ -28,14 +28,14 @@
 	<div class="mb-2 ml-2 text-sm font-bold uppercase text-zinc-400">
 		<h2 class="flex items-center">
 			<div class="mr-1.5">{match.seedType} seed</div>
-			<div class="text-zinc-500">
+			<div class="mr-auto text-zinc-500">
 				{match.date}
 			</div>
-
-			<span class="ml-auto inline-block">
-				<Switch bind:onFirst={$showingSplits} options={["Splits", "Timestamps"]} />
-			</span>
-
+			{#if match.timelines}
+				<span class="inline-block">
+					<Switch bind:onFirst={$showingSplits} options={["Splits", "Timestamps"]} />
+				</span>
+			{/if}
 			<a
 				href={$page.url.pathname.slice(0, $page.url.pathname.lastIndexOf("/"))}
 				data-sveltekit-noscroll
@@ -61,6 +61,7 @@
 				</div>
 			{/each}
 		</div>
+
 		<div
 			bind:this={scrollingContainer}
 			class="m-2 mr-0 overflow-scroll overscroll-none scrollbar-thin scrollbar-track-zinc-800 scrollbar-thumb-zinc-600 hover:scrollbar-thumb-zinc-500">
@@ -104,7 +105,6 @@
 									{@const time = $showingSplits ? event.splitAfter.length : event.timestamp}
 									{@const textColor = isDarkColor(event.color) ? "text-white/60" : "text-black/80"}
 									<div
-										animate:flip={{ duration: 250 }}
 										in:scale={{ start: 0.7, duration: 150, delay: 150 }}
 										out:scale={{ start: 0.7, duration: 0 }}
 										class="flex h-7 items-center">
@@ -127,7 +127,6 @@
 										? event.splitAfter.pairToLeft
 										: event.pairToLeft}
 									<li
-										animate:flip={{ duration: 250 }}
 										in:scale={{ start: 0.7, duration: 150, delay: 150 }}
 										out:scale={{ start: 0.7, duration: 0 }}
 										class="h-7 w-full origin-left">
@@ -162,12 +161,19 @@
 				{/each}
 			</div>
 		</div>
-
-		<MultiSwitch
-			bind:selectedIdx={$detailLevel}
-			label="Detail"
-			options={["low", "med", "high", "all"]} />
+		{#if match.timelines}
+			<MultiSwitch
+				bind:selectedIdx={$detailLevel}
+				label="Detail"
+				options={["low", "med", "high", "all"]} />
+		{/if}
 	{:else}
-		<div class="p-12 text-center text-zinc-500">Timelines aren't available for this match</div>
+		<div class="p-12 font-semibold text-zinc-500">
+			<div class="mx-auto w-max">
+				Timelines aren't available for this match
+				<br /><br />
+				If the match just ended, try reloading
+			</div>
+		</div>
 	{/if}
 </div>
