@@ -1,0 +1,22 @@
+<script lang="ts">
+	import { invalidateAll } from "$app/navigation";
+	let justRefreshed = false;
+	let timeoutIdx = -1;
+
+	export let dark = false;
+
+	const refresh = () => {
+		invalidateAll();
+		justRefreshed = true;
+		clearTimeout(timeoutIdx);
+		timeoutIdx = setTimeout(() => {
+			justRefreshed = false;
+		}, 2000);
+	};
+</script>
+
+<button
+	class="mx-auto block w-max rounded-full px-3 py-1 text-xs font-bold tracking-wide {dark
+		? 'text-zinc-700 hover:bg-zinc-900/50 hover:text-zinc-500'
+		: 'text-zinc-500 hover:bg-zinc-700/50 hover:text-zinc-400'}"
+	on:click={refresh}>{justRefreshed ? "REFRESHED!" : "REFRESH"}</button>

@@ -8,6 +8,7 @@
 	import PlayerHead3D from "./PlayerHead3D.svelte";
 	import MatchTimeline from "./MatchTimeline.svelte";
 	import { page } from "$app/stores";
+	import RefreshBtn from "./RefreshBtn.svelte";
 
 	export let match: ReturnType<typeof formatDetailedMatch>;
 
@@ -170,7 +171,9 @@
 			<div class="mx-auto w-max">
 				Timelines aren't available for this match
 				<br /><br />
-				If the match just ended, try reloading
+				If the match just ended, try refreshing
+				<br /><br />
+				<RefreshBtn />
 			</div>
 		</div>
 	{/if}
