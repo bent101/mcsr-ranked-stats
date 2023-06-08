@@ -4,9 +4,11 @@
 	let timeoutIdx = -1;
 
 	export let dark = false;
+	let refreshing: Promise<void>;
 
-	const refresh = () => {
-		invalidateAll();
+	const refresh = async () => {
+		refreshing = invalidateAll();
+		await refreshing;
 		justRefreshed = true;
 		clearTimeout(timeoutIdx);
 		timeoutIdx = setTimeout(() => {
@@ -16,7 +18,13 @@
 </script>
 
 <button
-	class="mx-auto block w-max rounded-full px-3 py-1 text-xs font-bold tracking-wide {dark
+	class="mx-auto block w-max rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wide {dark
 		? 'text-zinc-700 hover:bg-zinc-900/50 hover:text-zinc-500'
 		: 'text-zinc-500 hover:bg-zinc-700/50 hover:text-zinc-400'}"
-	on:click={refresh}>{justRefreshed ? "REFRESHED!" : "REFRESH"}</button>
+	on:click={refresh}>
+	{#await refreshing}
+		Loading...
+	{:then}
+		{justRefreshed ? "Refreshed!" : "Refresh"}
+	{/await}
+</button>
