@@ -17,7 +17,7 @@
 			{match.eloChange >= 0 ? "+" : ""}{match.eloChange} elo
 		</div>
 		<div class="w-20" />
-		<div class="w-10 text-right text-zinc-600">{match.date}</div>
+		<div class="w-10 text-right text-zinc-600">{formatTimeAgoShort($curDate - match.date)}</div>
 	{:else}
 		<div class="flex-1 text-zinc-300">
 			<PlayerLink name={match.opponentName} uuid={match.opponentUUID} />
