@@ -15,7 +15,7 @@
 </svelte:head>
 
 <div class="mx-auto max-w-sm py-[70px] md:ml-16">
-	<h1 class="pt-20 text-xl font-bold text-zinc-300">
+	<h1 class="pt-[5.25rem] text-xl font-bold text-zinc-300">
 		Fastest times this season
 		<span class="ml-2 inline-block -translate-y-1">
 			<Switch dark options={["all", "unique"]} bind:onFirst={$showingAll} />

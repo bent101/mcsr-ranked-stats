@@ -8,15 +8,4 @@ export const load = (async ({ fetch }) => {
 			.then((res) => res.json())
 			.then((res) => res.data as EloLeaderboard),
 	};
-	// const lb = await fetch(getLeaderboardURL())
-	// 	.then((res) => res.json())
-	// 	.then((res) => res.data as EloLeaderboard);
-
-	// for (const i in lb.users) {
-	// 	lb.users[i].elo_rate += ~~(200 * Math.random() - 10);
-	// }
-
-	// lb.users.sort((a, b) => b.elo_rate - a.elo_rate);
-
-	// return { lb };
 }) satisfies LayoutLoad;

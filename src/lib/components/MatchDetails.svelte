@@ -2,12 +2,13 @@
 	import MultiSwitch from "$lib/components/MultiSwitch.svelte";
 	import Switch from "$lib/components/Switch.svelte";
 	import { createLocalStorageStore, isDarkColor } from "$lib/utils";
-	import { formatTime, formatDetailedMatch } from "$lib/formatters";
-	import { flip } from "svelte/animate";
+	import { formatTime, formatDetailedMatch, formatTimeAgo } from "$lib/formatters";
 	import { scale } from "svelte/transition";
 	import PlayerHead3D from "./PlayerHead3D.svelte";
 	import MatchTimeline from "./MatchTimeline.svelte";
 	import { page } from "$app/stores";
+	import RefreshBtn from "./RefreshBtn.svelte";
+	import { curDate } from "$lib/globals";
 
 	export let match: ReturnType<typeof formatDetailedMatch>;
 
@@ -29,7 +30,7 @@
 		<h2 class="flex items-center">
 			<div class="mr-1.5">{match.seedType} seed</div>
 			<div class="mr-auto text-zinc-500">
-				{match.date}
+				{formatTimeAgo($curDate - match.date)}
 			</div>
 			{#if match.timelines}
 				<span class="inline-block">
@@ -170,7 +171,9 @@
 			<div class="mx-auto w-max">
 				Timelines aren't available for this match
 				<br /><br />
-				If the match just ended, try reloading
+				If the match just ended, try refreshing
+				<br /><br />
+				<RefreshBtn />
 			</div>
 		</div>
 	{/if}

@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { page } from "$app/stores";
 	import PlayerLink from "./PlayerLink.svelte";
-	import type { FormattedMatch } from "$lib/formatters";
+	import { formatTimeAgoShort, type FormattedMatch } from "$lib/formatters";
 	import TableRow from "./TableRow.svelte";
+	import { curDate } from "$lib/globals";
 	export let match: FormattedMatch;
 
 	$: href = match.isDecay ? undefined : `/${match.curPlayerName}/${match.id}`;
@@ -39,7 +40,7 @@
 			{match.outcome === "draw" ? "" : match.forfeit ? "Forfeit" : match.time}
 		</div>
 		<div class="w-10 text-right {selected ? 'text-zinc-300' : 'text-zinc-600'}">
-			{match.date}
+			{formatTimeAgoShort($curDate - match.date)}
 		</div>
 	{/if}
 </TableRow>

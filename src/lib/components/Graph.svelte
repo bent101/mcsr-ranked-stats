@@ -1,12 +1,5 @@
 <script lang="ts">
-	import {
-		VisXYContainer,
-		VisLine,
-		VisAxis,
-		VisCrosshair,
-		VisTooltip,
-		VisArea,
-	} from "@unovis/svelte";
+	import { VisXYContainer, VisLine, VisAxis, VisArea } from "@unovis/svelte";
 	import { Line } from "@unovis/ts";
 	import { browser } from "$app/environment";
 	import type { FormattedMatch } from "$lib/formatters";
@@ -43,6 +36,5 @@
 
 		<VisAxis type="x" numTicks={5} label="Matches ago" />
 		<VisAxis type="y" numTicks={3} label="Elo" />
-		<!-- <VisTooltip {triggers} /> -->
 	</VisXYContainer>
 {/if}

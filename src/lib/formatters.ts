@@ -13,7 +13,7 @@ export type FormattedMatch = {
 	time: string | undefined;
 	eloChange: number;
 	eloBefore: number | undefined;
-	date: string;
+	date: number;
 	id: number;
 };
 
@@ -25,9 +25,11 @@ export const formatTime = (timeInMs: number, signed = false) => {
 	return `${signed ? sign : ""}${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
 };
 
-const formatDateShort = (date: Date) => {
-	const seconds = Math.floor(Date.now() / 1000 - date);
-	const minutes = Math.floor(seconds / 60);
+/**
+ * @returns 15s, 2h, 25d, etc
+ */
+export const formatTimeAgoShort = (secondsAgo: number) => {
+	const minutes = Math.floor(secondsAgo / 60);
 	const hours = Math.floor(minutes / 60);
 	const days = Math.floor(hours / 24);
 
@@ -35,12 +37,14 @@ const formatDateShort = (date: Date) => {
 	if (hours > 18) return "1d";
 	if (hours) return `${hours}h`;
 	if (minutes) return `${minutes}m`;
-	return `${seconds}s`;
+	return `${secondsAgo}s`;
 };
 
-export const formatDate = (date: Date) => {
-	const seconds = Math.floor(Date.now() / 1000 - date);
-	const minutes = Math.floor(seconds / 60);
+/**
+ * @returns 15 minutes ago, 5 days ago, etc
+ */
+export const formatTimeAgo = (secondsAgo: number) => {
+	const minutes = Math.floor(secondsAgo / 60);
 	const hours = Math.floor(minutes / 60);
 	const days = Math.floor(hours / 24);
 
@@ -48,7 +52,7 @@ export const formatDate = (date: Date) => {
 	if (hours > 18) return "yesterday";
 	if (hours) return `${hours} hour${hours > 1 ? "s" : ""} ago`;
 	if (minutes) return `${minutes} minute${minutes > 1 ? "s" : ""} ago`;
-	return `${seconds} second${seconds > 1 ? "s" : ""} ago`;
+	return `${secondsAgo} second${secondsAgo > 1 ? "s" : ""} ago`;
 };
 
 export const formatMatch = (match: Match, curPlayerName: string): FormattedMatch => {
@@ -99,7 +103,7 @@ export const formatMatch = (match: Match, curPlayerName: string): FormattedMatch
 		time,
 		eloChange,
 		eloBefore,
-		date: formatDateShort(match_date),
+		date: match_date,
 		id: match_id,
 	};
 };
@@ -109,12 +113,12 @@ export const formatMatches = (matches: Match[], curPlayerName: string) => {
 };
 
 export const formatRecordLeaderboard = (lb: RecordLeaderboard) => {
-	return lb.map((val) => ({
-		playerName: val.user.nickname,
-		playerUUID: val.user.uuid,
-		time: formatTime(val.final_time),
-		date: formatDateShort(val.match_date),
-		id: val.match_id,
+	return lb.map((match) => ({
+		playerName: match.user.nickname,
+		playerUUID: match.user.uuid,
+		time: formatTime(match.final_time),
+		date: match.match_date,
+		id: match.match_id,
 	}));
 };
 
@@ -172,7 +176,7 @@ export function formatDetailedMatch(
 		curPlayerUUID,
 		winnerUUID,
 		seedType,
-		date: formatDate(match.match_date),
+		date: match.match_date,
 		time: match.final_time,
 		outcome,
 	};

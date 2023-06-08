@@ -25,5 +25,16 @@ export const isLgScreen = readable(true, (set) => {
 	return () => mediaQuery.removeEventListener("change", setMatches);
 });
 
+/** current date in seconds after epoch */
+export const curDate = readable(Math.floor(Date.now() / 1000), function start(set) {
+	const interval = setInterval(() => {
+		set(Math.floor(Date.now() / 1000));
+	}, 1000);
+
+	return function stop() {
+		clearInterval(interval);
+	};
+});
+
 export type Outcome = "won" | "lost" | "draw" | undefined;
 export type Direction = "top" | "bottom" | "left" | "right";

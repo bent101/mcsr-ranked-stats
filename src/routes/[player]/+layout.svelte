@@ -7,6 +7,8 @@
 	import Graph from "../../lib/components/Graph.svelte";
 	import MatchesTableRow from "$lib/components/MatchesTableRow.svelte";
 	import { getLeaderboardURL, getMatchesURL } from "$lib/urls";
+	import RefreshBtn from "$lib/components/RefreshBtn.svelte";
+	import BestTimesTableRow from "$lib/components/BestTimesTableRow.svelte";
 
 	export let data;
 	$: numMatches =
@@ -71,13 +73,14 @@
 <div class="flex flex-col items-center px-4 md:flex-row md:items-start">
 	<div>
 		<div class="h-8" />
-		<div class="w-[30rem] p-4">
-			<h2
-				class="mb-2 border-b-2 border-zinc-800 pb-1 pl-4 text-sm font-bold uppercase text-zinc-400">
-				Matches <span
-					class="ml-2 rounded-full bg-zinc-400 px-2 py-0.5 text-xs font-extrabold text-zinc-900"
-					>{numMatches}</span>
-			</h2>
+		<div class="w-[30rem]">
+			<div class="mb-2 flex items-center border-b-2 border-zinc-800 p-4 pb-1 pl-4">
+				<h2 class="text-sm font-bold uppercase text-zinc-400">Matches</h2>
+				<div class="ml-2 rounded-full bg-zinc-400 px-2 py-0.5 text-xs font-extrabold text-zinc-900">
+					{numMatches}
+				</div>
+				<div class="ml-auto"><RefreshBtn /></div>
+			</div>
 			{#if data.matches && data.matches.length > 0}
 				<ol class="pb-16">
 					{#each data.matches as match}

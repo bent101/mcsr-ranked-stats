@@ -1,11 +1,12 @@
 <script lang="ts">
-	import { afterNavigate, goto } from "$app/navigation";
+	import { afterNavigate, goto, invalidateAll } from "$app/navigation";
 	import { page } from "$app/stores";
 	import { derived } from "svelte/store";
 	import type { PlayerInfo } from "$lib/ranked-api";
 	import Leaderboard from "./Leaderboard.svelte";
 	import SidebarTab from "./SidebarTab.svelte";
 	import stopwatch from "$lib/assets/stopwatch.png";
+	import RefreshBtn from "./RefreshBtn.svelte";
 
 	const bestTimesSelected = derived(page, (page) => $page.url.pathname.includes("/lb"));
 	const compareSelected = derived(page, (page) => $page.url.pathname === "/vs");
@@ -82,6 +83,7 @@
 		class="bg-zinc-950/70 p-4 pl-2 text-center font-extrabold uppercase tracking-wide text-zinc-500">
 		MSCR Ranked Leaderboard
 	</h1>
+
 	<div class="sticky top-0 z-20 mb-2 bg-zinc-950/70 p-4 pl-2 text-zinc-500 backdrop-blur-md">
 		<div class="relative">
 			<input
@@ -179,7 +181,10 @@
 			</div>
 		</SidebarTab>
 
-		<hr class="my-2 ml-2 mr-6 border-zinc-800" />
+		<div class="mr-2 flex items-center">
+			<hr class="m-2 flex-1 border-zinc-800" />
+			<RefreshBtn dark />
+		</div>
 
 		{#if lb}
 			<Leaderboard lb={displayedLb} animating={rawQuery === ""} />
