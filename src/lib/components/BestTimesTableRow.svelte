@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { page } from "$app/stores";
-	import type { formatRecordLeaderboard } from "$lib/formatters";
+	import { formatTimeAgoShort, type formatRecordLeaderboard } from "$lib/formatters";
 	import PlayerLink from "./PlayerLink.svelte";
 	import TableRow from "./TableRow.svelte";
+	import { curDate } from "$lib/globals";
 
 	export let match: ReturnType<typeof formatRecordLeaderboard>[0];
 	export let place: number;
@@ -27,6 +28,6 @@
 		{match.time}
 	</div>
 	<div class="w-10 text-right {selected ? 'text-zinc-300' : 'text-zinc-600'}">
-		{match.date}
+		{formatTimeAgoShort($curDate - match.date)}
 	</div>
 </TableRow>
