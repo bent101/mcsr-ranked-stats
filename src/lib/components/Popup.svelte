@@ -48,7 +48,7 @@
 
 	let popupSizer: HTMLElement;
 	let popupContainer: HTMLElement;
-	let transitionDuration = 200;
+	let transitionDuration = 250;
 
 	let popupX = 0;
 	let popupY = 0;

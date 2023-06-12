@@ -9,6 +9,7 @@
 	import { page } from "$app/stores";
 	import RefreshBtn from "./RefreshBtn.svelte";
 	import { curDate } from "$lib/globals";
+	import PlayerLink from "./PlayerLink.svelte";
 
 	export let match: ReturnType<typeof formatDetailedMatch>;
 
@@ -62,44 +63,47 @@
 				</div>
 			{/each}
 		</div>
+	{/if}
 
-		<div
-			bind:this={scrollingContainer}
-			class="m-2 mr-0 overflow-scroll overscroll-none scrollbar-thin scrollbar-track-zinc-800 scrollbar-thumb-zinc-600 hover:scrollbar-thumb-zinc-500">
-			<div class="flex h-[24rem] w-max gap-4">
-				{#each match.timelines[$detailLevel] as timeline, i}
-					{@const displayedTimeline = $showingSplits ? timeline.slice(0, -1) : timeline.slice(1)}
-					{@const eloChange = match.eloChanges[i]}
-					{@const playerName = match.playerNames[i]}
-					<div class="w-max min-w-[16rem] last:min-w-0 2xl:min-w-[18rem]">
-						<div class="flex bg-zinc-800/70 backdrop-blur-md">
-							<div class="-mr-4 origin-top-left translate-y-1 scale-[60%]">
-								<PlayerHead3D facingForward uuid={match.playerUUIDs[i]} />
-							</div>
-							<div class="flex-1">
-								<h3 class="-mb-2 origin-left text-lg font-semibold text-zinc-300">
-									{playerName}
-
-									{#if match.playerUUIDs[i] === match.winnerUUID}
-										<span
-											class="ml-1.5 inline-block -translate-y-0.5 rounded-full bg-green-400 px-1.5 text-[11px] font-extrabold leading-[14px] text-green-950"
-											>WINNER</span>
-									{/if}
-								</h3>
-								{#if eloChange}
-									{@const { before, change } = eloChange}
-									<div
-										class="inline-block {change > 0
-											? 'text-green-400'
-											: change < 0
-											? 'text-red-400'
-											: 'text-blue-400'} text-xs font-extrabold">
-										{before} → {before + change} elo ({change >= 0 ? "+" : ""}{change})
-									</div>
-								{/if}
-							</div>
+	<div
+		bind:this={scrollingContainer}
+		class="m-2 mr-0 overflow-scroll overscroll-none scrollbar-thin scrollbar-track-zinc-800 scrollbar-thumb-zinc-600 hover:scrollbar-thumb-zinc-500">
+		<div class="flex {match.timelines ? 'h-[24rem]' : ''} w-max gap-4">
+			{#each match.playerUUIDs as playerUUID, i}
+				{@const timeline = match.timelines?.[$detailLevel][i]}
+				{@const displayedTimeline = $showingSplits ? timeline?.slice(0, -1) : timeline?.slice(1)}
+				{@const eloChange = match.eloChanges[i]}
+				{@const playerName = match.playerNames[i]}
+				<div class="w-max min-w-[16rem] last:min-w-0 2xl:min-w-[18rem]">
+					<div class="flex bg-zinc-800/70 backdrop-blur-md">
+						<div class="-mr-4 origin-top-left translate-y-1 scale-[60%]">
+							<PlayerHead3D facingForward uuid={playerUUID} />
 						</div>
+						<div class="flex-1">
+							<h3 class="-mb-2 origin-left text-lg font-semibold text-zinc-300">
+								<PlayerLink name={playerName} uuid={playerUUID} />
 
+								{#if playerUUID === match.winnerUUID}
+									<span
+										class="ml-1.5 inline-block -translate-y-0.5 rounded-full bg-green-400 px-1.5 text-[11px] font-extrabold leading-[14px] text-green-950"
+										>WINNER</span>
+								{/if}
+							</h3>
+							{#if eloChange}
+								{@const { before, change } = eloChange}
+								<div
+									class="inline-block {change > 0
+										? 'text-green-400'
+										: change < 0
+										? 'text-red-400'
+										: 'text-blue-400'} text-xs font-extrabold">
+									{before} → {before + change} elo ({change >= 0 ? "+" : ""}{change})
+								</div>
+							{/if}
+						</div>
+					</div>
+
+					{#if displayedTimeline}
 						<div class="mt-2 flex gap-1">
 							<div class="w-14">
 								{#each displayedTimeline as event (event.name)}
@@ -156,16 +160,16 @@
 								{/each}
 							</ol>
 						</div>
-					</div>
-				{/each}
-			</div>
+					{/if}
+				</div>
+			{/each}
 		</div>
-		{#if match.timelines}
-			<MultiSwitch
-				bind:selectedIdx={$detailLevel}
-				label="Detail"
-				options={["low", "med", "high", "all"]} />
-		{/if}
+	</div>
+	{#if match.timelines}
+		<MultiSwitch
+			bind:selectedIdx={$detailLevel}
+			label="Detail"
+			options={["low", "med", "high", "all"]} />
 	{:else}
 		<div class="p-12 font-semibold text-zinc-500">
 			<div class="mx-auto w-max">
