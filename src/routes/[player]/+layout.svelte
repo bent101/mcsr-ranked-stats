@@ -1,30 +1,49 @@
 <script lang="ts">
-	import { formatMatches } from "$lib/formatters";
-	import { afterNavigate, invalidate } from "$app/navigation";
-	import { onMount } from "svelte";
-	import PlayerProfile from "$lib/components/PlayerProfile.svelte";
-	import { isLgScreen, matchesPerPage } from "$lib/globals";
-	import Graph from "../../lib/components/Graph.svelte";
+	import { afterNavigate, invalidate, invalidateAll } from "$app/navigation";
+	import Graph from "$lib/components/Graph.svelte";
 	import MatchesTableRow from "$lib/components/MatchesTableRow.svelte";
-	import { getLeaderboardURL, getMatchesURL } from "$lib/urls";
+	import PlayerProfile from "$lib/components/PlayerProfile.svelte";
 	import RefreshBtn from "$lib/components/RefreshBtn.svelte";
-	import BestTimesTableRow from "$lib/components/BestTimesTableRow.svelte";
+	import { formatMatches } from "$lib/formatters";
+	import { isLgScreen, matchesPerPage } from "$lib/globals";
+	import { getLeaderboardURL, getMatchesURL } from "$lib/urls";
+	import { flatten } from "@unovis/ts";
+	import { onMount } from "svelte";
 
 	export let data;
-	$: numMatches =
-		data.playerData.records[2].win +
-		data.playerData.records[2].lose +
-		data.playerData.records[2].draw;
+	$: numMatches = data.playerData.season_played;
 
 	let infiniteScrollPadding: HTMLElement | undefined;
+	let loadingAllMatches = false;
 
-	const addMoreMatches = async () => {
-		if (data.noMoreMatches) return;
-		const matches = await fetch(getMatchesURL(data.playerData.nickname, data.curPage++))
+	const getMatches = (page: number, perPage: number) => {
+		return fetch(getMatchesURL(data.playerData.nickname, page, perPage))
 			.then((res) => res.json())
 			.then((res) => formatMatches(res.data ?? [], data.playerData.nickname));
+	};
+
+	const showMoreMatches = async () => {
+		if (data.noMoreMatches || loadingAllMatches) return;
+		const matches = await getMatches(data.curPage++, matchesPerPage);
 		data.matches = [...data.matches, ...matches];
 		data.noMoreMatches = matches.length < matchesPerPage;
+	};
+
+	const showAllMatches = async () => {
+		loadingAllMatches = true;
+
+		const numPages = Math.ceil(numMatches / 50);
+
+		data.matches = flatten(
+			await Promise.all(
+				Array(numPages)
+					.fill(undefined)
+					.map((_, i) => getMatches(i, 50))
+			)
+		);
+
+		loadingAllMatches = false;
+		data.noMoreMatches = true;
 	};
 
 	let io: IntersectionObserver;
@@ -33,7 +52,7 @@
 		if (infiniteScrollPadding) {
 			io = new IntersectionObserver(([entry]) => {
 				if (entry.isIntersecting) {
-					addMoreMatches();
+					showMoreMatches();
 				}
 			});
 			io.observe(infiniteScrollPadding);
@@ -67,7 +86,18 @@
 <div class="h-8 lg:hidden" />
 {#if !$isLgScreen}
 	<div class="mx-auto max-w-3xl p-8 pl-2">
-		<Graph matches={data.matches} />
+		<div class="relative h-[calc(max(24rem,60vh))]">
+			<Graph matches={data.matches} />
+			<button
+				on:click={showAllMatches}
+				disabled={loadingAllMatches || data.noMoreMatches}
+				class="absolute bottom-[50px] left-[70px] w-32 rounded-full border-2 border-zinc-700 bg-zinc-950 px-2 py-1 text-xs font-extrabold uppercase tracking-wide text-zinc-500 disabled:opacity-70"
+				>{loadingAllMatches
+					? "Loading..."
+					: data.noMoreMatches
+					? "Showing all"
+					: "Show all"}</button>
+		</div>
 	</div>
 {/if}
 <div class="flex flex-col items-center px-4 md:flex-row md:items-start">
@@ -99,7 +129,18 @@
 	</div>
 	{#if $isLgScreen}
 		<div class="sticky top-32 h-max flex-1">
-			<Graph matches={data.matches} />
+			<div class="relative h-[calc(max(24rem,60vh))]">
+				<Graph matches={data.matches} />
+				<button
+					on:click={showAllMatches}
+					disabled={loadingAllMatches || data.noMoreMatches}
+					class="absolute bottom-[50px] left-[70px] w-32 rounded-full border-2 border-zinc-700 bg-zinc-950 px-2 py-1 text-xs font-extrabold uppercase tracking-wide text-zinc-500 disabled:opacity-70"
+					>{loadingAllMatches
+						? "Loading..."
+						: data.noMoreMatches
+						? "Showing all"
+						: "Show all"}</button>
+			</div>
 		</div>
 	{/if}
 </div>

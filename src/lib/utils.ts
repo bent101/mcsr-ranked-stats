@@ -32,16 +32,9 @@ export function clamp(num: number, lowerBound: number, upperBound: number) {
 	return Math.min(Math.max(num, lowerBound), upperBound);
 }
 
-// export function groupBy<T>(array: T[], key: string) {
-// 	return array.reduce((result: Record<string, T[]>, cur: T) => {
-// 		const group = cur[key];
-// 		if (!result[group]) {
-// 			result[group] = [];
-// 		}
-// 		result[group].push(cur);
-// 		return result;
-// 	}, {});
-// }
+export function flatten<T>(array: T[][]) {
+	return array.reduce((acc, cur) => acc.concat(cur), []);
+}
 
 export function isDarkColor(hexCode: string) {
 	// Convert the 3-digit hex code to 6-digit format

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { afterNavigate, goto, invalidateAll } from "$app/navigation";
+	import { afterNavigate, goto } from "$app/navigation";
 	import { page } from "$app/stores";
 	import { derived } from "svelte/store";
 	import type { PlayerInfo } from "$lib/ranked-api";
@@ -8,8 +8,8 @@
 	import stopwatch from "$lib/assets/stopwatch.png";
 	import RefreshBtn from "./RefreshBtn.svelte";
 
-	const bestTimesSelected = derived(page, (page) => $page.url.pathname.includes("/lb"));
-	const compareSelected = derived(page, (page) => $page.url.pathname === "/vs");
+	const bestTimesSelected = derived(page, ($page) => $page.url.pathname.includes("/lb"));
+	const compareSelected = derived(page, ($page) => $page.url.pathname === "/vs");
 
 	export let lb: PlayerInfo[] | undefined;
 	let searchInput: HTMLElement | undefined;
