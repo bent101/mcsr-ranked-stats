@@ -2,8 +2,7 @@
 	import BestTimesTableRow from "$lib/components/BestTimesTableRow.svelte";
 	import Switch from "$lib/components/Switch.svelte";
 	import { createLocalStorageStore } from "$lib/utils";
-	import { flip } from "svelte/animate";
-	import { fade, scale } from "svelte/transition";
+	import { scale } from "svelte/transition";
 
 	export let data;
 

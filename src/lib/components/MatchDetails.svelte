@@ -3,7 +3,7 @@
 	import Switch from "$lib/components/Switch.svelte";
 	import { createLocalStorageStore, isDarkColor } from "$lib/utils";
 	import { formatTime, formatDetailedMatch, formatTimeAgo } from "$lib/formatters";
-	import { scale } from "svelte/transition";
+	// import { scale } from "svelte/transition";
 	import PlayerHead3D from "./PlayerHead3D.svelte";
 	import MatchTimeline from "./MatchTimeline.svelte";
 	import { page } from "$app/stores";
@@ -109,9 +109,8 @@
 								{#each displayedTimeline as event (event.name)}
 									{@const time = $showingSplits ? event.splitAfter.length : event.timestamp}
 									{@const textColor = isDarkColor(event.color) ? "text-white/60" : "text-black/80"}
-									<div
-										in:scale={{ start: 0.7, duration: 150, delay: 150 }}
-										class="flex h-7 items-center">
+									<!-- in:scale={{ start: 0.7, duration: 150, delay: 150 }} -->
+									<div class="flex h-7 items-center">
 										<div
 											class="w-full -translate-y-0.5 overflow-clip rounded-full px-1.5 text-center text-sm font-bold {textColor}"
 											style="background-color: {event.color}">
@@ -130,9 +129,8 @@
 									{@const pairToLeft = $showingSplits
 										? event.splitAfter.pairToLeft
 										: event.pairToLeft}
-									<li
-										in:scale={{ start: 0.7, duration: 150, delay: 150 }}
-										class="h-7 w-full origin-left">
+									<!-- in:scale={{ start: 0.7, duration: 150, delay: 150 }} -->
+									<li class="h-7 w-full origin-left">
 										{#if pairToRight}
 											<div class="flex">
 												{#if diff}
