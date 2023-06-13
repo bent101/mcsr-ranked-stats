@@ -31,10 +31,19 @@
 
 {#if browser}
 	<VisXYContainer {xDomain} {yDomain} width="100%" height="calc(max(24rem, 60vh))" {data}>
-		<VisArea color="#ddd4" curveType="linear" {data} x={(d) => d.x} y={(d) => d.y} />
-		<VisLine color="#ddd" curveType="linear" lineWidth={3} {data} x={(d) => d.x} y={(d) => d.y} />
+		<VisArea color="#a1a1aa28" curveType="linear" {data} x={(d) => d.x} y={(d) => d.y} />
+		<VisLine color="#a1a1aa" curveType="linear" {data} x={(d) => d.x} y={(d) => d.y} />
 
 		<VisAxis type="x" numTicks={5} label="Matches ago" />
 		<VisAxis type="y" numTicks={3} label="Elo" />
 	</VisXYContainer>
 {/if}
+
+<style>
+	:root {
+		--vis-axis-grid-color: #27272a;
+		--vis-axis-tick-color: #27272a;
+		--vis-axis-label-color: #71717a;
+		--vis-axis-tick-label-color: #71717a;
+	}
+</style>
