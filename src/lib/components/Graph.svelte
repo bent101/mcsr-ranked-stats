@@ -35,7 +35,7 @@
 			<VisArea color="#a1a1aa28" curveType="linear" {data} x={(d) => d.x} y={(d) => d.y} />
 			<VisLine color="#a1a1aa" curveType="linear" {data} x={(d) => d.x} y={(d) => d.y} />
 
-			<VisAxis type="x" numTicks={5} label="Matches ago" />
+			<VisAxis type="x" numTicks={3} label="Matches ago" />
 			<VisAxis type="y" numTicks={3} label="Elo" />
 		</VisXYContainer>
 	</div>
