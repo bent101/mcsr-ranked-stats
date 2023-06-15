@@ -9,11 +9,11 @@
 	export let matches: FormattedMatch[];
 
 	$: data = matches
+		.filter((match) => match.eloBefore && match.eloBefore !== -1)
 		.map((match, i) => ({
 			x: i + 1,
 			y: (match.eloBefore ?? 0) + match.eloChange,
-		}))
-		.filter(({ y }) => y && y !== -1) as DataRecord[];
+		})) as DataRecord[];
 
 	$: yMin = Math.min(...data.map(({ y }) => y));
 	$: yMax = Math.max(Math.max(...data.map(({ y }) => y)), 0);

@@ -7,6 +7,7 @@
 	import { dev } from "$app/environment";
 	import { inject } from "@vercel/analytics";
 	import { isXlScreen } from "$lib/globals";
+	import { tick } from "svelte";
 
 	inject({ mode: dev ? "development" : "production" });
 
@@ -14,7 +15,10 @@
 
 	let lbButton: HTMLElement | undefined;
 
+	let sidebar: HTMLElement | undefined;
+
 	let showingLeaderboard = true;
+
 	const showLb = () => {
 		showingLeaderboard = true;
 		if (lbButton) lbButton.blur();
@@ -22,6 +26,15 @@
 	const hideLb = () => {
 		showingLeaderboard = false;
 		if (lbButton) lbButton.blur();
+	};
+
+	const stopSidebarScroll = async () => {
+		if (!sidebar) return;
+		sidebar.scrollTop = 0;
+		// sidebar.style.overflow = "hidden";
+		// setTimeout(() => {
+		// 	sidebar!.style.overflow = "";
+		// }, 0);
 	};
 
 	afterNavigate(hideLb);
@@ -55,19 +68,21 @@
 			}}
 			class="fixed inset-0 z-50 bg-black/90" />
 		<div
+			bind:this={sidebar}
 			transition:fly={{ x: -40, duration: 200 }}
 			class="fixed top-0 z-50 h-full overflow-y-scroll overscroll-y-contain scrollbar-thin scrollbar-track-zinc-950 scrollbar-thumb-zinc-900 [direction:rtl] hover:scrollbar-thumb-zinc-800">
 			<div class="[direction:ltr]">
-				<Sidebar lb={data.lb?.users} />
+				<Sidebar {stopSidebarScroll} lb={data.lb?.users} />
 			</div>
 		</div>
 	{/if}
 {:else}
 	<div class="flex">
 		<div
+			bind:this={sidebar}
 			class="sticky top-0 z-50 h-screen overflow-y-scroll overscroll-y-contain scrollbar-thin scrollbar-track-zinc-950 scrollbar-thumb-zinc-900 [direction:rtl] hover:scrollbar-thumb-zinc-800">
 			<div class="[direction:ltr]">
-				<Sidebar lb={data.lb?.users} />
+				<Sidebar {stopSidebarScroll} lb={data.lb?.users} />
 			</div>
 		</div>
 		<div class="flex-1">

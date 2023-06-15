@@ -12,6 +12,8 @@
 	const compareSelected = derived(page, ($page) => $page.url.pathname === "/vs");
 
 	export let lb: PlayerInfo[] | undefined;
+	export let stopSidebarScroll: () => void;
+
 	let searchInput: HTMLElement | undefined;
 
 	let rawQuery = "";
@@ -33,7 +35,12 @@
 			return i === query.length;
 		}) ?? [];
 
-	$: filteredLb, (arrowSelectedIdx = rawQuery ? 0 : -1);
+	const onLbChange = () => {
+		arrowSelectedIdx = rawQuery ? 0 : -1;
+		stopSidebarScroll();
+	};
+
+	$: filteredLb, onLbChange();
 
 	$: isMatch = filteredLb.find((player) => player.nickname.toLowerCase() === query);
 	$: isExtra = rawQuery !== "" && !isMatch;
@@ -181,7 +188,7 @@
 			</div>
 		</SidebarTab>
 
-		<div class="mr-2 flex items-center">
+		<div class="mr-2 flex scroll-mt-16 items-center">
 			<hr class="m-2 flex-1 border-zinc-800" />
 			<RefreshBtn dark />
 		</div>
