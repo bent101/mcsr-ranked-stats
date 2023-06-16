@@ -30,6 +30,6 @@ export const getVersusMatchesURL = (player1: string, player2: string) => {
 	return `${base}/users/${player1}/versus/${player2}/matches`;
 };
 
-export const getSkinURL = (uuid: string) => {
-	return `https://mineskin.eu/skin/${uuid}`;
+export const getSkinURL = (uuidOrName: string) => {
+	return `https://mineskin.eu/skin/${uuidOrName}`;
 };

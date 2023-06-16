@@ -11,7 +11,11 @@
 <div class="grid h-screen place-items-center">
 	<div class="text-xl font-semibold text-zinc-500">
 		{#if $page.error && $page.status === 404}
-			{#if $page.error.message === "both"}
+			{#if $page.error.message === "same"}You can't compare
+				<span class="text-zinc-300">{player1}</span> to themself!
+				<br /><br />
+				Click or search for a player to see their stats
+			{:else if $page.error.message === "both"}
 				<span class="text-zinc-300">{player1}</span>
 				and
 				<span class="text-zinc-300">{player2}</span>
@@ -19,9 +23,11 @@
 				<br /><br />
 				Click or search for a player to see their stats
 			{:else}
-				<span class="text-zinc-300">{$page.error.message === "player1" ? player1 : player2}</span>
+				<span class="text-zinc-300">{$page.error.message === "player2" ? player1 : player2}</span>
 
-				hasn't played MCSR Ranked yet
+				has played MCSR Ranked, but
+				<span class="text-zinc-300">{$page.error.message === "player2" ? player2 : player1}</span>
+				has not
 				<br /><br />
 				Click or search for a player to see their stats
 			{/if}
