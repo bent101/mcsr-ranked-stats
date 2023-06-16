@@ -7,6 +7,7 @@
 	import SidebarTab from "./SidebarTab.svelte";
 	import stopwatch from "$lib/assets/stopwatch.png";
 	import RefreshBtn from "./RefreshBtn.svelte";
+	import { ignFilter } from "$lib/actions";
 
 	const bestTimesSelected = derived(page, ($page) => $page.url.pathname.includes("/lb"));
 	const compareSelected = derived(page, ($page) => $page.url.pathname === "/vs");
@@ -17,7 +18,6 @@
 	let searchInput: HTMLElement | undefined;
 
 	let rawQuery = "";
-	$: rawQuery = rawQuery?.replace(/[^a-zA-Z0-9_]/g, "").slice(0, 16);
 	$: query = rawQuery?.toLowerCase() ?? "";
 	$: filteredLb =
 		lb?.filter((player) => {
@@ -81,6 +81,7 @@
 <svelte:window
 	on:keypress={(e) => {
 		if (e.key === "/") {
+			e.preventDefault();
 			searchInput?.focus();
 		}
 	}} />
@@ -97,6 +98,7 @@
 				type="search"
 				bind:value={rawQuery}
 				bind:this={searchInput}
+				use:ignFilter
 				on:focus={() => {
 					inputIsFocused = true;
 				}}
