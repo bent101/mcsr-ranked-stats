@@ -15,7 +15,7 @@
 </script>
 
 <svelte:head>
-	<title>MCSR Ranked stats</title>
+	<title>Compare players | MCSR Ranked stats</title>
 </svelte:head>
 
 <div class="grid h-screen place-items-center p-4 text-zinc-300">

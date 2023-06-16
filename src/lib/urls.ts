@@ -22,6 +22,14 @@ export const getBestTimesURL = (unique: boolean) => {
 	return `${base}/record-leaderboard${unique ? "?distinct" : ""}`;
 };
 
+export const getVersusURL = (player1: string, player2: string) => {
+	return `${base}/users/${player1}/versus/${player2}`;
+};
+
+export const getVersusMatchesURL = (player1: string, player2: string) => {
+	return `${base}/users/${player1}/versus/${player2}/matches`;
+};
+
 export const getSkinURL = (uuid: string) => {
 	return `https://mineskin.eu/skin/${uuid}`;
 };
