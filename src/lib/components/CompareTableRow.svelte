@@ -23,7 +23,7 @@
 			{player1Won ? player1 : player2Won ? player2 : "Draw"}
 		</div>
 		<div class="w-16 text-center text-sm font-bold">
-			{Math.abs(match.eloChange)}
+			+{match.eloChange}
 		</div>
 		<div
 			class="w-20 text-center font-extrabold tracking-wider {match.forfeit
