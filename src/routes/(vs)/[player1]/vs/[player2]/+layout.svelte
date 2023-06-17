@@ -53,7 +53,7 @@
 	<div class="mx-auto max-w-max lg:ml-0 lg:max-w-5xl">
 		<div class="flex flex-col justify-center lg:flex-row">
 			<div class="flex-1">
-				<div class="ml-auto max-w-max">
+				<div class="lg:ml-auto lg:max-w-max">
 					<PlayerProfile
 						headToRight={$isLgScreen}
 						rotation={$isLgScreen ? right : down}
@@ -88,20 +88,6 @@
 					<div class="text-xs">{player2WinPercent}%</div>
 				</div>
 			</div>
-		{:else}
-			<div class="mt-40 p-8 pt-16 text-xl font-semibold text-zinc-500">
-				<span class="text-zinc-300">{data.player1.nickname}</span>
-				and
-				<span class="text-zinc-300">{data.player2.nickname}</span>
-				haven't had any matches together yet this season
-
-				<div class="mt-16">
-					<a
-						href="/vs"
-						class="ml-auto block w-max rounded-full py-3 pl-4 pr-6 hover:bg-zinc-700/50 hover:text-zinc-300"
-						>←&nbsp;&nbsp;&nbsp;Go back</a>
-				</div>
-			</div>
 		{/if}
 	</div>
 </div>
@@ -134,6 +120,22 @@
 		<div
 			class="pointer-events-auto relative mx-auto min-h-[6rem] w-[35rem] rounded-t-3xl bg-zinc-800 shadow-lg shadow-black/30 md:mr-4 2xl:ml-[52rem] 2xl:w-[43rem] 3xl:w-[52rem]">
 			<slot />
+		</div>
+	</div>
+{:else}
+	<div class="max-w-5xl">
+		<div class="mx-auto max-w-2xl p-24 text-xl font-semibold text-zinc-500">
+			<span class="text-zinc-300">{data.player1.nickname}</span>
+			and
+			<span class="text-zinc-300">{data.player2.nickname}</span>
+			haven't had any matches together this season
+
+			<div class="mt-16">
+				<a
+					href="/vs"
+					class="ml-auto block w-max rounded-full py-3 pl-4 pr-6 hover:bg-zinc-700/50 hover:text-zinc-300"
+					>←&nbsp;&nbsp;&nbsp;Go back</a>
+			</div>
 		</div>
 	</div>
 {/if}
