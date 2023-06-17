@@ -7,10 +7,13 @@
 
 	export let data;
 
+	$: numMatches = data.wins.total;
 	$: player1Wins = data.wins[data.player1.uuid];
 	$: player2Wins = data.wins[data.player2.uuid];
-	$: numMatches = data.wins.total;
 	$: numDraws = numMatches - player1Wins - player2Wins;
+
+	$: player1WinPercent = Math.round((100 * player1Wins) / numMatches);
+	$: player2WinPercent = Math.round((100 * player2Wins) / numMatches);
 
 	const recentVs = createLocalStorageStore("recentVs", [
 		{ player1: data.player1.nickname, player2: data.player2.nickname },
@@ -56,10 +59,19 @@
 			</div>
 		</div>
 		{#if numMatches > 0}
-			<div class="flex items-center justify-center gap-4 text-5xl font-bold">
-				<div class="flex-1 text-right text-orange-400">{player1Wins}</div>
-				<div class="text-zinc-600">{numDraws > 0 ? `- ${numDraws} -` : `-`}</div>
-				<div class="flex-1 text-yellow-400">{player2Wins}</div>
+			<div class="flex items-center justify-center gap-4 pb-12 text-5xl font-bold">
+				<div class="flex-1 text-right text-orange-400">
+					{player1Wins}
+					<div class="text-xs">{player1WinPercent}%</div>
+				</div>
+				<div class="text-center uppercase text-zinc-600">
+					{numDraws > 0 ? `- ${numDraws} -` : `-`}
+					<div class="text-xs">{@html numDraws === 0 ? "&nbsp;" : 1 ? "draw" : "draws"}</div>
+				</div>
+				<div class="flex-1 text-yellow-400">
+					{player2Wins}
+					<div class="text-xs">{player2WinPercent}%</div>
+				</div>
 			</div>
 		{:else}
 			<div class="mt-40 p-8 text-xl font-semibold text-zinc-500">
