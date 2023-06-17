@@ -142,7 +142,9 @@ export function formatDetailedMatch(
 	// if `curPlayerUUID` is defined, put it first; otherwise, put the winner first
 	const playerOrder = match.members.map((member) => member.uuid);
 	if (!curPlayerName) {
-		[playerOrder[winnerIdx], playerOrder[0]] = [playerOrder[0], playerOrder[winnerIdx]];
+		if (winnerIdx !== -1) {
+			[playerOrder[winnerIdx], playerOrder[0]] = [playerOrder[0], playerOrder[winnerIdx]];
+		}
 	} else if (curPlayerIdx === -1) {
 		console.error(`couldnt find ${curPlayerName} in match ${match.match_id}`);
 	} else {
