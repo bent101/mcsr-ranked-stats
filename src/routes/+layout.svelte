@@ -3,11 +3,11 @@
 	import "../app.css";
 	import Sidebar from "$lib/components/Sidebar.svelte";
 	import Loading from "$lib/components/Loading.svelte";
-	import { afterNavigate } from "$app/navigation";
+	import { beforeNavigate } from "$app/navigation";
 	import { dev } from "$app/environment";
 	import { inject } from "@vercel/analytics";
 	import { isXlScreen } from "$lib/globals";
-	import { tick } from "svelte";
+	import { page } from "$app/stores";
 
 	inject({ mode: dev ? "development" : "production" });
 
@@ -17,7 +17,7 @@
 
 	let sidebar: HTMLElement | undefined;
 
-	let showingLeaderboard = true;
+	let showingLeaderboard = $page.url.pathname === "/";
 
 	const showLb = () => {
 		showingLeaderboard = true;
@@ -36,8 +36,7 @@
 		// 	sidebar!.style.overflow = "";
 		// }, 0);
 	};
-
-	afterNavigate(hideLb);
+	beforeNavigate(hideLb);
 </script>
 
 <svelte:head>
