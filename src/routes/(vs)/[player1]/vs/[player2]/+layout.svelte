@@ -125,7 +125,7 @@
 			</div>
 		</div>
 
-		{#each [...data.matches, ...data.matches, ...data.matches, ...data.matches, ...data.matches, ...data.matches, ...data.matches, ...data.matches, ...data.matches, ...data.matches] as match}
+		{#each data.matches as match}
 			<CompareTableRow {match} player1UUID={data.player1.uuid} player2UUID={data.player2.uuid} />
 		{/each}
 	</div>
