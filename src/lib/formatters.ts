@@ -1,5 +1,5 @@
 import type { Outcome } from "./globals";
-import type { Date, DetailedMatch, Match, RecordLeaderboard } from "$lib/ranked-api";
+import type { DetailedMatch, Match, RecordLeaderboard } from "$lib/ranked-api";
 import { getTimelines } from "./match-timelines";
 
 export type FormattedMatch = {
@@ -7,6 +7,7 @@ export type FormattedMatch = {
 	curPlayerName: string | undefined;
 	opponentName: string | undefined;
 	opponentUUID: string | undefined;
+	winnerUUID: string | undefined;
 	outcome: Outcome;
 	outcomeColor: string;
 	forfeit: boolean;
@@ -55,7 +56,7 @@ export const formatTimeAgo = (secondsAgo: number) => {
 	return `${secondsAgo} second${secondsAgo > 1 ? "s" : ""} ago`;
 };
 
-export const formatMatch = (match: Match, curPlayerName: string): FormattedMatch => {
+export const formatMatch = (match: Match, curPlayerName: string | undefined): FormattedMatch => {
 	const { is_decay, winner, final_time, members, score_changes, forfeit, match_date, match_id } =
 		match;
 	let opponentName = undefined;
@@ -73,7 +74,11 @@ export const formatMatch = (match: Match, curPlayerName: string): FormattedMatch
 		time = formatTime(final_time);
 	}
 
-	const scoreChange = score_changes?.find((member) => member.uuid === uuid);
+	const winnerUUID = match.winner ?? undefined;
+
+	const scoreChange = score_changes?.find(
+		(member) => member.uuid === (curPlayerName ? uuid : winnerUUID)
+	);
 	const eloChange = scoreChange?.change ?? 0;
 	const eloBefore = scoreChange?.score;
 
@@ -97,6 +102,7 @@ export const formatMatch = (match: Match, curPlayerName: string): FormattedMatch
 		curPlayerName,
 		opponentName,
 		opponentUUID,
+		winnerUUID,
 		outcome,
 		outcomeColor,
 		forfeit,
@@ -108,7 +114,7 @@ export const formatMatch = (match: Match, curPlayerName: string): FormattedMatch
 	};
 };
 
-export const formatMatches = (matches: Match[], curPlayerName: string) => {
+export const formatMatches = (matches: Match[], curPlayerName: string | undefined = undefined) => {
 	return matches.map((match) => formatMatch(match, curPlayerName));
 };
 

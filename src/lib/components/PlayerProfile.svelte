@@ -15,7 +15,13 @@
 	import PlayerHead3D from "./PlayerHead3D.svelte";
 
 	export let playerData: DetailedPlayer;
+	export let color = "text-white";
 	export let rotate = false;
+
+	$: numMatches =
+		playerData.records[2].win + playerData.records[2].lose + playerData.records[2].draw;
+
+	$: winrate = Math.round((100 * playerData.records[2].win) / numMatches);
 
 	let justCopiedDiscord = false;
 
@@ -30,11 +36,6 @@
 			justCopiedDiscord = false;
 		}, 2000);
 	};
-
-	$: numMatches =
-		playerData.records[2].win + playerData.records[2].lose + playerData.records[2].draw;
-
-	$: winrate = Math.round((100 * playerData.records[2].win) / numMatches);
 
 	const getRank = (elo: number) => {
 		if (elo < 600) {
@@ -82,10 +83,11 @@
 	</div>
 	<div class="pl-2">
 		<div class="flex h-8 items-center">
-			<h1 class="mr-2 text-xl font-bold text-white/80">
+			<h1 class="mr-2 text-xl font-bold opacity-80 {color}">
 				{#if playerData.elo_rank}
 					<span class="mr-2 font-extrabold text-white/30">#{playerData.elo_rank}</span>
-				{/if}{playerData.nickname}
+				{/if}
+				{playerData.nickname}
 			</h1>
 			{#if playerData.badge}
 				<a
@@ -97,7 +99,7 @@
 					<div
 						class="glow-{playerData.badge} pointer-events-none absolute -inset-12 bg-gradient-radial" />
 					<div
-						class="glow-{playerData.badge} pointer-events-none absolute -inset-80 bg-gradient-radial opacity-50" />
+						class="glow-{playerData.badge} pointer-events-none absolute -inset-48 bg-gradient-radial opacity-50" />
 					<img
 						class="h-full w-8"
 						style="image-rendering: pixelated;"
@@ -172,7 +174,7 @@
 				<span class="font-extrabold text-white/30">•</span>
 			{/if}
 			{#if playerData.best_record_time !== 0}
-				<b>{formatTime(playerData.best_record_time)}</b> ranked pb
+				<b>{formatTime(playerData.best_record_time)}</b> pb
 				<span class="font-extrabold text-white/30">•</span>
 			{/if}
 			<b>{playerData.highest_winstreak}</b> best winstreak
