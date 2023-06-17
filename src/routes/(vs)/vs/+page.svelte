@@ -88,8 +88,8 @@
 			{#if recent}
 				<a
 					href="/{recent.player1}/vs/{recent.player2}"
-					class="group flex h-24 items-center justify-center rounded-xl border border-zinc-700 bg-zinc-950 px-4 py-2 font-semibold text-zinc-500 hover:border-zinc-300 hover:text-zinc-300">
-					<div>
+					class="group flex h-24 items-center rounded-xl border border-zinc-700 bg-zinc-950 px-4 py-2 font-semibold text-zinc-500 hover:border-zinc-300 hover:text-zinc-300">
+					<div class="flex-1 text-center">
 						{recent.player1}
 						<span class="text-zinc-700 group-hover:text-zinc-500">vs</span>
 						{recent.player2}

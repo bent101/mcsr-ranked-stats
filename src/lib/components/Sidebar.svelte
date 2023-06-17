@@ -10,7 +10,7 @@
 	import { ignFilter } from "$lib/actions";
 
 	const bestTimesSelected = derived(page, ($page) => $page.url.pathname.includes("/lb"));
-	const compareSelected = derived(page, ($page) => $page.url.pathname === "/vs");
+	const compareSelected = derived(page, ($page) => $page.url.pathname.includes("/vs"));
 
 	export let lb: PlayerInfo[] | undefined;
 	export let stopSidebarScroll: () => void;
