@@ -147,12 +147,12 @@
 				<Tooltip anchor={unverified}>Needs to link Discord</Tooltip>
 			{/if}
 		</div>
-		<div class="text-white/60">
+		<div class="text-white/50">
 			{#if playerData.elo_rate === -1}
 				<b>Doing placements</b>
 			{:else}
-				<b class="bg-gradient-to-r bg-clip-text font-extrabold text-transparent {rank.color}"
-					>{rank.name}</b>
+				<span class="bg-gradient-to-r bg-clip-text font-extrabold text-transparent {rank.color}"
+					>{rank.name}</span>
 				(<span class="bg-gradient-to-r bg-clip-text font-extrabold text-transparent {rank.color}"
 					>{playerData.elo_rate}</span>
 				elo)
@@ -168,7 +168,7 @@
 				{/if}
 			{/if}
 		</div>
-		<div class="text-white/60">
+		<div class="text-white/50">
 			{#if winrate !== -1 && !isNaN(winrate)}
 				<b>{winrate}</b>% winrate
 				<span class="font-extrabold text-white/30">•</span>
@@ -184,7 +184,7 @@
 
 <style lang="postcss">
 	b {
-		@apply font-bold;
+		@apply font-bold text-white/70;
 	}
 
 	.glow-1 {
