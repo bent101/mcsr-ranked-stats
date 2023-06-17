@@ -16,7 +16,7 @@
 
 	export let playerData: DetailedPlayer;
 	export let color = "text-white";
-	export let rotate = false;
+	export let rotation: { x: number; y: number } | undefined = undefined;
 
 	$: numMatches =
 		playerData.records[2].win + playerData.records[2].lose + playerData.records[2].draw;
@@ -79,7 +79,7 @@
 
 <div class="flex w-max items-center gap-2 px-4 py-2">
 	<div class="pb-2">
-		<PlayerHead3D {rotate} uuid={playerData.uuid} />
+		<PlayerHead3D {rotation} uuid={playerData.uuid} />
 	</div>
 	<div class="pl-2">
 		<div class="flex h-8 items-center">

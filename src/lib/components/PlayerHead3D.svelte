@@ -5,7 +5,7 @@
 	// import { spring } from "svelte/motion";
 
 	export let uuid: string;
-	export let rotate = false;
+	export let rotation: { x: number; y: number } | undefined = undefined;
 	export let facingForward = false;
 
 	$: skinURL = getSkinURL(uuid);
@@ -25,7 +25,13 @@
 
 <svelte:window
 	on:mousemove={(e) => {
-		if (rotate) {
+		if (facingForward) {
+			rotateX = 0;
+			rotateY = 0;
+		} else if (rotation) {
+			rotateX = rotation.x;
+			rotateY = rotation.y;
+		} else {
 			rotateX = (Math.atan((centerY - e.clientY) / 800) / Math.PI) * 180;
 			rotateY = (Math.atan(-(centerX - e.clientX) / 800) / Math.PI) * 180;
 		}

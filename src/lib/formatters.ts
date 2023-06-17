@@ -76,9 +76,9 @@ export const formatMatch = (match: Match, curPlayerName: string | undefined): Fo
 
 	const winnerUUID = match.winner ?? undefined;
 
-	const scoreChange = score_changes?.find(
-		(member) => member.uuid === (curPlayerName ? uuid : winnerUUID)
-	);
+	const scoreChange =
+		score_changes?.find((member) => member.uuid === (curPlayerName ? uuid : winnerUUID)) ??
+		score_changes?.[0];
 	const eloChange = scoreChange?.change ?? 0;
 	const eloBefore = scoreChange?.score;
 
