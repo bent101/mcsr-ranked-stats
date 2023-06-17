@@ -87,10 +87,11 @@
 	}} />
 
 <div class="w-80 border-r-2 border-zinc-700 bg-zinc-950 text-sm">
-	<h1
-		class="bg-zinc-950/70 p-4 pl-2 text-center font-extrabold uppercase tracking-wide text-zinc-500">
+	<a
+		href="/"
+		class="block bg-zinc-950/70 p-4 pl-2 text-center font-extrabold uppercase tracking-wide text-zinc-500">
 		MSCR Ranked Leaderboard
-	</h1>
+	</a>
 
 	<div class="sticky top-0 z-20 mb-2 bg-zinc-950/70 p-4 pl-2 text-zinc-500 backdrop-blur-md">
 		<div class="relative">
