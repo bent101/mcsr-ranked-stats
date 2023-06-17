@@ -55,7 +55,7 @@
 			{#each match.timelines[$detailLevel] as timeline, i}
 				<div class="m-0.5 flex items-center gap-2">
 					<div class="-m-5 scale-[35%]">
-						<PlayerHead3D facingForward uuid={match.playerUUIDs[i]} />
+						<PlayerHead3D uuid={match.playerUUIDs[i]} />
 					</div>
 					<div class="flex-1">
 						<MatchTimeline {timeline} />
@@ -77,7 +77,7 @@
 				<div class="w-max min-w-[16rem] last:min-w-0 2xl:min-w-[18rem]">
 					<div class="flex bg-zinc-800/70 backdrop-blur-md">
 						<div class="-mr-4 origin-top-left translate-y-1 scale-[60%]">
-							<PlayerHead3D facingForward uuid={playerUUID} />
+							<PlayerHead3D uuid={playerUUID} />
 						</div>
 						<div class="flex-1">
 							<h3 class="-mb-2 origin-left text-lg font-semibold text-zinc-300">

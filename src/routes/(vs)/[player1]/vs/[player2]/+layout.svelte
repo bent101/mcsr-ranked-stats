@@ -2,6 +2,7 @@
 	import CompareTableRow from "$lib/components/CompareTableRow.svelte";
 	import PlayerProfile from "$lib/components/PlayerProfile.svelte";
 	import RefreshBtn from "$lib/components/RefreshBtn.svelte";
+	import { isLgScreen } from "$lib/globals.js";
 	import { createLocalStorageStore } from "$lib/utils.js";
 	import { onMount } from "svelte";
 
@@ -40,6 +41,11 @@
 			[$recentVs[i], $recentVs[0]] = [$recentVs[0], $recentVs[i]];
 		}
 	}
+
+	const left = { x: -12, y: -40 };
+	const right = { x: -12, y: 40 };
+	const up = { x: 30, y: 0 };
+	const down = { x: -30, y: 0 };
 </script>
 
 <div class="hidden h-8 xl:block" />
@@ -47,7 +53,11 @@
 	<div class="mx-auto max-w-max xl:ml-16">
 		<div class="mb-12 flex flex-col justify-center lg:flex-row">
 			<div>
-				<PlayerProfile color="text-orange-400" playerData={data.player1} />
+				<PlayerProfile
+					headToRight={$isLgScreen}
+					rotation={$isLgScreen ? right : down}
+					color="text-orange-400"
+					playerData={data.player1} />
 			</div>
 			<div class="m-1 flex h-8 items-center gap-1 lg:h-auto lg:flex-col">
 				<div class="flex-1 border border-zinc-600" />
@@ -55,7 +65,10 @@
 				<div class="flex-1 border border-zinc-600" />
 			</div>
 			<div>
-				<PlayerProfile color="text-yellow-400" playerData={data.player2} />
+				<PlayerProfile
+					rotation={$isLgScreen ? left : up}
+					color="text-yellow-400"
+					playerData={data.player2} />
 			</div>
 		</div>
 		{#if numMatches > 0}

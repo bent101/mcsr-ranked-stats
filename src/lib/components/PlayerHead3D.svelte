@@ -1,12 +1,8 @@
 <script lang="ts">
 	import { getSkinURL } from "$lib/urls";
 
-	// import { beforeNavigate } from "$app/navigation";
-	// import { spring } from "svelte/motion";
-
 	export let uuid: string;
-	export let rotation: { x: number; y: number } | undefined = undefined;
-	export let facingForward = false;
+	export let rotation = { x: 0, y: 0 };
 
 	$: skinURL = getSkinURL(uuid);
 
@@ -14,8 +10,7 @@
 	let cubeRect = undefined;
 	let centerX = 0;
 	let centerY = 0;
-	let rotateX = facingForward ? 0 : -12;
-	let rotateY = facingForward ? 0 : 20;
+
 	$: if (cube) {
 		cubeRect = cube.getBoundingClientRect();
 		centerX = cubeRect.left + cubeRect.width / 2;
@@ -25,20 +20,15 @@
 
 <svelte:window
 	on:mousemove={(e) => {
-		if (facingForward) {
-			rotateX = 0;
-			rotateY = 0;
-		} else if (rotation) {
-			rotateX = rotation.x;
-			rotateY = rotation.y;
-		} else {
-			rotateX = (Math.atan((centerY - e.clientY) / 800) / Math.PI) * 180;
-			rotateY = (Math.atan(-(centerX - e.clientX) / 800) / Math.PI) * 180;
-		}
+		// rotateX = (Math.atan((centerY - e.clientY) / 800) / Math.PI) * 180;
+		// rotateY = (Math.atan(-(centerX - e.clientX) / 800) / Math.PI) * 180;
 	}} />
 
 <div class="viewport m-2">
-	<div class="cube" style="transform: rotateX({rotateX}deg) rotateY({rotateY}deg)" bind:this={cube}>
+	<div
+		class="cube"
+		style="transform: rotateX({rotation.x}deg) rotateY({rotation.y}deg)"
+		bind:this={cube}>
 		<div style="background-image: url('{skinURL}')" class="inner front" />
 		<div style="background-image: url('{skinURL}')" class="inner back" />
 		<div style="background-image: url('{skinURL}')" class="inner right" />

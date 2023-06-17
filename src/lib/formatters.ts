@@ -189,3 +189,40 @@ export function formatDetailedMatch(
 		outcome,
 	};
 }
+
+export function getRank(elo: number) {
+	if (elo < 600) {
+		return {
+			color: "from-gray-700 to-gray-500",
+			name: `Coal ${elo < 400 ? "I" : elo < 500 ? "II" : "III"}`,
+		};
+	}
+	if (elo < 900) {
+		return {
+			color: "from-zinc-500 to-zinc-200",
+			name: `Iron ${elo < 700 ? "I" : elo < 800 ? "II" : "III"}`,
+		};
+	}
+	if (elo < 1200) {
+		return {
+			color: "from-yellow-300 to-yellow-600",
+			name: `Gold ${elo < 1000 ? "I" : elo < 1100 ? "II" : "III"}`,
+		};
+	}
+	if (elo < 1500) {
+		return {
+			color: "from-green-400 to-emerald-600",
+			name: `Emerald ${elo < 1300 ? "I" : elo < 1400 ? "II" : "III"}`,
+		};
+	}
+	if (elo < 2000) {
+		return {
+			color: "from-sky-300 to-blue-500",
+			name: `Diamond ${elo < 1650 ? "I" : elo < 1800 ? "II" : "III"}`,
+		};
+	}
+	return {
+		color: "from-violet-400 to-purple-500",
+		name: `Netherite`,
+	};
+}
