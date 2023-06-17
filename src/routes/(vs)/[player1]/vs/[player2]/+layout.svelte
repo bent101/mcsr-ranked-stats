@@ -2,12 +2,40 @@
 	import CompareTableRow from "$lib/components/CompareTableRow.svelte";
 	import PlayerProfile from "$lib/components/PlayerProfile.svelte";
 	import RefreshBtn from "$lib/components/RefreshBtn.svelte";
+	import { createLocalStorageStore } from "$lib/utils.js";
+	import { onMount } from "svelte";
 
 	export let data;
 
 	$: player1Wins = data.wins[data.player1.uuid];
 	$: player2Wins = data.wins[data.player2.uuid];
 	$: numMatches = data.wins.total;
+
+	const recentVs = createLocalStorageStore("recentVs", [
+		{ player1: data.player1.nickname, player2: data.player2.nickname },
+	]);
+
+	onMount(() => {
+		updateRecentVs();
+	});
+
+	function updateRecentVs() {
+		const i = $recentVs.findIndex(
+			({ player1, player2 }) =>
+				(player1 === data.player1.nickname && player2 === data.player2.nickname) ||
+				(player1 === data.player2.nickname && player2 === data.player1.nickname)
+		);
+
+		if (i === -1) {
+			$recentVs = [
+				{ player1: data.player1.nickname, player2: data.player2.nickname },
+				...$recentVs,
+			];
+			$recentVs = $recentVs.splice(0, 6);
+		} else {
+			[$recentVs[i], $recentVs[0]] = [$recentVs[0], $recentVs[i]];
+		}
+	}
 </script>
 
 <div class="hidden h-8 xl:block" />
