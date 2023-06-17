@@ -50,21 +50,23 @@
 
 <div class="hidden h-8 xl:block" />
 <div class="sticky top-0 z-10 bg-zinc-900/70 backdrop-blur-md">
-	<div class="mx-auto max-w-max xl:ml-16">
-		<div class="mb-12 flex flex-col justify-center lg:flex-row">
-			<div>
-				<PlayerProfile
-					headToRight={$isLgScreen}
-					rotation={$isLgScreen ? right : down}
-					color="text-orange-400"
-					playerData={data.player1} />
+	<div class="mx-auto max-w-max lg:ml-0 lg:max-w-5xl">
+		<div class="flex flex-col justify-center lg:flex-row">
+			<div class="flex-1">
+				<div class="ml-auto max-w-max">
+					<PlayerProfile
+						headToRight={$isLgScreen}
+						rotation={$isLgScreen ? right : down}
+						color="text-orange-400"
+						playerData={data.player1} />
+				</div>
 			</div>
 			<div class="m-1 flex h-8 items-center gap-1 lg:h-auto lg:flex-col">
 				<div class="flex-1 border border-zinc-600" />
 				<div class="text-xs font-bold text-zinc-600">VS</div>
 				<div class="flex-1 border border-zinc-600" />
 			</div>
-			<div>
+			<div class="flex-1">
 				<PlayerProfile
 					rotation={$isLgScreen ? left : up}
 					color="text-yellow-400"
@@ -72,7 +74,7 @@
 			</div>
 		</div>
 		{#if numMatches > 0}
-			<div class="flex items-center justify-center gap-4 pb-12 text-5xl font-bold">
+			<div class="flex items-center justify-center gap-4 py-4 text-5xl font-bold">
 				<div class="flex-1 text-right text-orange-400">
 					{player1Wins}
 					<div class="text-xs">{player1WinPercent}%</div>
@@ -87,7 +89,7 @@
 				</div>
 			</div>
 		{:else}
-			<div class="mt-40 p-8 text-xl font-semibold text-zinc-500">
+			<div class="mt-40 p-8 pt-16 text-xl font-semibold text-zinc-500">
 				<span class="text-zinc-300">{data.player1.nickname}</span>
 				and
 				<span class="text-zinc-300">{data.player2.nickname}</span>
@@ -123,7 +125,7 @@
 			</div>
 		</div>
 
-		{#each data.matches as match}
+		{#each [...data.matches, ...data.matches, ...data.matches, ...data.matches, ...data.matches, ...data.matches, ...data.matches, ...data.matches, ...data.matches, ...data.matches] as match}
 			<CompareTableRow {match} player1UUID={data.player1.uuid} player2UUID={data.player2.uuid} />
 		{/each}
 	</div>
