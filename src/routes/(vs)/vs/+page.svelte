@@ -54,7 +54,7 @@
 			bind:value={player1}
 			placeholder="a player"
 			type="search"
-			class="mx-2 w-44 rounded-lg border border-zinc-700 bg-transparent px-4 py-2 text-zinc-300 placeholder:text-zinc-700 search-cancel:hidden" />
+			class="mx-2 w-44 appearance-none rounded-lg border border-zinc-700 bg-transparent px-4 py-2 text-zinc-300 placeholder:text-zinc-700 search-cancel:hidden" />
 		to
 		<input
 			use:ignFilter
@@ -62,7 +62,7 @@
 			bind:value={player2}
 			placeholder="another player"
 			type="search"
-			class="mx-2 w-44 rounded-lg border border-zinc-700 bg-transparent px-4 py-2 text-zinc-300 placeholder:text-zinc-700 search-cancel:hidden" />
+			class="mx-2 w-44 appearance-none rounded-lg border border-zinc-700 bg-transparent px-4 py-2 text-zinc-300 placeholder:text-zinc-700 search-cancel:hidden" />
 
 		<a
 			href={readyToSubmit ? `/${player1}/vs/${player2}` : ""}

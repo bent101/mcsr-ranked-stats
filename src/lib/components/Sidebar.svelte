@@ -123,7 +123,7 @@
 					}
 				}}
 				placeholder="Search for players"
-				class="w-full rounded-lg border border-zinc-800 bg-transparent px-4 py-2 text-zinc-400 placeholder:text-zinc-600 search-cancel:hidden" />
+				class="w-full appearance-none rounded-lg border border-zinc-800 bg-transparent px-4 py-2 text-zinc-400 placeholder:text-zinc-600 search-cancel:hidden" />
 			{#if rawQuery !== ""}
 				<button
 					on:click={() => {
