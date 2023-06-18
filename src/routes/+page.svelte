@@ -7,12 +7,3 @@
 		Click or search for a player to see their stats
 	</div>
 </div>
-
-<div class="pointer-events-none fixed bottom-0 left-0 right-0">
-	<div
-		class="pointer-events-auto relative mx-auto min-h-[6rem] w-[35rem] rounded-t-3xl bg-zinc-800 shadow-lg shadow-black/30 md:mr-4 2xl:ml-[52rem] 2xl:w-[43rem] 3xl:w-[52rem]">
-		<div class="absolute inset-x-0 top-10 mx-auto w-max font-semibold text-zinc-500">
-			Click a match to see its details
-		</div>
-	</div>
-</div>
