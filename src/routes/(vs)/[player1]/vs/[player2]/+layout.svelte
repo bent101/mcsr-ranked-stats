@@ -44,8 +44,8 @@
 
 	const left = { x: -12, y: -40 };
 	const right = { x: -12, y: 40 };
-	const up = { x: 30, y: 0 };
-	const down = { x: -30, y: 0 };
+	const up = { x: 25, y: 0 };
+	const down = { x: -20, y: 0 };
 </script>
 
 <div class="hidden h-8 xl:block" />
@@ -55,6 +55,7 @@
 			<div class="flex-1">
 				<div class="lg:ml-auto lg:max-w-max">
 					<PlayerProfile
+						isLink
 						headToRight={$isLgScreen}
 						rotation={$isLgScreen ? right : down}
 						color="text-orange-400"
@@ -68,6 +69,7 @@
 			</div>
 			<div class="flex-1">
 				<PlayerProfile
+					isLink
 					rotation={$isLgScreen ? left : up}
 					color="text-yellow-400"
 					playerData={data.player2} />
@@ -116,7 +118,7 @@
 		{/each}
 	</div>
 
-	<div class="pointer-events-none fixed bottom-0 left-0 right-0">
+	<div class="pointer-events-none fixed bottom-0 left-0 right-0 z-10">
 		<div
 			class="pointer-events-auto relative mx-auto min-h-[6rem] w-[35rem] rounded-t-3xl bg-zinc-800 shadow-lg shadow-black/30 md:mr-4 2xl:ml-[52rem] 2xl:w-[43rem] 3xl:w-[52rem]">
 			<slot />

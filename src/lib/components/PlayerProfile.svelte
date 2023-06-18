@@ -18,6 +18,7 @@
 	export let color = "text-white";
 	export let rotation = { x: -12, y: 20 };
 	export let headToRight = false;
+	export let isLink = false;
 
 	$: numMatches =
 		playerData.records[2].win + playerData.records[2].lose + playerData.records[2].draw;
@@ -42,7 +43,7 @@
 </script>
 
 <div
-	class="flex w-max {headToRight ? ' flex-row-reverse' : 'flex-row'} items-center gap-2 px-4 py-2">
+	class="flex w-max {headToRight ? 'flex-row-reverse' : 'flex-row'} items-center gap-2 px-4 py-2">
 	<div class="pb-2">
 		<PlayerHead3D {rotation} uuid={playerData.uuid} />
 	</div>
@@ -52,7 +53,13 @@
 				{#if playerData.elo_rank}
 					<span class="mr-2 font-extrabold text-white/30">#{playerData.elo_rank}</span>
 				{/if}
-				{playerData.nickname}
+				{#if isLink}
+					<a href="/{playerData.nickname}" class="hover:underline hover:underline-offset-4">
+						{playerData.nickname}
+					</a>
+				{:else}
+					{playerData.nickname}
+				{/if}
 			</h1>
 			{#if playerData.badge}
 				<a
