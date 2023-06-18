@@ -55,7 +55,7 @@
 		class="fixed left-0 top-24 z-50 rounded-r-full border-2 border-l-0 border-zinc-700 bg-zinc-950 px-4 py-2 text-sm font-extrabold uppercase tracking-wide text-zinc-500 shadow-lg shadow-black/30">
 		Leaderboard
 	</button>
-	<div class="min-h-[101vh]">
+	<div class="min-h-[150vh]">
 		<slot />
 	</div>
 	{#if showingLeaderboard}
@@ -84,7 +84,7 @@
 				<Sidebar {stopSidebarScroll} lb={data.lb?.users} />
 			</div>
 		</div>
-		<div class="min-h-[101vh] flex-1">
+		<div class="min-h-[150vh] flex-1">
 			<slot />
 		</div>
 	</div>
