@@ -20,13 +20,13 @@
 			<Switch dark options={["all", "unique"]} bind:onFirst={$showingAll} />
 		</span>
 	</h1>
-	<!-- <ol class="mt-5 border-t-2 border-zinc-800 pt-4">
-		{#each $showingAll ? data.allBestTimes : data.uniqueBestTimes as match, i (match.id)}
+	<ol class="mt-5 border-t-2 border-zinc-800 pt-4">
+		<!-- {#each $showingAll ? data.allBestTimes : data.uniqueBestTimes as match, i (match.id)}
 			<li in:scale={{ delay: 100 + 8 * i, duration: 250, start: 0.7 }}>
 				<BestTimesTableRow place={i + 1} {match} />
 			</li>
-		{/each}
-	</ol> -->
+		{/each} -->
+	</ol>
 </div>
 
 <div class="pointer-events-none fixed bottom-0 left-0 right-0">
