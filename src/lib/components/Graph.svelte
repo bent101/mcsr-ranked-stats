@@ -3,12 +3,13 @@
 	import { Line } from "@unovis/ts";
 	import { browser } from "$app/environment";
 	import type { FormattedMatch } from "$lib/formatters";
+	import { reversed } from "$lib/utils";
 
 	type DataRecord = { x: number; y: number };
 
 	export let matches: FormattedMatch[];
 
-	$: data = matches
+	$: data = reversed(matches)
 		.filter((match) => match.eloBefore && match.eloBefore !== -1)
 		.map((match, i) => ({
 			x: i + 1,
@@ -22,7 +23,8 @@
 	$: yRange = roundedMax - roundedMin;
 	$: yDomain = [roundedMax - Math.max(yRange, 250), roundedMax];
 
-	$: xDomain = [data.length, 1];
+	$: xMax = Math.max(data.length, 5);
+	$: xDomain = [1, xMax];
 
 	const triggers = {
 		[Line.selectors.line]: (d: DataRecord) => `${d.x} ${d.y}`,
@@ -35,7 +37,7 @@
 			<VisArea color="#a1a1aa28" curveType="linear" {data} x={(d) => d.x} y={(d) => d.y} />
 			<VisLine color="#a1a1aa" curveType="linear" {data} x={(d) => d.x} y={(d) => d.y} />
 
-			<VisAxis type="x" numTicks={3} label="Matches ago" />
+			<VisAxis tickFormat={(tick) => `${xMax - tick}`} type="x" numTicks={3} label="Matches ago" />
 			<VisAxis type="y" numTicks={3} label="Elo" />
 		</VisXYContainer>
 	</div>

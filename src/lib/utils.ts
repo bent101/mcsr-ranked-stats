@@ -50,3 +50,9 @@ export function isDarkColor(hexCode: string) {
 
 	return luminance <= 0.15;
 }
+
+export function reversed<T>(array: T[]) {
+	const ret = [...array];
+	ret.reverse();
+	return ret;
+}

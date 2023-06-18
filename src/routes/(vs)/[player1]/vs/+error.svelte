@@ -10,7 +10,7 @@
 </svelte:head>
 
 <div class="grid h-screen place-items-center">
-	<div class="text-xl font-semibold text-zinc-500">
+	<div class="p-4 text-xl font-semibold text-zinc-500">
 		{#if $page.error && $page.status === 404}
 			{#if $page.error.message === "same"}You can't compare
 				<span class="text-zinc-300">{player1}</span> to themself!
