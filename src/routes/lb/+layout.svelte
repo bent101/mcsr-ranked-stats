@@ -21,7 +21,7 @@
 		</span>
 	</h1>
 	<ol class="mt-5 border-t-2 border-zinc-800 pt-4">
-		{#each ($showingAll ? data.allBestTimes : data.uniqueBestTimes).slice(0, 1) as match, i (match.id)}
+		{#each ($showingAll ? data.allBestTimes : data.uniqueBestTimes).slice(0, 2) as match, i (match.id)}
 			<li in:scale={{ delay: 100 + 8 * i, duration: 250, start: 0.7 }}>
 				<BestTimesTableRow place={i + 1} {match} />
 			</li>
