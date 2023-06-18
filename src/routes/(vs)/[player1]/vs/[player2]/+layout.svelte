@@ -49,6 +49,10 @@
 	const down = { x: -20, y: 0 };
 </script>
 
+<svelte:head>
+	<title>{data.player1.nickname} vs {data.player2.nickname} | MCSR Ranked stats</title>
+</svelte:head>
+
 <div class="hidden h-8 xl:block" />
 <div class="sticky top-0 z-10 bg-zinc-900/70 backdrop-blur-md">
 	<div class="mx-auto max-w-max lg:ml-0 lg:max-w-5xl">
