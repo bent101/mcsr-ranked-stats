@@ -21,6 +21,7 @@
 		</span>
 	</h1>
 	<ol class="mt-5 border-t-2 border-zinc-800 pt-4">
+		<BestTimesTableRow place={0} match={data.allBestTimes[0]} />
 		<!-- {#each $showingAll ? data.allBestTimes : data.uniqueBestTimes as match, i (match.id)}
 			<li in:scale={{ delay: 100 + 8 * i, duration: 250, start: 0.7 }}>
 				<BestTimesTableRow place={i + 1} {match} />
