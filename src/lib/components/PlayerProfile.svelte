@@ -43,7 +43,7 @@
 
 <div
 	class="flex w-max {headToRight ? ' flex-row-reverse' : 'flex-row'} items-center gap-2 px-4 py-2">
-	<div class="pb-2 {headToRight ? 'px-2' : ''}">
+	<div class="pb-2">
 		<PlayerHead3D {rotation} uuid={playerData.uuid} />
 	</div>
 	<div class="pl-2">
