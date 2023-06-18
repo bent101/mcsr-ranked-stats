@@ -1,4 +1,5 @@
 <script lang="ts">
+	import BackBtn from "$lib/components/BackBtn.svelte";
 	import CompareTableRow from "$lib/components/CompareTableRow.svelte";
 	import PlayerProfile from "$lib/components/PlayerProfile.svelte";
 	import RefreshBtn from "$lib/components/RefreshBtn.svelte";
@@ -133,10 +134,7 @@
 			haven't had any matches together this season
 
 			<div class="mt-16">
-				<a
-					href="/vs"
-					class="ml-auto block w-max rounded-full py-3 pl-4 pr-6 hover:bg-zinc-700/50 hover:text-zinc-300"
-					>←&nbsp;&nbsp;&nbsp;Go back</a>
+				<BackBtn />
 			</div>
 		</div>
 	</div>
