@@ -65,7 +65,7 @@
 			on:keydown={(e) => {
 				if (e.key === "Escape") hideLb();
 			}}
-			class="fixed inset-0 z-50 bg-black/90" />
+			class="fixed inset-0 z-50 bg-black/50" />
 		<div
 			bind:this={sidebar}
 			transition:fly={{ x: -40, duration: 200 }}
