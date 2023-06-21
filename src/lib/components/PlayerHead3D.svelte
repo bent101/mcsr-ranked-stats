@@ -18,11 +18,11 @@
 	}
 </script>
 
-<svelte:window
+<!-- <svelte:window
 	on:mousemove={(e) => {
-		// rotateX = (Math.atan((centerY - e.clientY) / 800) / Math.PI) * 180;
-		// rotateY = (Math.atan(-(centerX - e.clientX) / 800) / Math.PI) * 180;
-	}} />
+		rotateX = (Math.atan((centerY - e.clientY) / 800) / Math.PI) * 180;
+		rotateY = (Math.atan(-(centerX - e.clientX) / 800) / Math.PI) * 180;
+	}} /> -->
 
 <div class="viewport m-2">
 	<div
@@ -50,7 +50,6 @@
 		width: 48px;
 		height: 48px;
 		position: relative;
-		animation: rotate 10s infinite linear;
 		backface-visibility: hidden;
 		perspective: 200px;
 	}
