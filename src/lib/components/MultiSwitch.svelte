@@ -2,7 +2,7 @@
 	export let options: string[];
 	export let selectedIdx = 0;
 	export let label = "";
-	export let throttling = 200;
+	export let throttling = 0;
 	let disabled = false;
 	let throttleTimeout = -1;
 

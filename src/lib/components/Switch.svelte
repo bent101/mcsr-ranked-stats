@@ -1,7 +1,7 @@
 <script lang="ts">
 	export let options: [string, string];
 	export let onFirst: boolean = true;
-	export let throttling = 200;
+	export let throttling = 0;
 	export let dark = false;
 
 	let disabled = false;
