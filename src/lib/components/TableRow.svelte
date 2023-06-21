@@ -1,8 +1,10 @@
 <script lang="ts">
+	import { browser } from "$app/environment";
+
 	export let selected = false;
 	export let href: string | undefined = undefined;
 
-	$: isLink = !!href;
+	$: isLink = href && browser;
 </script>
 
 {#if isLink}
