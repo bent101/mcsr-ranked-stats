@@ -180,7 +180,7 @@
 
 	afterNavigate(onMouseLeavePopup);
 
-	window.addEventListener("scroll", onMouseLeavePopup);
+	window?.addEventListener("scroll", onMouseLeavePopup);
 
 	onMount(() => {
 		if (browser) {
