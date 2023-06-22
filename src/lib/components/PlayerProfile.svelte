@@ -54,7 +54,7 @@
 					<span class="mr-2 font-extrabold text-white/30">#{playerData.elo_rank}</span>
 				{/if}
 				{#if isLink}
-					<a href="/{playerData.nickname}" class="hover:underline hover:underline-offset-4">
+					<a href="/{playerData.nickname}" class="underline-offset-4 hover:underline">
 						{playerData.nickname}
 					</a>
 				{:else}
