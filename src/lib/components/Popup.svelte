@@ -173,15 +173,14 @@
 		}
 	};
 
-	const onMouseLeavePopup = async () => {
+	const onMouseLeavePopup = () => {
 		hovering = false;
 		popupExists = false;
 	};
 
-	afterNavigate(() => {
-		popupExists = false;
-		hovering = false;
-	});
+	afterNavigate(onMouseLeavePopup);
+
+	window.addEventListener("scroll", onMouseLeavePopup);
 
 	onMount(() => {
 		if (browser) {

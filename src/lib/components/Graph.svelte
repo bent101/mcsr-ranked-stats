@@ -48,6 +48,6 @@
 		--vis-axis-grid-color: #27272a;
 		--vis-axis-tick-color: #27272a;
 		--vis-axis-label-color: #71717a;
-		--vis-axis-tick-label-color: #71717a;
+		--vis-axis-tick-label-color: #71717a80;
 	}
 </style>
