@@ -23,8 +23,9 @@
 			<PlayerLink name={match.opponentName} uuid={match.opponentUUID} />
 		</div>
 		<div class="w-28 text-center uppercase {match.outcomeColor} text-sm font-bold">
-			<span class="{selected ? ' hidden' : 'inline group-hover:hidden'} ">{match.outcome}</span>
-			<span class={selected ? " inline" : "hidden group-hover:inline"}
+			<span class="{selected ? ' hidden' : 'inline hover-hover:group-hover:hidden'} "
+				>{match.outcome}</span>
+			<span class={selected ? " inline" : "hidden hover-hover:group-hover:inline"}
 				>{match.eloChange >= 0 ? "+" : ""}{match.eloChange} elo</span>
 		</div>
 		<div
