@@ -187,6 +187,7 @@ export function formatDetailedMatch(
 		date: match.match_date,
 		time: match.final_time,
 		outcome,
+		forfeit: match.forfeit,
 	};
 }
 
