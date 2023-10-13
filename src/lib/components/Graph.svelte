@@ -36,9 +36,9 @@
 
 {#if browser}
 	<div class="container h-full">
-		<VisXYContainer {xDomain} {yDomain} width="100%" height={$isLgScreen ? "60vh" : "50vh"} {data}>
+		<VisXYContainer {xDomain} {yDomain} width="100%" height={$isLgScreen ? "60vh" : "40vh"} {data}>
 			<VisArea color="#a1a1aa28" curveType="linear" {x} {y} />
-			<VisLine color="#a1a1aa" curveType="linear" {x} {y} />
+			<VisLine lineWidth={"0.125rem"} color="#a1a1aa" curveType="linear" {x} {y} />
 
 			<VisAxis
 				labelFontSize={"1rem"}

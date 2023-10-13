@@ -78,7 +78,7 @@
 			<button
 				on:click={showAllMatches}
 				disabled={loadingAllMatches || data.noMoreMatches}
-				class="absolute bottom-[50px] left-[70px] rounded-full border-2 border-zinc-700 bg-zinc-950 px-3 py-1 text-xs font-extrabold uppercase tracking-wide text-zinc-500 disabled:opacity-70 hover:border-zinc-400 hover:text-zinc-300 disabled:hover:border-zinc-700 disabled:hover:text-zinc-500">
+				class="absolute bottom-[calc(50px+0.2rem)] left-[calc(70px+0.2rem)] rounded-full border-[0.125rem] border-zinc-700 bg-zinc-950 px-3 py-1 text-xs font-extrabold uppercase tracking-wide text-zinc-500 disabled:opacity-70 hover:border-zinc-400 hover:text-zinc-300 disabled:hover:border-zinc-700 disabled:hover:text-zinc-500">
 				{loadingAllMatches ? "Loading..." : data.noMoreMatches ? "Showing all" : "Show all"}
 			</button>
 		</div>
@@ -118,7 +118,7 @@
 				<button
 					on:click={showAllMatches}
 					disabled={loadingAllMatches || data.noMoreMatches}
-					class="absolute bottom-[50px] left-[70px] rounded-full border-2 border-zinc-700 bg-zinc-950 px-3 py-1 text-xs font-extrabold uppercase tracking-wide text-zinc-500 disabled:opacity-70 hover:border-zinc-400 hover:text-zinc-300 disabled:hover:border-zinc-700 disabled:hover:text-zinc-500">
+					class="absolute bottom-[58px] left-[78px] rounded-full border-[0.125rem] border-zinc-700 bg-zinc-950 px-3 py-1 text-xs font-extrabold uppercase tracking-wide text-zinc-500 disabled:opacity-70 hover:border-zinc-400 hover:text-zinc-300 disabled:hover:border-zinc-700 disabled:hover:text-zinc-500">
 					{loadingAllMatches ? "Loading..." : data.noMoreMatches ? "Showing all" : "Show all"}
 				</button>
 			</div>

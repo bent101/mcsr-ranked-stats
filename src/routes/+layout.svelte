@@ -65,7 +65,7 @@
 	<button
 		bind:this={lbButton}
 		on:click={showLb}
-		class="fixed left-0 top-32 z-50 rounded-r-full border-2 border-l-0 border-zinc-700 bg-zinc-950 px-4 py-2 text-sm font-extrabold uppercase tracking-wide text-zinc-500 shadow-lg shadow-black/30">
+		class="fixed left-0 top-32 z-50 rounded-r-full border-[0.125rem] border-l-0 border-zinc-700 bg-zinc-950 px-4 py-2 text-sm font-extrabold uppercase tracking-wide text-zinc-500 shadow-lg shadow-black/30">
 		Leaderboard
 	</button>
 	<div>
