@@ -10,11 +10,18 @@ export const getPlayerURL = (name: string) => {
 	return `${base}/users/${name}`;
 };
 
-export const getMatchesURL = (name: string, page: number, perPage = matchesPerPage) => {
-	return `${base}/users/${name}/matches?filter=2&page=${page}&count=${perPage}`;
+export const getMatchesURL = (
+	name: string,
+	page: number,
+	perPage = matchesPerPage,
+	excludeDecay = false
+) => {
+	return `${base}/users/${name}/matches?filter=2&page=${page}&count=${perPage}${
+		excludeDecay ? "&excludedecay" : ""
+	}`;
 };
 
-export const getDetailedMatchURL = (id: string) => {
+export const getDetailedMatchURL = (id: string | number) => {
 	return `${base}/matches/${id}`;
 };
 

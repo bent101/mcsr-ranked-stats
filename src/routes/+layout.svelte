@@ -41,6 +41,10 @@
 
 <svelte:head>
 	<meta name="darkreader-lock" />
+	<link rel="canonical" href="https://mcsrrankedstats.vercel.app/" />
+	<meta
+		name="description"
+		content="Minecraft Speedrunning Ranked leaderboards, player statistics, and match visualizations" />
 </svelte:head>
 
 <svelte:window

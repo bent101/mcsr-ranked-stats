@@ -6,8 +6,6 @@
 	import { reversed } from "$lib/utils";
 
 	type DataRecord = { x: number; y: number };
-	const x = (d: DataRecord) => d.x;
-	const y = (d: DataRecord) => d.y;
 
 	export let matches: FormattedMatch[];
 
@@ -36,8 +34,8 @@
 {#if browser}
 	<div class="h-full">
 		<VisXYContainer {xDomain} {yDomain} width="100%" height="calc(max(24rem, 60vh))" {data}>
-			<VisArea color="#a1a1aa28" curveType="linear" {x} {y} />
-			<VisLine color="#a1a1aa" curveType="linear" {x} {y} />
+			<VisArea color="#a1a1aa28" curveType="linear" {data} x={(d) => d.x} y={(d) => d.y} />
+			<VisLine color="#a1a1aa" curveType="linear" {data} x={(d) => d.x} y={(d) => d.y} />
 
 			<VisAxis tickFormat={(tick) => `${xMax - tick}`} type="x" numTicks={3} label="Matches ago" />
 			<VisAxis type="y" numTicks={3} label="Elo" />

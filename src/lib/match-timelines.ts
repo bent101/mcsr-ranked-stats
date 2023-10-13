@@ -90,6 +90,10 @@ function getTimelinesAtDetailLevel(
 			newTimeline.push(newEvent(match.forfeit ? "win" : "finish", 0, "#22c55e", match.final_time));
 		} else if (!match.forfeit) {
 			newTimeline.push(newEvent("lose", 0, "#ef4444", match.final_time));
+		} else if (
+			!match.timelines?.find((event) => event.timeline === "projectelo.timeline.forfeit")
+		) {
+			newTimeline.push(newEvent("disconnected", 0, "#ef4444", match.final_time));
 		}
 
 		fillColors(newTimeline);
@@ -281,6 +285,9 @@ function getSimpleEvent(eventName: string, eventTimestamp: number) {
 
 		case "projectelo.timeline.forfeit":
 			return newEvent("forfeit", 0, "#ef4444", eventTimestamp);
+
+		case "projectelo.timeline.death":
+			return newEvent("death", 0, "prev", eventTimestamp);
 
 		case "story.mine_stone":
 			return newEvent("stone", 3, "prev", eventTimestamp);

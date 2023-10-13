@@ -2,23 +2,25 @@
 	import { formatTime, getRank } from "$lib/formatters";
 	import type { DetailedPlayer } from "$lib/ranked-api";
 
+	import diamond from "$lib/assets/diamond.webp";
 	import discordLogo from "$lib/assets/discord.svg";
-	import youtube from "$lib/assets/youtube.svg";
-	import twitch from "$lib/assets/twitch.svg";
 	import fire from "$lib/assets/fire.png";
 	import info from "$lib/assets/info.png";
-	import stone from "$lib/assets/stone.webp";
 	import iron from "$lib/assets/iron.webp";
-	import diamond from "$lib/assets/diamond.webp";
+	import stone from "$lib/assets/stone.webp";
+	import twitch from "$lib/assets/twitch.svg";
+	import youtube from "$lib/assets/youtube.svg";
 
-	import Tooltip from "./Tooltip.svelte";
 	import PlayerHead3D from "./PlayerHead3D.svelte";
+	import Tooltip from "./Tooltip.svelte";
+	import MoreStats from "./MoreStats.svelte";
 
 	export let playerData: DetailedPlayer;
 	export let color = "text-white";
 	export let rotation = { x: -12, y: 20 };
 	export let headToRight = false;
 	export let isLink = false;
+	export let showAllStatsBtn = false;
 
 	$: numMatches =
 		playerData.records[2].win + playerData.records[2].lose + playerData.records[2].draw;
@@ -151,6 +153,11 @@
 			{/if}
 			<b>{playerData.highest_winstreak}</b> best winstreak
 		</div>
+		{#if showAllStatsBtn}
+			{#key playerData}
+				<MoreStats {playerData} {numMatches} />
+			{/key}
+		{/if}
 	</div>
 </div>
 
