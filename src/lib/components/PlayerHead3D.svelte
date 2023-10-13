@@ -47,11 +47,11 @@
 
 <style>
 	.viewport {
-		width: 48px;
-		height: 48px;
+		width: 3rem;
+		height: 3rem;
 		position: relative;
 		backface-visibility: hidden;
-		perspective: 200px;
+		perspective: 12.5rem;
 	}
 
 	.cube {
@@ -73,31 +73,31 @@
 
 	.front,
 	.front::before {
-		transform: translateZ(23.8px);
+		transform: translateZ(1.4875rem);
 	}
 
 	.back,
 	.back::before {
-		transform: translateZ(-23.8px) rotateY(180deg);
+		transform: translateZ(-1rem) rotateY(180deg);
 	}
 
 	.right,
 	.right::before {
-		transform: rotateY(90deg) translateZ(23.8px);
+		transform: rotateY(90deg) translateZ(1.4875rem);
 	}
 
 	.left,
 	.left::before {
-		transform: rotateY(-90deg) translateZ(23.8px);
+		transform: rotateY(-90deg) translateZ(1.4875rem);
 	}
 
 	.top,
 	.top::before {
-		transform: rotateX(90deg) translateZ(23.8px);
+		transform: rotateX(90deg) translateZ(1.4875rem);
 	}
 
 	.bottom {
-		transform: rotateX(-90deg) rotateZ(180deg) translateZ(23.8px);
+		transform: rotateX(-90deg) rotateZ(180deg) translateZ(1.4875rem);
 	}
 
 	/*  */

@@ -13,12 +13,12 @@
 	<title>Fastest times | MCSR Ranked stats</title>
 </svelte:head>
 
-<div class="mx-auto max-w-sm py-[70px] md:ml-16">
-	<h1 class="pt-2 text-xl font-bold text-zinc-300">
-		Fastest times this season
-		<span class="ml-2 inline-block -translate-y-1">
+<div class="mx-auto max-w-sm py-[4.375rem] md:ml-16">
+	<h1 class="flex items-center gap-2 pt-2 text-xl font-bold text-zinc-300">
+		<div>Fastest times this season</div>
+		<div>
 			<Switch options={["all", "unique"]} bind:onFirst={$showingAll} />
-		</span>
+		</div>
 	</h1>
 	<ol class="mt-8 border-t-2 border-zinc-800 pt-8">
 		{#each $showingAll ? data.allBestTimes : data.uniqueBestTimes as match, i (match.id)}

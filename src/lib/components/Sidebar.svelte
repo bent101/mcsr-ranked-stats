@@ -86,7 +86,7 @@
 		}
 	}} />
 
-<div class="w-80 border-r-2 border-zinc-700 bg-zinc-950 text-sm">
+<div class="min-h-screen w-80 border-r-2 border-zinc-700 bg-zinc-950 pb-32 text-sm">
 	<a
 		href="/"
 		class="block bg-zinc-950/70 p-4 pl-2 text-center font-extrabold uppercase tracking-wide text-zinc-500">
@@ -143,7 +143,7 @@
 				</button>
 			{:else if !inputIsFocused}
 				<kbd
-					class="pointer-events-none absolute inset-y-0 right-2 my-auto h-6 w-6 select-none rounded-[4px] border border-zinc-600 bg-zinc-900">
+					class="pointer-events-none absolute inset-y-0 right-2 my-auto h-6 w-6 select-none rounded-[0.25rem] border border-zinc-600 bg-zinc-900">
 					<svg
 						class="stroke-zinc-500 stroke-2"
 						xmlns="http://www.w3.org/2000/svg"
@@ -157,7 +157,7 @@
 		</div>
 	</div>
 
-	<div class="pb-[150vh] pl-2">
+	<div class="pl-2">
 		<SidebarTab href={"/lb"} selected={$bestTimesSelected}>
 			<div class="flex items-center pr-8">
 				<img

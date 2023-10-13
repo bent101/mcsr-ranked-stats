@@ -131,12 +131,12 @@
 					>{playerData.elo_rate}</span>
 				elo)
 				{#if playerData.best_elo_rate > playerData.elo_rate}
-					<span class="inline-block h-[24.5px] font-extrabold text-white/30">•</span>
+					<span class="inline-block h-[1.53125rem] font-extrabold text-white/30">•</span>
 					<b>{playerData.best_elo_rate}</b> peak elo
 				{:else}
 					<span
 						class="ml-2 inline-block -translate-y-0.5 rounded-full bg-gradient-to-r from-red-700 to-orange-500 py-px pl-1 pr-2 text-xs font-semibold tracking-wide text-white">
-						<img class="inline w-4 -translate-y-[0.7px]" src={fire} alt="" />
+						<img class="inline w-4 -translate-y-[0.04375rem]" src={fire} alt="" />
 						<span class="inline-block translate-y-px">PEAK ELO</span>
 					</span>
 				{/if}

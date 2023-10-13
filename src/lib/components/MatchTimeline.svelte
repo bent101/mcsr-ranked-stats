@@ -27,10 +27,11 @@
 					anchor={timelineContainer?.children[i]}
 					directionPreference={["top", "bottom", "right", "left"]}>
 					<div class="text-left">
-						<span class="inline-block min-w-[36px] font-bold">{formatTime(event.timestamp)}</span>
+						<span class="inline-block min-w-[2.25rem] font-bold"
+							>{formatTime(event.timestamp)}</span>
 						<span class="text-zinc-800">{event.name}</span>
 						<br />
-						<span class="inline-block min-w-[36px] font-bold">{formatTime(splitLength)}</span>
+						<span class="inline-block min-w-[2.25rem] font-bold">{formatTime(splitLength)}</span>
 						<span class="text-zinc-800">{event.splitAfter?.name ?? ""}</span>
 					</div>
 				</Tooltip>

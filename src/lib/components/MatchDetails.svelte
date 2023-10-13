@@ -85,7 +85,7 @@
 
 								{#if playerUUID === match.winnerUUID}
 									<span
-										class="ml-1.5 inline-block -translate-y-0.5 rounded-full bg-green-400 px-1.5 text-[11px] font-extrabold leading-[14px] text-green-950"
+										class="ml-1.5 inline-block -translate-y-0.5 rounded-full bg-green-400 px-1.5 text-[0.6875rem] font-extrabold leading-[0.875rem] text-green-950"
 										>WINNER</span>
 								{/if}
 							</h3>

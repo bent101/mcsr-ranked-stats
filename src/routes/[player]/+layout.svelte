@@ -72,7 +72,7 @@
 <div class="h-8 lg:hidden" />
 {#if !$isLgScreen}
 	<div class="mx-auto max-w-3xl p-8 pl-2">
-		<div class="relative h-[calc(max(24rem,60vh))]">
+		<div class="relative">
 			<Graph matches={data.matches} />
 			<button
 				on:click={showAllMatches}
@@ -112,7 +112,7 @@
 	</div>
 	{#if $isLgScreen}
 		<div class="sticky top-32 h-max flex-1">
-			<div class="relative h-[calc(max(24rem,60vh))]">
+			<div class="relative">
 				<Graph matches={data.matches} />
 				<button
 					on:click={showAllMatches}

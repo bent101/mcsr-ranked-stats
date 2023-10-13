@@ -4,6 +4,7 @@
 	import { browser } from "$app/environment";
 	import type { FormattedMatch } from "$lib/formatters";
 	import { reversed } from "$lib/utils";
+	import { isLgScreen } from "$lib/globals";
 
 	type DataRecord = { x: number; y: number };
 	const x = (d: DataRecord) => d.x;
@@ -34,19 +35,30 @@
 </script>
 
 {#if browser}
-	<div class="h-full">
-		<VisXYContainer {xDomain} {yDomain} width="100%" height="calc(max(24rem, 60vh))" {data}>
+	<div class="container h-full">
+		<VisXYContainer {xDomain} {yDomain} width="100%" height={$isLgScreen ? "60vh" : "50vh"} {data}>
 			<VisArea color="#a1a1aa28" curveType="linear" {x} {y} />
 			<VisLine color="#a1a1aa" curveType="linear" {x} {y} />
 
-			<VisAxis tickFormat={(tick) => `${xMax - tick}`} type="x" numTicks={3} label="Matches ago" />
-			<VisAxis type="y" numTicks={3} label="Elo" />
+			<VisAxis
+				labelFontSize={"1rem"}
+				tickTextFontSize={"0.8rem"}
+				tickFormat={(tick) => `${xMax - tick}`}
+				type="x"
+				numTicks={3}
+				label="Matches ago" />
+			<VisAxis
+				labelFontSize={"1rem"}
+				tickTextFontSize={"0.8rem"}
+				type="y"
+				numTicks={3}
+				label="Elo" />
 		</VisXYContainer>
 	</div>
 {/if}
 
-<style>
-	.h-full {
+<style lang="postcss">
+	.container {
 		--vis-axis-grid-color: #27272a;
 		--vis-axis-tick-color: #27272a;
 		--vis-axis-label-color: #71717a;
