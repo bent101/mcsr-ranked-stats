@@ -8,6 +8,19 @@
 	import { inject } from "@vercel/analytics";
 	import { isXlScreen } from "$lib/globals";
 	import { page } from "$app/stores";
+	// import { onNavigate } from "$app/navigation";
+
+	// onNavigate((navigation) => {
+	// 	if (!document.startViewTransition) return;
+	// 	// if(!navigation.from?.
+
+	// 	return new Promise((resolve) => {
+	// 		document.startViewTransition(async () => {
+	// 			resolve();
+	// 			await navigation.complete;
+	// 		});
+	// 	});
+	// });
 
 	inject({ mode: dev ? "development" : "production" });
 

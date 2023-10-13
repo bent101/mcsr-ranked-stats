@@ -54,7 +54,7 @@ export const formatTimeAgo = (secondsAgo: number) => {
 	if (days) return days > 1 ? `${days} days ago` : "yesterday";
 	if (hours > 18) return "yesterday";
 	if (hours) return `${hours} hour${hours > 1 ? "s" : ""} ago`;
-	if (minutes) return `${minutes} minute${minutes > 1 ? "s" : ""} ago`;
+	if (minutes) return `${minutes} min${minutes > 1 ? "s" : ""} ago`;
 	return `${secondsAgo} second${secondsAgo > 1 ? "s" : ""} ago`;
 };
 

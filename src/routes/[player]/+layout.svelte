@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { afterNavigate, invalidate } from "$app/navigation";
 	import Graph from "$lib/components/Graph.svelte";
+	import MatchDetailsFrame from "$lib/components/MatchDetailsFrame.svelte";
 	import MatchesTableRow from "$lib/components/MatchesTableRow.svelte";
 	import PlayerProfile from "$lib/components/PlayerProfile.svelte";
 	import RefreshBtn from "$lib/components/RefreshBtn.svelte";
@@ -124,12 +125,10 @@
 		</div>
 	{/if}
 </div>
-<div class="pointer-events-none fixed inset-x-0 bottom-0 z-10 overflow-x-scroll px-2">
-	<div
-		class="pointer-events-auto relative mx-auto min-h-[6rem] w-[35rem] rounded-t-3xl bg-zinc-800 shadow-lg shadow-black/30 md:mr-4 2xl:ml-[52rem] 2xl:w-[43rem] 3xl:w-[52rem]">
-		<slot />
-	</div>
-</div>
+
+<MatchDetailsFrame>
+	<slot />
+</MatchDetailsFrame>
 
 <!-- {#if showingStats}
 	<DetailedPlayerStats

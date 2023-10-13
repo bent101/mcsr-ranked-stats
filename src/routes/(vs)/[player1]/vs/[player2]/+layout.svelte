@@ -1,6 +1,7 @@
 <script lang="ts">
 	import BackBtn from "$lib/components/BackBtn.svelte";
 	import CompareTableRow from "$lib/components/CompareTableRow.svelte";
+	import MatchDetailsFrame from "$lib/components/MatchDetailsFrame.svelte";
 	import PlayerProfile from "$lib/components/PlayerProfile.svelte";
 	import RefreshBtn from "$lib/components/RefreshBtn.svelte";
 	import { isLgScreen } from "$lib/globals.js";
@@ -125,12 +126,9 @@
 		{/each}
 	</div>
 
-	<div class="pointer-events-none fixed inset-x-0 bottom-0 z-10 overflow-x-scroll px-2">
-		<div
-			class="pointer-events-auto relative mx-auto min-h-[6rem] w-[35rem] rounded-t-3xl bg-zinc-800 shadow-lg shadow-black/30 md:mr-4 2xl:ml-[52rem] 2xl:w-[43rem] 3xl:w-[52rem]">
-			<slot />
-		</div>
-	</div>
+	<MatchDetailsFrame>
+		<slot />
+	</MatchDetailsFrame>
 {:else}
 	<div class="max-w-5xl">
 		<div class="mx-auto max-w-2xl p-24 text-xl font-semibold text-zinc-500">
