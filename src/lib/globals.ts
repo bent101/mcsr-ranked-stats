@@ -27,7 +27,7 @@ export const isLgScreen = readable(true, (set) => {
 
 /** current date in seconds after epoch */
 export const curDate = readable(Math.floor(Date.now() / 1000), function start(set) {
-	console.log(new Date().toUTCString());
+	// console.log(new Date().toUTCString());
 
 	const interval = setInterval(() => {
 		set(Math.floor(Date.now() / 1000));
