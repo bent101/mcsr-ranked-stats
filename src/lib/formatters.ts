@@ -257,7 +257,7 @@ export async function getRawMatches(
 	playerName: string,
 	page: number,
 	perPage: number,
-	excludeDecay = false
+	excludeDecay = true
 ) {
 	return fetch(getMatchesURL(playerName, page, perPage, excludeDecay))
 		.then((res) => res.json())
@@ -271,7 +271,7 @@ export async function getAllRawMatches(playerName: string, numMatches: number) {
 		await Promise.all(
 			Array(numPages)
 				.fill(undefined)
-				.map((_, i) => getRawMatches(playerName, i, 50, true))
+				.map((_, i) => getRawMatches(playerName, i, 50))
 		)
 	);
 }
