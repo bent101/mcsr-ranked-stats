@@ -13,8 +13,8 @@
 	<title>Fastest times | MCSR Ranked stats</title>
 </svelte:head>
 
-<div class="mx-auto max-w-sm py-[4.375rem] md:ml-16">
-	<h1 class="flex items-center gap-2 pt-2 text-xl font-bold text-zinc-300">
+<div class="mx-auto max-w-md py-[4.375rem] md:ml-16">
+	<h1 class="flex items-center gap-4 pt-2 text-xl font-bold text-zinc-300">
 		<div>Fastest times this season</div>
 		<div>
 			<Switch options={["all", "unique"]} bind:onFirst={$showingAll} />
@@ -29,7 +29,7 @@
 	</ol>
 </div>
 
-<div class="pointer-events-none fixed bottom-0 left-0 right-0 z-10">
+<div class="pointer-events-none fixed inset-x-0 bottom-0 z-10 overflow-x-scroll px-2">
 	<div
 		class="pointer-events-auto relative mx-auto min-h-[6rem] w-[35rem] rounded-t-3xl bg-zinc-800 shadow-lg shadow-black/30 md:mr-4 2xl:ml-[52rem] 2xl:w-[43rem]">
 		<slot />

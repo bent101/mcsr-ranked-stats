@@ -3,6 +3,6 @@
 @tailwind utilities;
 
 :root {
-	font-size: 11px;
+	font-size: 10px;
 	@apply sm:[font-size:16px];
 }
