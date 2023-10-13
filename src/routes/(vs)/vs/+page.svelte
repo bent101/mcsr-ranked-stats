@@ -70,7 +70,7 @@
 			aria-disabled={!readyToSubmit}
 			class="grid {readyToSubmit
 				? 'cursor-pointer opacity-100'
-				: 'cursor-default opacity-10'} h-12 w-12 select-none place-items-center rounded-full border-2 border-zinc-700 bg-zinc-950 text-3xl text-zinc-300"
+				: 'cursor-default opacity-10'} h-12 w-12 select-none place-items-center rounded-full border-[0.125rem] border-zinc-700 bg-zinc-950 text-3xl text-zinc-300"
 			>→</a>
 	</div>
 	<div

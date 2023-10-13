@@ -69,7 +69,7 @@
 	<div
 		in:scale={{ duration: 200, start: 0.6 }}
 		on:click|stopPropagation
-		class="absolute inset-x-4 inset-y-12 mx-auto max-w-5xl overflow-clip overflow-y-scroll overscroll-contain rounded-3xl border-2 border-zinc-700 bg-zinc-950">
+		class="absolute inset-x-4 inset-y-12 mx-auto max-w-5xl overflow-clip overflow-y-scroll overscroll-contain rounded-3xl border-[0.125rem] border-zinc-700 bg-zinc-950">
 		<div class="sticky inset-x-0 top-0 z-10 bg-zinc-950 p-2">
 			<div class="flex">
 				<PlayerProfile {playerData} />

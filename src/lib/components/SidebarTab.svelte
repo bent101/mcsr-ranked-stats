@@ -6,7 +6,7 @@
 
 <a
 	{href}
-	class="group flex items-center rounded-l-full border-2 border-r-0 py-1 transition-transform duration-300 {selected
+	class="group flex items-center rounded-l-full border-[0.125rem] border-r-0 py-1 transition-transform duration-300 {selected
 		? `sticky bottom-12 top-20 z-10 translate-x-1 bg-zinc-900 ${
 				arrowSelected ? 'border-blue-500' : 'border-zinc-700'
 		  }`
