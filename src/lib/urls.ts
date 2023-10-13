@@ -30,11 +30,11 @@ export const getBestTimesURL = (unique: boolean) => {
 };
 
 export const getVersusURL = (player1: string, player2: string) => {
-	return `${base}/users/${player1}/versus/${player2}`;
+	return `${base}/users/${player1}/versus/${player2}?filter=2`;
 };
 
 export const getVersusMatchesURL = (player1: string, player2: string) => {
-	return `${base}/users/${player1}/versus/${player2}/matches`;
+	return `${base}/users/${player1}/versus/${player2}/matches?filter=2`;
 };
 
 export const getSkinURL = (uuidOrName: string) => {
