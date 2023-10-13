@@ -1,15 +1,14 @@
 <script lang="ts">
 	import MultiSwitch from "$lib/components/MultiSwitch.svelte";
 	import Switch from "$lib/components/Switch.svelte";
+	import { formatDetailedMatch, formatTime, formatTimeAgo } from "$lib/formatters";
 	import { createLocalStorageStore, isDarkColor } from "$lib/utils";
-	import { formatTime, formatDetailedMatch, formatTimeAgo } from "$lib/formatters";
-	// import { scale } from "svelte/transition";
-	import PlayerHead3D from "./PlayerHead3D.svelte";
-	import MatchTimeline from "./MatchTimeline.svelte";
 	import { page } from "$app/stores";
-	import RefreshBtn from "./RefreshBtn.svelte";
 	import { curDate } from "$lib/globals";
+	import MatchTimeline from "./MatchTimeline.svelte";
+	import PlayerHead3D from "./PlayerHead3D.svelte";
 	import PlayerLink from "./PlayerLink.svelte";
+	import RefreshBtn from "./RefreshBtn.svelte";
 
 	export let match: ReturnType<typeof formatDetailedMatch>;
 
@@ -26,7 +25,7 @@
 	$: match, resetScroll();
 </script>
 
-<div class="p-2 pb-8 pl-4 md:pb-2">
+<div class="flex h-full flex-col p-2 pb-8 pl-4 md:pb-2">
 	<div class="mb-2 ml-2 text-sm font-bold uppercase text-zinc-400">
 		<h2 class="flex items-center">
 			<div class="mr-1.5">{match.seedType} seed</div>
@@ -67,8 +66,8 @@
 
 	<div
 		bind:this={scrollingContainer}
-		class="m-2 mr-0 overflow-scroll overscroll-none scrollbar-thin scrollbar-track-zinc-800 scrollbar-thumb-zinc-600 hover:scrollbar-thumb-zinc-500">
-		<div class="flex {match.timelines ? 'h-[24rem]' : ''} w-max gap-4">
+		class="m-2 mr-0 flex-1 overflow-scroll overscroll-none scrollbar-thin scrollbar-track-zinc-800 scrollbar-thumb-zinc-600 hover:scrollbar-thumb-zinc-500">
+		<div class="flex w-max gap-4">
 			{#each match.playerUUIDs as playerUUID, i}
 				{@const timeline = match.timelines?.[$detailLevel][i]}
 				{@const displayedTimeline = $showingSplits ? timeline?.slice(0, -1) : timeline?.slice(1)}
