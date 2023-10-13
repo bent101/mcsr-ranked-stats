@@ -30,6 +30,6 @@
 		on:click={loadMoreStats}
 		disabled={loadingMoreStats}
 		class="text-white text-opacity-50 underline-offset-2 enabled:underline disabled:animate-pulse enabled:hover:text-opacity-100">
-		{loadingMoreStats ? "Crunching the numbers..." : "Show more"}
+		{loadingMoreStats ? "Loading..." : "Show more"}
 	</button>
 {/if}

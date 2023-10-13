@@ -154,7 +154,7 @@
 			<b>{playerData.highest_winstreak}</b> best winstreak
 		</div>
 		{#if showAllStatsBtn && numMatches > 0}
-			{#key playerData}
+			{#key playerData.uuid}
 				<MoreStats {playerData} {numMatches} />
 			{/key}
 		{/if}
