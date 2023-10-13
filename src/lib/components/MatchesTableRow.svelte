@@ -3,8 +3,9 @@
 	import PlayerLink from "./PlayerLink.svelte";
 	import { formatTimeAgoShort, type FormattedMatch } from "$lib/formatters";
 	import TableRow from "./TableRow.svelte";
-	import { curDate } from "$lib/globals";
+
 	export let match: FormattedMatch;
+	export let curDate: number;
 
 	$: href = match.isDecay ? undefined : `/${match.curPlayerName}/${match.id}`;
 	$: selected = $page.url.pathname === href;
@@ -17,7 +18,7 @@
 			{match.eloChange >= 0 ? "+" : ""}{match.eloChange} elo
 		</div>
 		<div class="w-20" />
-		<div class="w-10 text-right text-zinc-600">{formatTimeAgoShort($curDate - match.date)}</div>
+		<div class="w-10 text-right text-zinc-600">{formatTimeAgoShort(curDate - match.date)}</div>
 	{:else}
 		<div class="flex-1 text-zinc-300">
 			<PlayerLink name={match.opponentName} uuid={match.opponentUUID} />
@@ -41,7 +42,7 @@
 			{match.outcome === "draw" ? "" : match.forfeit ? "Forfeit" : match.time}
 		</div>
 		<div class="w-10 text-right {selected ? 'text-zinc-300' : 'text-zinc-600'}">
-			{formatTimeAgoShort($curDate - match.date)}
+			{formatTimeAgoShort(curDate - match.date)}
 		</div>
 	{/if}
 </TableRow>

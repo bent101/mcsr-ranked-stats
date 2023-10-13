@@ -5,7 +5,7 @@
 	import PlayerProfile from "$lib/components/PlayerProfile.svelte";
 	import RefreshBtn from "$lib/components/RefreshBtn.svelte";
 	import { getAllMatches, getMatches } from "$lib/formatters";
-	import { isLgScreen, matchesPerPage } from "$lib/globals";
+	import { curDate, isLgScreen, matchesPerPage } from "$lib/globals";
 	import { getLeaderboardURL } from "$lib/urls";
 	import { onMount } from "svelte";
 
@@ -98,7 +98,7 @@
 				<ol class="pb-16">
 					{#each data.matches as match}
 						<li>
-							<MatchesTableRow {match} />
+							<MatchesTableRow {match} curDate={$curDate} />
 						</li>
 					{/each}
 				</ol>
