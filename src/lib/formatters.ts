@@ -40,7 +40,7 @@ export const formatTimeAgoShort = (secondsAgo: number) => {
 	if (hours > 18) return "1d";
 	if (hours) return `${hours}h`;
 	if (minutes) return `${minutes}m`;
-	return `${secondsAgo}s`;
+	return "now";
 };
 
 /**
@@ -55,7 +55,7 @@ export const formatTimeAgo = (secondsAgo: number) => {
 	if (hours > 18) return "yesterday";
 	if (hours) return `${hours} hour${hours > 1 ? "s" : ""} ago`;
 	if (minutes) return `${minutes} min${minutes > 1 ? "s" : ""} ago`;
-	return `${secondsAgo} second${secondsAgo > 1 ? "s" : ""} ago`;
+	return "just now";
 };
 
 export const formatMatch = (match: Match, curPlayerName: string | undefined): FormattedMatch => {
