@@ -14,7 +14,7 @@ export const isXlScreen = readable(true, (set) => {
 	return () => mediaQuery.removeEventListener("change", setMatches);
 });
 
-/** uses min-width: 1024px, the same as tailwind's `xl:` */
+/** uses min-width: 1024px, the same as tailwind's `lg:` */
 export const isLgScreen = readable(true, (set) => {
 	if (typeof window === "undefined") return () => undefined;
 
@@ -25,13 +25,13 @@ export const isLgScreen = readable(true, (set) => {
 	return () => mediaQuery.removeEventListener("change", setMatches);
 });
 
-/** current date in seconds after epoch */
+/** current date in seconds after epoch (updates every minute) */
 export const curDate = readable(Math.floor(Date.now() / 1000), function start(set) {
-	// console.log(new Date().toUTCString());
+	console.log(new Date().toUTCString());
 
 	const interval = setInterval(() => {
 		set(Math.floor(Date.now() / 1000));
-	}, 1000);
+	}, 1000 * 60);
 
 	return function stop() {
 		clearInterval(interval);

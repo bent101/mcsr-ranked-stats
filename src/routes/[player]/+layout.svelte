@@ -103,7 +103,7 @@
 						</li>
 					{/each}
 				</ol>
-				<div class="mb-[80vh] text-center text-zinc-600" bind:this={infiniteScrollPadding}>
+				<div class="pb-[36rem] text-center text-zinc-600" bind:this={infiniteScrollPadding}>
 					{data.noMoreMatches ? "No more matches" : "Loading..."}
 				</div>
 			{:else}

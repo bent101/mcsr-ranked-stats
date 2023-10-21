@@ -83,27 +83,25 @@
 					playerData={data.player2} />
 			</div>
 		</div>
-		{#if numMatches > 0}
-			<div class="flex items-center justify-center gap-4 py-4 text-5xl font-bold">
-				<div class="flex-1 text-right text-orange-400">
-					{player1Wins}
-					<div class="text-xs">{player1WinPercent}%</div>
-				</div>
-				<div class="text-center uppercase text-zinc-600">
-					{numDraws > 0 ? `- ${numDraws} -` : `-`}
-					<div class="text-xs">{@html numDraws === 0 ? "&nbsp;" : 1 ? "draw" : "draws"}</div>
-				</div>
-				<div class="flex-1 text-yellow-400">
-					{player2Wins}
-					<div class="text-xs">{player2WinPercent}%</div>
-				</div>
-			</div>
-		{/if}
 	</div>
 </div>
 
 {#if numMatches > 0}
-	<div class="mx-auto max-w-sm pb-16 md:ml-16">
+	<div class="flex items-center justify-center gap-4 py-4 text-5xl font-bold">
+		<div class="flex-1 text-right text-orange-400">
+			{player1Wins}
+			<div class="text-xs">{player1WinPercent}%</div>
+		</div>
+		<div class="text-center uppercase text-zinc-600">
+			{numDraws > 0 ? `- ${numDraws} -` : `-`}
+			<div class="text-xs">{@html numDraws === 0 ? "&nbsp;" : 1 ? "draw" : "draws"}</div>
+		</div>
+		<div class="flex-1 text-yellow-400">
+			{player2Wins}
+			<div class="text-xs">{player2WinPercent}%</div>
+		</div>
+	</div>
+	<div class="mx-auto max-w-sm pb-[36rem] md:ml-16">
 		<div class="mb-2 flex items-center border-b-2 border-zinc-800 p-4 pb-1 pl-4">
 			<h2 class="text-sm font-bold uppercase text-zinc-400">Matches</h2>
 			<div class="ml-2 rounded-full bg-zinc-400 px-2 py-0.5 text-xs font-extrabold text-zinc-900">
@@ -112,7 +110,7 @@
 			<div class="ml-auto"><RefreshBtn /></div>
 		</div>
 
-		<div class="text-xs font-bold uppercase tracking-wide text-zinc-600">
+		<div class="text-xs font-bold tracking-wide text-zinc-600">
 			<div class="flex px-4 py-2">
 				<div class="flex-1">WINNER</div>
 				<div class="w-24 text-center">ELO CHANGE</div>
