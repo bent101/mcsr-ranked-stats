@@ -88,9 +88,10 @@
 		{/if}
 	</div>
 	<div class="hidden xl:contents">
+		<div class="w-80 bg-zinc-950 border-r-2 border-zinc-700" />
 		<div
 			bind:this={sidebar}
-			class="sticky top-0 z-50 h-screen shrink-0 overflow-y-scroll overscroll-y-contain scrollbar-thin scrollbar-track-zinc-950 scrollbar-thumb-zinc-900 [direction:rtl] hover:scrollbar-thumb-zinc-800">
+			class="fixed top-0 z-50 h-screen shrink-0 overflow-y-scroll overscroll-y-contain scrollbar-thin scrollbar-track-zinc-950 scrollbar-thumb-zinc-900 [direction:rtl] hover:scrollbar-thumb-zinc-800">
 			<div class="[direction:ltr]">
 				<Sidebar {stopSidebarScroll} lb={data.lb?.users} />
 			</div>
