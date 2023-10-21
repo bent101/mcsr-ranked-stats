@@ -38,7 +38,7 @@
 	}
 
 	afterNavigate(() => {
-		if (timeoutId === -1) {
+		if (timeoutId === -1 && $progress !== 0) {
 			progress.stiffness = 0.35;
 			$progress = 100;
 		} else {
