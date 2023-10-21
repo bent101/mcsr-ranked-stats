@@ -1,4 +1,3 @@
-import type { RecordLeaderboard } from "$lib/ranked-api";
 import { formatRecordLeaderboard } from "$lib/formatters";
 import { getBestTimesURL } from "$lib/urls";
 

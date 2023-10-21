@@ -1,28 +1,35 @@
 <script lang="ts">
+	import { isTouchScreen } from "$lib/globals";
 	import { getSkinURL } from "$lib/urls";
 
 	export let uuid: string;
 	export let rotation = { x: 0, y: 0 };
+	export let isHeader = false;
 
 	$: skinURL = getSkinURL(uuid);
 
 	let cube: HTMLElement | undefined;
-	let cubeRect = undefined;
-	let centerX = 0;
-	let centerY = 0;
 
-	$: if (cube) {
-		cubeRect = cube.getBoundingClientRect();
-		centerX = cubeRect.left + cubeRect.width / 2;
-		centerY = cubeRect.top + cubeRect.height / 2;
+	function handleMouseMove(event: MouseEvent & { currentTarget: EventTarget & Window }) {
+		if (!cube) return;
+
+		const cubeRect = cube.getBoundingClientRect();
+		const centerX = cubeRect.left + cubeRect.width / 2;
+		const centerY = cubeRect.top + cubeRect.height / 2;
+
+		if ($isTouchScreen) {
+			rotation.x = rotation.x;
+			rotation.y = rotation.y;
+		} else {
+			rotation.x = (Math.atan((centerY - event.clientY) / 800) / Math.PI) * 180;
+			rotation.y = (Math.atan(-(centerX - event.clientX) / 800) / Math.PI) * 180;
+		}
 	}
 </script>
 
-<!-- <svelte:window
-	on:mousemove={(e) => {
-		rotateX = (Math.atan((centerY - e.clientY) / 800) / Math.PI) * 180;
-		rotateY = (Math.atan(-(centerX - e.clientX) / 800) / Math.PI) * 180;
-	}} /> -->
+<svelte:window
+	on:mousemove={isHeader ? handleMouseMove : null}
+	on:drag={isHeader ? handleMouseMove : null} />
 
 <div class="viewport m-2">
 	<div

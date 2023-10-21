@@ -68,3 +68,7 @@ export function count<T>(arr: T[], condition: (t: T) => boolean) {
 export function sum(arr: number[]) {
 	return arr.reduce((acc, cur) => acc + cur, 0);
 }
+
+export function convertRemToPixels(rem: number) {
+	return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
+}

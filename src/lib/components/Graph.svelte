@@ -4,7 +4,6 @@
 	import { browser } from "$app/environment";
 	import type { FormattedMatch } from "$lib/formatters";
 	import { reversed } from "$lib/utils";
-	import { isLgScreen } from "$lib/globals";
 
 	type DataRecord = { x: number; y: number };
 	const x = (d: DataRecord) => d.x;
@@ -34,9 +33,9 @@
 	};
 </script>
 
-{#if browser}
-	<div class="container h-full">
-		<VisXYContainer {xDomain} {yDomain} width="100%" height={$isLgScreen ? "60vh" : "40vh"} {data}>
+<div class="container h-[40vh] lg:h-[60vh] [&>*]:h-full">
+	{#if browser}
+		<VisXYContainer width="100%" {xDomain} {yDomain} {data}>
 			<VisArea color="#a1a1aa28" curveType="linear" {x} {y} />
 			<VisLine lineWidth={"0.125rem"} color="#a1a1aa" curveType="linear" {x} {y} />
 
@@ -54,8 +53,8 @@
 				numTicks={3}
 				label="Elo" />
 		</VisXYContainer>
-	</div>
-{/if}
+	{/if}
+</div>
 
 <style lang="postcss">
 	.container {

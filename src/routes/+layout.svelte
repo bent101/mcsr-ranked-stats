@@ -6,7 +6,6 @@
 	import { beforeNavigate } from "$app/navigation";
 	import { dev } from "$app/environment";
 	import { inject } from "@vercel/analytics";
-	import { isXlScreen } from "$lib/globals";
 	import { page } from "$app/stores";
 	// import { onNavigate } from "$app/navigation";
 
@@ -54,6 +53,7 @@
 
 <svelte:head>
 	<meta name="darkreader-lock" />
+	<link rel="canonical" href="https://mcsrrankedstats.vercel.app/" />
 </svelte:head>
 
 <svelte:window
@@ -61,46 +61,45 @@
 		if (e.key === "Escape") hideLb();
 	}} />
 
-{#if !$isXlScreen}
+<div class="xl:flex">
 	<button
 		bind:this={lbButton}
 		on:click={showLb}
 		class="fixed left-0 top-32 z-50 rounded-r-full border-[0.125rem] border-l-0 border-zinc-700 bg-zinc-950 px-4 py-2 text-sm font-extrabold uppercase tracking-wide text-zinc-500 shadow-lg shadow-black/30">
 		Leaderboard
 	</button>
-	<div>
+	<div class="contents xl:hidden">
+		{#if showingLeaderboard}
+			<div
+				transition:fade={{ duration: 200 }}
+				on:click={hideLb}
+				on:keydown={(e) => {
+					if (e.key === "Escape") hideLb();
+				}}
+				class="fixed inset-0 z-50 bg-black/90" />
+			<div
+				bind:this={sidebar}
+				transition:fly={{ x: -200, duration: 300 }}
+				class="fixed top-0 z-50 h-full overflow-y-scroll overscroll-y-contain scrollbar-thin scrollbar-track-zinc-950 scrollbar-thumb-zinc-900 [direction:rtl] hover:scrollbar-thumb-zinc-800">
+				<div class="[direction:ltr]">
+					<Sidebar {stopSidebarScroll} lb={data.lb?.users} />
+				</div>
+			</div>
+		{/if}
+	</div>
+	<div class="hidden xl:contents">
+		<div class="w-80 bg-zinc-950 border-r-2 border-zinc-700" />
+		<div
+			bind:this={sidebar}
+			class="fixed top-0 z-50 h-screen shrink-0 overflow-y-scroll overscroll-y-contain scrollbar-thin scrollbar-track-zinc-950 scrollbar-thumb-zinc-900 [direction:rtl] hover:scrollbar-thumb-zinc-800">
+			<div class="[direction:ltr]">
+				<Sidebar {stopSidebarScroll} lb={data.lb?.users} />
+			</div>
+		</div>
+	</div>
+	<div class="xl:flex-1">
 		<slot />
 	</div>
-	{#if showingLeaderboard}
-		<div
-			transition:fade={{ duration: 200 }}
-			on:click={hideLb}
-			on:keydown={(e) => {
-				if (e.key === "Escape") hideLb();
-			}}
-			class="fixed inset-0 z-50 bg-black/90" />
-		<div
-			bind:this={sidebar}
-			transition:fly={{ x: -40, duration: 200 }}
-			class="fixed top-0 z-50 h-full overflow-y-scroll overscroll-y-contain scrollbar-thin scrollbar-track-zinc-950 scrollbar-thumb-zinc-900 [direction:rtl] hover:scrollbar-thumb-zinc-800">
-			<div class="[direction:ltr]">
-				<Sidebar {stopSidebarScroll} lb={data.lb?.users} />
-			</div>
-		</div>
-	{/if}
-{:else}
-	<div class="flex">
-		<div
-			bind:this={sidebar}
-			class="sticky top-0 z-50 h-screen shrink-0 overflow-y-scroll overscroll-y-contain scrollbar-thin scrollbar-track-zinc-950 scrollbar-thumb-zinc-900 [direction:rtl] hover:scrollbar-thumb-zinc-800">
-			<div class="[direction:ltr]">
-				<Sidebar {stopSidebarScroll} lb={data.lb?.users} />
-			</div>
-		</div>
-		<div class="flex-1">
-			<slot />
-		</div>
-	</div>
-{/if}
+</div>
 
 <Loading />

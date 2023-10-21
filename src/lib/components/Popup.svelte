@@ -39,7 +39,7 @@
 	];
 
 	/** in pixels, between the popup and the window edge */
-	const windowPadding = 4;
+	const windowPadding = 16;
 
 	/** in milliseconds; the grace period to switch mouse between anchor and popup */
 	const outDelay = 150;

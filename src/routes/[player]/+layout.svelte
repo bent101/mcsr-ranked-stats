@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { browser } from "$app/environment";
 	import { afterNavigate, invalidate } from "$app/navigation";
 	import Graph from "$lib/components/Graph.svelte";
 	import MatchDetailsFrame from "$lib/components/MatchDetailsFrame.svelte";
@@ -6,7 +7,7 @@
 	import PlayerProfile from "$lib/components/PlayerProfile.svelte";
 	import RefreshBtn from "$lib/components/RefreshBtn.svelte";
 	import { getAllMatches, getMatches } from "$lib/formatters";
-	import { curDate, isLgScreen, matchesPerPage } from "$lib/globals";
+	import { curDate, matchesPerPage } from "$lib/globals";
 	import { getLeaderboardURL } from "$lib/urls";
 	import { onMount } from "svelte";
 
@@ -66,24 +67,30 @@
 
 <div class="hidden h-8 xl:block" />
 <div class="sticky top-0 z-10 bg-zinc-900/70 backdrop-blur-md">
-	<div class="">
-		<PlayerProfile showAllStatsBtn playerData={data.playerData} />
-	</div>
+	<PlayerProfile isHeader showAllStatsBtn playerData={data.playerData} />
 </div>
 <div class="h-8 lg:hidden" />
-{#if !$isLgScreen}
+
+<div class="contents lg:hidden">
 	<div class="mx-auto max-w-3xl p-8 pl-2">
 		<div class="relative">
 			<Graph matches={data.matches} />
-			<button
-				on:click={showAllMatches}
-				disabled={loadingAllMatches || data.noMoreMatches}
-				class="absolute bottom-[calc(50px+0.2rem)] left-[calc(70px+0.2rem)] rounded-full border-[0.125rem] border-zinc-700 bg-zinc-950 px-3 py-1 text-xs font-extrabold uppercase tracking-wide text-zinc-500 disabled:opacity-70 hover:border-zinc-400 hover:text-zinc-300 disabled:hover:border-zinc-700 disabled:hover:text-zinc-500">
-				{loadingAllMatches ? "Loading..." : data.noMoreMatches ? "Showing all" : "Show all"}
-			</button>
+			{#if browser}
+				<button
+					on:click={showAllMatches}
+					disabled={loadingAllMatches || data.noMoreMatches}
+					class="absolute bottom-[calc(50px+0.2rem)] left-[calc(70px+0.2rem)] rounded-full border-[0.125rem] border-zinc-700 bg-zinc-950 px-3 py-1 text-xs font-extrabold uppercase tracking-wide text-zinc-500 disabled:opacity-70 hover:border-zinc-400 hover:text-zinc-300 disabled:hover:border-zinc-700 disabled:hover:text-zinc-500">
+					{loadingAllMatches ? "Loading..." : data.noMoreMatches ? "Showing all" : "Show all"}
+				</button>
+			{:else}
+				<div class="absolute inset-0 grid place-items-center">
+					<p class="text-zinc-500 text-lg font-semibold animate-pulse">Loading graph...</p>
+				</div>
+			{/if}
 		</div>
 	</div>
-{/if}
+</div>
+
 <div class="flex flex-col items-center px-4 md:flex-row md:items-start">
 	<div>
 		<div class="h-8" />
@@ -103,7 +110,7 @@
 						</li>
 					{/each}
 				</ol>
-				<div class="mb-[80vh] text-center text-zinc-600" bind:this={infiniteScrollPadding}>
+				<div class="pb-[36rem] text-center text-zinc-600" bind:this={infiniteScrollPadding}>
 					{data.noMoreMatches ? "No more matches" : "Loading..."}
 				</div>
 			{:else}
@@ -111,19 +118,25 @@
 			{/if}
 		</div>
 	</div>
-	{#if $isLgScreen}
-		<div class="sticky top-32 h-max flex-1">
+	<div class="hidden lg:contents">
+		<div class="sticky top-40 h-max flex-1">
 			<div class="relative">
 				<Graph matches={data.matches} />
-				<button
-					on:click={showAllMatches}
-					disabled={loadingAllMatches || data.noMoreMatches}
-					class="absolute bottom-[58px] left-[78px] rounded-full border-[0.125rem] border-zinc-700 bg-zinc-950 px-3 py-1 text-xs font-extrabold uppercase tracking-wide text-zinc-500 disabled:opacity-70 hover:border-zinc-400 hover:text-zinc-300 disabled:hover:border-zinc-700 disabled:hover:text-zinc-500">
-					{loadingAllMatches ? "Loading..." : data.noMoreMatches ? "Showing all" : "Show all"}
-				</button>
+				{#if browser}
+					<button
+						on:click={showAllMatches}
+						disabled={loadingAllMatches || data.noMoreMatches}
+						class="absolute bottom-[58px] left-[78px] rounded-full border-[0.125rem] border-zinc-700 bg-zinc-950 px-3 py-1 text-xs font-extrabold uppercase tracking-wide text-zinc-500 disabled:opacity-70 hover:border-zinc-400 hover:text-zinc-300 disabled:hover:border-zinc-700 disabled:hover:text-zinc-500">
+						{loadingAllMatches ? "Loading..." : data.noMoreMatches ? "Showing all" : "Show all"}
+					</button>
+				{:else}
+					<div class="absolute inset-0 grid place-items-center">
+						<p class="text-zinc-500 text-lg font-semibold animate-pulse">Loading graph...</p>
+					</div>
+				{/if}
 			</div>
 		</div>
-	{/if}
+	</div>
 </div>
 
 <MatchDetailsFrame>

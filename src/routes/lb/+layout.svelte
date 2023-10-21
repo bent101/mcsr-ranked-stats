@@ -22,7 +22,7 @@
 			<Switch options={["all", "unique"]} bind:onFirst={$showingAll} />
 		</div>
 	</h1>
-	<ol class="mx-auto mt-8 max-w-sm border-t-2 border-zinc-800 pt-8 md:ml-0">
+	<ol class="mx-auto mt-8 max-w-sm border-t-2 border-zinc-800 pt-8 md:ml-0 pb-[36rem]">
 		{#each $showingAll ? data.allBestTimes : data.uniqueBestTimes as match, i (match.id)}
 			<li in:scale={{ delay: 100 + 8 * i, duration: 250, start: 0.7 }}>
 				<BestTimesTableRow place={i + 1} {match} />

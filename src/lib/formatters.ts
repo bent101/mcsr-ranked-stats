@@ -32,6 +32,7 @@ export const formatTime = (timeInMs: number, signed = false) => {
  * @returns 15s, 2h, 25d, etc
  */
 export const formatTimeAgoShort = (secondsAgo: number) => {
+	secondsAgo = Math.max(secondsAgo, 0);
 	const minutes = Math.floor(secondsAgo / 60);
 	const hours = Math.floor(minutes / 60);
 	const days = Math.floor(hours / 24);
@@ -47,6 +48,7 @@ export const formatTimeAgoShort = (secondsAgo: number) => {
  * @returns 15 minutes ago, 5 days ago, etc
  */
 export const formatTimeAgo = (secondsAgo: number) => {
+	secondsAgo = Math.max(secondsAgo, 0);
 	const minutes = Math.floor(secondsAgo / 60);
 	const hours = Math.floor(minutes / 60);
 	const days = Math.floor(hours / 24);
