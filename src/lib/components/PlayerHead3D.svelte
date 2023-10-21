@@ -9,17 +9,14 @@
 	$: skinURL = getSkinURL(uuid);
 
 	let cube: HTMLElement | undefined;
-	let cubeRect = undefined;
-	let centerX = 0;
-	let centerY = 0;
-
-	$: if (cube) {
-		cubeRect = cube.getBoundingClientRect();
-		centerX = cubeRect.left + cubeRect.width / 2;
-		centerY = cubeRect.top + cubeRect.height / 2;
-	}
 
 	function handleMouseMove(event: MouseEvent & { currentTarget: EventTarget & Window }) {
+		if (!cube) return;
+
+		const cubeRect = cube.getBoundingClientRect();
+		const centerX = cubeRect.left + cubeRect.width / 2;
+		const centerY = cubeRect.top + cubeRect.height / 2;
+
 		if ($isTouchScreen) {
 			rotation.x = rotation.x;
 			rotation.y = rotation.y;
@@ -30,7 +27,9 @@
 	}
 </script>
 
-<svelte:window on:mousemove={isHeader ? handleMouseMove : null} on:drag={isHeader ? handleMouseMove : null} />
+<svelte:window
+	on:mousemove={isHeader ? handleMouseMove : null}
+	on:drag={isHeader ? handleMouseMove : null} />
 
 <div class="viewport m-2">
 	<div

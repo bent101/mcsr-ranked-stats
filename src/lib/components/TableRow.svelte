@@ -29,6 +29,9 @@
 
 		if (navigation.to?.url.pathname === href) {
 			$state = "selected";
+			if (!$isMdScreen) {
+				scrollIntoView();
+			}
 		} else {
 			$state = "idle";
 		}
@@ -36,19 +39,17 @@
 
 	function scrollIntoView() {
 		if (!elem) return;
-		const currElemHeight = elem.getBoundingClientRect().y;
+		const currElemHeight = elem.getBoundingClientRect().top;
 		const headerHeight = convertRemToPixels(7.5);
 		const bottomHeight = convertRemToPixels(39);
 		if (currElemHeight > headerHeight && currElemHeight < windowHeight - bottomHeight) return;
 
+		const newScrollY = currElemHeight + scrollY - windowHeight + bottomHeight;
+
 		window.scrollTo({
 			behavior: "smooth",
-			top: currElemHeight + scrollY - windowHeight + bottomHeight,
+			top: newScrollY,
 		});
-	}
-
-	$: if ($state === "selected" && !$isMdScreen) {
-		scrollIntoView();
 	}
 
 	function getClassesFromState() {
@@ -80,7 +81,6 @@
 	</a>
 {:else}
 	<div
-		bind:this={elem}
 		class="group flex items-center gap-2 rounded-lg border px-4 py-1.5 text-left
 		{classesFromState}">
 		<slot state={$state} />
