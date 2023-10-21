@@ -14,11 +14,11 @@
 {#key timeline}
 	<div
 		bind:this={timelineContainer}
-		class="flex h-4 items-center gap-px overflow-hidden rounded-full">
+		class="flex h-4 items-center gap-[0.125rem] overflow-hidden rounded-full">
 		{#each timeline.slice(0, -1) as event, i (event.name)}
 			{@const splitLength = event.splitAfter?.length ?? 0}
 			<div
-				class="h-2 min-w-[4px] transition-[height] duration-200 first:rounded-l-full last:rounded-r-full hover:h-full"
+				class="h-2 min-w-[0.25rem] transition-[height] duration-200 first:rounded-l-full last:rounded-r-full hover:h-full"
 				style="
             background-color: {event.color}; 
             flex: {splitLength};

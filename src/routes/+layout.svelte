@@ -54,6 +54,7 @@
 
 <svelte:head>
 	<meta name="darkreader-lock" />
+	<link rel="canonical" href="https://mcsrrankedstats.vercel.app/" />
 </svelte:head>
 
 <svelte:window
@@ -61,7 +62,7 @@
 		if (e.key === "Escape") hideLb();
 	}} />
 
-{#if !$isXlScreen}
+<div class="contents xl:hidden">
 	<button
 		bind:this={lbButton}
 		on:click={showLb}
@@ -88,7 +89,8 @@
 			</div>
 		</div>
 	{/if}
-{:else}
+</div>
+<div class="hidden xl:contents">
 	<div class="flex">
 		<div
 			bind:this={sidebar}
@@ -97,10 +99,10 @@
 				<Sidebar {stopSidebarScroll} lb={data.lb?.users} />
 			</div>
 		</div>
-		<div class="flex-1">
+		<div class=" flex-1">
 			<slot />
 		</div>
 	</div>
-{/if}
+</div>
 
 <Loading />

@@ -66,12 +66,11 @@
 
 <div class="hidden h-8 xl:block" />
 <div class="sticky top-0 z-10 bg-zinc-900/70 backdrop-blur-md">
-	<div class="">
-		<PlayerProfile showAllStatsBtn playerData={data.playerData} />
-	</div>
+	<PlayerProfile isHeader showAllStatsBtn playerData={data.playerData} />
 </div>
 <div class="h-8 lg:hidden" />
-{#if !$isLgScreen}
+
+<div class="contents lg:hidden">
 	<div class="mx-auto max-w-3xl p-8 pl-2">
 		<div class="relative">
 			<Graph matches={data.matches} />
@@ -83,7 +82,8 @@
 			</button>
 		</div>
 	</div>
-{/if}
+</div>
+
 <div class="flex flex-col items-center px-4 md:flex-row md:items-start">
 	<div>
 		<div class="h-8" />
@@ -111,8 +111,8 @@
 			{/if}
 		</div>
 	</div>
-	{#if $isLgScreen}
-		<div class="sticky top-32 h-max flex-1">
+	<div class="hidden lg:contents">
+		<div class="sticky top-40 h-max flex-1">
 			<div class="relative">
 				<Graph matches={data.matches} />
 				<button
@@ -123,7 +123,7 @@
 				</button>
 			</div>
 		</div>
-	{/if}
+	</div>
 </div>
 
 <MatchDetailsFrame>

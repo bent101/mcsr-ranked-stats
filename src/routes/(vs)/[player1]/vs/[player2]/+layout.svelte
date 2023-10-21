@@ -61,11 +61,19 @@
 	<div class="mx-auto max-w-max lg:ml-0 lg:max-w-5xl">
 		<div class="flex flex-col justify-center lg:flex-row">
 			<div class="flex-1">
-				<div class="lg:ml-auto lg:max-w-max">
+				<div class="ml-auto max-w-max hidden lg:block">
 					<PlayerProfile
 						isLink
-						headToRight={$isLgScreen}
-						rotation={$isLgScreen ? right : down}
+						pos="first"
+						rotation={right}
+						color="text-orange-400"
+						playerData={data.player1} />
+				</div>
+				<div class="block lg:hidden">
+					<PlayerProfile
+						isLink
+						pos="first"
+						rotation={down}
 						color="text-orange-400"
 						playerData={data.player1} />
 				</div>
@@ -75,10 +83,19 @@
 				<div class="text-xs font-bold text-zinc-600">VS</div>
 				<div class="flex-1 border border-zinc-600" />
 			</div>
-			<div class="flex-1">
+			<div class="flex-1 hidden lg:block">
 				<PlayerProfile
 					isLink
-					rotation={$isLgScreen ? left : up}
+					pos="second"
+					rotation={left}
+					color="text-yellow-400"
+					playerData={data.player2} />
+			</div>
+			<div class="flex-1 block lg:hidden">
+				<PlayerProfile
+					isLink
+					pos="second"
+					rotation={up}
 					color="text-yellow-400"
 					playerData={data.player2} />
 			</div>
@@ -87,18 +104,20 @@
 </div>
 
 {#if numMatches > 0}
-	<div class="flex items-center justify-center gap-4 py-4 text-5xl font-bold">
-		<div class="flex-1 text-right text-orange-400">
-			{player1Wins}
-			<div class="text-xs">{player1WinPercent}%</div>
-		</div>
-		<div class="text-center uppercase text-zinc-600">
-			{numDraws > 0 ? `- ${numDraws} -` : `-`}
-			<div class="text-xs">{@html numDraws === 0 ? "&nbsp;" : 1 ? "draw" : "draws"}</div>
-		</div>
-		<div class="flex-1 text-yellow-400">
-			{player2Wins}
-			<div class="text-xs">{player2WinPercent}%</div>
+	<div class="mx-auto max-w-max lg:ml-0 lg:max-w-5xl">
+		<div class="flex items-center justify-center gap-4 py-4 text-5xl font-bold">
+			<div class="flex-1 text-right text-orange-400">
+				{player1Wins}
+				<div class="text-xs">{player1WinPercent}%</div>
+			</div>
+			<div class="text-center uppercase text-zinc-600">
+				{numDraws > 0 ? `- ${numDraws} -` : `-`}
+				<div class="text-xs">{@html numDraws === 0 ? "&nbsp;" : 1 ? "draw" : "draws"}</div>
+			</div>
+			<div class="flex-1 text-yellow-400">
+				{player2Wins}
+				<div class="text-xs">{player2WinPercent}%</div>
+			</div>
 		</div>
 	</div>
 	<div class="mx-auto max-w-sm pb-[36rem] md:ml-16">

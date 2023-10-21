@@ -15,7 +15,7 @@
 				.then((res) => res.json())
 				.then((res) => res.data as DetailedPlayer),
 
-			_: fetch(getSkinURL(uuid)),
+			// _: fetch(getSkinURL(uuid)),
 		};
 	};
 </script>

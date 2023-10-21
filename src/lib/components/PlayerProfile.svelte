@@ -16,11 +16,15 @@
 	import MoreStats from "./MoreStats.svelte";
 
 	export let playerData: DetailedPlayer;
+	/**
+	 * position on the compare page (it affects head rotation/position)
+	 */
+	export let pos: "first" | "second" | null = null;
 	export let color = "text-white";
 	export let rotation = { x: -12, y: 20 };
-	export let headToRight = false;
 	export let isLink = false;
 	export let showAllStatsBtn = false;
+	export let isHeader = false;
 
 	$: numMatches =
 		playerData.records[2].win + playerData.records[2].lose + playerData.records[2].draw;
@@ -42,12 +46,19 @@
 	};
 
 	$: rank = getRank(playerData.elo_rate);
+
+	let scrollY = 0;
 </script>
 
+<svelte:window bind:scrollY />
+
 <div
-	class="flex w-max {headToRight ? 'flex-row-reverse' : 'flex-row'} items-center gap-2 px-4 py-2">
+	class="flex w-max flex-row items-center gap-2 px-4 py-2
+	{pos === 'first' ? 'lg:flex-row-reverse' : ''}">
 	<div class="pb-2">
-		<PlayerHead3D {rotation} uuid={playerData.uuid} />
+		{#key scrollY}
+			<PlayerHead3D {isHeader} {rotation} uuid={playerData.uuid} />
+		{/key}
 	</div>
 	<div class="pl-2">
 		<div class="flex h-8 items-center">
