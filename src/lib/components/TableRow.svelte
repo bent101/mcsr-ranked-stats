@@ -25,7 +25,10 @@
 	});
 
 	afterNavigate((navigation) => {
-		if (!href) return;
+		if (!href) {
+			$state = "idle";
+			return;
+		}
 
 		if (navigation.to?.url.pathname === href) {
 			$state = "selected";
