@@ -39,6 +39,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@sveltejs/adapter-auto": "^2.1.0",
 		"@unovis/svelte": "^1.1.0",
 		"@unovis/ts": "^1.1.0",
 		"@vercel/analytics": "^1.0.0"
