@@ -34,7 +34,7 @@ export const getVersusURL = (player1: string, player2: string) => {
 };
 
 export const getVersusMatchesURL = (player1: string, player2: string) => {
-	return `${base}/users/${player1}/versus/${player2}/matches?filter=2`;
+	return `${base}/users/${player1}/versus/${player2}/matches?filter=2&count=50`;
 };
 
 export const getSkinURL = (uuidOrName: string) => {

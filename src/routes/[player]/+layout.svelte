@@ -19,19 +19,19 @@
 	// let showingStats = false;
 
 	const showMoreMatches = async () => {
-		if (data.noMoreMatches || loadingAllMatches) return;
+		if (data.matches.noMoreMatches || loadingAllMatches) return;
 		const matches = await getMatches(data.playerData.nickname, data.curPage++, matchesPerPage);
-		data.matches = [...data.matches, ...matches];
-		data.noMoreMatches = matches.length < matchesPerPage;
+		data.matches.data = [...data.matches.data, ...matches];
+		data.matches.noMoreMatches = matches.length < matchesPerPage;
 	};
 
 	const showAllMatches = async () => {
 		loadingAllMatches = true;
 
-		data.matches = await getAllMatches(data.playerData.nickname, numMatches);
+		data.matches.data = await getAllMatches(data.playerData.nickname, numMatches);
 
 		loadingAllMatches = false;
-		data.noMoreMatches = true;
+		data.matches.noMoreMatches = true;
 	};
 
 	let io: IntersectionObserver;
@@ -74,13 +74,17 @@
 <div class="contents lg:hidden">
 	<div class="mx-auto max-w-3xl p-8 pl-2">
 		<div class="relative">
-			<Graph matches={data.matches} />
+			<Graph matches={data.matches.data} />
 			{#if browser}
 				<button
 					on:click={showAllMatches}
-					disabled={loadingAllMatches || data.noMoreMatches}
+					disabled={loadingAllMatches || data.matches.noMoreMatches}
 					class="absolute bottom-[calc(50px+0.2rem)] left-[calc(70px+0.2rem)] rounded-full border-[0.125rem] border-zinc-700 bg-zinc-950 px-3 py-1 text-xs font-extrabold uppercase tracking-wide text-zinc-500 disabled:opacity-70 hover:border-zinc-400 hover:text-zinc-300 disabled:hover:border-zinc-700 disabled:hover:text-zinc-500">
-					{loadingAllMatches ? "Loading..." : data.noMoreMatches ? "Showing all" : "Show all"}
+					{loadingAllMatches
+						? "Loading..."
+						: data.matches.noMoreMatches
+						? "Showing all"
+						: "Show all"}
 				</button>
 			{:else}
 				<div class="absolute inset-0 grid place-items-center">
@@ -102,16 +106,16 @@
 				</div>
 				<div class="ml-auto"><RefreshBtn /></div>
 			</div>
-			{#if data.matches && data.matches.length > 0}
+			{#if data.matches.data && data.matches.data.length > 0}
 				<ol class="pb-16">
-					{#each data.matches as match}
+					{#each data.matches.data as match}
 						<li>
 							<MatchesTableRow {match} curDate={$curDate} />
 						</li>
 					{/each}
 				</ol>
 				<div class="pb-[36rem] text-center text-zinc-600" bind:this={infiniteScrollPadding}>
-					{data.noMoreMatches ? "No more matches" : "Loading..."}
+					{data.matches.noMoreMatches ? "No more matches" : "Loading..."}
 				</div>
 			{:else}
 				<div class="text-center text-zinc-600">No matches yet this season</div>
@@ -121,13 +125,17 @@
 	<div class="hidden lg:contents">
 		<div class="sticky top-40 h-max flex-1">
 			<div class="relative">
-				<Graph matches={data.matches} />
+				<Graph matches={data.matches.data} />
 				{#if browser}
 					<button
 						on:click={showAllMatches}
-						disabled={loadingAllMatches || data.noMoreMatches}
+						disabled={loadingAllMatches || data.matches.noMoreMatches}
 						class="absolute bottom-[58px] left-[78px] rounded-full border-[0.125rem] border-zinc-700 bg-zinc-950 px-3 py-1 text-xs font-extrabold uppercase tracking-wide text-zinc-500 disabled:opacity-70 hover:border-zinc-400 hover:text-zinc-300 disabled:hover:border-zinc-700 disabled:hover:text-zinc-500">
-						{loadingAllMatches ? "Loading..." : data.noMoreMatches ? "Showing all" : "Show all"}
+						{loadingAllMatches
+							? "Loading..."
+							: data.matches.noMoreMatches
+							? "Showing all"
+							: "Show all"}
 					</button>
 				{:else}
 					<div class="absolute inset-0 grid place-items-center">

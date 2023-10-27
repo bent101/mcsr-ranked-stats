@@ -19,13 +19,16 @@ export const load = (async ({ fetch, params }) => {
 		throw redirect(301, `/${capitalizedName}/${params.matchID ?? ""}`);
 	}
 
-	const matches = await fetch(getMatchesURL(capitalizedName, 0))
+	const matches = fetch(getMatchesURL(capitalizedName, 0))
 		.then((res) => res.json())
-		.then((res) => formatMatches(res.data ?? [], capitalizedName));
+		.then((res) => formatMatches(res.data ?? [], capitalizedName))
+		.then((res) => ({
+			data: res,
+			noMoreMatches: res.length < matchesPerPage,
+		}));
 
 	return {
 		matches,
-		noMoreMatches: matches.length < matchesPerPage,
 		curPage: 1,
 		playerData,
 		_: fetch(getSkinURL(playerData.uuid)),
