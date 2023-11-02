@@ -9,6 +9,7 @@
 	import { getAllMatches, getMatches } from "$lib/formatters";
 	import { curDate, matchesPerPage } from "$lib/globals";
 	import { getLeaderboardURL } from "$lib/urls";
+	import { groupByDate } from "$lib/formatters";
 	import { onMount } from "svelte";
 
 	export let data;
@@ -107,13 +108,18 @@
 				<div class="ml-auto"><RefreshBtn /></div>
 			</div>
 			{#if data.matches.data && data.matches.data.length > 0}
-				<ol class="pb-16">
-					{#each data.matches.data as match}
-						<li>
-							<MatchesTableRow {match} curDate={$curDate} />
-						</li>
-					{/each}
-				</ol>
+				{#each Array.from(groupByDate(data.matches.data)) as [label, matches]}
+					<h3 class="text-xs font-semibold tracking-wider text-zinc-600 px-4 pt-4 pb-1 uppercase">
+						{label}
+					</h3>
+					<ol class="last-of-type:pb-16">
+						{#each matches as match}
+							<li>
+								<MatchesTableRow {match} curDate={$curDate} />
+							</li>
+						{/each}
+					</ol>
+				{/each}
 				<div class="pb-[36rem] text-center text-zinc-600" bind:this={infiniteScrollPadding}>
 					{data.matches.noMoreMatches ? "No more matches" : "Loading..."}
 				</div>

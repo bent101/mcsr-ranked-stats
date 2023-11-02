@@ -37,10 +37,10 @@ export const formatTimeAgoShort = (secondsAgo: number) => {
 	const hours = Math.floor(minutes / 60);
 	const days = Math.floor(hours / 24);
 
-	if (days) return `${days}d`;
+	if (days > 0) return `${days}d`;
 	if (hours > 18) return "1d";
-	if (hours) return `${hours}h`;
-	if (minutes) return `${minutes}m`;
+	if (hours > 0) return `${hours}h`;
+	if (minutes > 0) return `${minutes}m`;
 	return "now";
 };
 
@@ -59,6 +59,45 @@ export const formatTimeAgo = (secondsAgo: number) => {
 	if (minutes) return `${minutes} min${minutes > 1 ? "s" : ""} ago`;
 	return "just now";
 };
+
+function getDateLabel(secondsAgo: number) {
+	secondsAgo = Math.max(secondsAgo, 0);
+	const minutes = Math.floor(secondsAgo / 60);
+	const hours = Math.floor(minutes / 60);
+
+	if (hours <= 9) return "Today";
+	if (hours < 48) return "Yesterday";
+	if (secondsAgo < 60 * 60 * 24 * 7) return "Last 7 days";
+	if (secondsAgo < 60 * 60 * 24 * 30) return "Last 30 days";
+
+	const absoluteDate = new Date(Date.now() - secondsAgo * 1000);
+	const isCurYear = absoluteDate.getFullYear() === new Date().getFullYear();
+
+	const formatter = new Intl.DateTimeFormat(
+		"en-US",
+		isCurYear
+			? { month: "long" }
+			: {
+					month: "long",
+					year: "numeric",
+			  }
+	);
+
+	return formatter.format(absoluteDate);
+}
+
+export function groupByDate<T>(data: ({ date: number } & T)[]) {
+	const groupedData = new Map<string, T[]>();
+
+	data.forEach((item) => {
+		const label = getDateLabel(Date.now() / 1000 - item.date);
+		const group = groupedData.get(label) || [];
+		group.push(item);
+		groupedData.set(label, group);
+	});
+
+	return groupedData;
+}
 
 export const formatMatch = (match: Match, curPlayerName: string | undefined): FormattedMatch => {
 	const { is_decay, winner, final_time, members, score_changes, forfeit, match_date, match_id } =
