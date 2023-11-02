@@ -4,7 +4,7 @@
 	import Sidebar from "$lib/components/Sidebar.svelte";
 	import Loading from "$lib/components/Loading.svelte";
 	import { beforeNavigate } from "$app/navigation";
-	import { dev } from "$app/environment";
+	import { browser, dev } from "$app/environment";
 	import { inject } from "@vercel/analytics";
 	import { page } from "$app/stores";
 	// import { onNavigate } from "$app/navigation";
@@ -49,6 +49,8 @@
 		// }, 0);
 	};
 	beforeNavigate(hideLb);
+
+	console.log("routes/+layout.svelte", { browser });
 </script>
 
 <svelte:head>
