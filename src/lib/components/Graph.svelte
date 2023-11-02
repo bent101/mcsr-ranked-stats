@@ -31,6 +31,8 @@
 	const triggers = {
 		[Line.selectors.line]: (d: DataRecord) => `${d.x} ${d.y}`,
 	};
+
+	console.log({ browser });
 </script>
 
 <div class="container h-[40vh] lg:h-[60vh] [&>*]:h-full">
