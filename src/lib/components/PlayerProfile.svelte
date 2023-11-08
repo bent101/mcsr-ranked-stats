@@ -26,10 +26,13 @@
 	export let showAllStatsBtn = false;
 	export let isHeader = false;
 
-	$: numMatches =
-		playerData.records[2].win + playerData.records[2].lose + playerData.records[2].draw;
+	$: numWins = playerData.records[2].win;
+	$: numLosses = playerData.records[2].lose;
+	$: numDraws = playerData.records[2].draw;
 
-	$: winrate = Math.round((100 * playerData.records[2].win) / numMatches);
+	$: numMatches = numWins + numLosses + numDraws;
+
+	$: winrate = Math.round((100 * numWins) / (numWins + numLosses));
 
 	let justCopiedDiscord = false;
 
