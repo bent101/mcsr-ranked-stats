@@ -48,7 +48,9 @@
 	});
 
 	afterNavigate(() => {
-		const curPlayerOnLb = data.lb.users.find((user) => user.nickname === data.playerData.nickname);
+		const curPlayerOnLb = data.lb.users.find(
+			(user) => user.nickname.toLowerCase() === data.playerData.nickname.toLowerCase()
+		);
 
 		if (curPlayerOnLb) {
 			if (

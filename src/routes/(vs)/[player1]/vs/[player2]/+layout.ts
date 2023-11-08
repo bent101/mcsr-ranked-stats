@@ -30,6 +30,5 @@ export const load = async ({ params, fetch }) => {
 			.then((res) => res.json())
 			.then((res) => res.data as Match[])
 			.then((res) => formatMatches(res ?? [])),
-		_: Promise.all([player1, player2].map((player) => fetch(getSkinURL(player.uuid)))),
 	};
 };
