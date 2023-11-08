@@ -68,9 +68,13 @@ export const formatMatch = (match: Match, curPlayerName: string | undefined): Fo
 	let time = undefined;
 	let outcome: Outcome = undefined;
 
-	const uuid = members.find((member) => member.nickname === curPlayerName)?.uuid;
+	const uuid = members.find(
+		(member) => member.nickname.toLowerCase() === curPlayerName?.toLowerCase()
+	)?.uuid;
 	if (!is_decay) {
-		const opponentInfo = members.find((member) => member.nickname !== curPlayerName);
+		const opponentInfo = members.find(
+			(member) => member.nickname.toLowerCase() !== curPlayerName?.toLowerCase()
+		);
 		opponentName = opponentInfo?.nickname;
 		opponentUUID = opponentInfo?.uuid;
 		outcome = "draw";
@@ -138,7 +142,9 @@ export function formatDetailedMatch(
 ) {
 	const seedType = match.seed_type?.replaceAll("_", " ") ?? "unknown";
 
-	const curPlayerUUID = match.members.find((member) => member.nickname === curPlayerName)?.uuid;
+	const curPlayerUUID = match.members.find(
+		(member) => member.nickname.toLowerCase() === curPlayerName?.toLowerCase()
+	)?.uuid;
 	const curPlayerIdx = match.members.findIndex((member) => member.uuid === curPlayerUUID);
 	const winnerUUID = match.winner;
 	const winnerIdx = match.members.findIndex((member) => member.uuid === winnerUUID);

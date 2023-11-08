@@ -65,7 +65,7 @@
 
 	$: displayedLb = lbWithExtra.map((player, i) => ({
 		...player,
-		selected: player.name === $page.params.player,
+		selected: player.name?.toLowerCase() === $page.params.player?.toLowerCase(),
 		arrowSelected: arrowSelectedIdx === i,
 	}));
 

@@ -17,6 +17,5 @@ export const load = (async ({ fetch, params }) => {
 
 	return {
 		match,
-		_: Promise.all(match.playerUUIDs.map((uuid) => fetch(getSkinURL(uuid)))),
 	};
 }) satisfies PageLoad;

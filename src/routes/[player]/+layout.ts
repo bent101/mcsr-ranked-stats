@@ -6,31 +6,27 @@ import { error, redirect } from "@sveltejs/kit";
 import { getSkinURL, getMatchesURL, getPlayerURL } from "$lib/urls";
 
 export const load = (async ({ fetch, params }) => {
-	const playerData: DetailedPlayer = await fetch(getPlayerURL(params.player))
-		.then((res) => res.json())
-		.then((res) => res.data);
+	const [playerData, matches] = await Promise.all([
+		fetch(getPlayerURL(params.player))
+			.then((res) => res.json())
+			.then((res) => res.data as DetailedPlayer),
+
+		fetch(getMatchesURL(params.player, 0))
+			.then((res) => res.json())
+			.then((res) => formatMatches(res.data ?? [], params.player))
+			.then((res) => ({
+				data: res,
+				noMoreMatches: res.length < matchesPerPage,
+			})),
+	]);
 
 	if (!playerData) {
 		throw error(404);
 	}
 
-	const capitalizedName = playerData.nickname;
-	if (capitalizedName !== params.player) {
-		throw redirect(301, `/${capitalizedName}/${params.matchID ?? ""}`);
-	}
-
-	const matches = fetch(getMatchesURL(capitalizedName, 0))
-		.then((res) => res.json())
-		.then((res) => formatMatches(res.data ?? [], capitalizedName))
-		.then((res) => ({
-			data: res,
-			noMoreMatches: res.length < matchesPerPage,
-		}));
-
 	return {
 		matches,
 		curPage: 1,
 		playerData,
-		_: fetch(getSkinURL(playerData.uuid)),
 	};
 }) satisfies LayoutLoad;
