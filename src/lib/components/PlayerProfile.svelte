@@ -65,7 +65,7 @@
 	</div>
 	<div class="pl-2">
 		<div class="flex h-8 items-center">
-			<h1 class="mr-2 text-xl font-bold opacity-80 {color}">
+			<div class="mr-2 text-xl font-bold opacity-80 {color}">
 				{#if playerData.elo_rank}
 					<span class="mr-2 font-extrabold text-white/30">#{playerData.elo_rank}</span>
 				{/if}
@@ -74,9 +74,11 @@
 						{playerData.nickname}
 					</a>
 				{:else}
-					{playerData.nickname}
+					<h1 class="inline">
+						{playerData.nickname}
+					</h1>
 				{/if}
-			</h1>
+			</div>
 			{#if playerData.badge}
 				<a
 					bind:this={badge}
