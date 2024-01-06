@@ -61,14 +61,11 @@ export function returnAfter1Sec<T>(data: T) {
 	return new Promise<T>((res) => setTimeout(() => res(data), 1000));
 }
 
-export function count<T>(arr: T[], condition: (t: T) => boolean) {
-	return arr.reduce((acc, cur) => acc + (condition(cur) ? 1 : 0), 0);
-}
-
-export function sum(arr: number[]) {
-	return arr.reduce((acc, cur) => acc + cur, 0);
-}
-
 export function convertRemToPixels(rem: number) {
 	return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
+}
+
+export function avg(array: number[]) {
+	if (array.length === 0) return null;
+	return array.reduce((a, b) => a + b, 0) / array.length;
 }

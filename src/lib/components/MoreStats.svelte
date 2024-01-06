@@ -7,7 +7,7 @@
 	export let numMatches: number;
 
 	let loadingMoreStats = false;
-	let moreStats: null | { forfeitRate: number; averageTime: number } = null;
+	let moreStats: null | { forfeitRate: number; averageTime: number | null } = null;
 
 	async function loadMoreStats() {
 		loadingMoreStats = true;
@@ -22,8 +22,10 @@
 </script>
 
 {#if moreStats}
-	<b>{formatTime(moreStats.averageTime)}</b> average
-	<span class="font-extrabold text-white/30">•</span>
+	{#if moreStats.averageTime}
+		<b>{formatTime(moreStats.averageTime)}</b> average
+		<span class="font-extrabold text-white/30">•</span>
+	{/if}
 	<b>{Math.floor(100 * moreStats.forfeitRate)}</b>% forfeit rate
 {:else}
 	<button
