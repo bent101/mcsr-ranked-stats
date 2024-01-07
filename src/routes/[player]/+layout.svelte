@@ -99,7 +99,7 @@
 
 <div class="flex flex-col items-center px-4 md:flex-row md:items-start">
 	<div>
-		<div class="h-8" />
+		<div class="h-2.5" />
 		<div class="w-[30rem]">
 			<div class="mb-2 flex items-center border-b-2 border-zinc-800 p-4 pb-1 pl-4">
 				<h2 class="text-sm font-bold uppercase text-zinc-400">Matches</h2>
