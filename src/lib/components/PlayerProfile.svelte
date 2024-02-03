@@ -48,7 +48,7 @@
 		}, 2000);
 	};
 
-	$: rank = getRank(playerData.elo_rate);
+	$: rank = getRank(playerData.eloRate);
 
 	let scrollY = 0;
 </script>
@@ -66,8 +66,8 @@
 	<div class="pl-2">
 		<div class="flex h-8 items-center">
 			<div class="mr-2 text-xl font-bold opacity-80 {color}">
-				{#if playerData.elo_rank}
-					<span class="mr-2 font-extrabold text-white/30">#{playerData.elo_rank}</span>
+				{#if playerData.eloRank}
+					<span class="mr-2 font-extrabold text-white/30">#{playerData.eloRank}</span>
 				{/if}
 				{#if isLink}
 					<a href="/{playerData.nickname}" class="underline-offset-4 hover:underline">
@@ -127,7 +127,7 @@
 				<Tooltip anchor={discord}>
 					{justCopiedDiscord ? "Copied!" : "Copy Discord"}
 				</Tooltip>
-			{:else if playerData.elo_rank === null}
+			{:else if playerData.eloRank === null}
 				<span
 					bind:this={unverified}
 					class="ml-2 inline-flex items-center gap-2 rounded-full bg-zinc-700 py-0.5 pl-3 pr-1 text-sm font-semibold uppercase tracking-wide text-white/90">
@@ -138,17 +138,17 @@
 			{/if}
 		</div>
 		<div class="text-white/50">
-			{#if playerData.elo_rate === -1}
+			{#if playerData.eloRate === -1}
 				<b>Doing placements</b>
 			{:else}
 				<span class="bg-gradient-to-r bg-clip-text font-extrabold text-transparent {rank.color}"
 					>{rank.name}</span>
 				(<span class="bg-gradient-to-r bg-clip-text font-extrabold text-transparent {rank.color}"
-					>{playerData.elo_rate}</span>
+					>{playerData.eloRate}</span>
 				elo)
-				{#if playerData.best_elo_rate > playerData.elo_rate}
+				{#if playerData.best_eloRate > playerData.eloRate}
 					<span class="inline-block h-[1.53125rem] font-extrabold text-white/30">•</span>
-					<b>{playerData.best_elo_rate}</b> peak elo
+					<b>{playerData.best_eloRate}</b> peak elo
 				{:else}
 					<span
 						class="ml-2 inline-block -translate-y-0.5 rounded-full bg-gradient-to-r from-red-700 to-orange-500 py-px pl-1 pr-2 text-xs font-semibold tracking-wide text-white">

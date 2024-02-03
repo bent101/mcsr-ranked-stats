@@ -48,8 +48,8 @@
 	$: cleanedLb = filteredLb.map((player) => ({
 		name: player.nickname,
 		href: `/${player.nickname}`,
-		elo: player.elo_rate.toString(),
-		rank: player.elo_rank?.toString() ?? "??",
+		elo: player.eloRate.toString(),
+		rank: player.eloRank?.toString() ?? "??",
 		uuid: player.uuid,
 	}));
 

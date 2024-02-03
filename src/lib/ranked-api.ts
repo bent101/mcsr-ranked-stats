@@ -2,8 +2,8 @@ export type PlayerInfo = {
 	uuid: string;
 	nickname: string;
 	roleType: number;
-	elo_rate: number;
-	elo_rank: number | null;
+	eloRate: number;
+	eloRank: number | null;
 };
 
 export type ScoreChange = {
@@ -30,16 +30,16 @@ export type DetailedPlayer = {
 	uuid: string;
 	nickname: string;
 	roleType: number;
-	elo_rate: number;
-	elo_rank: number | null;
+	eloRate: number;
+	eloRank: number | null;
 	created_time: Date;
 	latest_time: Date;
 	total_played: number;
 	season_played: number;
 	highest_winstreak: number;
 	current_winstreak: number;
-	prev_elo_rate: number;
-	best_elo_rate: number;
+	prev_eloRate: number;
+	best_eloRate: number;
 	best_record_time: MatchDuration;
 	records: {
 		1: {

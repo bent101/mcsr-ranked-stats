@@ -54,8 +54,8 @@
 
 		if (curPlayerOnLb) {
 			if (
-				curPlayerOnLb.elo_rate !== data.playerData.elo_rate ||
-				curPlayerOnLb.elo_rank !== data.playerData.elo_rank
+				curPlayerOnLb.eloRate !== data.playerData.eloRate ||
+				curPlayerOnLb.eloRank !== data.playerData.eloRank
 			) {
 				invalidate(getLeaderboardURL());
 			}
