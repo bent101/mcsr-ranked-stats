@@ -109,7 +109,7 @@
 				<div class="ml-auto"><RefreshBtn /></div>
 			</div>
 			{#if data.matches.data && data.matches.data.length > 0}
-				<ol class="pb-16">
+				<ol>
 					{#each data.matches.data as match}
 						<li>
 							<MatchesTableRow {match} curDate={$curDate} />
@@ -117,7 +117,15 @@
 					{/each}
 				</ol>
 				<div class="pb-[36rem] text-center text-zinc-600" bind:this={infiniteScrollPadding}>
-					{data.matches.noMoreMatches ? "No more matches" : "Loading..."}
+					{#if data.matches.noMoreMatches}
+						<p class="pt-16">No more matches</p>
+					{:else}
+						{#each { length: matchesPerPage } as _}
+							<div class="p-2.5">
+								<div class="bg-zinc-800/50 animate-pulse rounded-full h-5" />
+							</div>
+						{/each}
+					{/if}
 				</div>
 			{:else}
 				<div class="text-center text-zinc-600">No matches yet this season</div>
