@@ -1,6 +1,6 @@
 export type PlayerInfo = {
-	nickname: string;
 	uuid: string;
+	nickname: string;
 	badge: number;
 	elo_rate: number;
 	elo_rank: number | null;
@@ -14,8 +14,7 @@ export type ScoreChange = {
 
 export type VersusWinCount = {
 	total: number;
-	[UUID1: string]: number;
-	[UUID2: string]: number;
+	[UUID1and2: string]: number;
 };
 
 /** 1: casual, 2: ranked, 3: private */
