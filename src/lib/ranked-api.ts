@@ -1,7 +1,7 @@
 export type PlayerInfo = {
 	uuid: string;
 	nickname: string;
-	badge: number;
+	roleType: number;
 	elo_rate: number;
 	elo_rank: number | null;
 };
@@ -29,7 +29,7 @@ export type Date = number;
 export type DetailedPlayer = {
 	uuid: string;
 	nickname: string;
-	badge: number;
+	roleType: number;
 	elo_rate: number;
 	elo_rank: number | null;
 	created_time: Date;

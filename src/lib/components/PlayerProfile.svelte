@@ -36,7 +36,7 @@
 
 	let justCopiedDiscord = false;
 
-	let badge: Element | undefined;
+	let roleType: Element | undefined;
 	let discord: Element | undefined;
 	let unverified: Element | undefined;
 
@@ -79,26 +79,26 @@
 					</h1>
 				{/if}
 			</div>
-			{#if playerData.badge}
+			{#if playerData.roleType}
 				<a
-					bind:this={badge}
+					bind:this={roleType}
 					href="https://www.patreon.com/mcsrranked"
 					rel="noreferrer"
 					class="relative right-2 grid place-items-center"
 					target="_blank">
 					<div
-						class="glow-{playerData.badge} pointer-events-none absolute -inset-12 bg-gradient-radial" />
+						class="glow-{playerData.roleType} pointer-events-none absolute -inset-12 bg-gradient-radial" />
 					<div
-						class="glow-{playerData.badge} pointer-events-none absolute -inset-48 bg-gradient-radial opacity-50" />
+						class="glow-{playerData.roleType} pointer-events-none absolute -inset-48 bg-gradient-radial opacity-50" />
 					<img
 						class="h-full w-8"
 						style="image-rendering: pixelated;"
-						src={[stone, iron, diamond][playerData.badge - 1]}
+						src={[stone, iron, diamond][playerData.roleType - 1]}
 						alt="" />
 				</a>
-				<Tooltip anchor={badge} directionPreference={["top", "bottom", "right", "left"]}>
+				<Tooltip anchor={roleType} directionPreference={["top", "bottom", "right", "left"]}>
 					<div>
-						Tier {playerData.badge} patreon :D
+						Tier {playerData.roleType} patreon :D
 					</div>
 					<div class="text-xs text-zinc-600">Click to learn more</div>
 				</Tooltip>
