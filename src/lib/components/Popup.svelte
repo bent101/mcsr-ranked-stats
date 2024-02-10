@@ -13,7 +13,7 @@
 	export let hoverable = false;
 
 	/** optional function that loads data for the popup */
-	export let load: (() => Promise<object>) | undefined = undefined;
+	export let load: (() => Promise<Record<string, unknown>>) | undefined = undefined;
 
 	export let directionPreference: Direction[] = ["top", "right", "bottom", "left"];
 

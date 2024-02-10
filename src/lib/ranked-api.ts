@@ -133,3 +133,19 @@ export type RecordLeaderboard = {
 	date: number;
 	user: Player;
 }[];
+
+export type PointsLeaderboard = {
+	phase: {
+		/** epoch time in seconds */
+		endsAt: number;
+		number: number;
+		season: number;
+	};
+	users: (Player & {
+		seasonResult: {
+			eloRate: number;
+			eloRank: number;
+			phasePoint: number;
+		};
+	})[];
+};

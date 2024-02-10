@@ -6,6 +6,10 @@ export const getLeaderboardURL = () => {
 	return `${base}/leaderboard`;
 };
 
+export const getPointsLeaderboardURL = () => {
+	return `${base}/phase-leaderboard`;
+};
+
 export const getPlayerURL = (name: string) => {
 	return `${base}/users/${name}`;
 };

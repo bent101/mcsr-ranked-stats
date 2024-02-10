@@ -4,7 +4,7 @@
 	import PlayerLink from "./PlayerLink.svelte";
 	import TableRow from "./TableRow.svelte";
 
-	export let match: ReturnType<typeof formatRecordLeaderboard>[0];
+	export let match: ReturnType<typeof formatRecordLeaderboard>[number];
 	export let place: number;
 
 	$: href = `/lb/${match.id}`;

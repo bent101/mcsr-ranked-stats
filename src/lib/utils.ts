@@ -65,7 +65,11 @@ export function convertRemToPixels(rem: number) {
 	return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
 }
 
+export function sum(array: number[]) {
+	return array.reduce((a, b) => a + b, 0);
+}
+
 export function avg(array: number[]) {
 	if (array.length === 0) return null;
-	return array.reduce((a, b) => a + b, 0) / array.length;
+	return sum(array) / array.length;
 }

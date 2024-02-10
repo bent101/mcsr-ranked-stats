@@ -1,4 +1,5 @@
 <script lang="ts">
+	import PodiumIcon from "./icons/PodiumIcon.svelte";
 	import { afterNavigate, goto } from "$app/navigation";
 	import { page } from "$app/stores";
 	import { derived } from "svelte/store";
@@ -13,6 +14,7 @@
 
 	const bestTimesSelected = derived(page, ($page) => $page.url.pathname.includes("/lb"));
 	const compareSelected = derived(page, ($page) => $page.url.pathname.includes("/vs"));
+	const pointsLbSelected = derived(page, ($page) => $page.url.pathname.includes("/points-lb"));
 
 	export let lb: Player[] | undefined;
 	export let stopSidebarScroll: () => void;
@@ -163,7 +165,7 @@
 	</div>
 
 	<div class="pl-2">
-		<SidebarTab href={"/lb"} selected={$bestTimesSelected}>
+		<SidebarTab href="/lb" selected={$bestTimesSelected}>
 			<div class="flex items-center pr-8">
 				<img
 					src={stopwatch}
@@ -179,7 +181,21 @@
 				</div>
 			</div>
 		</SidebarTab>
-		<SidebarTab href={"/vs"} selected={$compareSelected}>
+		<SidebarTab href="/points-lb" selected={$pointsLbSelected}>
+			<div class="flex items-center pr-8">
+				<PodiumIcon
+					className="w-20 select-none text-center font-mono text-xs font-extrabold leading-3 text-white {$pointsLbSelected
+						? 'opacity-80'
+						: 'opacity-30'}" />
+				<div
+					class="font-extrabold uppercase {$pointsLbSelected
+						? 'text-zinc-300'
+						: 'text-zinc-500 group-hover:text-zinc-400'}">
+					Points leaderboard
+				</div>
+			</div>
+		</SidebarTab>
+		<SidebarTab href="/vs" selected={$compareSelected}>
 			<div class="flex items-center pr-8">
 				<div
 					class="w-20 select-none text-center font-mono text-xs font-extrabold leading-3 text-white {$compareSelected

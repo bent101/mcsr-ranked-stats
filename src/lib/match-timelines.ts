@@ -210,8 +210,8 @@ function getSplitTimelines(timeline: DetailedMatch["timelines"], playerOrder: st
 /** Assign the `"prev"` colors to the previous color */
 function fillColors(timeline: MatchEvent[]) {
 	for (let i = 1; i < timeline.length; i++) {
-		if (timeline[i].color === "prev") {
-			timeline[i].color = timeline[i - 1].color;
+		if (timeline[i]!.color === "prev") {
+			timeline[i]!.color = timeline[i - 1]!.color;
 		}
 	}
 }
@@ -219,8 +219,8 @@ function fillColors(timeline: MatchEvent[]) {
 /** mutates `timeline`, adding `splitAfter` to each event (except the last) */
 function addSplits(timeline: MatchEvent[]) {
 	for (let i = 0; i < timeline.length - 1; i++) {
-		const { name, timestamp } = timeline[i];
-		const next = timeline[i + 1];
+		const { name, timestamp } = timeline[i]!;
+		const next = timeline[i + 1]!;
 		const nextTimestamp = next.timestamp;
 		const splitName = shortenSplitName(`${name} → ${next.name}`);
 		const splitLength = nextTimestamp - timestamp;
