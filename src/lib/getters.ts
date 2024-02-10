@@ -5,10 +5,10 @@ import type { Match } from "./ranked-api";
  * @returns the uuid of the match winner
  */
 export function getWinnerUUID(match: Match) {
-	return match.result.uuid;
+	return match.result?.uuid ?? null;
 }
 
-export function getFinalTime(match: Match) {
+export function getFinalTime(match: Match & { decayed: false }) {
 	return match.result.time;
 }
 

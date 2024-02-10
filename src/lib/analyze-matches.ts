@@ -10,7 +10,8 @@ export function getForfeitRate(matches: Match[], curPlayerUUID: string) {
 
 export function getAverageTime(matches: Match[], curPlayerUUID: string) {
 	const completions = matches.filter(
-		(match) => getWinnerUUID(match) === curPlayerUUID && !match.forfeited
+		(match): match is Match & { decayed: false } =>
+			getWinnerUUID(match) === curPlayerUUID && !match.forfeited && !match.decayed
 	);
 	return avg(completions.map((match) => getFinalTime(match)));
 }

@@ -89,7 +89,8 @@ export const formatMatch = (match: Match, curPlayerName: string | undefined): Fo
 		opponentUUID = opponentInfo?.uuid;
 		outcome = "draw";
 		if (winnerUUID) outcome = winnerUUID === curPlayerUUID ? "won" : "lost";
-		time = formatTime(getFinalTime(match));
+		const rawFinalTime = getFinalTime(match);
+		time = rawFinalTime ? formatTime(rawFinalTime) : undefined;
 	}
 
 	const scoreChange =

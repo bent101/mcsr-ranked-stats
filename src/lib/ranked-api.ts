@@ -86,20 +86,27 @@ export type Match = {
 	date: number;
 	players: Player[];
 	spectators: Player[];
-	result: {
-		uuid: string | null;
-		/** in milliseconds */
-		time: number;
-	};
 	forfeited: boolean;
-	decayed: boolean;
 	rank: {
 		season: number;
 		allTime: number;
 	};
 	changes?: ScoreChange[];
 	seedType: string;
-};
+} & (
+	| {
+			decayed: false;
+			result: {
+				uuid: string | null;
+				/** in milliseconds */
+				time: number;
+			};
+	  }
+	| {
+			decayed: true;
+			result: null;
+	  }
+);
 
 export type DetailedMatch = Match & {
 	completions: {
