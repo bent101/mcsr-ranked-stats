@@ -28,7 +28,7 @@
 				>{match.eloChange >= 0 ? "+" : ""}{match.eloChange} elo</span>
 		</div>
 		<div
-			class="w-20 text-center font-extrabold tracking-wider {match.forfeit
+			class="w-20 text-center font-extrabold tracking-wider {match.forfeited
 				? `text-xs font-semibold uppercase tracking-normal ${
 						state === 'selected' ? 'text-zinc-300' : 'text-zinc-600'
 				  }`
@@ -37,7 +37,7 @@
 				: match.outcome === 'won'
 				? 'text-zinc-400'
 				: 'text-zinc-600'} ">
-			{match.outcome === "draw" ? "" : match.forfeit ? "Forfeit" : match.time}
+			{match.outcome === "draw" ? "" : match.forfeited ? "Forfeit" : match.time}
 		</div>
 		<div class="w-10 text-right {state === 'selected' ? 'text-zinc-300' : 'text-zinc-600'}">
 			{formatTimeAgoShort(curDate - match.date)}

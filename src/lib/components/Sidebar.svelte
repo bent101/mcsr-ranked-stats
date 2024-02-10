@@ -2,18 +2,22 @@
 	import { afterNavigate, goto } from "$app/navigation";
 	import { page } from "$app/stores";
 	import { derived } from "svelte/store";
-	import type { PlayerInfo } from "$lib/ranked-api";
+	import type { Player } from "$lib/ranked-api";
 	import Leaderboard from "./Leaderboard.svelte";
 	import SidebarTab from "./SidebarTab.svelte";
 	import stopwatch from "$lib/assets/stopwatch.png";
 	import RefreshBtn from "./RefreshBtn.svelte";
 	import { ignFilter } from "$lib/actions";
+	import { formatRelativeTime } from "$lib/formatters";
+	import { curDate } from "$lib/globals";
 
 	const bestTimesSelected = derived(page, ($page) => $page.url.pathname.includes("/lb"));
 	const compareSelected = derived(page, ($page) => $page.url.pathname.includes("/vs"));
 
-	export let lb: PlayerInfo[] | undefined;
+	export let lb: Player[] | undefined;
 	export let stopSidebarScroll: () => void;
+	export let curSeason: number;
+	export let seasonEnd: number;
 
 	let searchInput: HTMLElement | undefined;
 
@@ -87,10 +91,11 @@
 	}} />
 
 <div class="min-h-screen w-80 border-r-2 border-zinc-700 bg-zinc-950 pb-32 text-sm">
-	<a
-		href="/"
-		class="block bg-zinc-950/70 p-4 pl-2 text-center font-extrabold uppercase tracking-wide text-zinc-500">
-		MCSR Ranked Stats
+	<a href="/" class="p-4 pl-2 flex flex-col items-center text-zinc-500">
+		<p class="font-extrabold uppercase tracking-wide">MCSR Ranked Stats</p>
+		<!-- <p class="text-xs text-zinc-600 font-normal">
+			S{curSeason} • ends {formatRelativeTime($curDate - seasonEnd)}
+		</p> -->
 	</a>
 
 	<div class="sticky top-0 z-20 mb-2 bg-zinc-950/70 p-4 pl-2 text-zinc-500 backdrop-blur-md">

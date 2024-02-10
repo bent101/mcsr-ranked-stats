@@ -12,7 +12,7 @@
 	import { onMount } from "svelte";
 
 	export let data;
-	$: numMatches = data.playerData.season_played;
+	$: numMatches = data.playerData.statistics.season.playedMatches.ranked;
 
 	let infiniteScrollPadding: HTMLElement | undefined;
 	let loadingAllMatches = false;

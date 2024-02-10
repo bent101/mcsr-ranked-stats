@@ -3,16 +3,17 @@ import type { DetailedMatch, Match, RecordLeaderboard } from "$lib/ranked-api";
 import { getTimelines } from "./match-timelines";
 import { getMatchesURL } from "./urls";
 import { flatten } from "./utils";
+import { getFinalTime, getOutcome, getWinnerUUID } from "./getters";
 
 export type FormattedMatch = {
 	isDecay: boolean;
 	curPlayerName: string | undefined;
 	opponentName: string | undefined;
 	opponentUUID: string | undefined;
-	winnerUUID: string | undefined;
+	winnerUUID: string | null;
 	outcome: Outcome;
 	outcomeColor: string;
-	forfeit: boolean;
+	forfeited: boolean;
 	time: string | undefined;
 	eloChange: number;
 	eloBefore: number | undefined;
@@ -38,57 +39,64 @@ export const formatTimeAgoShort = (secondsAgo: number) => {
 	const days = Math.floor(hours / 24);
 
 	if (days) return `${days}d`;
-	if (hours > 18) return "1d";
 	if (hours) return `${hours}h`;
 	if (minutes) return `${minutes}m`;
 	return "now";
 };
 
-/**
- * @returns 15 minutes ago, 5 days ago, etc
- */
-export const formatTimeAgo = (secondsAgo: number) => {
-	secondsAgo = Math.max(secondsAgo, 0);
-	const minutes = Math.floor(secondsAgo / 60);
+const plural = (count: number, singular: string, plural = `${singular}s`) => {
+	return `${count} ${count === 1 ? singular : plural}`;
+};
+
+const formatTimeInterval = (seconds: number) => {
+	seconds = Math.max(seconds, 0);
+	const minutes = Math.floor(seconds / 60);
 	const hours = Math.floor(minutes / 60);
 	const days = Math.floor(hours / 24);
 
-	if (days) return days > 1 ? `${days} days ago` : "yesterday";
-	if (hours > 18) return "yesterday";
-	if (hours) return `${hours} hour${hours > 1 ? "s" : ""} ago`;
-	if (minutes) return `${minutes} min${minutes > 1 ? "s" : ""} ago`;
-	return "just now";
+	if (days) return plural(days, "day");
+	if (hours) return plural(hours, "hour");
+	if (minutes) return plural(minutes, "minute");
+	return null;
+};
+
+/**
+ * @returns 15 minutes ago, 5 days ago, etc
+ */
+export const formatRelativeTime = (secondsAgo: number) => {
+	const fmtdTimeInterval = formatTimeInterval(Math.abs(secondsAgo));
+	if (fmtdTimeInterval === null) return secondsAgo > 0 ? "just now" : "in <1 minute";
+	return secondsAgo >= 0 ? `${fmtdTimeInterval} ago` : `in ${fmtdTimeInterval}`;
 };
 
 export const formatMatch = (match: Match, curPlayerName: string | undefined): FormattedMatch => {
-	const { is_decay, winner, final_time, members, score_changes, forfeit, match_date, match_id } =
-		match;
-	let opponentName = undefined;
-	let opponentUUID;
-	let time = undefined;
-	let outcome: Outcome = undefined;
+	const { decayed, players, changes, forfeited, date, id } = match;
+	let opponentName: string | undefined;
+	let opponentUUID: string | undefined;
+	let time: string | undefined;
+	let outcome: Outcome;
 
-	const uuid = members.find(
+	const winnerUUID = getWinnerUUID(match);
+
+	const curPlayerUUID = players.find(
 		(member) => member.nickname.toLowerCase() === curPlayerName?.toLowerCase()
 	)?.uuid;
-	if (!is_decay) {
-		const opponentInfo = members.find(
+	if (!decayed) {
+		const opponentInfo = players.find(
 			(member) => member.nickname.toLowerCase() !== curPlayerName?.toLowerCase()
 		);
 		opponentName = opponentInfo?.nickname;
 		opponentUUID = opponentInfo?.uuid;
 		outcome = "draw";
-		if (winner) outcome = winner === uuid ? "won" : "lost";
-		time = formatTime(final_time);
+		if (winnerUUID) outcome = winnerUUID === curPlayerUUID ? "won" : "lost";
+		time = formatTime(getFinalTime(match));
 	}
 
-	const winnerUUID = match.winner ?? undefined;
-
 	const scoreChange =
-		score_changes?.find((member) => member.uuid === (curPlayerName ? uuid : winnerUUID)) ??
-		score_changes?.[0];
+		changes?.find((member) => member.uuid === (curPlayerName ? curPlayerUUID : winnerUUID)) ??
+		changes?.[0];
 	const eloChange = scoreChange?.change ?? 0;
-	const eloBefore = scoreChange?.score;
+	const eloBefore = scoreChange?.eloRate;
 
 	const getOutcomeColor = (outcome: Outcome) => {
 		switch (outcome) {
@@ -106,19 +114,19 @@ export const formatMatch = (match: Match, curPlayerName: string | undefined): Fo
 	const outcomeColor = getOutcomeColor(outcome);
 
 	return {
-		isDecay: is_decay,
+		isDecay: decayed,
 		curPlayerName,
 		opponentName,
 		opponentUUID,
 		winnerUUID,
 		outcome,
 		outcomeColor,
-		forfeit,
+		forfeited,
 		time,
 		eloChange,
 		eloBefore,
-		date: match_date,
-		id: match_id,
+		date: date,
+		id: id,
 	};
 };
 
@@ -130,9 +138,9 @@ export const formatRecordLeaderboard = (lb: RecordLeaderboard) => {
 	return lb.map((match) => ({
 		playerName: match.user.nickname,
 		playerUUID: match.user.uuid,
-		time: formatTime(match.final_time),
-		date: match.match_date,
-		id: match.match_id,
+		time: formatTime(match.time),
+		date: match.date,
+		id: match.id,
 	}));
 };
 
@@ -140,49 +148,42 @@ export function formatDetailedMatch(
 	match: DetailedMatch,
 	curPlayerName: string | undefined = undefined
 ) {
-	const seedType = match.seed_type?.replaceAll("_", " ") ?? "unknown";
+	const seedType = match.seedType?.replaceAll("_", " ") ?? "unknown";
 
-	const curPlayerUUID = match.members.find(
+	const curPlayerUUID = match.players.find(
 		(member) => member.nickname.toLowerCase() === curPlayerName?.toLowerCase()
 	)?.uuid;
-	const curPlayerIdx = match.members.findIndex((member) => member.uuid === curPlayerUUID);
-	const winnerUUID = match.winner;
-	const winnerIdx = match.members.findIndex((member) => member.uuid === winnerUUID);
+	const curPlayerIdx = match.players.findIndex((member) => member.uuid === curPlayerUUID);
+	const winnerUUID = getWinnerUUID(match);
+	const winnerIdx = match.players.findIndex((member) => member.uuid === winnerUUID);
 
 	// if `curPlayerUUID` is defined, put it first; otherwise, put the winner first
-	const playerOrder = match.members.map((member) => member.uuid);
+	const playerOrder = match.players.map((member) => member.uuid);
 	if (!curPlayerName) {
 		if (winnerIdx !== -1) {
 			[playerOrder[winnerIdx], playerOrder[0]] = [playerOrder[0], playerOrder[winnerIdx]];
 		}
 	} else if (curPlayerIdx === -1) {
-		console.error(`couldnt find ${curPlayerName} in match ${match.match_id}`);
+		console.error(`couldnt find ${curPlayerName} in match ${match.id}`);
 	} else {
 		[playerOrder[curPlayerIdx], playerOrder[0]] = [playerOrder[0], playerOrder[curPlayerIdx]];
 	}
 
 	const playerNames = playerOrder.map(
-		(uuid) => match.members.find((member) => member.uuid === uuid)!.nickname
+		(uuid) => match.players.find((member) => member.uuid === uuid)!.nickname
 	);
 
 	const eloChanges = playerOrder.map((uuid) => {
-		const scoreChange = match.score_changes?.find((val) => val.uuid === uuid);
+		const scoreChange = match.changes?.find((val) => val.uuid === uuid);
 		return scoreChange
 			? {
-					before: scoreChange.score,
+					before: scoreChange.eloRate,
 					change: scoreChange.change,
 			  }
 			: undefined;
 	});
 
-	const outcome: Outcome =
-		curPlayerUUID === undefined
-			? undefined
-			: match.winner === null
-			? "draw"
-			: match.winner === curPlayerUUID
-			? "won"
-			: "lost";
+	const outcome = getOutcome(match, { curPlayerUUID });
 
 	return {
 		/** order of `eloChanges` and `timelines`, by player uuid */
@@ -194,10 +195,10 @@ export function formatDetailedMatch(
 		curPlayerUUID,
 		winnerUUID,
 		seedType,
-		date: match.match_date,
-		time: match.final_time,
+		date: match.date,
+		time: getFinalTime(match),
 		outcome,
-		forfeit: match.forfeit,
+		forfeit: match.forfeited,
 	};
 }
 

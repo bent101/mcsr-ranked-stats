@@ -16,7 +16,7 @@ export const getMatchesURL = (
 	perPage = matchesPerPage,
 	excludeDecay = false
 ) => {
-	return `${base}/users/${name}/matches?filter=2&page=${page}&count=${perPage}${
+	return `${base}/users/${name}/matches?type=2&page=${page}&count=${perPage}${
 		excludeDecay ? "&excludedecay" : ""
 	}`;
 };
@@ -26,15 +26,15 @@ export const getDetailedMatchURL = (id: string | number) => {
 };
 
 export const getBestTimesURL = (unique: boolean) => {
-	return `${base}/record-leaderboard${unique ? "?distinct" : ""}`;
+	return `${base}/record-leaderboard?season${unique ? "&distinct" : ""}`;
 };
 
 export const getVersusURL = (player1: string, player2: string) => {
-	return `${base}/users/${player1}/versus/${player2}?filter=2`;
+	return `${base}/users/${player1}/versus/${player2}?type=2`;
 };
 
 export const getVersusMatchesURL = (player1: string, player2: string) => {
-	return `${base}/users/${player1}/versus/${player2}/matches?filter=2&count=50`;
+	return `${base}/users/${player1}/versus/${player2}/matches?type=2&count=50`;
 };
 
 export const getSkinURL = (uuidOrName: string) => {

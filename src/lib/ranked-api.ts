@@ -1,4 +1,4 @@
-export type PlayerInfo = {
+export type Player = {
 	uuid: string;
 	nickname: string;
 	roleType: number;
@@ -9,7 +9,7 @@ export type PlayerInfo = {
 export type ScoreChange = {
 	uuid: string;
 	change: number;
-	score: number;
+	eloRate: number;
 };
 
 export type VersusWinCount = {
@@ -17,111 +17,119 @@ export type VersusWinCount = {
 	[UUID1and2: string]: number;
 };
 
-/** 1: casual, 2: ranked, 3: private */
-export type MatchType = 1 | 2 | 3;
+export type Achievement = {
+	id: string;
+	/** epoch time in seconds */
+	date: number;
+	data: string[];
+	level: number;
+};
 
-/** in milliseconds */
-export type MatchDuration = number;
+/** 1: casual, 2: ranked, 3: private, 4: event */
+export type MatchType = 1 | 2 | 3 | 4;
 
-/** epoch time in seconds */
-export type Date = number;
-
-export type DetailedPlayer = {
-	uuid: string;
-	nickname: string;
-	roleType: number;
-	eloRate: number;
-	eloRank: number | null;
-	created_time: Date;
-	latest_time: Date;
-	total_played: number;
-	season_played: number;
-	highest_winstreak: number;
-	current_winstreak: number;
-	prev_eloRate: number;
-	best_eloRate: number;
-	best_record_time: MatchDuration;
-	records: {
-		1: {
-			win: number;
-			lose: number;
-			draw: number;
-		};
-		2: {
-			win: number;
-			lose: number;
-			draw: number;
-		};
+export type DetailedPlayer = Player & {
+	achievements: {
+		display: Achievement[];
+		total: Achievement[];
 	};
-	achievements: [
-		{
-			achieve_type: number;
-			tag_name: string;
-			achieve_time: Date;
-			achieve_data: string;
-		}
-	];
-	connections: {
-		discord: {
-			id: string;
-			name: string;
-		} | null;
-		twitch: {
-			id: string;
-			name: string;
-		} | null;
-		youtube: {
-			id: string;
-			name: string;
-		} | null;
+	timestamp: {
+		/** epoch time in seconds */
+		firstOnline: number;
+		/** epoch time in seconds */
+		lastOnline: number;
+		/** epoch time in seconds */
+		lastRanked: number;
+	};
+	statistics: Record<
+		"season" | "total",
+		Record<
+			| "bestTime"
+			| "highestWinStreak"
+			| "currentWinStreak"
+			| "playedMatches"
+			| "playtime"
+			| "forfeits"
+			| "completions"
+			| "wins"
+			| "loses",
+			{
+				ranked: number;
+				casual: number;
+			}
+		>
+	>;
+	connections: Record<"discord" | "twitch" | "youtube", { id: string; name: string } | null>;
+	seasonResult: {
+		last: {
+			eloRate: number;
+			eloRank: number;
+			phasePoint: number;
+		};
+		highest: number;
+		lowest: number;
+		phases: {
+			phase: number;
+			eloRate: number;
+			eloRank: number;
+			point: number;
+		}[];
 	};
 };
 
 export type Match = {
-	match_id: number;
-	match_type: number;
-	match_date: Date;
-	winner: string | null;
-	final_time: MatchDuration;
-	match_season: number;
-	members: PlayerInfo[];
-	score_changes?: ScoreChange[];
-	forfeit: boolean;
-	is_decay: boolean;
+	id: number;
+	type: number;
+	season: number;
+	category: string;
+	/** epoch time in seconds */
+	date: number;
+	players: Player[];
+	spectators: Player[];
+	result: {
+		uuid: string | null;
+		/** in milliseconds */
+		time: number;
+	};
+	forfeited: boolean;
+	decayed: boolean;
+	rank: {
+		season: number;
+		allTime: number;
+	};
+	changes?: ScoreChange[];
+	seedType: string;
 };
 
-export type DetailedMatch = {
-	match_id: number;
-	seed_type: string;
-	match_type: MatchType;
-	winner: string | null;
-	members: PlayerInfo[];
-	final_time: MatchDuration;
-	score_changes: ScoreChange[] | null;
-	forfeit: boolean;
-	match_season: number;
-	category: string;
-	match_date: Date;
-	is_decay: boolean;
-	timelines:
-		| null
-		| {
-				time: number;
-				timeline: string;
-				uuid: string;
-		  }[];
+export type DetailedMatch = Match & {
+	completions: {
+		uuid: string;
+		/** in milliseconds */
+		time: number;
+	}[];
+	timelines: {
+		uuid: string;
+		/** in milliseconds */
+		time: number;
+		type: string;
+	}[];
 };
 
 export type EloLeaderboard = {
-	users: PlayerInfo[];
-	season_number: number;
-	season_end_time: MatchDuration;
+	season: {
+		number: number;
+		endsAt: number;
+	};
+	users: Player[];
 };
 
 export type RecordLeaderboard = {
-	final_time_rank: number;
-	match_id: number;
-	final_time: MatchDuration;
-	match_date: Date;
-	user: PlayerInfo;
+	season: number;
+	rank: number;
+	id: number;
+	/** in milliseconds */
+	time: number;
+	/** epoch time in seconds */
+	date: number;
+	user: Player;
 }[];

@@ -55,8 +55,8 @@
 	<meta name="darkreader-lock" />
 	<meta
 		name="description"
-		content="Leaderboards, player statistics, match details, and more for Minecraft Speedrunning Ranked (mcsrranked.com)" />
-	<link rel="canonical" href="https://mcsrrankedstats.vercel.app/" />
+		content="Leaderboards, player statistics, match details, and more for MCSR Ranked (mcsrranked.com)" />
+	<meta name="keywords" content="mcsr,minecraft,speedrun,ranked,mcsrranked,mcsrranked.com" />
 </svelte:head>
 
 <svelte:window
@@ -85,7 +85,11 @@
 				transition:fly={{ x: -200, duration: 300 }}
 				class="fixed top-0 z-50 h-full overflow-y-scroll overscroll-y-contain scrollbar-thin scrollbar-track-zinc-950 scrollbar-thumb-zinc-900 [direction:rtl] hover:scrollbar-thumb-zinc-800">
 				<div class="[direction:ltr]">
-					<Sidebar {stopSidebarScroll} lb={data.lb?.users} />
+					<Sidebar
+						curSeason={data.lb.season.number}
+						seasonEnd={data.lb.season.endsAt}
+						{stopSidebarScroll}
+						lb={data.lb?.users} />
 				</div>
 			</div>
 		{/if}
@@ -96,7 +100,11 @@
 			bind:this={sidebar}
 			class="fixed top-0 z-50 h-screen shrink-0 overflow-y-scroll overscroll-y-contain scrollbar-thin scrollbar-track-zinc-950 scrollbar-thumb-zinc-900 [direction:rtl] hover:scrollbar-thumb-zinc-800">
 			<div class="[direction:ltr]">
-				<Sidebar {stopSidebarScroll} lb={data.lb?.users} />
+				<Sidebar
+					curSeason={data.lb.season.number}
+					seasonEnd={data.lb.season.endsAt}
+					{stopSidebarScroll}
+					lb={data.lb?.users} />
 			</div>
 		</div>
 	</div>

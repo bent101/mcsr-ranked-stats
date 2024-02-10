@@ -26,13 +26,15 @@
 	export let showAllStatsBtn = false;
 	export let isHeader = false;
 
-	$: numWins = playerData.records[2].win;
-	$: numLosses = playerData.records[2].lose;
-	$: numDraws = playerData.records[2].draw;
-
-	$: numMatches = numWins + numLosses + numDraws;
+	$: numWins = playerData.statistics.season.wins.ranked;
+	$: numLosses = playerData.statistics.season.loses.ranked;
+	$: numMatches = playerData.statistics.season.playedMatches.ranked;
+	// $: numDraws = numMatches - numWins - numLosses;
 
 	$: winrate = Math.round((100 * numWins) / (numWins + numLosses));
+	$: bestTime = playerData.statistics.total.bestTime.ranked;
+	$: bestWinstreak = playerData.statistics.total.highestWinStreak.ranked;
+	$: peakElo = playerData.seasonResult.highest;
 
 	let justCopiedDiscord = false;
 
@@ -146,9 +148,9 @@
 				(<span class="bg-gradient-to-r bg-clip-text font-extrabold text-transparent {rank.color}"
 					>{playerData.eloRate}</span>
 				elo)
-				{#if playerData.best_eloRate > playerData.eloRate}
+				{#if peakElo > playerData.eloRate}
 					<span class="inline-block h-[1.53125rem] font-extrabold text-white/30">•</span>
-					<b>{playerData.best_eloRate}</b> peak elo
+					<b>{peakElo}</b> peak elo
 				{:else}
 					<span
 						class="ml-2 inline-block -translate-y-0.5 rounded-full bg-gradient-to-r from-red-700 to-orange-500 py-px pl-1 pr-2 text-xs font-semibold tracking-wide text-white">
@@ -163,11 +165,11 @@
 				<b>{winrate}</b>% winrate
 				<span class="font-extrabold text-white/30">•</span>
 			{/if}
-			{#if playerData.best_record_time !== 0}
-				<b>{formatTime(playerData.best_record_time)}</b> pb
+			{#if bestTime !== 0}
+				<b>{formatTime(bestTime)}</b> pb
 				<span class="font-extrabold text-white/30">•</span>
 			{/if}
-			<b>{playerData.highest_winstreak}</b> best winstreak
+			<b>{bestWinstreak}</b> best winstreak
 		</div>
 		{#if showAllStatsBtn && numMatches > 0}
 			{#key playerData.uuid}

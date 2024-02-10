@@ -1,6 +1,6 @@
 import type { PageLoad } from "./$types";
 import { formatDetailedMatch } from "$lib/formatters";
-import { getDetailedMatchURL, getSkinURL } from "$lib/urls";
+import { getDetailedMatchURL } from "$lib/urls";
 import { redirect } from "@sveltejs/kit";
 import type { DetailedMatch } from "$lib/ranked-api";
 

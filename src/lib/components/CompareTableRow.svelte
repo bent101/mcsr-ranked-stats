@@ -27,12 +27,12 @@
 			{isDraw ? "+/-" : "+"}{Math.abs(match.eloChange)}
 		</div>
 		<div
-			class="w-20 text-center font-extrabold tracking-wider {match.forfeit
+			class="w-20 text-center font-extrabold tracking-wider {match.forfeited
 				? `text-xs font-semibold uppercase tracking-normal ${
 						state === 'selected' ? 'opacity-100' : 'opacity-50'
 				  }`
 				: `${state === 'selected' ? 'opacity-100' : 'opacity-80'}`}">
-			{match.outcome === "draw" ? "" : match.forfeit ? "Forfeit" : match.time}
+			{match.outcome === "draw" ? "" : match.forfeited ? "Forfeit" : match.time}
 		</div>
 		<div class="w-10 text-right {state === 'selected' ? 'opacity-100' : 'opacity-50'}">
 			{formatTimeAgoShort($curDate - match.date)}

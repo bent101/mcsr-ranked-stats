@@ -1,7 +1,7 @@
 <script lang="ts">
 	import MultiSwitch from "$lib/components/MultiSwitch.svelte";
 	import Switch from "$lib/components/Switch.svelte";
-	import { formatDetailedMatch, formatTime, formatTimeAgo } from "$lib/formatters";
+	import { formatDetailedMatch, formatTime, formatRelativeTime } from "$lib/formatters";
 	import { createLocalStorageStore, isDarkColor } from "$lib/utils";
 	import { page } from "$app/stores";
 	import { curDate } from "$lib/globals";
@@ -30,7 +30,7 @@
 		<h2 class="flex items-center">
 			<div class="mr-1.5">{match.seedType} seed</div>
 			<div class="mr-auto text-zinc-500">
-				{formatTimeAgo($curDate - match.date)}
+				{formatRelativeTime($curDate - match.date)}
 			</div>
 			{#if match.timelines}
 				<span class="inline-block">

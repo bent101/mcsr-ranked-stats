@@ -1,4 +1,5 @@
 import type { DetailedMatch } from "$lib/ranked-api";
+import { getFinalTime, getWinnerUUID } from "./getters";
 // import { groupBy } from "$lib/utils";
 
 /**
@@ -78,22 +79,22 @@ function getTimelinesAtDetailLevel(
 ) {
 	const ret = getSplitTimelines(match.timelines!, playerOrder).map((timeline, i) => {
 		const newTimeline = timeline
-			.map((event) => getSimpleEvent(event.timeline, event.time))
+			.map((event) => getSimpleEvent(event.type, event.time))
 			.filter(Boolean)
 			.filter((event) => event.detailLevel <= detailLevel);
 
 		newTimeline.unshift(newEvent("start", 0, "#5e5", 0));
+		const finalTime = getFinalTime(match);
+		const winnerUUID = getWinnerUUID(match);
 
-		if (match.winner === null) {
-			newTimeline.push(newEvent("draw", 0, "#3b82f6", match.final_time));
+		if (winnerUUID === null) {
+			newTimeline.push(newEvent("draw", 0, "#3b82f6", finalTime));
 		} else if (winnerUUID === playerOrder[i]) {
-			newTimeline.push(newEvent(match.forfeit ? "win" : "finish", 0, "#22c55e", match.final_time));
-		} else if (!match.forfeit) {
-			newTimeline.push(newEvent("lose", 0, "#ef4444", match.final_time));
-		} else if (
-			!match.timelines?.find((event) => event.timeline === "projectelo.timeline.forfeit")
-		) {
-			newTimeline.push(newEvent("disconnected", 0, "#ef4444", match.final_time));
+			newTimeline.push(newEvent(match.forfeited ? "win" : "finish", 0, "#22c55e", finalTime));
+		} else if (!match.forfeited) {
+			newTimeline.push(newEvent("lose", 0, "#ef4444", finalTime));
+		} else if (!match.timelines?.find((event) => event.type === "projectelo.timeline.forfeit")) {
+			newTimeline.push(newEvent("disconnected", 0, "#ef4444", finalTime));
 		}
 
 		fillColors(newTimeline);
@@ -194,10 +195,7 @@ function getDiff(timeDiff: number, biggestDiff: number): Diff {
 	};
 }
 
-function getSplitTimelines(
-	timeline: { time: number; timeline: string; uuid: string }[],
-	playerOrder: string[]
-) {
+function getSplitTimelines(timeline: DetailedMatch["timelines"], playerOrder: string[]) {
 	const timelines: (typeof timeline)[] = playerOrder.map(() => []);
 	for (const event of timeline) {
 		const playerIdx = playerOrder.findIndex((uuid) => event.uuid === uuid);

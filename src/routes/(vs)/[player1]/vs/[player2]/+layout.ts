@@ -25,7 +25,7 @@ export const load = async ({ params, fetch }) => {
 		player2,
 		wins: fetch(getVersusURL(params.player1, params.player2))
 			.then((res) => res.json())
-			.then((res) => res.data.win_count["2"] as VersusWinCount),
+			.then((res) => res.data.results.ranked as VersusWinCount),
 		matches: fetch(getVersusMatchesURL(params.player1, params.player2))
 			.then((res) => res.json())
 			.then((res) => res.data as Match[])
