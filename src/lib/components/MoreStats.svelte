@@ -24,13 +24,15 @@
 </script>
 
 {#if moreStats}
-	{#if moreStats.averageTime}
-		<b>{formatTime(moreStats.averageTime)}</b> average
+	<p class="text-white/50">
+		{#if moreStats.averageTime}
+			<b>{formatTime(moreStats.averageTime)}</b> average
+			<span class="font-extrabold text-white/30">•</span>
+		{/if}
+		<b>{Math.floor(100 * moreStats.forfeitRate)}</b>% forfeit rate
 		<span class="font-extrabold text-white/30">•</span>
-	{/if}
-	<b>{Math.floor(100 * moreStats.forfeitRate)}</b>% forfeit rate
-	<span class="font-extrabold text-white/30">•</span>
-	<b>{moreStats.points}</b> points
+		<b>{moreStats.points}</b> points
+	</p>
 {:else}
 	<button
 		on:click={loadMoreStats}
@@ -39,3 +41,9 @@
 		{loadingMoreStats ? "Loading..." : "Show more"}
 	</button>
 {/if}
+
+<style lang="postcss">
+	b {
+		@apply font-bold text-white/70;
+	}
+</style>
