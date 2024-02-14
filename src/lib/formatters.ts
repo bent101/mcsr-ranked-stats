@@ -30,14 +30,18 @@ export const formatTime = (timeInMs: number, signed = false) => {
 };
 
 /**
- * @returns 15s, 2h, 25d, etc
+ * @returns 15s, 2h, 25d, 3mo, etc
  */
 export const formatTimeAgoShort = (secondsAgo: number) => {
 	secondsAgo = Math.max(secondsAgo, 0);
 	const minutes = Math.floor(secondsAgo / 60);
 	const hours = Math.floor(minutes / 60);
 	const days = Math.floor(hours / 24);
+	const months = Math.floor(days / 30.43685);
+	const years = Math.floor(months / 12);
 
+	if (years > 1) return `${years}y`;
+	if (months > 1) return `${months}mo`;
 	if (days) return `${days}d`;
 	if (hours) return `${hours}h`;
 	if (minutes) return `${minutes}m`;
@@ -53,7 +57,11 @@ const formatTimeInterval = (seconds: number) => {
 	const minutes = Math.floor(seconds / 60);
 	const hours = Math.floor(minutes / 60);
 	const days = Math.floor(hours / 24);
+	const months = Math.floor(days / 30.43685);
+	const years = Math.floor(months / 12);
 
+	if (years > 1) return plural(years, "year");
+	if (months > 1) return plural(months, "month");
 	if (days) return plural(days, "day");
 	if (hours) return plural(hours, "hour");
 	if (minutes) return plural(minutes, "minute");
