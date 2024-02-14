@@ -29,7 +29,8 @@ export const getDetailedMatchURL = (id: string | number) => {
 	return `${base}/matches/${id}`;
 };
 
-export const getBestTimesURL = (unique: boolean) => {
+export const getBestTimesURL = ({ unique, allTime }: { unique: boolean; allTime: boolean }) => {
+	if (allTime) return `${base}/record-leaderboard${unique ? "?distinct" : ""}`;
 	return `${base}/record-leaderboard?season${unique ? "&distinct" : ""}`;
 };
 
