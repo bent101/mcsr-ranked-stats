@@ -2,14 +2,14 @@ import type { DetailedPlayer } from "$lib/ranked-api";
 import type { LayoutLoad } from "./$types";
 import { formatMatches } from "$lib/formatters";
 import { matchesPerPage } from "$lib/globals";
-import { error, redirect } from "@sveltejs/kit";
-import { getSkinURL, getMatchesURL, getPlayerURL } from "$lib/urls";
+import { error } from "@sveltejs/kit";
+import { getMatchesURL, getPlayerURL } from "$lib/urls";
 
 export const load = (async ({ fetch, params }) => {
 	const [playerData, matches] = await Promise.all([
 		fetch(getPlayerURL(params.player))
 			.then((res) => res.json())
-			.then((res) => res.data as DetailedPlayer),
+			.then((res) => (res.status === "error" ? null : (res.data as DetailedPlayer))),
 
 		fetch(getMatchesURL(params.player, 0))
 			.then((res) => res.json())
