@@ -52,7 +52,8 @@ export type DetailedPlayer = Player & {
 			| "forfeits"
 			| "completions"
 			| "wins"
-			| "loses",
+			| "loses"
+			| "completionTime",
 			{
 				ranked: number;
 				casual: number;

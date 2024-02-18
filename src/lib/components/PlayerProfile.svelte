@@ -13,7 +13,7 @@
 
 	import PlayerHead3D from "./PlayerHead3D.svelte";
 	import Tooltip from "./Tooltip.svelte";
-	import MoreStats from "./MoreStats.svelte";
+	import { sum } from "$lib/utils";
 
 	export let playerData: DetailedPlayer;
 	/**
@@ -29,12 +29,17 @@
 	$: numWins = playerData.statistics.season.wins.ranked;
 	$: numLosses = playerData.statistics.season.loses.ranked;
 	$: numMatches = playerData.statistics.season.playedMatches.ranked;
-	// $: numDraws = numMatches - numWins - numLosses;
+	$: numForfeits = playerData.statistics.season.forfeits.ranked;
+	$: numCompletions = playerData.statistics.season.completions.ranked;
 
 	$: winrate = Math.round((100 * numWins) / (numWins + numLosses));
 	$: bestTime = playerData.statistics.total.bestTime.ranked;
 	$: bestWinstreak = playerData.statistics.total.highestWinStreak.ranked;
 	$: peakElo = playerData.seasonResult.highest;
+
+	$: avgTime = playerData.statistics.season.completionTime.ranked / numCompletions;
+	$: ffRate = numForfeits / numMatches;
+	$: points = sum(playerData.seasonResult.phases.map((phase) => phase.point));
 
 	let justCopiedDiscord = false;
 
@@ -172,9 +177,15 @@
 			<b>{bestWinstreak}</b> best winstreak
 		</div>
 		{#if showAllStatsBtn && numMatches > 0}
-			{#key playerData.uuid}
-				<MoreStats {playerData} {numMatches} />
-			{/key}
+			<p class="text-white/50">
+				{#if avgTime}
+					<b>{formatTime(avgTime)}</b> average
+					<span class="font-extrabold text-white/30">•</span>
+				{/if}
+				<b>{Math.floor(100 * ffRate)}</b>% forfeit rate
+				<span class="font-extrabold text-white/30">•</span>
+				<b>{points}</b> points
+			</p>
 		{/if}
 	</div>
 </div>
