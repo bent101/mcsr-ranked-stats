@@ -38,7 +38,8 @@
 	$: peakElo = playerData.seasonResult.highest;
 
 	$: avgTime = playerData.statistics.season.completionTime.ranked / numCompletions;
-	$: ffRate = numForfeits / numMatches;
+	$: ffRatePercent = (100 * numForfeits) / numMatches;
+	$: fmtdFFRate = ffRatePercent < 1 ? ffRatePercent.toFixed(1) : Math.floor(ffRatePercent);
 	$: points = sum(playerData.seasonResult.phases.map((phase) => phase.point));
 
 	let justCopiedDiscord = false;
@@ -182,7 +183,7 @@
 					<b>{formatTime(avgTime)}</b> average
 					<span class="font-extrabold text-white/30">•</span>
 				{/if}
-				<b>{Math.floor(100 * ffRate)}</b>% forfeit rate
+				<b>{fmtdFFRate}</b>% forfeit rate
 				<span class="font-extrabold text-white/30">•</span>
 				<b>{points}</b> points
 			</p>
