@@ -1,9 +1,17 @@
+import { browser } from "$app/environment";
 import { formatMatches } from "$lib/formatters";
 import type { DetailedPlayer, Match, VersusWinCount } from "$lib/ranked-api";
-import { getPlayerURL, getVersusMatchesURL, getVersusURL } from "$lib/urls";
+import { getPlayerURL, getSkinURL, getVersusMatchesURL, getVersusURL } from "$lib/urls";
 import { error, redirect } from "@sveltejs/kit";
 
 export const load = async ({ params, fetch }) => {
+	if (browser) {
+		const skin1 = new Image();
+		skin1.src = getSkinURL(params.player1);
+		const skin2 = new Image();
+		skin2.src = getSkinURL(params.player2);
+	}
+
 	const [player1, player2] = await Promise.all([
 		fetch(getPlayerURL(params.player1))
 			.then((res) => res.json())
