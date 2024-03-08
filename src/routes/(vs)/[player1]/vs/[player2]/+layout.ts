@@ -16,7 +16,7 @@ export const load = async ({ params, fetch }) => {
 	if (params.player1.toLowerCase() === params.player2.toLowerCase()) {
 		throw error(404, { message: "same" });
 	} else if (!player1 || !player2) {
-		console.log(player1, player2);
+		// console.log(player1, player2);
 		throw error(404, { message: player1 ? "player2" : player2 ? "player1" : "both" });
 	} else if (params.player1 !== player1.nickname || params.player2 !== player2.nickname) {
 		throw redirect(301, `/${player1.nickname}/vs/${player2.nickname}`);

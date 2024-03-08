@@ -3,6 +3,7 @@ import { formatDetailedMatch } from "$lib/formatters";
 import { getDetailedMatchURL, getSkinURL } from "$lib/urls";
 import { redirect } from "@sveltejs/kit";
 import type { DetailedMatch } from "$lib/ranked-api";
+import { browser } from "$app/environment";
 
 export const load = (async ({ fetch, params }) => {
 	const match = await fetch(getDetailedMatchURL(params.matchID))
@@ -15,6 +16,12 @@ export const load = (async ({ fetch, params }) => {
 			}
 		});
 
+	if (browser) {
+		for (const uuid of match.playerUUIDs) {
+			const img = new Image();
+			img.src = getSkinURL(uuid);
+		}
+	}
 	return {
 		match,
 	};

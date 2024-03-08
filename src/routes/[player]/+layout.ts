@@ -3,9 +3,16 @@ import type { LayoutLoad } from "./$types";
 import { formatMatches } from "$lib/formatters";
 import { matchesPerPage } from "$lib/globals";
 import { error } from "@sveltejs/kit";
-import { getMatchesURL, getPlayerURL } from "$lib/urls";
+import { getMatchesURL, getPlayerURL, getSkinURL } from "$lib/urls";
+import { browser } from "$app/environment";
 
 export const load = (async ({ fetch, params }) => {
+	if (browser) {
+		const skin = new Image();
+		skin.src = getSkinURL(params.player);
+	}
+
+	// const start = Date.now();
 	const [playerData, matches] = await Promise.all([
 		fetch(getPlayerURL(params.player))
 			.then((res) => res.json())
@@ -19,6 +26,9 @@ export const load = (async ({ fetch, params }) => {
 				noMoreMatches: res.length < matchesPerPage,
 			})),
 	]);
+	// const end = Date.now();
+
+	// console.log(`${end - start}ms`);
 
 	if (!playerData) {
 		throw error(404);
