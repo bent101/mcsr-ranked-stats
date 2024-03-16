@@ -309,7 +309,7 @@ function getSimpleEvent(eventName: string, eventTimestamp: number) {
 			return newEvent("nether enter", 0, "#f55", eventTimestamp);
 
 		case "nether.find_bastion":
-			return newEvent("bastion", 1, "#111", eventTimestamp);
+			return newEvent("bastion", 0, "#111", eventTimestamp);
 
 		case "nether.find_fortress":
 			return newEvent("fortress", 0, "#600", eventTimestamp);
