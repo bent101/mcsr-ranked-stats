@@ -146,7 +146,7 @@
 			{/if}
 		</div>
 		<div class="text-white/50">
-			{#if playerData.eloRate === -1}
+			{#if playerData.eloRate === null}
 				<b>Doing placements</b>
 			{:else}
 				<span class="bg-gradient-to-r bg-clip-text font-extrabold text-transparent {rank.color}"

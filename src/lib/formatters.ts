@@ -211,7 +211,9 @@ export function formatDetailedMatch(
 	};
 }
 
-export function getRank(elo: number) {
+export function getRank(elo: number | null) {
+	if (elo === null) return null;
+
 	if (elo < 600) {
 		return {
 			color: "from-gray-700 to-gray-500",

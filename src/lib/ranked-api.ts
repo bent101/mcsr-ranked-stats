@@ -2,14 +2,14 @@ export type Player = {
 	uuid: string;
 	nickname: string;
 	roleType: number;
-	eloRate: number;
+	eloRate: number | null;
 	eloRank: number | null;
 };
 
 export type ScoreChange = {
 	uuid: string;
 	change: number;
-	eloRate: number;
+	eloRate: number | null;
 };
 
 export type VersusWinCount = {
@@ -63,7 +63,7 @@ export type DetailedPlayer = Player & {
 	connections: Record<"discord" | "twitch" | "youtube", { id: string; name: string } | null>;
 	seasonResult: {
 		last: {
-			eloRate: number;
+			eloRate: number | null;
 			eloRank: number;
 			phasePoint: number;
 		};
@@ -71,7 +71,7 @@ export type DetailedPlayer = Player & {
 		lowest: number;
 		phases: {
 			phase: number;
-			eloRate: number;
+			eloRate: number | null;
 			eloRank: number;
 			point: number;
 		}[];
@@ -151,7 +151,7 @@ export type PointsLeaderboard = {
 	};
 	users: (Player & {
 		seasonResult: {
-			eloRate: number;
+			eloRate: number | null;
 			eloRank: number;
 			phasePoint: number;
 		};
