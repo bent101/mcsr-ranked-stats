@@ -27,7 +27,7 @@
 					Points are earned at the <b>end of each phase</b> (3 per season) and determine who
 					qualifies for <b>Playoffs</b>.
 					<a
-						href="https://discord.com/channels/1056779246728658984/1074303887546257418/1193727286650875906"
+						href="https://docs.google.com/document/d/1f1MCooNaWbRKrqPSBAHznFR_blXME0p2h-4Ew49G5fQ/edit"
 						class="underline underline-offset-2 text-zinc-700"
 						target="_blank">Learn more</a>
 				</p>
