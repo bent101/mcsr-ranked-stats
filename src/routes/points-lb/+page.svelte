@@ -7,7 +7,8 @@
 
 	export let data;
 
-	$: ({ phase, users } = data.pointsLb);
+	$: ({ prevPointsLb, pointsLb } = data);
+	$: ({ users } = prevPointsLb ?? pointsLb);
 
 	let infoEl: HTMLElement | undefined;
 </script>
@@ -19,7 +20,11 @@
 <div class="mx-auto max-w-md py-[4.375rem] md:ml-16">
 	<h1
 		class="flex items-center justify-center gap-1 pt-2 text-xl font-bold text-zinc-300 md:justify-start">
-		<p>Points leaderboard</p>
+		{#if prevPointsLb}
+			<p>Season {prevPointsLb.phase.season} points leaderboard</p>
+		{:else}
+			<p>Points leaderboard</p>
+		{/if}
 		<div bind:this={infoEl} class="p-2 rounded-full hover:bg-zinc-800">
 			<img src={info} alt="" class="h-4 w-4 select-none opacity-30 invert" />
 			<Tooltip hoverable anchor={infoEl} directionPreference={["right", "top", "bottom", "left"]}>
@@ -36,7 +41,8 @@
 	</h1>
 
 	<p class="text-zinc-500 text-sm text-center md:text-left">
-		Phase {phase.number} of 3 ends {formatRelativeTime($curDate - phase.endsAt)}
+		Phase {pointsLb.phase.number} of 3{prevPointsLb ? ` for season ${pointsLb.phase.season}` : ""} ends
+		{formatRelativeTime($curDate - pointsLb.phase.endsAt)}
 	</p>
 
 	<ol class="mx-auto mt-8 max-w-sm border-t-2 border-zinc-800 pt-8 md:ml-0 pb-[36rem]">
@@ -47,7 +53,6 @@
 			{@const prevPlayerPts = prevPlayer?.seasonResult.phasePoint}
 			{@const nextPlayerPts = nextPlayer?.seasonResult.phasePoint}
 			{@const samePtsAsPrev = prevPlayerPts === playerPts}
-			{@const samePtsAsNext = nextPlayerPts === playerPts}
 			<PointsLbTableRow {player} place={i + 1} fadePts={samePtsAsPrev} />
 			{#if i === 11}
 				<div class="flex items-center gap-1 py-1">

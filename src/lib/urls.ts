@@ -6,8 +6,8 @@ export const getLeaderboardURL = () => {
 	return `${base}/leaderboard`;
 };
 
-export const getPointsLeaderboardURL = () => {
-	return `${base}/phase-leaderboard`;
+export const getPointsLeaderboardURL = ({ season }: { season?: number } = {}) => {
+	return `${base}/phase-leaderboard${season ? `?season=${season}` : ""}`;
 };
 
 export const getPlayerURL = (name: string) => {
