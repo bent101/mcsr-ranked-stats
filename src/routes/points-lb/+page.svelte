@@ -41,7 +41,8 @@
 	</h1>
 
 	<p class="text-zinc-500 text-sm text-center md:text-left">
-		Phase {pointsLb.phase.number} of 3{prevPointsLb ? ` for season ${pointsLb.phase.season}` : ""} ends
+		Phase {pointsLb.phase.number}
+		{prevPointsLb ? ` for season ${pointsLb.phase.season}` : ""} ends
 		{formatRelativeTime($curDate - pointsLb.phase.endsAt)}
 	</p>
 
