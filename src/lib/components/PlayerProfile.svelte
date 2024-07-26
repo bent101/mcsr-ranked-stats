@@ -32,7 +32,7 @@
 	$: numForfeits = playerData.statistics.season.forfeits.ranked;
 	$: numCompletions = playerData.statistics.season.completions.ranked;
 
-	$: winrate = Math.round((100 * numWins) / (numWins + numLosses));
+	$: winrate = Math.floor((100 * numWins) / (numWins + numLosses));
 	$: bestTime = playerData.statistics.total.bestTime.ranked;
 	$: bestWinstreak = playerData.statistics.total.highestWinStreak.ranked;
 	$: peakElo = playerData.seasonResult.highest;
