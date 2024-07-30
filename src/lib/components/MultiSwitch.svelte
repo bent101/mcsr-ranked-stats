@@ -24,7 +24,7 @@
 		{#each options as option, i}
 			<button
 				{disabled}
-				on:click={() => onClick(i)}
+				on:mousedown={() => onClick(i)}
 				class="cursor-pointer px-3 py-1 uppercase"
 				class:selected={i === selectedIdx}>
 				{option}
@@ -35,7 +35,7 @@
 
 <style lang="postcss">
 	button {
-		@apply text-zinc-400;
+		@apply text-zinc-400 hover:bg-zinc-700;
 	}
 	button.selected {
 		@apply bg-zinc-400 text-zinc-900;

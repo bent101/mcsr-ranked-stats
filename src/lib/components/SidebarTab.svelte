@@ -1,7 +1,18 @@
 <script lang="ts">
+	import { preloadData } from "$app/navigation";
+
 	export let href = "/";
 	export let selected = false;
 	export let arrowSelected = false;
+
+	$: if (arrowSelected) {
+		setTimeout(() => {
+			if (arrowSelected) {
+				console.log("preloading", href);
+				preloadData(href);
+			}
+		}, 200);
+	}
 </script>
 
 <a

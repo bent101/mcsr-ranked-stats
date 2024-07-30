@@ -1,16 +1,14 @@
 <script lang="ts">
-	import PodiumIcon from "./icons/PodiumIcon.svelte";
 	import { afterNavigate, goto } from "$app/navigation";
 	import { page } from "$app/stores";
-	import { derived } from "svelte/store";
-	import type { Player } from "$lib/ranked-api";
-	import Leaderboard from "./Leaderboard.svelte";
-	import SidebarTab from "./SidebarTab.svelte";
-	import stopwatch from "$lib/assets/stopwatch.png";
-	import RefreshBtn from "./RefreshBtn.svelte";
 	import { ignFilter } from "$lib/actions";
-	import { formatRelativeTime } from "$lib/formatters";
-	import { curDate } from "$lib/globals";
+	import stopwatch from "$lib/assets/stopwatch.png";
+	import type { Player } from "$lib/ranked-api";
+	import { derived } from "svelte/store";
+	import PodiumIcon from "./icons/PodiumIcon.svelte";
+	import Leaderboard from "./Leaderboard.svelte";
+	import RefreshBtn from "./RefreshBtn.svelte";
+	import SidebarTab from "./SidebarTab.svelte";
 
 	const bestTimesSelected = derived(page, ($page) => $page.url.pathname.includes("/lb"));
 	const compareSelected = derived(page, ($page) => $page.url.pathname.includes("/vs"));

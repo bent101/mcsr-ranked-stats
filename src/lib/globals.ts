@@ -9,7 +9,7 @@ export const isLgScreen = mql("(min-width: 1024px)");
 export const isXlScreen = mql("(min-width: 1280px)");
 export const isTouchScreen = mql("(any-pointer: coarse)");
 
-function mql(query: string, fallback = true) {
+function mql(query: string, { fallback = true } = {}) {
 	if (!browser) return readable(fallback);
 	const matcher = window.matchMedia(query);
 

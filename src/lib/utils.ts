@@ -57,10 +57,6 @@ export function reversed<T>(array: T[]) {
 	return ret;
 }
 
-export function returnAfter1Sec<T>(data: T) {
-	return new Promise<T>((res) => setTimeout(() => res(data), 1000));
-}
-
 export function convertRemToPixels(rem: number) {
 	return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
 }
