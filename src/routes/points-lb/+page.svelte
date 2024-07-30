@@ -29,8 +29,7 @@
 			<img src={info} alt="" class="h-4 w-4 select-none opacity-30 invert" />
 			<Tooltip hoverable anchor={infoEl} directionPreference={["right", "top", "bottom", "left"]}>
 				<p class=" text-sm font-normal max-w-xs text-left">
-					Points are earned at the <b>end of each phase</b> (3 per season) and determine who
-					qualifies for <b>Playoffs</b>.
+					Points are earned at the end of each phase and determine who qualifies for Playoffs.
 					<a
 						href="https://docs.google.com/document/d/1f1MCooNaWbRKrqPSBAHznFR_blXME0p2h-4Ew49G5fQ/edit"
 						class="underline underline-offset-2 text-zinc-700"
