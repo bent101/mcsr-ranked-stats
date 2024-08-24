@@ -1,6 +1,12 @@
 import { formatRecordLeaderboard } from "$lib/formatters";
 import { getBestTimesURL } from "$lib/urls";
 
+export const config = {
+	isr: {
+		expiration: 60,
+	},
+};
+
 export const load = async ({ fetch }) => {
 	return {
 		uniqueBestTimesThisSeason: fetch(getBestTimesURL({ unique: true, allTime: false }))

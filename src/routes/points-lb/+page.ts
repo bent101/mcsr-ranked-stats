@@ -1,6 +1,12 @@
 import type { PointsLeaderboard } from "$lib/ranked-api.js";
 import { getPointsLeaderboardURL } from "$lib/urls.js";
 
+export const config = {
+	isr: {
+		expiration: 60 * 5,
+	},
+};
+
 export const load = async ({ fetch }) => {
 	const pointsLb = await fetch(getPointsLeaderboardURL())
 		.then((res) => res.json())
