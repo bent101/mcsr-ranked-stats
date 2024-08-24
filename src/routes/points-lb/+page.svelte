@@ -39,8 +39,6 @@
 		</div>
 	</h1>
 
-	<!--  -->
-
 	<p class="text-zinc-500 text-sm text-center md:text-left">
 		Phase {pointsLb.phase.number}
 		{prevPointsLb ? ` for season ${pointsLb.phase.season}` : ""} ends
