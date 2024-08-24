@@ -1,7 +1,9 @@
 import type { EloLeaderboard } from "$lib/ranked-api";
 import { getLeaderboardURL } from "$lib/urls";
 import type { LayoutLoad } from "./$types";
-import type { Config } from "@sveltejs/adapter-vercel";
+import { injectSpeedInsights } from "@vercel/speed-insights/sveltekit";
+
+injectSpeedInsights();
 
 // export const config: Config = {
 // 	runtime: "edge",
