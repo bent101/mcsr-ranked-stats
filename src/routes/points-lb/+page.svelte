@@ -61,11 +61,11 @@
 					<div class="border-t border-zinc-700 border-dashed flex-1" />
 				</div>
 			{/if}
-			{#if (playerPts ?? 0) >= 15 && (nextPlayerPts ?? 0) < 15}
+			{#if (playerPts ?? 0) >= 20 && (nextPlayerPts ?? 0) < 20}
 				<div class="flex items-center gap-1 py-1">
 					<div class="border-t border-zinc-700 border-dashed flex-1" />
 					<p class="text-zinc-500 text-xs uppercase font-semibold tracking-wide">
-						15+ pts play in quals
+						20+ pts play in quals
 					</p>
 					<div class="border-t border-zinc-700 border-dashed flex-1" />
 				</div>
