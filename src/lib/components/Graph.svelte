@@ -36,11 +36,10 @@
 <div class="container h-[40vh] lg:h-[60vh] [&>*]:h-full">
 	{#if browser}
 		<VisXYContainer width="100%" {xDomain} {yDomain} {data}>
-			<VisArea color="#a1a1aa28" curveType="linear" {x} {y} duration={0} />
-			<VisLine lineWidth={"0.125rem"} color="#a1a1aa" curveType="linear" {x} {y} duration={0} />
+			<VisArea color="#a1a1aa28" curveType="linear" {x} {y} />
+			<VisLine lineWidth={"0.125rem"} color="#a1a1aa" curveType="linear" {x} {y} />
 
 			<VisAxis
-				duration={0}
 				labelFontSize={"1rem"}
 				tickTextFontSize={"0.8rem"}
 				tickFormat={(tick) => `${xMax - tick}`}
@@ -48,7 +47,6 @@
 				numTicks={3}
 				label="Matches ago" />
 			<VisAxis
-				duration={0}
 				labelFontSize={"1rem"}
 				tickTextFontSize={"0.8rem"}
 				type="y"
