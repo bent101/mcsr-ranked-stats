@@ -35,7 +35,7 @@
 
 <style lang="postcss">
 	button {
-		@apply text-zinc-400 hover:bg-zinc-700;
+		@apply text-zinc-400 hover:bg-white/5;
 	}
 	button.selected {
 		@apply bg-zinc-400 text-zinc-900;

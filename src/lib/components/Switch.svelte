@@ -26,7 +26,7 @@
 
 <style lang="postcss">
 	div {
-		@apply text-zinc-400 hover:bg-zinc-800;
+		@apply text-zinc-400 hover:bg-white/5;
 	}
 	div.selected {
 		@apply bg-zinc-400 text-zinc-900;
