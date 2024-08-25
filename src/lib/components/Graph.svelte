@@ -45,13 +45,15 @@
 				tickFormat={(tick) => `${xMax - tick}`}
 				type="x"
 				numTicks={3}
-				label="Matches ago" />
+				label="Matches ago"
+			/>
 			<VisAxis
 				labelFontSize={"1rem"}
 				tickTextFontSize={"0.8rem"}
 				type="y"
 				numTicks={3}
-				label="Elo" />
+				label="Elo"
+			/>
 		</VisXYContainer>
 	{/if}
 </div>

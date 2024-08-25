@@ -26,7 +26,8 @@
 				{disabled}
 				on:mousedown={() => onClick(i)}
 				class="cursor-pointer px-3 py-1 uppercase"
-				class:selected={i === selectedIdx}>
+				class:selected={i === selectedIdx}
+			>
 				{option}
 			</button>
 		{/each}

@@ -41,7 +41,8 @@
 				href={$page.url.pathname.slice(0, $page.url.pathname.lastIndexOf("/"))}
 				data-sveltekit-noscroll
 				data-sveltekit-replacestate
-				class="ml-2 h-9 w-9 rounded-full stroke-zinc-500 stroke-2 hover:bg-zinc-700/50">
+				class="ml-2 h-9 w-9 rounded-full stroke-zinc-500 stroke-2 hover:bg-zinc-700/50"
+			>
 				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
 					<line x1="6" y1="6" x2="18" y2="18" />
 					<line x1="6" y1="18" x2="18" y2="6" />
@@ -66,7 +67,8 @@
 
 	<div
 		bind:this={scrollingContainer}
-		class="m-2 mr-0 flex-1 overflow-scroll overscroll-none scrollbar-thin scrollbar-track-zinc-800 scrollbar-thumb-zinc-600 hover:scrollbar-thumb-zinc-500">
+		class="m-2 mr-0 flex-1 overflow-scroll overscroll-none scrollbar-thin scrollbar-track-zinc-800 scrollbar-thumb-zinc-600 hover:scrollbar-thumb-zinc-500"
+	>
 		<div class="flex w-max gap-4">
 			{#each match.playerUUIDs as playerUUID, i}
 				{@const timeline = match.timelines?.[$detailLevel][i]}
@@ -85,7 +87,8 @@
 								{#if playerUUID === match.winnerUUID}
 									<span
 										class="ml-1.5 inline-block -translate-y-0.5 rounded-full bg-green-400 px-1.5 text-[0.6875rem] font-extrabold leading-[0.875rem] text-green-950"
-										>WINNER</span>
+										>WINNER</span
+									>
 								{/if}
 							</h3>
 							{#if eloChange}
@@ -95,7 +98,8 @@
 										? 'text-green-400'
 										: change < 0
 										? 'text-red-400'
-										: 'text-blue-400'} text-xs font-extrabold">
+										: 'text-blue-400'} text-xs font-extrabold"
+								>
 									{before} → {before + change} elo ({change >= 0 ? "+" : ""}{change})
 								</div>
 							{/if}
@@ -112,7 +116,8 @@
 									<div class="flex h-7 items-center">
 										<div
 											class="w-full -translate-y-0.5 overflow-clip rounded-full px-1.5 text-center text-sm font-bold {textColor}"
-											style="background-color: {event.color}">
+											style="background-color: {event.color}"
+										>
 											{formatTime(time)}
 										</div>
 									</div>
@@ -135,7 +140,8 @@
 												{#if diff}
 													<div
 														class="mx-1 w-14 translate-y-0.5 text-center text-sm font-semibold"
-														style="color: {diff.color};">
+														style="color: {diff.color};"
+													>
 														{formatTime(diff.time, true)}
 													</div>
 												{:else}
@@ -150,7 +156,8 @@
 											{#if diff}
 												<span
 													class="ml-2 translate-y-0.5 text-sm font-semibold"
-													style="color: {diff.color};">{formatTime(diff.time, true)}</span>
+													style="color: {diff.color};">{formatTime(diff.time, true)}</span
+												>
 											{/if}
 										{/if}
 									</li>
@@ -166,7 +173,8 @@
 		<MultiSwitch
 			bind:selectedIdx={$detailLevel}
 			label="Detail"
-			options={["low", "med", "high", "all"]} />
+			options={["low", "med", "high", "all"]}
+		/>
 	{:else}
 		<div class="p-12 font-semibold text-zinc-500">
 			<div class="mx-auto w-max">

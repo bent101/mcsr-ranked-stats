@@ -29,13 +29,15 @@
 
 <svelte:window
 	on:mousemove={isHeader ? handleMouseMove : null}
-	on:drag={isHeader ? handleMouseMove : null} />
+	on:drag={isHeader ? handleMouseMove : null}
+/>
 
 <div class="viewport m-2">
 	<div
 		class="cube"
 		style="transform: rotateX({rotation.x}deg) rotateY({rotation.y}deg)"
-		bind:this={cube}>
+		bind:this={cube}
+	>
 		<div style="background-image: url('{skinURL}')" class="inner front" />
 		<div style="background-image: url('{skinURL}')" class="inner back" />
 		<div style="background-image: url('{skinURL}')" class="inner right" />

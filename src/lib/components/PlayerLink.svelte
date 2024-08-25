@@ -23,7 +23,8 @@
 	data-sveltekit-replacestate="off"
 	data-sveltekit-noscroll="off"
 	href="/{name}"
-	class="relative underline-offset-4 hover:underline">
+	class="relative underline-offset-4 hover:underline"
+>
 	{name}
 </a>
 <Popup {anchor} hoverable {load} let:data>

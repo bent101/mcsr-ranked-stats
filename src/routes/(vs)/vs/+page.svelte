@@ -45,7 +45,8 @@
 				submitIfReady();
 			}
 		}}
-		class="flex items-center justify-center font-semibold text-zinc-500">
+		class="flex items-center justify-center font-semibold text-zinc-500"
+	>
 		Compare
 		<input
 			use:ignFilter
@@ -54,7 +55,8 @@
 			bind:value={player1}
 			placeholder="a player"
 			type="search"
-			class="mx-2 w-44 appearance-none rounded-lg border border-zinc-700 bg-transparent px-4 py-2 text-zinc-300 placeholder:text-zinc-700 search-cancel:hidden" />
+			class="mx-2 w-44 appearance-none rounded-lg border border-zinc-700 bg-transparent px-4 py-2 text-zinc-300 placeholder:text-zinc-700 search-cancel:hidden"
+		/>
 		to
 		<input
 			use:ignFilter
@@ -62,7 +64,8 @@
 			bind:value={player2}
 			placeholder="another player"
 			type="search"
-			class="mx-2 w-44 appearance-none rounded-lg border border-zinc-700 bg-transparent px-4 py-2 text-zinc-300 placeholder:text-zinc-700 search-cancel:hidden" />
+			class="mx-2 w-44 appearance-none rounded-lg border border-zinc-700 bg-transparent px-4 py-2 text-zinc-300 placeholder:text-zinc-700 search-cancel:hidden"
+		/>
 
 		<a
 			href={readyToSubmit ? `/${player1}/vs/${player2}` : ""}
@@ -71,12 +74,14 @@
 			class="grid {readyToSubmit
 				? 'cursor-pointer opacity-100'
 				: 'cursor-default opacity-10'} h-12 w-12 select-none place-items-center rounded-full border-[0.125rem] border-zinc-700 bg-zinc-950 text-3xl text-zinc-300"
-			>→</a>
+			>→</a
+		>
 	</div>
 	<div
 		class="{areSame
 			? 'visible'
-			: 'invisible'} mt-4 text-center text-sm font-semibold text-red-400/50">
+			: 'invisible'} mt-4 text-center text-sm font-semibold text-red-400/50"
+	>
 		You can't compare <span class="text-red-400">{player1}</span> to themself!
 	</div>
 </div>
@@ -88,7 +93,8 @@
 			{#if recent}
 				<a
 					href="/{recent.player1}/vs/{recent.player2}"
-					class="group flex h-24 items-center rounded-xl border border-zinc-700 bg-zinc-950 px-4 py-2 font-semibold text-zinc-500 hover:hover-hover:border-zinc-300 hover:hover-hover:text-zinc-300">
+					class="group flex h-24 items-center rounded-xl border border-zinc-700 bg-zinc-950 px-4 py-2 font-semibold text-zinc-500 hover:hover-hover:border-zinc-300 hover:hover-hover:text-zinc-300"
+				>
 					<div class="flex-1 text-center">
 						{recent.player1}
 						<span class="text-zinc-700 group-hover:hover-hover:text-zinc-500">vs</span>

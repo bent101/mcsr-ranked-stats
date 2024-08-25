@@ -26,11 +26,11 @@
 
 <div class="mx-auto max-w-md py-[4.375rem] md:ml-16">
 	<h1 class="pt-2 text-xl font-bold text-zinc-300 md:justify-start">Fastest times</h1>
-	<div class="pt-1 flex gap-2">
+	<div class="flex gap-2 pt-1">
 		<Switch options={["all time", "this season"]} bind:onFirst={$showingAllTime} />
 		<Switch options={["all", "unique"]} bind:onFirst={$showingAll} />
 	</div>
-	<ol class="mx-auto mt-8 max-w-sm border-t-2 border-zinc-800 pt-8 md:ml-0 pb-[36rem]">
+	<ol class="mx-auto mt-8 max-w-sm border-t-2 border-zinc-800 pb-[36rem] pt-8 md:ml-0">
 		{#each matches as match, i (match.id)}
 			<li>
 				<BestTimesTableRow place={i + 1} {match} />

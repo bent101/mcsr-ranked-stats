@@ -18,7 +18,8 @@
 </script>
 
 <div
-	class={player1Won ? "text-orange-300/80" : player2Won ? "text-yellow-300/80" : "text-zinc-400"}>
+	class={player1Won ? "text-orange-300/80" : player2Won ? "text-yellow-300/80" : "text-zinc-400"}
+>
 	<TableRow {href} let:state>
 		<div class="flex-1 {player1Won || player2Won ? '' : 'italic text-zinc-500'}">
 			{player1Won ? player1 : player2Won ? player2 : "Draw"}
@@ -31,7 +32,8 @@
 				? `text-xs font-semibold uppercase tracking-normal ${
 						state === 'selected' ? 'opacity-100' : 'opacity-50'
 				  }`
-				: `${state === 'selected' ? 'opacity-100' : 'opacity-80'}`}">
+				: `${state === 'selected' ? 'opacity-100' : 'opacity-80'}`}"
+		>
 			{match.outcome === "draw" ? "" : match.forfeited ? "Forfeit" : match.time}
 		</div>
 		<div class="w-10 text-right {state === 'selected' ? 'opacity-100' : 'opacity-50'}">

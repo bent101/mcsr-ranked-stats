@@ -79,13 +79,15 @@
 		data-sveltekit-replacestate
 		data-sveltekit-noscroll
 		class="group flex items-center gap-2 rounded-lg border px-4 py-1.5 text-left
-		{classesFromState}">
+		{classesFromState}"
+	>
 		<slot state={$state} />
 	</a>
 {:else}
 	<div
 		class="group flex items-center gap-2 rounded-lg border px-4 py-1.5 text-left
-		{classesFromState}">
+		{classesFromState}"
+	>
 		<slot state={$state} />
 	</div>
 {/if}

@@ -208,7 +208,8 @@
 	style="position: fixed; z-index: 999;
     top: {popupY}px; 
     left: {popupX}px;
-	">
+	"
+>
 	{#if popupExists && (!load || data)}
 		<div
 			style="transform-origin: {transformOrigin};"
@@ -218,7 +219,8 @@
 				start: 0.8,
 				duration: transitionDuration,
 				easing: backOut,
-			}}>
+			}}
+		>
 			<slot {data} />
 		</div>
 	{/if}

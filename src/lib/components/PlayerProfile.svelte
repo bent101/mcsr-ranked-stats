@@ -65,7 +65,8 @@
 
 <div
 	class="flex w-max flex-row items-center gap-2 px-4 py-2
-	{pos === 'first' ? 'lg:flex-row-reverse' : ''}">
+	{pos === 'first' ? 'lg:flex-row-reverse' : ''}"
+>
 	<div class="pb-2">
 		{#key scrollY}
 			<PlayerHead3D {isHeader} {rotation} uuid={playerData.uuid} />
@@ -93,16 +94,20 @@
 					href="https://www.patreon.com/mcsrranked"
 					rel="noreferrer"
 					class="relative right-2 grid place-items-center"
-					target="_blank">
+					target="_blank"
+				>
 					<div
-						class="glow-{playerData.roleType} pointer-events-none absolute -inset-12 bg-gradient-radial" />
+						class="glow-{playerData.roleType} pointer-events-none absolute -inset-12 bg-gradient-radial"
+					/>
 					<div
-						class="glow-{playerData.roleType} pointer-events-none absolute -inset-48 bg-gradient-radial opacity-50" />
+						class="glow-{playerData.roleType} pointer-events-none absolute -inset-48 bg-gradient-radial opacity-50"
+					/>
 					<img
 						class="h-full w-8"
 						style="image-rendering: pixelated;"
 						src={[stone, iron, diamond][playerData.roleType - 1]}
-						alt="" />
+						alt=""
+					/>
 				</a>
 				<Tooltip anchor={roleType} directionPreference={["top", "bottom", "right", "left"]}>
 					<div>
@@ -116,7 +121,8 @@
 					class="h-full w-8 p-1 opacity-20 hover:opacity-100"
 					href="https://twitch.tv/{playerData.connections.twitch.name}"
 					rel="noreferrer"
-					target="_blank"><img src={twitch} alt="Twitch logo" /></a>
+					target="_blank"><img src={twitch} alt="Twitch logo" /></a
+				>
 			{/if}
 			{#if playerData.connections.youtube}
 				<a
@@ -124,21 +130,23 @@
 					rel="noreferrer"
 					target="_blank"
 					href="https://youtube.com/channel/{playerData.connections.youtube.id}"
-					><img src={youtube} alt="Youtube logo" /></a>
+					><img src={youtube} alt="Youtube logo" /></a
+				>
 			{/if}
 			{#if playerData.connections.discord}
 				<button
 					bind:this={discord}
 					class="h-full w-8 p-1 opacity-20 hover:opacity-100"
-					on:click|preventDefault={copyDiscord}
-					><img src={discordLogo} alt="Discord logo" /></button>
+					on:click|preventDefault={copyDiscord}><img src={discordLogo} alt="Discord logo" /></button
+				>
 				<Tooltip anchor={discord}>
 					{justCopiedDiscord ? "Copied!" : "Copy Discord"}
 				</Tooltip>
 			{:else if playerData.eloRank === null}
 				<span
 					bind:this={unverified}
-					class="ml-2 inline-flex items-center gap-2 rounded-full bg-zinc-700 py-0.5 pl-3 pr-1 text-sm font-semibold uppercase tracking-wide text-white/90">
+					class="ml-2 inline-flex items-center gap-2 rounded-full bg-zinc-700 py-0.5 pl-3 pr-1 text-sm font-semibold uppercase tracking-wide text-white/90"
+				>
 					Unverified
 					<img src={info} alt="" class="inline h-4 w-4 select-none opacity-30 invert" />
 				</span>
@@ -150,16 +158,19 @@
 				<b>Doing placements</b>
 			{:else}
 				<span class="bg-gradient-to-r bg-clip-text font-extrabold text-transparent {rank.color}"
-					>{rank.name}</span>
+					>{rank.name}</span
+				>
 				(<span class="bg-gradient-to-r bg-clip-text font-extrabold text-transparent {rank.color}"
-					>{playerData.eloRate}</span>
+					>{playerData.eloRate}</span
+				>
 				elo)
 				{#if peakElo > playerData.eloRate}
 					<span class="inline-block h-[1.53125rem] font-extrabold text-white/30">•</span>
 					<b>{peakElo}</b> peak elo
 				{:else}
 					<span
-						class="ml-2 inline-block -translate-y-0.5 rounded-full bg-gradient-to-r from-red-700 to-orange-500 py-px pl-1 pr-2 text-xs font-semibold tracking-wide text-white">
+						class="ml-2 inline-block -translate-y-0.5 rounded-full bg-gradient-to-r from-red-700 to-orange-500 py-px pl-1 pr-2 text-xs font-semibold tracking-wide text-white"
+					>
 						<img class="inline w-4 -translate-y-[0.04375rem]" src={fire} alt="" />
 						<span class="inline-block translate-y-px">PEAK ELO</span>
 					</span>

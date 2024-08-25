@@ -8,4 +8,5 @@
 	width="1em"
 	height="1em"
 	viewBox="0 0 24 24"
-	><path fill="currentColor" d="M2 21V9h5.5v12zm7.25 0V3h5.5v18zm7.25 0V11H22v10z" /></svg>
+	><path fill="currentColor" d="M2 21V9h5.5v12zm7.25 0V3h5.5v18zm7.25 0V11H22v10z" /></svg
+>

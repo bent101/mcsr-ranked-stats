@@ -10,7 +10,8 @@
 
 <TableRow>
 	<div
-		class="mr-4 w-4 text-right font-extrabold text-zinc-600 hover-hover:group-hover:text-zinc-300">
+		class="mr-4 w-4 text-right font-extrabold text-zinc-600 hover-hover:group-hover:text-zinc-300"
+	>
 		{place}
 	</div>
 	<div class="flex-1 text-center text-zinc-300">
@@ -19,7 +20,7 @@
 	<div class="w-20 text-center text-zinc-600">
 		{player.seasonResult.eloRate} elo
 	</div>
-	<div class="font-medium w-16 text-right {fadePts ? 'text-zinc-500' : 'text-zinc-300'}">
+	<div class="w-16 text-right font-medium {fadePts ? 'text-zinc-500' : 'text-zinc-300'}">
 		{player.seasonResult.phasePoint} pts
 	</div>
 </TableRow>

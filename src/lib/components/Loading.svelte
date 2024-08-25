@@ -53,6 +53,7 @@
 		<div
 			transition:fade={{ duration: 100 }}
 			style="width: {$progress}%"
-			class="h-full bg-zinc-600 text-xs text-zinc-700" />
+			class="h-full bg-zinc-600 text-xs text-zinc-700"
+		/>
 	{/if}
 </div>

@@ -88,10 +88,11 @@
 			e.preventDefault();
 			searchInput?.focus();
 		}
-	}} />
+	}}
+/>
 
 <div class="min-h-screen w-80 border-r-2 border-zinc-700 bg-zinc-950 pb-32 text-sm">
-	<a href="/" class="p-4 pl-2 flex flex-col items-center text-zinc-500">
+	<a href="/" class="flex flex-col items-center p-4 pl-2 text-zinc-500">
 		<p class="font-extrabold uppercase tracking-wide">MCSR Ranked Stats</p>
 		<!-- <p class="text-xs text-zinc-600 font-normal">
 			S{curSeason} • ends {formatRelativeTime($curDate - seasonEnd)}
@@ -128,33 +129,38 @@
 					}
 				}}
 				placeholder="Search for players"
-				class="w-full appearance-none rounded-lg border border-zinc-800 bg-transparent px-4 py-2 text-zinc-400 placeholder:text-zinc-600 search-cancel:hidden" />
+				class="w-full appearance-none rounded-lg border border-zinc-800 bg-transparent px-4 py-2 text-zinc-400 placeholder:text-zinc-600 search-cancel:hidden"
+			/>
 			{#if rawQuery !== ""}
 				<button
 					on:click={() => {
 						rawQuery = "";
 						searchInput?.blur();
 					}}
-					class="absolute inset-y-0 right-2 my-auto h-6 w-6 rounded-full border border-zinc-600 bg-zinc-900">
+					class="absolute inset-y-0 right-2 my-auto h-6 w-6 rounded-full border border-zinc-600 bg-zinc-900"
+				>
 					<svg
 						class="stroke-zinc-500 stroke-2"
 						xmlns="http://www.w3.org/2000/svg"
 						width="100%"
 						height="100%"
-						viewBox="0 0 24 24">
+						viewBox="0 0 24 24"
+					>
 						<line x1="6" y1="6" x2="18" y2="18" />
 						<line x1="6" y1="18" x2="18" y2="6" />
 					</svg>
 				</button>
 			{:else if !inputIsFocused}
 				<kbd
-					class="pointer-events-none absolute inset-y-0 right-2 my-auto h-6 w-6 select-none rounded-[0.25rem] border border-zinc-600 bg-zinc-900">
+					class="pointer-events-none absolute inset-y-0 right-2 my-auto h-6 w-6 select-none rounded-[0.25rem] border border-zinc-600 bg-zinc-900"
+				>
 					<svg
 						class="stroke-zinc-500 stroke-2"
 						xmlns="http://www.w3.org/2000/svg"
 						width="100%"
 						height="100%"
-						viewBox="0 0 24 24">
+						viewBox="0 0 24 24"
+					>
 						<line x1="8" y1="20" x2="16" y2="4" />
 					</svg>
 				</kbd>
@@ -170,11 +176,13 @@
 					alt=""
 					class="h-5 w-20 select-none object-contain {$bestTimesSelected
 						? 'opacity-80'
-						: 'opacity-30'} invert" />
+						: 'opacity-30'} invert"
+				/>
 				<div
 					class="font-extrabold uppercase {$bestTimesSelected
 						? 'text-zinc-300'
-						: 'text-zinc-500 group-hover:text-zinc-400'}">
+						: 'text-zinc-500 group-hover:text-zinc-400'}"
+				>
 					Fastest times
 				</div>
 			</div>
@@ -184,11 +192,13 @@
 				<PodiumIcon
 					className="w-20 select-none text-center font-mono text-xs font-extrabold leading-3 text-white {$pointsLbSelected
 						? 'opacity-80'
-						: 'opacity-30'}" />
+						: 'opacity-30'}"
+				/>
 				<div
 					class="font-extrabold uppercase {$pointsLbSelected
 						? 'text-zinc-300'
-						: 'text-zinc-500 group-hover:text-zinc-400'}">
+						: 'text-zinc-500 group-hover:text-zinc-400'}"
+				>
 					Points leaderboard
 				</div>
 			</div>
@@ -198,13 +208,15 @@
 				<div
 					class="w-20 select-none text-center font-mono text-xs font-extrabold leading-3 text-white {$compareSelected
 						? 'opacity-80'
-						: 'opacity-30'}">
+						: 'opacity-30'}"
+				>
 					VS
 				</div>
 				<div
 					class="font-extrabold uppercase {$compareSelected
 						? 'text-zinc-300'
-						: 'text-zinc-500 group-hover:text-zinc-400'}">
+						: 'text-zinc-500 group-hover:text-zinc-400'}"
+				>
 					Compare players
 				</div>
 			</div>

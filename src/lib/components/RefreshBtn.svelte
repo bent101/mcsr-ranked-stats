@@ -24,6 +24,7 @@
 	class="mx-auto block w-max rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wide {dark
 		? 'text-zinc-700 hover:bg-zinc-900 hover:text-zinc-500'
 		: 'text-zinc-500 hover:bg-zinc-700/50 hover:text-zinc-400'}"
-	on:click={refresh}>
+	on:click={refresh}
+>
 	{isRefreshing ? "Loading..." : justRefreshed ? "Refreshed!" : "Refresh"}
 </button>

@@ -61,13 +61,14 @@
 	<div class="mx-auto max-w-max lg:ml-0 lg:max-w-5xl">
 		<div class="flex flex-col justify-center lg:flex-row">
 			<div class="flex-1">
-				<div class="ml-auto max-w-max hidden lg:block">
+				<div class="ml-auto hidden max-w-max lg:block">
 					<PlayerProfile
 						isLink
 						pos="first"
 						rotation={right}
 						color="text-orange-400"
-						playerData={data.player1} />
+						playerData={data.player1}
+					/>
 				</div>
 				<div class="block lg:hidden">
 					<PlayerProfile
@@ -75,7 +76,8 @@
 						pos="first"
 						rotation={down}
 						color="text-orange-400"
-						playerData={data.player1} />
+						playerData={data.player1}
+					/>
 				</div>
 			</div>
 			<div class="m-1 flex h-8 items-center gap-1 lg:h-auto lg:flex-col">
@@ -83,21 +85,23 @@
 				<div class="text-xs font-bold text-zinc-600">VS</div>
 				<div class="flex-1 border border-zinc-600" />
 			</div>
-			<div class="flex-1 hidden lg:block">
+			<div class="hidden flex-1 lg:block">
 				<PlayerProfile
 					isLink
 					pos="second"
 					rotation={left}
 					color="text-yellow-400"
-					playerData={data.player2} />
+					playerData={data.player2}
+				/>
 			</div>
-			<div class="flex-1 block lg:hidden">
+			<div class="block flex-1 lg:hidden">
 				<PlayerProfile
 					isLink
 					pos="second"
 					rotation={up}
 					color="text-yellow-400"
-					playerData={data.player2} />
+					playerData={data.player2}
+				/>
 			</div>
 		</div>
 	</div>

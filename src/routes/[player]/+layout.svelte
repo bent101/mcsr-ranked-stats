@@ -81,7 +81,8 @@
 				<button
 					on:click={showAllMatches}
 					disabled={loadingAllMatches || data.matches.noMoreMatches}
-					class="absolute bottom-[calc(50px+0.2rem)] left-[calc(70px+0.2rem)] rounded-full border-[0.125rem] border-zinc-700 bg-zinc-950 px-3 py-1 text-xs font-extrabold uppercase tracking-wide text-zinc-500 disabled:opacity-70 hover:border-zinc-400 hover:text-zinc-300 disabled:hover:border-zinc-700 disabled:hover:text-zinc-500">
+					class="absolute bottom-[calc(50px+0.2rem)] left-[calc(70px+0.2rem)] rounded-full border-[0.125rem] border-zinc-700 bg-zinc-950 px-3 py-1 text-xs font-extrabold uppercase tracking-wide text-zinc-500 disabled:opacity-70 hover:border-zinc-400 hover:text-zinc-300 disabled:hover:border-zinc-700 disabled:hover:text-zinc-500"
+				>
 					{loadingAllMatches
 						? "Loading..."
 						: data.matches.noMoreMatches
@@ -90,7 +91,7 @@
 				</button>
 			{:else}
 				<div class="absolute inset-0 grid place-items-center">
-					<p class="text-zinc-500 text-lg font-semibold animate-pulse">Loading graph...</p>
+					<p class="animate-pulse text-lg font-semibold text-zinc-500">Loading graph...</p>
 				</div>
 			{/if}
 		</div>
@@ -122,7 +123,7 @@
 					{:else}
 						{#each { length: matchesPerPage } as _}
 							<div class="p-2.5">
-								<div class="bg-zinc-800/50 animate-pulse rounded-full h-5" />
+								<div class="h-5 animate-pulse rounded-full bg-zinc-800/50" />
 							</div>
 						{/each}
 					{/if}
@@ -140,7 +141,8 @@
 					<button
 						on:click={showAllMatches}
 						disabled={loadingAllMatches || data.matches.noMoreMatches}
-						class="absolute bottom-[58px] left-[78px] rounded-full border-[0.125rem] border-zinc-700 bg-zinc-950 px-3 py-1 text-xs font-extrabold uppercase tracking-wide text-zinc-500 disabled:opacity-70 hover:border-zinc-400 hover:text-zinc-300 disabled:hover:border-zinc-700 disabled:hover:text-zinc-500">
+						class="absolute bottom-[58px] left-[78px] rounded-full border-[0.125rem] border-zinc-700 bg-zinc-950 px-3 py-1 text-xs font-extrabold uppercase tracking-wide text-zinc-500 disabled:opacity-70 hover:border-zinc-400 hover:text-zinc-300 disabled:hover:border-zinc-700 disabled:hover:text-zinc-500"
+					>
 						{loadingAllMatches
 							? "Loading..."
 							: data.matches.noMoreMatches
@@ -149,7 +151,7 @@
 					</button>
 				{:else}
 					<div class="absolute inset-0 grid place-items-center">
-						<p class="text-zinc-500 text-lg font-semibold animate-pulse">Loading graph...</p>
+						<p class="animate-pulse text-lg font-semibold text-zinc-500">Loading graph...</p>
 					</div>
 				{/if}
 			</div>

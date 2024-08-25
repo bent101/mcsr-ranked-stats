@@ -14,7 +14,8 @@
 	<div
 		class="mr-4 w-4 text-right font-extrabold {state === 'selected'
 			? 'text-zinc-300'
-			: 'text-zinc-600 hover-hover:group-hover:text-zinc-300'}">
+			: 'text-zinc-600 hover-hover:group-hover:text-zinc-300'}"
+	>
 		{place}
 	</div>
 	<div class="flex-1 text-center text-zinc-300">
@@ -22,7 +23,8 @@
 	</div>
 	<div
 		class="w-20 text-center font-extrabold tracking-wider
-             {state === 'selected' ? 'text-zinc-300' : 'text-zinc-400'}">
+             {state === 'selected' ? 'text-zinc-300' : 'text-zinc-400'}"
+	>
 		{match.time}
 	</div>
 	<div class="w-10 text-right {state === 'selected' ? 'text-zinc-300' : 'text-zinc-600'}">

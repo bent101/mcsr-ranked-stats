@@ -25,6 +25,7 @@
 				arrowSelected
 					? 'border-blue-500 bg-zinc-900'
 					: 'border-transparent hover-hover:hover:bg-zinc-900'
-		  }`}">
+		  }`}"
+>
 	<slot />
 </a>
