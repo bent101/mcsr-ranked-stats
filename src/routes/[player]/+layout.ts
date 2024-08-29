@@ -7,36 +7,38 @@ import { getMatchesURL, getPlayerURL, getSkinURL } from "$lib/urls";
 import { browser } from "$app/environment";
 
 export const load = (async ({ fetch, params }) => {
-	if (browser) {
-		const skin = new Image();
-		skin.src = getSkinURL(params.player);
-	}
+  if (browser) {
+    const skin = new Image();
+    skin.src = getSkinURL(params.player);
+  }
 
-	// const start = Date.now();
-	const [playerData, matches] = await Promise.all([
-		fetch(getPlayerURL(params.player))
-			.then((res) => res.json())
-			.then((res) => (res.status === "error" ? null : (res.data as DetailedPlayer))),
+  // const start = Date.now();
+  const [playerData, matches] = await Promise.all([
+    fetch(getPlayerURL(params.player))
+      .then((res) => res.json())
+      .then((res) =>
+        res.status === "error" ? null : (res.data as DetailedPlayer)
+      ),
 
-		fetch(getMatchesURL(params.player, 0))
-			.then((res) => res.json())
-			.then((res) => formatMatches(res.data ?? [], params.player))
-			.then((res) => ({
-				data: res,
-				noMoreMatches: res.length < matchesPerPage,
-			})),
-	]);
-	// const end = Date.now();
+    fetch(getMatchesURL(params.player, 0))
+      .then((res) => res.json())
+      .then((res) => formatMatches(res.data ?? [], params.player))
+      .then((res) => ({
+        data: res,
+        noMoreMatches: res.length < matchesPerPage,
+      })),
+  ]);
+  // const end = Date.now();
 
-	// console.log(`${end - start}ms`);
+  // console.log(`${end - start}ms`);
 
-	if (!playerData) {
-		throw error(404);
-	}
+  if (!playerData) {
+    throw error(404);
+  }
 
-	return {
-		matches,
-		curPage: 1,
-		playerData,
-	};
+  return {
+    matches,
+    curPage: 1,
+    playerData,
+  };
 }) satisfies LayoutLoad;

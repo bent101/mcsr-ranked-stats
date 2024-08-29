@@ -11,9 +11,9 @@ injectSpeedInsights();
 // };
 
 export const load = (async ({ fetch }) => {
-	return {
-		lb: fetch(getLeaderboardURL())
-			.then((res) => res.json())
-			.then((res) => res.data as EloLeaderboard),
-	};
+  return {
+    lb: fetch(getLeaderboardURL())
+      .then((res) => res.json())
+      .then((res) => res.data as EloLeaderboard),
+  };
 }) satisfies LayoutLoad;

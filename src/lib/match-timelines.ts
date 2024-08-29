@@ -16,55 +16,55 @@ import { getFinalTime, getWinnerUUID } from "./getters";
  */
 
 export type MatchEvent = {
-	name: string;
-	timestamp: number;
-	detailLevel: number;
-	pairToRight: boolean;
-	pairToLeft: boolean;
+  name: string;
+  timestamp: number;
+  detailLevel: number;
+  pairToRight: boolean;
+  pairToLeft: boolean;
 
-	/** a hex code, or `"prev"` */
-	color: string;
+  /** a hex code, or `"prev"` */
+  color: string;
 
-	/** nulls if there's no matching event in any other timeline */
-	diff: Diff | undefined;
+  /** nulls if there's no matching event in any other timeline */
+  diff: Diff | undefined;
 
-	/** The split for which this event is the start (nulls for the last event) */
-	splitAfter:
-		| {
-				name: string;
-				length: number;
-				pairToRight: boolean;
-				pairToLeft: boolean;
+  /** The split for which this event is the start (nulls for the last event) */
+  splitAfter:
+    | {
+        name: string;
+        length: number;
+        pairToRight: boolean;
+        pairToLeft: boolean;
 
-				/** nulls if there's no matching event in any other timeline */
-				diff: Diff | undefined;
-		  }
-		| undefined;
+        /** nulls if there's no matching event in any other timeline */
+        diff: Diff | undefined;
+      }
+    | undefined;
 };
 
 type Diff = {
-	/** difference in time compared to opponent (or winner for 3+) */
-	time: number;
+  /** difference in time compared to opponent (or winner for 3+) */
+  time: number;
 
-	/** 0 to 1 (`diff.time / <biggest diff this timeline>`) */
-	importance: number;
+  /** 0 to 1 (`diff.time / <biggest diff this timeline>`) */
+  importance: number;
 
-	/** light -> dark red for more negative, light -> dark green for more positive */
-	color: string;
+  /** light -> dark red for more negative, light -> dark green for more positive */
+  color: string;
 };
 
 export function getTimelines(
-	match: DetailedMatch,
-	playerOrder: string[],
-	winnerUUID: string | null
+  match: DetailedMatch,
+  playerOrder: string[],
+  winnerUUID: string | null
 ) {
-	if (!match.timelines) return;
+  if (!match.timelines) return;
 
-	match.timelines.reverse(); // the api returns the timeline last event to first event
+  match.timelines.reverse(); // the api returns the timeline last event to first event
 
-	return [0, 1, 2, 3].map((detailLevel) =>
-		getTimelinesAtDetailLevel(match, playerOrder, winnerUUID, detailLevel)
-	);
+  return [0, 1, 2, 3].map((detailLevel) =>
+    getTimelinesAtDetailLevel(match, playerOrder, winnerUUID, detailLevel)
+  );
 }
 
 /**
@@ -72,297 +72,327 @@ export function getTimelines(
  * `curPlayerName` is specified, in which case that player is put first
  */
 function getTimelinesAtDetailLevel(
-	match: DetailedMatch,
-	playerOrder: string[],
-	winnerUUID: string | null,
-	detailLevel: number
+  match: DetailedMatch,
+  playerOrder: string[],
+  winnerUUID: string | null,
+  detailLevel: number
 ) {
-	const ret = getSplitTimelines(match.timelines!, playerOrder).map((timeline, i) => {
-		const newTimeline = timeline
-			.map((event) => getSimpleEvent(event.type, event.time))
-			.filter(Boolean)
-			.filter((event) => event.detailLevel <= detailLevel);
+  const ret = getSplitTimelines(match.timelines!, playerOrder).map(
+    (timeline, i) => {
+      const newTimeline = timeline
+        .map((event) => getSimpleEvent(event.type, event.time))
+        .filter(Boolean)
+        .filter((event) => event.detailLevel <= detailLevel);
 
-		newTimeline.unshift(newEvent("start", 0, "#5e5", 0));
-		const finalTime = getFinalTime(match);
-		const winnerUUID = getWinnerUUID(match);
+      newTimeline.unshift(newEvent("start", 0, "#5e5", 0));
+      const finalTime = getFinalTime(match);
+      const winnerUUID = getWinnerUUID(match);
 
-		if (winnerUUID === null) {
-			newTimeline.push(newEvent("draw", 0, "#3b82f6", finalTime));
-		} else if (winnerUUID === playerOrder[i]) {
-			newTimeline.push(newEvent(match.forfeited ? "win" : "finish", 0, "#22c55e", finalTime));
-		} else if (!match.forfeited) {
-			newTimeline.push(newEvent("lose", 0, "#ef4444", finalTime));
-		} else if (!match.timelines?.find((event) => event.type === "projectelo.timeline.forfeit")) {
-			newTimeline.push(newEvent("disconnected", 0, "#ef4444", finalTime));
-		}
+      if (winnerUUID === null) {
+        newTimeline.push(newEvent("draw", 0, "#3b82f6", finalTime));
+      } else if (winnerUUID === playerOrder[i]) {
+        newTimeline.push(
+          newEvent(match.forfeited ? "win" : "finish", 0, "#22c55e", finalTime)
+        );
+      } else if (!match.forfeited) {
+        newTimeline.push(newEvent("lose", 0, "#ef4444", finalTime));
+      } else if (
+        !match.timelines?.find(
+          (event) => event.type === "projectelo.timeline.forfeit"
+        )
+      ) {
+        newTimeline.push(newEvent("disconnected", 0, "#ef4444", finalTime));
+      }
 
-		fillColors(newTimeline);
-		addSplits(newTimeline);
-		indexDuplicates(newTimeline);
-		return newTimeline;
-	});
+      fillColors(newTimeline);
+      addSplits(newTimeline);
+      indexDuplicates(newTimeline);
+      return newTimeline;
+    }
+  );
 
-	if (ret.length === 2) {
-		diffTimelines(ret[0], ret[1]);
-		pairTimelines(ret[0], ret[1]);
-	} else if (ret.length > 2) {
-		for (let i = 1; i < ret.length; i++) {
-			diffTimelines(ret[i], ret[0]);
-		}
-	}
+  if (ret.length === 2) {
+    diffTimelines(ret[0], ret[1]);
+    pairTimelines(ret[0], ret[1]);
+  } else if (ret.length > 2) {
+    for (let i = 1; i < ret.length; i++) {
+      diffTimelines(ret[i], ret[0]);
+    }
+  }
 
-	return ret;
+  return ret;
 }
 
 function pairTimelines(left: MatchEvent[], right: MatchEvent[]) {
-	left.forEach((leftEvent, i) => {
-		const matchingTimestampIdx = right.findIndex((event) => event.name === leftEvent.name);
-		if (matchingTimestampIdx === i) {
-			leftEvent.pairToRight = true;
-			right[matchingTimestampIdx].pairToLeft = true;
-		}
+  left.forEach((leftEvent, i) => {
+    const matchingTimestampIdx = right.findIndex(
+      (event) => event.name === leftEvent.name
+    );
+    if (matchingTimestampIdx === i) {
+      leftEvent.pairToRight = true;
+      right[matchingTimestampIdx].pairToLeft = true;
+    }
 
-		if (leftEvent.splitAfter) {
-			const matchingSplitIdx = right.findIndex(
-				(event) => event.splitAfter?.name === leftEvent.splitAfter!.name
-			);
-			if (matchingSplitIdx === i) {
-				leftEvent.splitAfter.pairToRight = true;
-				right[matchingSplitIdx].splitAfter!.pairToLeft = true;
-			}
-		}
-	});
+    if (leftEvent.splitAfter) {
+      const matchingSplitIdx = right.findIndex(
+        (event) => event.splitAfter?.name === leftEvent.splitAfter!.name
+      );
+      if (matchingSplitIdx === i) {
+        leftEvent.splitAfter.pairToRight = true;
+        right[matchingSplitIdx].splitAfter!.pairToLeft = true;
+      }
+    }
+  });
 }
 
 function diffTimelines(mutating: MatchEvent[], comparingTo: MatchEvent[]) {
-	let biggestTimestampDiff = 0;
-	let biggestSplitDiff = 0;
+  let biggestTimestampDiff = 0;
+  let biggestSplitDiff = 0;
 
-	mutating.forEach((event, i) => {
-		// get timeDiffs for timestamps
-		const matchingTimestamp = comparingTo.find((event2) => event.name === event2.name);
-		if (matchingTimestamp) {
-			const timeDiff = event.timestamp - matchingTimestamp.timestamp;
-			biggestTimestampDiff = Math.max(biggestTimestampDiff, Math.abs(timeDiff));
+  mutating.forEach((event, i) => {
+    // get timeDiffs for timestamps
+    const matchingTimestamp = comparingTo.find(
+      (event2) => event.name === event2.name
+    );
+    if (matchingTimestamp) {
+      const timeDiff = event.timestamp - matchingTimestamp.timestamp;
+      biggestTimestampDiff = Math.max(biggestTimestampDiff, Math.abs(timeDiff));
 
-			event.diff = {
-				time: timeDiff,
-				importance: 0,
-				color: "",
-			};
-		}
+      event.diff = {
+        time: timeDiff,
+        importance: 0,
+        color: "",
+      };
+    }
 
-		// get timeDiffs for splits
-		if (!event.splitAfter) return;
+    // get timeDiffs for splits
+    if (!event.splitAfter) return;
 
-		const matchingSplit = comparingTo.find(
-			(event2) => event.splitAfter!.name === event2.splitAfter?.name
-		);
-		if (matchingSplit) {
-			const timeDiff = event.splitAfter.length - matchingSplit.splitAfter!.length;
-			biggestSplitDiff = Math.max(biggestSplitDiff, Math.abs(timeDiff));
+    const matchingSplit = comparingTo.find(
+      (event2) => event.splitAfter!.name === event2.splitAfter?.name
+    );
+    if (matchingSplit) {
+      const timeDiff =
+        event.splitAfter.length - matchingSplit.splitAfter!.length;
+      biggestSplitDiff = Math.max(biggestSplitDiff, Math.abs(timeDiff));
 
-			event.splitAfter.diff = {
-				time: timeDiff,
-				importance: 0,
-				color: "",
-			};
-		}
+      event.splitAfter.diff = {
+        time: timeDiff,
+        importance: 0,
+        color: "",
+      };
+    }
 
-		mutating[i] = event;
-	});
+    mutating[i] = event;
+  });
 
-	// add color and importance
-	mutating.forEach((event, i) => {
-		if (event.diff) {
-			event.diff = getDiff(event.diff.time, biggestTimestampDiff);
-		}
-		if (event.splitAfter?.diff) {
-			event.splitAfter.diff = getDiff(event.splitAfter.diff.time, biggestSplitDiff);
-		}
-		mutating[i] = event;
-	});
+  // add color and importance
+  mutating.forEach((event, i) => {
+    if (event.diff) {
+      event.diff = getDiff(event.diff.time, biggestTimestampDiff);
+    }
+    if (event.splitAfter?.diff) {
+      event.splitAfter.diff = getDiff(
+        event.splitAfter.diff.time,
+        biggestSplitDiff
+      );
+    }
+    mutating[i] = event;
+  });
 }
 
 function getDiff(timeDiff: number, biggestDiff: number): Diff {
-	const importance = Math.abs(timeDiff) / biggestDiff;
-	const color = `hsl(${timeDiff >= 0 ? 0 : 142}, 70%, ${Math.round(90 - 40 * importance ** 1.5)}%)`;
-	return {
-		time: timeDiff,
-		importance,
-		color,
-	};
+  const importance = Math.abs(timeDiff) / biggestDiff;
+  const color = `hsl(${timeDiff >= 0 ? 0 : 142}, 70%, ${Math.round(
+    90 - 40 * importance ** 1.5
+  )}%)`;
+  return {
+    time: timeDiff,
+    importance,
+    color,
+  };
 }
 
-function getSplitTimelines(timeline: DetailedMatch["timelines"], playerOrder: string[]) {
-	const timelines: (typeof timeline)[] = playerOrder.map(() => []);
-	for (const event of timeline) {
-		const playerIdx = playerOrder.findIndex((uuid) => event.uuid === uuid);
-		if (playerIdx !== -1) {
-			timelines[playerIdx].push(event);
-		}
-	}
+function getSplitTimelines(
+  timeline: DetailedMatch["timelines"],
+  playerOrder: string[]
+) {
+  const timelines: (typeof timeline)[] = playerOrder.map(() => []);
+  for (const event of timeline) {
+    const playerIdx = playerOrder.findIndex((uuid) => event.uuid === uuid);
+    if (playerIdx !== -1) {
+      timelines[playerIdx].push(event);
+    }
+  }
 
-	return timelines;
+  return timelines;
 }
 
 /** Assign the `"prev"` colors to the previous color */
 function fillColors(timeline: MatchEvent[]) {
-	for (let i = 1; i < timeline.length; i++) {
-		if (timeline[i]!.color === "prev") {
-			timeline[i]!.color = timeline[i - 1]!.color;
-		}
-	}
+  for (let i = 1; i < timeline.length; i++) {
+    if (timeline[i]!.color === "prev") {
+      timeline[i]!.color = timeline[i - 1]!.color;
+    }
+  }
 }
 
 /** mutates `timeline`, adding `splitAfter` to each event (except the last) */
 function addSplits(timeline: MatchEvent[]) {
-	for (let i = 0; i < timeline.length - 1; i++) {
-		const { name, timestamp } = timeline[i]!;
-		const next = timeline[i + 1]!;
-		const nextTimestamp = next.timestamp;
-		const splitName = shortenSplitName(`${name} → ${next.name}`);
-		const splitLength = nextTimestamp - timestamp;
-		timeline[i].splitAfter = { name: splitName, length: splitLength, diff: undefined };
-	}
+  for (let i = 0; i < timeline.length - 1; i++) {
+    const { name, timestamp } = timeline[i]!;
+    const next = timeline[i + 1]!;
+    const nextTimestamp = next.timestamp;
+    const splitName = shortenSplitName(`${name} → ${next.name}`);
+    const splitLength = nextTimestamp - timestamp;
+    timeline[i].splitAfter = {
+      name: splitName,
+      length: splitLength,
+      diff: undefined,
+    };
+  }
 }
 
 function shortenSplitName(splitName: string) {
-	const map = new Map([
-		["stronghold → end enter", "stronghold nav"],
-		["end enter → finish", "end split"],
-		["start → nether enter", "overworld"],
-		["nether enter → bastion", "terrain to bastion"],
-		// ["nether enter → fortress", "terrain to fortress"],
-	]);
-	return map.get(splitName) ?? splitName;
+  const map = new Map([
+    ["stronghold → end enter", "stronghold nav"],
+    ["end enter → finish", "end split"],
+    ["start → nether enter", "overworld"],
+    ["nether enter → bastion", "terrain to bastion"],
+    // ["nether enter → fortress", "terrain to fortress"],
+  ]);
+  return map.get(splitName) ?? splitName;
 }
 
 /** mutates `timeline`, indexing duplicate events and splits (e.g. nether enter 2) */
 function indexDuplicates(timeline: MatchEvent[]) {
-	const numSeenEvents = new Map();
-	const numSeenSplits = new Map();
-	for (const i in timeline) {
-		// index event
-		const eventName = timeline[i].name;
-		if (numSeenEvents.has(eventName)) {
-			numSeenEvents.set(eventName, numSeenEvents.get(eventName) + 1);
-			timeline[i].name += " " + numSeenEvents.get(eventName);
-		} else {
-			numSeenEvents.set(eventName, 1);
-		}
+  const numSeenEvents = new Map();
+  const numSeenSplits = new Map();
+  for (const i in timeline) {
+    // index event
+    const eventName = timeline[i].name;
+    if (numSeenEvents.has(eventName)) {
+      numSeenEvents.set(eventName, numSeenEvents.get(eventName) + 1);
+      timeline[i].name += " " + numSeenEvents.get(eventName);
+    } else {
+      numSeenEvents.set(eventName, 1);
+    }
 
-		// index split (almost copy paste)
-		const splitName = timeline[i].splitAfter?.name;
-		if (!splitName) continue;
-		if (numSeenSplits.has(splitName)) {
-			numSeenSplits.set(splitName, numSeenSplits.get(splitName) + 1);
-			timeline[i].splitAfter!.name += " " + numSeenSplits.get(splitName);
-		} else {
-			numSeenSplits.set(splitName, 1);
-		}
-	}
+    // index split (almost copy paste)
+    const splitName = timeline[i].splitAfter?.name;
+    if (!splitName) continue;
+    if (numSeenSplits.has(splitName)) {
+      numSeenSplits.set(splitName, numSeenSplits.get(splitName) + 1);
+      timeline[i].splitAfter!.name += " " + numSeenSplits.get(splitName);
+    } else {
+      numSeenSplits.set(splitName, 1);
+    }
+  }
 }
 
-function newEvent(name: string, detailLevel: number, color: string, timestamp: number) {
-	return {
-		name,
-		detailLevel,
-		color,
-		timestamp,
-		pairToLeft: false,
-		pairToRight: false,
-	} as MatchEvent;
+function newEvent(
+  name: string,
+  detailLevel: number,
+  color: string,
+  timestamp: number
+) {
+  return {
+    name,
+    detailLevel,
+    color,
+    timestamp,
+    pairToLeft: false,
+    pairToRight: false,
+  } as MatchEvent;
 }
 
 function getSimpleEvent(eventName: string, eventTimestamp: number) {
-	switch (eventName) {
-		case "projectelo.timeline.reset":
-			return newEvent("reset", 0, "#5e5", eventTimestamp);
+  switch (eventName) {
+    case "projectelo.timeline.reset":
+      return newEvent("reset", 0, "#5e5", eventTimestamp);
 
-		case "projectelo.timeline.forfeit":
-			return newEvent("forfeit", 0, "#ef4444", eventTimestamp);
+    case "projectelo.timeline.forfeit":
+      return newEvent("forfeit", 0, "#ef4444", eventTimestamp);
 
-		case "projectelo.timeline.death":
-			return newEvent("death", 2, "prev", eventTimestamp);
+    case "projectelo.timeline.death":
+      return newEvent("death", 2, "prev", eventTimestamp);
 
-		case "story.mine_stone":
-			return newEvent("stone", 3, "prev", eventTimestamp);
+    case "story.mine_stone":
+      return newEvent("stone", 3, "prev", eventTimestamp);
 
-		case "story.smelt_iron":
-			return newEvent("iron", 3, "prev", eventTimestamp);
+    case "story.smelt_iron":
+      return newEvent("iron", 3, "prev", eventTimestamp);
 
-		case "story.mine_diamond":
-			return newEvent("diamonds", 3, "prev", eventTimestamp);
+    case "story.mine_diamond":
+      return newEvent("diamonds", 3, "prev", eventTimestamp);
 
-		case "story.root":
-			return newEvent("crafting table", 2, "prev", eventTimestamp);
+    case "story.root":
+      return newEvent("crafting table", 2, "prev", eventTimestamp);
 
-		case "story.iron_tools":
-			return newEvent("iron pickaxe", 3, "prev", eventTimestamp);
+    case "story.iron_tools":
+      return newEvent("iron pickaxe", 3, "prev", eventTimestamp);
 
-		case "story.lava_bucket":
-			return newEvent("lava", 3, "#f97316", eventTimestamp);
+    case "story.lava_bucket":
+      return newEvent("lava", 3, "#f97316", eventTimestamp);
 
-		case "story.enter_the_nether":
-			return newEvent("nether enter", 0, "#f55", eventTimestamp);
+    case "story.enter_the_nether":
+      return newEvent("nether enter", 0, "#f55", eventTimestamp);
 
-		case "nether.find_bastion":
-			return newEvent("bastion", 0, "#111", eventTimestamp);
+    case "nether.find_bastion":
+      return newEvent("bastion", 0, "#111", eventTimestamp);
 
-		case "nether.find_fortress":
-			return newEvent("fortress", 0, "#600", eventTimestamp);
+    case "nether.find_fortress":
+      return newEvent("fortress", 0, "#600", eventTimestamp);
 
-		case "story.deflect_arrow":
-			return newEvent("use shield", 2, "prev", eventTimestamp);
+    case "story.deflect_arrow":
+      return newEvent("use shield", 2, "prev", eventTimestamp);
 
-		case "adventure.kill_a_mob":
-			return newEvent("first mob kill", 3, "prev", eventTimestamp);
+    case "adventure.kill_a_mob":
+      return newEvent("first mob kill", 3, "prev", eventTimestamp);
 
-		case "nether.obtain_blaze_rod":
-			return newEvent("first rod", 1, "#600", eventTimestamp);
+    case "nether.obtain_blaze_rod":
+      return newEvent("first rod", 1, "#600", eventTimestamp);
 
-		case "projectelo.timeline.blind_travel":
-			return newEvent("blind", 1, "#75e", eventTimestamp);
+    case "projectelo.timeline.blind_travel":
+      return newEvent("blind", 1, "#75e", eventTimestamp);
 
-		case "story.follow_ender_eye":
-			return newEvent("stronghold", 0, "#7a8", eventTimestamp);
+    case "story.follow_ender_eye":
+      return newEvent("stronghold", 0, "#7a8", eventTimestamp);
 
-		case "story.enter_the_end":
-			return newEvent("end enter", 0, "#dbdeab", eventTimestamp);
+    case "story.enter_the_end":
+      return newEvent("end enter", 0, "#dbdeab", eventTimestamp);
 
-		case "adventure.sleep_in_bed":
-			return newEvent("sleep", 2, "prev", eventTimestamp);
+    case "adventure.sleep_in_bed":
+      return newEvent("sleep", 2, "prev", eventTimestamp);
 
-		case "adventure.shoot_arrow":
-			return newEvent("shoot mob", 2, "prev", eventTimestamp);
+    case "adventure.shoot_arrow":
+      return newEvent("shoot mob", 2, "prev", eventTimestamp);
 
-		case "adventure.ol_betsy":
-			return newEvent("use crossbow", 2, "prev", eventTimestamp);
+    case "adventure.ol_betsy":
+      return newEvent("use crossbow", 2, "prev", eventTimestamp);
 
-		case "nether.loot_bastion":
-			return newEvent("open bastion chest", 2, "prev", eventTimestamp);
+    case "nether.loot_bastion":
+      return newEvent("open bastion chest", 2, "prev", eventTimestamp);
 
-		case "story.form_obsidian":
-			return newEvent("obsidian", 3, "prev", eventTimestamp);
+    case "story.form_obsidian":
+      return newEvent("obsidian", 3, "prev", eventTimestamp);
 
-		case "nether.obtain_crying_obsidian":
-			return newEvent("crying obby", 3, "prev", eventTimestamp);
+    case "nether.obtain_crying_obsidian":
+      return newEvent("crying obby", 3, "prev", eventTimestamp);
 
-		case "nether.distract_piglin":
-			return newEvent("Oh Shiny", 3, "prev", eventTimestamp);
+    case "nether.distract_piglin":
+      return newEvent("Oh Shiny", 3, "prev", eventTimestamp);
 
-		case "story.upgrade_tools":
-			return newEvent("stone pickaxe", 3, "prev", eventTimestamp);
+    case "story.upgrade_tools":
+      return newEvent("stone pickaxe", 3, "prev", eventTimestamp);
 
-		case "nether.return_to_sender":
-			return newEvent("Return To Sender", 3, "prev", eventTimestamp);
+    case "nether.return_to_sender":
+      return newEvent("Return To Sender", 3, "prev", eventTimestamp);
 
-		case "adventure.trade":
-			return newEvent("villager trade", 3, "prev", eventTimestamp);
+    case "adventure.trade":
+      return newEvent("villager trade", 3, "prev", eventTimestamp);
 
-		default:
-			return null;
-	}
+    default:
+      return null;
+  }
 }
