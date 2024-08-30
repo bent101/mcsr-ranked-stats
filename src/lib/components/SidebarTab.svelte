@@ -11,7 +11,9 @@
 				arrowSelected ? 'border-blue-500' : 'border-zinc-700'
 		  }`
 		: `${
-				arrowSelected ? 'border-blue-500 bg-zinc-900/80' : 'border-transparent hover:bg-zinc-900/80'
+				arrowSelected
+					? 'border-blue-500 bg-zinc-900'
+					: 'border-transparent hover-hover:hover:bg-zinc-900'
 		  }`}">
 	<slot />
 </a>

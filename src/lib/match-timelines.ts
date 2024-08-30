@@ -76,31 +76,31 @@ function getTimelinesAtDetailLevel(
 	winnerUUID: string | null,
 	detailLevel: number
 ) {
-	const ret: MatchEvent[][] = getSplitTimelines(match.timelines!, playerOrder).map(
-		(timeline, i) => {
-			const newTimeline = timeline
-				.map((event) => getSimpleEvent(event.timeline, event.time))
-				.filter(Boolean)
-				.filter((event) => event.detailLevel <= detailLevel);
+	const ret = getSplitTimelines(match.timelines!, playerOrder).map((timeline, i) => {
+		const newTimeline = timeline
+			.map((event) => getSimpleEvent(event.timeline, event.time))
+			.filter(Boolean)
+			.filter((event) => event.detailLevel <= detailLevel);
 
-			newTimeline.unshift(newEvent("start", 0, "#5e5", 0));
+		newTimeline.unshift(newEvent("start", 0, "#5e5", 0));
 
-			if (match.winner === null) {
-				newTimeline.push(newEvent("draw", 0, "#3b82f6", match.final_time));
-			} else if (winnerUUID === playerOrder[i]) {
-				newTimeline.push(
-					newEvent(match.forfeit ? "win" : "finish", 0, "#22c55e", match.final_time)
-				);
-			} else if (!match.forfeit) {
-				newTimeline.push(newEvent("lose", 0, "#ef4444", match.final_time));
-			}
-
-			fillColors(newTimeline);
-			addSplits(newTimeline);
-			indexDuplicates(newTimeline);
-			return newTimeline;
+		if (match.winner === null) {
+			newTimeline.push(newEvent("draw", 0, "#3b82f6", match.final_time));
+		} else if (winnerUUID === playerOrder[i]) {
+			newTimeline.push(newEvent(match.forfeit ? "win" : "finish", 0, "#22c55e", match.final_time));
+		} else if (!match.forfeit) {
+			newTimeline.push(newEvent("lose", 0, "#ef4444", match.final_time));
+		} else if (
+			!match.timelines?.find((event) => event.timeline === "projectelo.timeline.forfeit")
+		) {
+			newTimeline.push(newEvent("disconnected", 0, "#ef4444", match.final_time));
 		}
-	);
+
+		fillColors(newTimeline);
+		addSplits(newTimeline);
+		indexDuplicates(newTimeline);
+		return newTimeline;
+	});
 
 	if (ret.length === 2) {
 		diffTimelines(ret[0], ret[1]);
@@ -285,6 +285,9 @@ function getSimpleEvent(eventName: string, eventTimestamp: number) {
 
 		case "projectelo.timeline.forfeit":
 			return newEvent("forfeit", 0, "#ef4444", eventTimestamp);
+
+		case "projectelo.timeline.death":
+			return newEvent("death", 0, "prev", eventTimestamp);
 
 		case "story.mine_stone":
 			return newEvent("stone", 3, "prev", eventTimestamp);

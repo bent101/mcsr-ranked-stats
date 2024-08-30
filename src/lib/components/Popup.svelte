@@ -173,19 +173,17 @@
 		}
 	};
 
-	const onMouseLeavePopup = async () => {
+	const onMouseLeavePopup = () => {
 		hovering = false;
 		popupExists = false;
 	};
 
-	afterNavigate(() => {
-		popupExists = false;
-		hovering = false;
-	});
+	afterNavigate(onMouseLeavePopup);
 
 	onMount(() => {
 		if (browser) {
 			document.body.appendChild(popupContainer);
+			window.addEventListener("scroll", onMouseLeavePopup);
 		}
 	});
 

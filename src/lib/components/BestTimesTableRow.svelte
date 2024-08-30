@@ -16,7 +16,7 @@
 	<div
 		class="mr-4 w-4 text-right font-extrabold {selected
 			? 'text-zinc-300'
-			: 'group/hover:text-zinc-300 text-zinc-600'}">
+			: 'text-zinc-600 hover-hover:group-hover:text-zinc-300'}">
 		{place}
 	</div>
 	<div class="flex-1 text-center text-zinc-300">

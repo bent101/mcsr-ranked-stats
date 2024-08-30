@@ -1,6 +1,8 @@
 import type { Outcome } from "./globals";
 import type { DetailedMatch, Match, RecordLeaderboard } from "$lib/ranked-api";
 import { getTimelines } from "./match-timelines";
+import { getMatchesURL } from "./urls";
+import { flatten } from "./utils";
 
 export type FormattedMatch = {
 	isDecay: boolean;
@@ -187,6 +189,7 @@ export function formatDetailedMatch(
 		date: match.match_date,
 		time: match.final_time,
 		outcome,
+		forfeit: match.forfeit,
 	};
 }
 
@@ -225,4 +228,54 @@ export function getRank(elo: number) {
 		color: "from-violet-400 to-purple-500",
 		name: `Netherite`,
 	};
+}
+
+export async function getMatches(
+	playerName: string,
+	page: number,
+	perPage: number,
+	excludeDecay = false
+) {
+	return fetch(getMatchesURL(playerName, page, perPage, excludeDecay))
+		.then((res) => res.json())
+		.then((res) => formatMatches(res.data ?? [], playerName));
+}
+
+export async function getAllMatches(playerName: string, numMatches: number) {
+	const numPages = Math.ceil(numMatches / 50);
+
+	return flatten(
+		await Promise.all(
+			Array(numPages)
+				.fill(undefined)
+				.map((_, i) => getMatches(playerName, i, 50, true))
+		)
+	);
+}
+
+export async function getRawMatches(
+	playerName: string,
+	page: number,
+	perPage: number,
+	excludeDecay = true
+) {
+	return fetch(getMatchesURL(playerName, page, perPage, excludeDecay))
+		.then((res) => res.json())
+		.then((res) => (res.data ?? []) as Match[]);
+}
+
+export async function getAllRawMatches(playerName: string, numMatches: number) {
+	const numPages = Math.ceil(numMatches / 50);
+
+	return flatten(
+		await Promise.all(
+			Array(numPages)
+				.fill(undefined)
+				.map((_, i) => getRawMatches(playerName, i, 50))
+		)
+	);
+}
+
+export function formatPercent(ratio: number) {
+	return `${Math.round(ratio * 100)}%`;
 }

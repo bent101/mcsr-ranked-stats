@@ -50,3 +50,21 @@ export function isDarkColor(hexCode: string) {
 
 	return luminance <= 0.15;
 }
+
+export function reversed<T>(array: T[]) {
+	const ret = [...array];
+	ret.reverse();
+	return ret;
+}
+
+export function returnAfter1Sec<T>(data: T) {
+	return new Promise<T>((res) => setTimeout(() => res(data), 1000));
+}
+
+export function count<T>(arr: T[], condition: (t: T) => boolean) {
+	return arr.reduce((acc, cur) => acc + (condition(cur) ? 1 : 0), 0);
+}
+
+export function sum(arr: number[]) {
+	return arr.reduce((acc, cur) => acc + cur, 0);
+}

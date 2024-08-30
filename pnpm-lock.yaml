@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
   '@unovis/svelte':
     specifier: ^1.1.0
@@ -10,9 +14,6 @@ dependencies:
   '@vercel/analytics':
     specifier: ^1.0.0
     version: 1.0.0(react@18.2.0)
-  moment:
-    specifier: ^2.29.4
-    version: 2.29.4
 
 devDependencies:
   '@svelte-plugins/tooltips':
@@ -75,6 +76,9 @@ devDependencies:
   tailwindcss-hocus:
     specifier: ^0.0.7
     version: 0.0.7(tailwindcss@3.3.1)
+  tailwindcss-touch:
+    specifier: ^1.0.1
+    version: 1.0.1
   tslib:
     specifier: ^2.4.1
     version: 2.5.0
@@ -2408,10 +2412,6 @@ packages:
       minimist: 1.2.8
     dev: true
 
-  /moment@2.29.4:
-    resolution: {integrity: sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==}
-    dev: false
-
   /mri@1.2.0:
     resolution: {integrity: sha512-tzzskb3bG8LvYGFF/mDTpq3jpI6Q9wc3LEmBaghu+DdCssd1FakN7Bc0hVNmEyGq1bq3RgfkCb3cmQLpNPOroA==}
     engines: {node: '>=4'}
@@ -3080,6 +3080,10 @@ packages:
       tailwindcss: ^3.0.0
     dependencies:
       tailwindcss: 3.3.1(postcss@8.4.22)
+    dev: true
+
+  /tailwindcss-touch@1.0.1:
+    resolution: {integrity: sha512-h8A/S9+Mk2rnnaOB/NGCE7CxDhtGKbsAWf8Y2tCO6Zf381Y8dKcygPl1OXkFDnWXkL+FfHxmrGpwculDWAumbA==}
     dev: true
 
   /tailwindcss@3.3.1(postcss@8.4.22):

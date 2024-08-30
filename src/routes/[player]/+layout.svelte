@@ -1,13 +1,12 @@
 <script lang="ts">
-	import { afterNavigate, invalidate, invalidateAll } from "$app/navigation";
+	import { afterNavigate, invalidate } from "$app/navigation";
 	import Graph from "$lib/components/Graph.svelte";
 	import MatchesTableRow from "$lib/components/MatchesTableRow.svelte";
 	import PlayerProfile from "$lib/components/PlayerProfile.svelte";
 	import RefreshBtn from "$lib/components/RefreshBtn.svelte";
-	import { formatMatches } from "$lib/formatters";
-	import { isLgScreen, matchesPerPage } from "$lib/globals";
-	import { getLeaderboardURL, getMatchesURL } from "$lib/urls";
-	import { flatten } from "@unovis/ts";
+	import { getAllMatches, getMatches } from "$lib/formatters";
+	import { curDate, isLgScreen, matchesPerPage } from "$lib/globals";
+	import { getLeaderboardURL } from "$lib/urls";
 	import { onMount } from "svelte";
 
 	export let data;
@@ -15,16 +14,11 @@
 
 	let infiniteScrollPadding: HTMLElement | undefined;
 	let loadingAllMatches = false;
-
-	const getMatches = (page: number, perPage: number) => {
-		return fetch(getMatchesURL(data.playerData.nickname, page, perPage))
-			.then((res) => res.json())
-			.then((res) => formatMatches(res.data ?? [], data.playerData.nickname));
-	};
+	// let showingStats = false;
 
 	const showMoreMatches = async () => {
 		if (data.noMoreMatches || loadingAllMatches) return;
-		const matches = await getMatches(data.curPage++, matchesPerPage);
+		const matches = await getMatches(data.playerData.nickname, data.curPage++, matchesPerPage);
 		data.matches = [...data.matches, ...matches];
 		data.noMoreMatches = matches.length < matchesPerPage;
 	};
@@ -32,15 +26,7 @@
 	const showAllMatches = async () => {
 		loadingAllMatches = true;
 
-		const numPages = Math.ceil(numMatches / 50);
-
-		data.matches = flatten(
-			await Promise.all(
-				Array(numPages)
-					.fill(undefined)
-					.map((_, i) => getMatches(i, 50))
-			)
-		);
+		data.matches = await getAllMatches(data.playerData.nickname, numMatches);
 
 		loadingAllMatches = false;
 		data.noMoreMatches = true;
@@ -80,7 +66,7 @@
 <div class="hidden h-8 xl:block" />
 <div class="sticky top-0 z-10 bg-zinc-900/70 backdrop-blur-md">
 	<div class="">
-		<PlayerProfile playerData={data.playerData} />
+		<PlayerProfile showAllStatsBtn playerData={data.playerData} />
 	</div>
 </div>
 <div class="h-8 lg:hidden" />
@@ -91,12 +77,9 @@
 			<button
 				on:click={showAllMatches}
 				disabled={loadingAllMatches || data.noMoreMatches}
-				class="absolute bottom-[50px] left-[70px] w-32 rounded-full border-2 border-zinc-700 bg-zinc-950 px-2 py-1 text-xs font-extrabold uppercase tracking-wide text-zinc-500 disabled:opacity-70"
-				>{loadingAllMatches
-					? "Loading..."
-					: data.noMoreMatches
-					? "Showing all"
-					: "Show all"}</button>
+				class="absolute bottom-[50px] left-[70px] rounded-full border-2 border-zinc-700 bg-zinc-950 px-3 py-1 text-xs font-extrabold uppercase tracking-wide text-zinc-500 disabled:opacity-70 hover:border-zinc-400 hover:text-zinc-300 disabled:hover:border-zinc-700 disabled:hover:text-zinc-500">
+				{loadingAllMatches ? "Loading..." : data.noMoreMatches ? "Showing all" : "Show all"}
+			</button>
 		</div>
 	</div>
 {/if}
@@ -115,7 +98,7 @@
 				<ol class="pb-16">
 					{#each data.matches as match}
 						<li>
-							<MatchesTableRow {match} />
+							<MatchesTableRow {match} curDate={$curDate} />
 						</li>
 					{/each}
 				</ol>
@@ -134,19 +117,26 @@
 				<button
 					on:click={showAllMatches}
 					disabled={loadingAllMatches || data.noMoreMatches}
-					class="absolute bottom-[50px] left-[70px] w-32 rounded-full border-2 border-zinc-700 bg-zinc-950 px-2 py-1 text-xs font-extrabold uppercase tracking-wide text-zinc-500 disabled:opacity-70"
-					>{loadingAllMatches
-						? "Loading..."
-						: data.noMoreMatches
-						? "Showing all"
-						: "Show all"}</button>
+					class="absolute bottom-[50px] left-[70px] rounded-full border-2 border-zinc-700 bg-zinc-950 px-3 py-1 text-xs font-extrabold uppercase tracking-wide text-zinc-500 disabled:opacity-70 hover:border-zinc-400 hover:text-zinc-300 disabled:hover:border-zinc-700 disabled:hover:text-zinc-500">
+					{loadingAllMatches ? "Loading..." : data.noMoreMatches ? "Showing all" : "Show all"}
+				</button>
 			</div>
 		</div>
 	{/if}
 </div>
-<div class="pointer-events-none fixed bottom-0 left-0 right-0">
+<div class="pointer-events-none fixed bottom-0 left-0 right-0 z-10">
 	<div
 		class="pointer-events-auto relative mx-auto min-h-[6rem] w-[35rem] rounded-t-3xl bg-zinc-800 shadow-lg shadow-black/30 md:mr-4 2xl:ml-[52rem] 2xl:w-[43rem] 3xl:w-[52rem]">
 		<slot />
 	</div>
 </div>
+
+<!-- {#if showingStats}
+	<DetailedPlayerStats
+		on:close={() => {
+			showingStats = false;
+		}}
+		playerName={data.playerData.nickname}
+		{numMatches}
+		playerData={data.playerData} />
+{/if} -->

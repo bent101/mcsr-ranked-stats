@@ -90,7 +90,7 @@
 	<a
 		href="/"
 		class="block bg-zinc-950/70 p-4 pl-2 text-center font-extrabold uppercase tracking-wide text-zinc-500">
-		MSCR Ranked Leaderboard
+		MCSR Ranked Stats
 	</a>
 
 	<div class="sticky top-0 z-20 mb-2 bg-zinc-950/70 p-4 pl-2 text-zinc-500 backdrop-blur-md">
@@ -123,7 +123,7 @@
 					}
 				}}
 				placeholder="Search for players"
-				class="w-full rounded-lg border border-zinc-800 bg-transparent px-4 py-2 text-zinc-400 placeholder:text-zinc-600 search-cancel:hidden" />
+				class="w-full appearance-none rounded-lg border border-zinc-800 bg-transparent px-4 py-2 text-zinc-400 placeholder:text-zinc-600 search-cancel:hidden" />
 			{#if rawQuery !== ""}
 				<button
 					on:click={() => {

@@ -54,7 +54,7 @@
 			bind:value={player1}
 			placeholder="a player"
 			type="search"
-			class="mx-2 w-44 rounded-lg border border-zinc-700 bg-transparent px-4 py-2 text-zinc-300 placeholder:text-zinc-700 search-cancel:hidden" />
+			class="mx-2 w-44 appearance-none rounded-lg border border-zinc-700 bg-transparent px-4 py-2 text-zinc-300 placeholder:text-zinc-700 search-cancel:hidden" />
 		to
 		<input
 			use:ignFilter
@@ -62,7 +62,7 @@
 			bind:value={player2}
 			placeholder="another player"
 			type="search"
-			class="mx-2 w-44 rounded-lg border border-zinc-700 bg-transparent px-4 py-2 text-zinc-300 placeholder:text-zinc-700 search-cancel:hidden" />
+			class="mx-2 w-44 appearance-none rounded-lg border border-zinc-700 bg-transparent px-4 py-2 text-zinc-300 placeholder:text-zinc-700 search-cancel:hidden" />
 
 		<a
 			href={readyToSubmit ? `/${player1}/vs/${player2}` : ""}
@@ -88,10 +88,10 @@
 			{#if recent}
 				<a
 					href="/{recent.player1}/vs/{recent.player2}"
-					class="group flex h-24 items-center rounded-xl border border-zinc-700 bg-zinc-950 px-4 py-2 font-semibold text-zinc-500 hover:border-zinc-300 hover:text-zinc-300">
+					class="group flex h-24 items-center rounded-xl border border-zinc-700 bg-zinc-950 px-4 py-2 font-semibold text-zinc-500 hover:hover-hover:border-zinc-300 hover:hover-hover:text-zinc-300">
 					<div class="flex-1 text-center">
 						{recent.player1}
-						<span class="text-zinc-700 group-hover:text-zinc-500">vs</span>
+						<span class="text-zinc-700 group-hover:hover-hover:text-zinc-500">vs</span>
 						{recent.player2}
 					</div>
 				</a>

@@ -27,6 +27,8 @@ export const isLgScreen = readable(true, (set) => {
 
 /** current date in seconds after epoch */
 export const curDate = readable(Math.floor(Date.now() / 1000), function start(set) {
+	console.log(new Date().toUTCString());
+
 	const interval = setInterval(() => {
 		set(Math.floor(Date.now() / 1000));
 	}, 1000);
@@ -38,3 +40,12 @@ export const curDate = readable(Math.floor(Date.now() / 1000), function start(se
 
 export type Outcome = "won" | "lost" | "draw" | undefined;
 export type Direction = "top" | "bottom" | "left" | "right";
+export const seedTypes = [
+	"buried treasure",
+	"shipwreck",
+	"desert temple",
+	"village",
+	"ruined portal",
+] as const;
+
+export const seedTypesWithAll = ["all", ...seedTypes] as const;

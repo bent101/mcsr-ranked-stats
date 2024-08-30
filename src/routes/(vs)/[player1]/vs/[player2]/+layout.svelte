@@ -1,4 +1,5 @@
 <script lang="ts">
+	import BackBtn from "$lib/components/BackBtn.svelte";
 	import CompareTableRow from "$lib/components/CompareTableRow.svelte";
 	import PlayerProfile from "$lib/components/PlayerProfile.svelte";
 	import RefreshBtn from "$lib/components/RefreshBtn.svelte";
@@ -44,17 +45,24 @@
 
 	const left = { x: -12, y: -40 };
 	const right = { x: -12, y: 40 };
-	const up = { x: 30, y: 0 };
-	const down = { x: -30, y: 0 };
+	const up = { x: 25, y: 0 };
+	const down = { x: -20, y: 0 };
 </script>
 
-<div class="hidden h-8 xl:block" />
+<svelte:head>
+	<title>{data.player1.nickname} vs {data.player2.nickname} | MCSR Ranked stats</title>
+</svelte:head>
+
+<div class="w-max p-4">
+	<BackBtn />
+</div>
 <div class="sticky top-0 z-10 bg-zinc-900/70 backdrop-blur-md">
 	<div class="mx-auto max-w-max lg:ml-0 lg:max-w-5xl">
 		<div class="flex flex-col justify-center lg:flex-row">
 			<div class="flex-1">
 				<div class="lg:ml-auto lg:max-w-max">
 					<PlayerProfile
+						isLink
 						headToRight={$isLgScreen}
 						rotation={$isLgScreen ? right : down}
 						color="text-orange-400"
@@ -68,6 +76,7 @@
 			</div>
 			<div class="flex-1">
 				<PlayerProfile
+					isLink
 					rotation={$isLgScreen ? left : up}
 					color="text-yellow-400"
 					playerData={data.player2} />
@@ -116,7 +125,7 @@
 		{/each}
 	</div>
 
-	<div class="pointer-events-none fixed bottom-0 left-0 right-0">
+	<div class="pointer-events-none fixed bottom-0 left-0 right-0 z-10">
 		<div
 			class="pointer-events-auto relative mx-auto min-h-[6rem] w-[35rem] rounded-t-3xl bg-zinc-800 shadow-lg shadow-black/30 md:mr-4 2xl:ml-[52rem] 2xl:w-[43rem] 3xl:w-[52rem]">
 			<slot />
@@ -131,10 +140,7 @@
 			haven't had any matches together this season
 
 			<div class="mt-16">
-				<a
-					href="/vs"
-					class="ml-auto block w-max rounded-full py-3 pl-4 pr-6 hover:bg-zinc-700/50 hover:text-zinc-300"
-					>←&nbsp;&nbsp;&nbsp;Go back</a>
+				<BackBtn />
 			</div>
 		</div>
 	</div>

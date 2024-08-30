@@ -26,5 +26,6 @@ export default {
 			addVariant("search-cancel", "&::-webkit-search-cancel-button");
 		}),
 		require("@xpd/tailwind-3dtransforms"),
+		require("tailwindcss-touch")(),
 	],
 };

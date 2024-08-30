@@ -18,7 +18,7 @@
 		{#each timeline.slice(0, -1) as event, i (event.name)}
 			{@const splitLength = event.splitAfter?.length ?? 0}
 			<div
-				class="h-2 min-w-[4px] transition-[height] duration-150 first:rounded-l-full last:rounded-r-full hover:h-full"
+				class="h-2 min-w-[4px] transition-[height] duration-200 first:rounded-l-full last:rounded-r-full hover:h-full"
 				style="
             background-color: {event.color}; 
             flex: {splitLength};

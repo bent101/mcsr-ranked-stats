@@ -25,13 +25,11 @@
 	data-sveltekit-replacestate="off"
 	data-sveltekit-noscroll="off"
 	href="/{name}"
-	class="relative hover:underline hover:underline-offset-4">
+	class="relative underline-offset-4 hover:underline">
 	{name}
 </a>
 <Popup {anchor} hoverable {load} let:data>
-	<a
-		href="/{name}"
-		class="block overflow-clip rounded-3xl bg-zinc-800 p-2 shadow-lg shadow-black/50">
-		<PlayerProfile playerData={data.playerData} />
-	</a>
+	<div class="block overflow-clip rounded-3xl bg-zinc-800 p-2 shadow-lg shadow-black/50">
+		<PlayerProfile isLink playerData={data.playerData} />
+	</div>
 </Popup>
