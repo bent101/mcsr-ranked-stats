@@ -2,32 +2,43 @@ import type { DetailedPlayer } from "$lib/ranked-api";
 import type { LayoutLoad } from "./$types";
 import { formatMatches } from "$lib/formatters";
 import { matchesPerPage } from "$lib/globals";
-import { error, redirect } from "@sveltejs/kit";
-import { getSkinURL, getMatchesURL, getPlayerURL } from "$lib/urls";
+import { error } from "@sveltejs/kit";
+import { getMatchesURL, getPlayerURL, getSkinURL } from "$lib/urls";
+import { browser } from "$app/environment";
 
 export const load = (async ({ fetch, params }) => {
-	const playerData: DetailedPlayer = await fetch(getPlayerURL(params.player))
-		.then((res) => res.json())
-		.then((res) => res.data);
+  if (browser) {
+    const skin = new Image();
+    skin.src = getSkinURL(params.player);
+  }
 
-	if (!playerData) {
-		throw error(404);
-	}
+  // const start = Date.now();
+  const [playerData, matches] = await Promise.all([
+    fetch(getPlayerURL(params.player))
+      .then((res) => res.json())
+      .then((res) =>
+        res.status === "error" ? null : (res.data as DetailedPlayer)
+      ),
 
-	const capitalizedName = playerData.nickname;
-	if (capitalizedName !== params.player) {
-		throw redirect(301, `/${capitalizedName}/${params.matchID ?? ""}`);
-	}
+    fetch(getMatchesURL(params.player, 0))
+      .then((res) => res.json())
+      .then((res) => formatMatches(res.data ?? [], params.player))
+      .then((res) => ({
+        data: res,
+        noMoreMatches: res.length < matchesPerPage,
+      })),
+  ]);
+  // const end = Date.now();
 
-	const matches = await fetch(getMatchesURL(capitalizedName, 0))
-		.then((res) => res.json())
-		.then((res) => formatMatches(res.data ?? [], capitalizedName));
+  // console.log(`${end - start}ms`);
 
-	return {
-		matches,
-		noMoreMatches: matches.length < matchesPerPage,
-		curPage: 1,
-		playerData,
-		_: fetch(getSkinURL(playerData.uuid)),
-	};
+  if (!playerData) {
+    throw error(404);
+  }
+
+  return {
+    matches,
+    curPage: 1,
+    playerData,
+  };
 }) satisfies LayoutLoad;

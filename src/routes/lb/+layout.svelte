@@ -1,37 +1,51 @@
 <script lang="ts">
-	import BestTimesTableRow from "$lib/components/BestTimesTableRow.svelte";
-	import Switch from "$lib/components/Switch.svelte";
-	import { createLocalStorageStore } from "$lib/utils";
-	import { scale } from "svelte/transition";
+  import BestTimesTableRow from "$lib/components/BestTimesTableRow.svelte";
+  import MatchDetailsFrame from "$lib/components/MatchDetailsFrame.svelte";
+  import Switch from "$lib/components/Switch.svelte";
+  import { createLocalStorageStore } from "$lib/utils";
+  import { flip } from "svelte/animate";
+  import { scale } from "svelte/transition";
 
-	export let data;
+  export let data;
 
-	const showingAll = createLocalStorageStore("showingAll", false);
+  const showingAll = createLocalStorageStore("showingAll", false);
+  const showingAllTime = createLocalStorageStore("showingAllTime", false);
+
+  $: matches = $showingAll
+    ? $showingAllTime
+      ? data.allBestTimesAllTime
+      : data.allBestTimesThisSeason
+    : $showingAllTime
+    ? data.uniqueBestTimesAllTime
+    : data.uniqueBestTimesThisSeason;
 </script>
 
 <svelte:head>
-	<title>Fastest times | MCSR Ranked stats</title>
+  <title>Fastest times | MCSR Ranked stats</title>
 </svelte:head>
 
-<div class="mx-auto max-w-sm py-[70px] md:ml-16">
-	<h1 class="pt-2 text-xl font-bold text-zinc-300">
-		Fastest times this season
-		<span class="ml-2 inline-block -translate-y-1">
-			<Switch options={["all", "unique"]} bind:onFirst={$showingAll} />
-		</span>
-	</h1>
-	<ol class="mt-8 border-t-2 border-zinc-800 pt-8">
-		{#each $showingAll ? data.allBestTimes : data.uniqueBestTimes as match, i (match.id)}
-			<li in:scale={{ delay: 100 + 8 * i, duration: 250, start: 0.7 }}>
-				<BestTimesTableRow place={i + 1} {match} />
-			</li>
-		{/each}
-	</ol>
+<div class="mx-auto max-w-md py-[4.375rem] md:ml-16">
+  <h1 class="pt-2 text-xl font-bold text-zinc-300 md:justify-start">
+    Fastest times
+  </h1>
+  <div class="flex gap-2 pt-1">
+    <Switch
+      options={["all time", "this season"]}
+      bind:onFirst={$showingAllTime}
+    />
+    <Switch options={["all", "unique"]} bind:onFirst={$showingAll} />
+  </div>
+  <ol
+    class="mx-auto mt-8 max-w-sm border-t-2 border-zinc-800 pb-[36rem] pt-8 md:ml-0"
+  >
+    {#each matches as match, i (match.id)}
+      <li>
+        <BestTimesTableRow place={i + 1} {match} />
+      </li>
+    {/each}
+  </ol>
 </div>
 
-<div class="pointer-events-none fixed bottom-0 left-0 right-0 z-10">
-	<div
-		class="pointer-events-auto relative mx-auto min-h-[6rem] w-[35rem] rounded-t-3xl bg-zinc-800 shadow-lg shadow-black/30 md:mr-4 2xl:ml-[52rem] 2xl:w-[43rem]">
-		<slot />
-	</div>
-</div>
+<MatchDetailsFrame>
+  <slot />
+</MatchDetailsFrame>

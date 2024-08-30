@@ -1,33 +1,40 @@
 <script lang="ts">
-	import { page } from "$app/stores";
-	import { formatTimeAgoShort, type formatRecordLeaderboard } from "$lib/formatters";
-	import PlayerLink from "./PlayerLink.svelte";
-	import TableRow from "./TableRow.svelte";
-	import { curDate } from "$lib/globals";
+  import {
+    formatTimeAgoShort,
+    type formatRecordLeaderboard,
+  } from "$lib/formatters";
+  import { curDate } from "$lib/globals";
+  import PlayerLink from "./PlayerLink.svelte";
+  import TableRow from "./TableRow.svelte";
 
-	export let match: ReturnType<typeof formatRecordLeaderboard>[0];
-	export let place: number;
+  export let match: ReturnType<typeof formatRecordLeaderboard>[number];
+  export let place: number;
 
-	$: href = `/lb/${match.id}`;
-	$: selected = $page.url.pathname === href;
+  $: href = `/lb/${match.id}`;
 </script>
 
-<TableRow {selected} {href}>
-	<div
-		class="mr-4 w-4 text-right font-extrabold {selected
-			? 'text-zinc-300'
-			: 'text-zinc-600 hover-hover:group-hover:text-zinc-300'}">
-		{place}
-	</div>
-	<div class="flex-1 text-center text-zinc-300">
-		<PlayerLink name={match.playerName} uuid={match.playerUUID} />
-	</div>
-	<div
-		class="w-20 text-center font-extrabold tracking-wider
-             {selected ? 'text-zinc-300' : 'text-zinc-400'}">
-		{match.time}
-	</div>
-	<div class="w-10 text-right {selected ? 'text-zinc-300' : 'text-zinc-600'}">
-		{formatTimeAgoShort($curDate - match.date)}
-	</div>
+<TableRow {href} let:state>
+  <div
+    class="mr-4 w-4 text-right font-extrabold {state === 'selected'
+      ? 'text-zinc-300'
+      : 'text-zinc-600 hover-hover:group-hover:text-zinc-300'}"
+  >
+    {place}
+  </div>
+  <div class="flex-1 text-center text-zinc-300">
+    <PlayerLink name={match.playerName} uuid={match.playerUUID} />
+  </div>
+  <div
+    class="w-20 text-center font-extrabold tracking-wider
+             {state === 'selected' ? 'text-zinc-300' : 'text-zinc-400'}"
+  >
+    {match.time}
+  </div>
+  <div
+    class="w-10 text-right {state === 'selected'
+      ? 'text-zinc-300'
+      : 'text-zinc-600'}"
+  >
+    {formatTimeAgoShort($curDate - match.date)}
+  </div>
 </TableRow>
