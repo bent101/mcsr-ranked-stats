@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { flip } from "svelte/animate";
   import SidebarTab from "$lib/components/SidebarTab.svelte";
 
   export let lb = [];
@@ -8,7 +7,6 @@
 
 {#if animating}
   {#each lb as { name, elo, rank, uuid, href, selected, arrowSelected } (uuid)}
-    <!-- <div animate:flip={{ duration: 400 }}> -->
     <SidebarTab {href} {selected} {arrowSelected}>
       <div
         class=" w-12 px-2 text-right font-extrabold {selected
@@ -32,11 +30,8 @@
         {elo ?? "????"}
       </div>
     </SidebarTab>
-    <!-- </div> -->
   {/each}
 {:else}
-  <!-- this is a copy paste of the above list but without the animate:flip,
-    because animate:flip={{ duration: 0 }} was causing performance issues -->
   {#each lb as { name, elo, rank, uuid, href, selected, arrowSelected } (uuid)}
     <SidebarTab {href} {selected} {arrowSelected}>
       <div

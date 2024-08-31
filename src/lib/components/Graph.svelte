@@ -23,10 +23,13 @@
   $: roundedMin = Math.floor(yMin / 50) * 50;
   $: roundedMax = Math.ceil(yMax / 50) * 50;
   $: yRange = roundedMax - roundedMin;
-  $: yDomain = [roundedMax - Math.max(yRange, 250), roundedMax];
+  $: yDomain = [roundedMax - Math.max(yRange, 250), roundedMax] as [
+    number,
+    number
+  ];
 
   $: xMax = Math.max(data.length, 5);
-  $: xDomain = [1, xMax];
+  $: xDomain = [1, xMax] as [number, number];
 
   const triggers = {
     [Line.selectors.line]: (d: DataRecord) => `${d.x} ${d.y}`,
