@@ -45,7 +45,8 @@
         </span>
       {/if}
       <a
-        href={$page.url.pathname.slice(0, $page.url.pathname.lastIndexOf("/"))}
+        href={"/" +
+          $page.url.pathname.split("/").filter(Boolean).slice(0, -1).join("/")}
         data-sveltekit-noscroll
         data-sveltekit-replacestate
         class="ml-2 h-9 w-9 rounded-full stroke-zinc-500 stroke-2 hover:bg-zinc-700/50"
