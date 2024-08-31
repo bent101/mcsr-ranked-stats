@@ -19,7 +19,7 @@
   beforeNavigate((navigation) => {
     if (!href) return;
 
-    if (navigation.to?.url.pathname === href) {
+    if (navigation.to?.url.pathname.startsWith(href)) {
       $state = "loading";
     }
   });
@@ -30,7 +30,7 @@
       return;
     }
 
-    if (navigation.to?.url.pathname === href) {
+    if (navigation.to?.url.pathname.startsWith(href)) {
       $state = "selected";
       if (!$isMdScreen) {
         scrollIntoView();

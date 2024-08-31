@@ -31,7 +31,10 @@
         on:mousedown={() => onClick(i)}
         on:keydown={(e) => {
           if (e.key === "Enter" || e.key === " ") {
-            onClick(i);
+            e.preventDefault();
+            e.stopPropagation();
+            e.currentTarget.focus();
+            // onClick(i);
           }
         }}
         class="cursor-pointer px-3 py-1 uppercase"
