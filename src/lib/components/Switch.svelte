@@ -20,6 +20,11 @@
   {disabled}
   class="inline-flex cursor-pointer overflow-clip rounded-full border border-zinc-400 text-xs font-extrabold uppercase"
   on:mousedown={onClick}
+  on:keydown={(e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      onClick();
+    }
+  }}
 >
   <div class="px-3 py-1" class:selected={onFirst}>{options[0]}</div>
   <div class="px-3 py-1" class:selected={!onFirst}>{options[1]}</div>
