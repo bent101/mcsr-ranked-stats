@@ -3,6 +3,8 @@ import { getLeaderboardURL } from "$lib/urls";
 import type { LayoutLoad } from "./$types";
 import { injectSpeedInsights } from "@vercel/speed-insights/sveltekit";
 
+export const ssr = false;
+
 injectSpeedInsights();
 
 export const load = (async ({ fetch }) => {
