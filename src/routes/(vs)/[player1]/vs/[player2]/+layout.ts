@@ -23,10 +23,20 @@ export const load = async ({ params, fetch }) => {
   }
 
   const [player1, player2] = await Promise.all([
-    fetch(getPlayerURL(params.player1))
+    fetch(getPlayerURL(params.player1), {
+      cache: "force-cache",
+      headers: {
+        "Cache-Control": "max-age=10, stale-while-revalidate=10",
+      },
+    })
       .then((res) => res.json() as APIResponse<DetailedPlayer>)
       .then((res) => (res.status === "error" ? null : res.data)),
-    fetch(getPlayerURL(params.player2))
+    fetch(getPlayerURL(params.player2), {
+      cache: "force-cache",
+      headers: {
+        "Cache-Control": "max-age=10, stale-while-revalidate=10",
+      },
+    })
       .then((res) => res.json() as APIResponse<DetailedPlayer>)
       .then((res) => (res.status === "error" ? null : res.data)),
   ]);
@@ -45,7 +55,12 @@ export const load = async ({ params, fetch }) => {
     throw redirect(301, `/${player1.nickname}/vs/${player2.nickname}`);
   }
 
-  const winsPromise = fetch(getVersusURL(params.player1, params.player2))
+  const winsPromise = fetch(getVersusURL(params.player1, params.player2), {
+    cache: "force-cache",
+    headers: {
+      "Cache-Control": "max-age=10, stale-while-revalidate=10",
+    },
+  })
     .then(
       (res) =>
         res.json() as APIResponse<{ results: { ranked: VersusWinCount } }>,

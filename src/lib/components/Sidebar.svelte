@@ -11,13 +11,13 @@
   import SidebarTab from "./SidebarTab.svelte";
 
   const bestTimesSelected = derived(page, ($page) =>
-    $page.url.pathname.includes("/lb")
+    $page.url.pathname.includes("/lb"),
   );
   const compareSelected = derived(page, ($page) =>
-    $page.url.pathname.includes("/vs")
+    $page.url.pathname.includes("/vs"),
   );
   const pointsLbSelected = derived(page, ($page) =>
-    $page.url.pathname.includes("/points-lb")
+    $page.url.pathname.includes("/points-lb"),
   );
 
   export let lb: Player[] | undefined;
@@ -53,7 +53,7 @@
   $: filteredLb, onLbChange();
 
   $: isMatch = filteredLb.find(
-    (player) => player.nickname.toLowerCase() === query
+    (player) => player.nickname.toLowerCase() === query,
   );
   $: isExtra = rawQuery !== "" && !isMatch;
 
@@ -141,7 +141,7 @@
           }
         }}
         placeholder="Search for players"
-        class="w-full appearance-none rounded-lg border border-zinc-800 bg-transparent px-4 py-2 text-zinc-400 placeholder:text-zinc-600 search-cancel:hidden"
+        class="w-full appearance-none rounded-lg border focus:border-zinc-600 border-zinc-800 bg-transparent px-4 py-2 text-zinc-400 placeholder:text-zinc-600 search-cancel:hidden"
       />
       {#if rawQuery !== ""}
         <button

@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { getPlayerURL, getSkinURL } from "$lib/urls";
+  import { getPlayerURL } from "$lib/urls";
   import PlayerProfile from "./PlayerProfile.svelte";
   import Popup from "./Popup.svelte";
-  import type { DetailedPlayer } from "$lib/ranked-api";
+  import type { DetailedPlayer, APIResponse } from "$lib/ranked-api";
 
   export let name = "";
   export let uuid = "";
@@ -11,9 +11,14 @@
 
   const load = async () => {
     return {
-      playerData: fetch(getPlayerURL(name))
-        .then((res) => res.json())
-        .then((res) => res.data as DetailedPlayer),
+      playerData: fetch(getPlayerURL(name), {
+        cache: "force-cache",
+        headers: {
+          "Cache-Control": "max-age=10, stale-while-revalidate=10",
+        },
+      })
+        .then((res) => res.json() as APIResponse<DetailedPlayer>)
+        .then((res) => res.data),
     };
   };
 </script>
