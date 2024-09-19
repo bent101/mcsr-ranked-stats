@@ -9,7 +9,7 @@
 
   const recentVs = createLocalStorageStore(
     "recentVs",
-    [] as { player1: string; player2: string }[]
+    [] as { player1: string; player2: string }[],
   );
 
   $: readyToSubmit = player1 && player2 && player1 !== player2;
@@ -38,6 +38,7 @@
   <title>Compare players | MCSR Ranked stats</title>
 </svelte:head>
 
+<!-- svelte-ignore a11y-no-static-element-interactions -->
 <div class="mt-48">
   <div
     on:keydown={(event) => {
@@ -55,7 +56,7 @@
       bind:value={player1}
       placeholder="a player"
       type="search"
-      class="mx-2 w-44 appearance-none rounded-lg border border-zinc-700 bg-transparent px-4 py-2 text-zinc-300 placeholder:text-zinc-700 search-cancel:hidden"
+      class="mx-2 w-44 appearance-none rounded-lg border border-zinc-700 bg-transparent px-4 py-2 text-zinc-300 placeholder:text-zinc-700 search-cancel:hidden focus:border-zinc-500"
     />
     to
     <input
@@ -64,7 +65,7 @@
       bind:value={player2}
       placeholder="another player"
       type="search"
-      class="mx-2 w-44 appearance-none rounded-lg border border-zinc-700 bg-transparent px-4 py-2 text-zinc-300 placeholder:text-zinc-700 search-cancel:hidden"
+      class="mx-2 w-44 appearance-none rounded-lg border border-zinc-700 bg-transparent px-4 py-2 text-zinc-300 placeholder:text-zinc-700 search-cancel:hidden focus:border-zinc-500"
     />
 
     <a
