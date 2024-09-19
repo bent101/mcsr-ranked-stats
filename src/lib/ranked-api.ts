@@ -1,3 +1,8 @@
+export type APIResponse<T> = Promise<{
+  status: "success" | "error";
+  data: T;
+}>;
+
 export type Player = {
   uuid: string;
   nickname: string;

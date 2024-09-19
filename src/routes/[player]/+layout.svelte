@@ -23,7 +23,7 @@
     const matches = await getMatches(
       data.playerData.nickname,
       data.curPage++,
-      matchesPerPage
+      matchesPerPage,
     );
     data.matches.data = [...data.matches.data, ...matches];
     data.matches.noMoreMatches = matches.length < matchesPerPage;
@@ -34,7 +34,7 @@
 
     data.matches.data = await getAllMatches(
       data.playerData.nickname,
-      numMatches
+      numMatches,
     );
 
     loadingAllMatches = false;
@@ -57,7 +57,7 @@
   afterNavigate(() => {
     const curPlayerOnLb = data.lb.users.find(
       (user) =>
-        user.nickname.toLowerCase() === data.playerData.nickname.toLowerCase()
+        user.nickname.toLowerCase() === data.playerData.nickname.toLowerCase(),
     );
 
     if (curPlayerOnLb) {
@@ -77,7 +77,7 @@
 
 <div class="hidden h-8 xl:block" />
 <div class="sticky top-0 z-10 bg-zinc-900/70 backdrop-blur-md">
-  <PlayerProfile isHeader showAllStatsBtn playerData={data.playerData} />
+  <PlayerProfile isHeader showAllStats playerData={data.playerData} />
 </div>
 <div class="h-8 lg:hidden" />
 
@@ -94,8 +94,8 @@
           {loadingAllMatches
             ? "Loading..."
             : data.matches.noMoreMatches
-            ? "Showing all"
-            : "Show all"}
+              ? "Showing all"
+              : "Show all"}
         </button>
       {:else}
         <div class="absolute inset-0 grid place-items-center">
@@ -163,8 +163,8 @@
             {loadingAllMatches
               ? "Loading..."
               : data.matches.noMoreMatches
-              ? "Showing all"
-              : "Show all"}
+                ? "Showing all"
+                : "Show all"}
           </button>
         {:else}
           <div class="absolute inset-0 grid place-items-center">

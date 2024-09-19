@@ -107,8 +107,8 @@
                   class="inline-block {change > 0
                     ? 'text-green-400'
                     : change < 0
-                    ? 'text-red-400'
-                    : 'text-blue-400'} text-xs font-extrabold"
+                      ? 'text-red-400'
+                      : 'text-blue-400'} text-xs font-extrabold"
                 >
                   {before} → {before + change} elo ({change >= 0
                     ? "+"

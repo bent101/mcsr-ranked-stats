@@ -9,9 +9,7 @@
 </script>
 
 <TableRow>
-  <div
-    class="mr-4 w-4 text-right font-extrabold text-zinc-600 hover-hover:group-hover:text-zinc-300"
-  >
+  <div class="mr-4 w-4 text-right font-extrabold text-zinc-600">
     {place}
   </div>
   <div class="flex-1 text-center text-zinc-300">

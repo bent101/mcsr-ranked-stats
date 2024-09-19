@@ -6,9 +6,11 @@ import type { DetailedMatch } from "$lib/ranked-api";
 import { browser } from "$app/environment";
 
 export const load = (async ({ fetch, params }) => {
-  const match = await fetch(getDetailedMatchURL(params.matchID))
-    .then((res) => res.json())
-    .then((res: { data: DetailedMatch | null }) => {
+  const match = await fetch(getDetailedMatchURL(params.matchID), {
+    cache: "force-cache",
+  })
+    .then((res) => res.json() as Promise<{ data: DetailedMatch | null }>)
+    .then((res) => {
       if (res.data) {
         return formatDetailedMatch(res.data, params.player);
       } else {
@@ -25,6 +27,7 @@ export const load = (async ({ fetch, params }) => {
       img.src = getSkinURL(uuid);
     }
   }
+
   return {
     match,
   };

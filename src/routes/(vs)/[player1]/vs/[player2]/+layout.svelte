@@ -71,6 +71,7 @@
             rotation={right}
             color="text-orange-400"
             playerData={data.player1}
+            showAllStats
           />
         </div>
         <div class="block lg:hidden">
@@ -80,6 +81,7 @@
             rotation={down}
             color="text-orange-400"
             playerData={data.player1}
+            showAllStats
           />
         </div>
       </div>
@@ -95,6 +97,7 @@
           rotation={left}
           color="text-yellow-400"
           playerData={data.player2}
+          showAllStats
         />
       </div>
       <div class="block flex-1 lg:hidden">
@@ -104,6 +107,7 @@
           rotation={up}
           color="text-yellow-400"
           playerData={data.player2}
+          showAllStats
         />
       </div>
     </div>

@@ -5,15 +5,10 @@ import { injectSpeedInsights } from "@vercel/speed-insights/sveltekit";
 
 injectSpeedInsights();
 
-// export const config: Config = {
-// 	runtime: "edge",
-// 	regions: ["lhr1"],
-// };
-
 export const load = (async ({ fetch }) => {
   return {
-    lb: fetch(getLeaderboardURL())
-      .then((res) => res.json())
-      .then((res) => res.data as EloLeaderboard),
+    lb: await fetch(getLeaderboardURL())
+      .then((res) => res.json() as Promise<{ data: EloLeaderboard }>)
+      .then((res) => res.data),
   };
 }) satisfies LayoutLoad;

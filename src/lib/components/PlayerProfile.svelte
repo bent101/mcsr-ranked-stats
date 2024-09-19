@@ -23,7 +23,7 @@
   export let color = "text-white";
   export let rotation = { x: -12, y: 20 };
   export let isLink = false;
-  export let showAllStatsBtn = false;
+  export let showAllStats = false;
   export let isHeader = false;
 
   $: numWins = playerData.statistics.season.wins.ranked;
@@ -215,7 +215,7 @@
       {/if}
       <b>{bestWinstreak}</b> best winstreak
     </div>
-    {#if showAllStatsBtn && numMatches > 0}
+    {#if showAllStats && numMatches > 0}
       <p class="text-white/50">
         {#if avgTime}
           <b>{formatTime(avgTime)}</b> average

@@ -2,7 +2,7 @@
   import { browser } from "$app/environment";
   import { afterNavigate, beforeNavigate } from "$app/navigation";
   import { isMdScreen } from "$lib/globals";
-  import { rem2px } from "$lib/utils";
+  import { cn, rem2px } from "$lib/utils";
   import { writable } from "svelte/store";
 
   export let href: string | undefined = undefined;
@@ -59,19 +59,15 @@
     });
   }
 
-  function getClassesFromState() {
-    switch ($state) {
-      case "selected":
-        return "border-zinc-500 bg-zinc-800";
-      case "loading":
-        return "border-pulse bg-zinc-800";
-      case "idle":
-        return "border-transparent hover-hover:hover:bg-zinc-800";
-    }
-  }
-
-  let classesFromState = getClassesFromState();
-  $: $state, (classesFromState = getClassesFromState());
+  $: classes = cn(
+    "group flex items-center gap-2 rounded-lg border px-4 py-1.5 text-left",
+    $state === "selected" && "border-zinc-500 bg-zinc-800",
+    $state === "loading" && "border-pulse bg-zinc-800",
+    $state === "idle" && [
+      "border-transparent",
+      isLink && "hover-hover:hover:bg-zinc-800",
+    ],
+  );
 </script>
 
 <svelte:window bind:innerHeight={windowHeight} bind:scrollY />
@@ -82,16 +78,12 @@
     {href}
     data-sveltekit-replacestate
     data-sveltekit-noscroll
-    class="group flex items-center gap-2 rounded-lg border px-4 py-1.5 text-left
-		{classesFromState}"
+    class={classes}
   >
     <slot state={$state} />
   </a>
 {:else}
-  <div
-    class="group flex items-center gap-2 rounded-lg border px-4 py-1.5 text-left
-		{classesFromState}"
-  >
+  <div class={classes}>
     <slot state={$state} />
   </div>
 {/if}

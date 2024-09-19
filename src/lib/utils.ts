@@ -1,5 +1,8 @@
 import { writable } from "svelte/store";
 import { browser } from "$app/environment";
+import { clsx } from "clsx";
+
+export const cn = clsx;
 
 export function createLocalStorageStore<T>(name: string, init: T) {
   const ret = writable(init);
@@ -40,7 +43,7 @@ export function isDarkColor(hexCode: string) {
   // Convert the 3-digit hex code to 6-digit format
   const fullHexCode = hexCode.replace(
     /^#?([a-f\d])([a-f\d])([a-f\d])$/i,
-    "#$1$1$2$2$3$3"
+    "#$1$1$2$2$3$3",
   );
 
   // Extract the red, green, and blue values
