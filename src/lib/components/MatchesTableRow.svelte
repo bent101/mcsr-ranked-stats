@@ -49,8 +49,8 @@
         : ''} {state === 'selected'
         ? 'text-zinc-300'
         : match.outcome === 'won'
-        ? 'text-zinc-400'
-        : 'text-zinc-600'} "
+          ? 'text-zinc-400'
+          : 'text-zinc-600'} "
     >
       {match.outcome === "draw" ? "" : match.forfeited ? "Forfeit" : match.time}
     </div>

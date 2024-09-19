@@ -1,5 +1,10 @@
 import type { Outcome } from "./globals";
-import type { DetailedMatch, Match, RecordLeaderboard } from "$lib/ranked-api";
+import type {
+  APIResponse,
+  DetailedMatch,
+  Match,
+  RecordLeaderboard,
+} from "$lib/ranked-api";
 import { getTimelines } from "./match-timelines";
 import { getMatchesURL } from "./urls";
 import { flatten } from "./utils";
@@ -82,7 +87,7 @@ export const formatRelativeTime = (secondsAgo: number) => {
 
 export const formatMatch = (
   match: Match,
-  curPlayerName: string | undefined
+  curPlayerName: string | undefined,
 ): FormattedMatch => {
   const { decayed, players, changes, forfeited, date, id } = match;
   let opponentName: string | undefined;
@@ -93,11 +98,12 @@ export const formatMatch = (
   const winnerUUID = getWinnerUUID(match);
 
   const curPlayerUUID = players.find(
-    (member) => member.nickname.toLowerCase() === curPlayerName?.toLowerCase()
+    (member) => member.nickname.toLowerCase() === curPlayerName?.toLowerCase(),
   )?.uuid;
   if (!decayed) {
     const opponentInfo = players.find(
-      (member) => member.nickname.toLowerCase() !== curPlayerName?.toLowerCase()
+      (member) =>
+        member.nickname.toLowerCase() !== curPlayerName?.toLowerCase(),
     );
     opponentName = opponentInfo?.nickname;
     opponentUUID = opponentInfo?.uuid;
@@ -109,7 +115,7 @@ export const formatMatch = (
 
   const scoreChange =
     changes?.find(
-      (member) => member.uuid === (curPlayerName ? curPlayerUUID : winnerUUID)
+      (member) => member.uuid === (curPlayerName ? curPlayerUUID : winnerUUID),
     ) ?? changes?.[0];
   const eloChange = scoreChange?.change ?? 0;
   const eloBefore = scoreChange?.eloRate;
@@ -148,7 +154,7 @@ export const formatMatch = (
 
 export const formatMatches = (
   matches: Match[],
-  curPlayerName: string | undefined = undefined
+  curPlayerName: string | undefined = undefined,
 ) => {
   return matches.map((match) => formatMatch(match, curPlayerName));
 };
@@ -165,19 +171,19 @@ export const formatRecordLeaderboard = (lb: RecordLeaderboard) => {
 
 export function formatDetailedMatch(
   match: DetailedMatch,
-  curPlayerName: string | undefined = undefined
+  curPlayerName: string | undefined = undefined,
 ) {
   const seedType = match.seedType?.replaceAll("_", " ") ?? "unknown";
 
   const curPlayerUUID = match.players.find(
-    (member) => member.nickname.toLowerCase() === curPlayerName?.toLowerCase()
+    (member) => member.nickname.toLowerCase() === curPlayerName?.toLowerCase(),
   )?.uuid;
   const curPlayerIdx = match.players.findIndex(
-    (member) => member.uuid === curPlayerUUID
+    (member) => member.uuid === curPlayerUUID,
   );
   const winnerUUID = getWinnerUUID(match);
   const winnerIdx = match.players.findIndex(
-    (member) => member.uuid === winnerUUID
+    (member) => member.uuid === winnerUUID,
   );
 
   // if `curPlayerUUID` is defined, put it first; otherwise, put the winner first
@@ -199,7 +205,7 @@ export function formatDetailedMatch(
   }
 
   const playerNames = playerOrder.map(
-    (uuid) => match.players.find((member) => member.uuid === uuid)!.nickname
+    (uuid) => match.players.find((member) => member.uuid === uuid)!.nickname,
   );
 
   const eloChanges = playerOrder.map((uuid) => {
@@ -274,10 +280,10 @@ export async function getMatches(
   playerName: string,
   page: number,
   perPage: number,
-  excludeDecay = false
+  excludeDecay = false,
 ) {
   return fetch(getMatchesURL(playerName, page, perPage, excludeDecay))
-    .then((res) => res.json())
+    .then((res) => res.json() as APIResponse<Match[]>)
     .then((res) => formatMatches(res.data ?? [], playerName));
 }
 
@@ -288,8 +294,8 @@ export async function getAllMatches(playerName: string, numMatches: number) {
     await Promise.all(
       Array(numPages)
         .fill(undefined)
-        .map((_, i) => getMatches(playerName, i, 50, true))
-    )
+        .map((_, i) => getMatches(playerName, i, 50, true)),
+    ),
   );
 }
 
@@ -297,11 +303,11 @@ export async function getRawMatches(
   playerName: string,
   page: number,
   perPage: number,
-  excludeDecay = true
+  excludeDecay = true,
 ) {
   return fetch(getMatchesURL(playerName, page, perPage, excludeDecay))
-    .then((res) => res.json())
-    .then((res) => (res.data ?? []) as Match[]);
+    .then((res) => res.json() as APIResponse<Match[]>)
+    .then((res) => res.data ?? []);
 }
 
 export async function getAllRawMatches(playerName: string, numMatches: number) {
@@ -311,8 +317,8 @@ export async function getAllRawMatches(playerName: string, numMatches: number) {
     await Promise.all(
       Array(numPages)
         .fill(undefined)
-        .map((_, i) => getRawMatches(playerName, i, 50))
-    )
+        .map((_, i) => getRawMatches(playerName, i, 50)),
+    ),
   );
 }
 

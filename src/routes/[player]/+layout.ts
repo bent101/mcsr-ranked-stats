@@ -14,13 +14,23 @@ export const load = (async ({ fetch, params }) => {
 
   // const start = Date.now();
   const [playerData, matches] = await Promise.all([
-    fetch(getPlayerURL(params.player))
+    fetch(getPlayerURL(params.player), {
+      cache: "force-cache",
+      headers: {
+        "Cache-Control": "max-age=10, stale-while-revalidate=10",
+      },
+    })
       .then((res) => res.json())
       .then((res) =>
-        res.status === "error" ? null : (res.data as DetailedPlayer)
+        res.status === "error" ? null : (res.data as DetailedPlayer),
       ),
 
-    fetch(getMatchesURL(params.player, 0))
+    fetch(getMatchesURL(params.player, 0), {
+      cache: "force-cache",
+      headers: {
+        "Cache-Control": "max-age=10, stale-while-revalidate=10",
+      },
+    })
       .then((res) => res.json())
       .then((res) => formatMatches(res.data ?? [], params.player))
       .then((res) => ({
@@ -38,7 +48,7 @@ export const load = (async ({ fetch, params }) => {
 
   return {
     matches,
-    curPage: 1,
     playerData,
+    curPage: 1,
   };
 }) satisfies LayoutLoad;

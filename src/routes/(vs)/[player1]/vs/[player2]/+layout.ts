@@ -1,6 +1,11 @@
 import { browser } from "$app/environment";
 import { formatMatches } from "$lib/formatters";
-import type { DetailedPlayer, Match, VersusWinCount } from "$lib/ranked-api";
+import type {
+  APIResponse,
+  DetailedPlayer,
+  Match,
+  VersusWinCount,
+} from "$lib/ranked-api";
 import {
   getPlayerURL,
   getSkinURL,
@@ -19,15 +24,11 @@ export const load = async ({ params, fetch }) => {
 
   const [player1, player2] = await Promise.all([
     fetch(getPlayerURL(params.player1))
-      .then((res) => res.json())
-      .then((res) =>
-        res.status === "error" ? null : (res.data as DetailedPlayer)
-      ),
+      .then((res) => res.json() as APIResponse<DetailedPlayer>)
+      .then((res) => (res.status === "error" ? null : res.data)),
     fetch(getPlayerURL(params.player2))
-      .then((res) => res.json())
-      .then((res) =>
-        res.status === "error" ? null : (res.data as DetailedPlayer)
-      ),
+      .then((res) => res.json() as APIResponse<DetailedPlayer>)
+      .then((res) => (res.status === "error" ? null : res.data)),
   ]);
 
   if (params.player1.toLowerCase() === params.player2.toLowerCase()) {
@@ -44,15 +45,26 @@ export const load = async ({ params, fetch }) => {
     throw redirect(301, `/${player1.nickname}/vs/${player2.nickname}`);
   }
 
+  const winsPromise = fetch(getVersusURL(params.player1, params.player2))
+    .then(
+      (res) =>
+        res.json() as APIResponse<{ results: { ranked: VersusWinCount } }>,
+    )
+    .then((res) => res.data.results.ranked);
+
+  const matchesPromise = fetch(
+    getVersusMatchesURL(params.player1, params.player2),
+  )
+    .then((res) => res.json() as APIResponse<Match[]>)
+    .then((res) => res.data)
+    .then((res) => formatMatches(res ?? []));
+
+  const [wins, matches] = await Promise.all([winsPromise, matchesPromise]);
+
   return {
     player1,
     player2,
-    wins: fetch(getVersusURL(params.player1, params.player2))
-      .then((res) => res.json())
-      .then((res) => res.data.results.ranked as VersusWinCount),
-    matches: fetch(getVersusMatchesURL(params.player1, params.player2))
-      .then((res) => res.json())
-      .then((res) => res.data as Match[])
-      .then((res) => formatMatches(res ?? [])),
+    wins,
+    matches,
   };
 };

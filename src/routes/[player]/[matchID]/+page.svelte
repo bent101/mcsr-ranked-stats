@@ -3,4 +3,12 @@
   export let data;
 </script>
 
-<MatchDetails match={data.match} />
+{#await data.match}
+  <div class="absolute inset-0 grid place-items-center">
+    <p class="animate-pulse text-lg font-semibold text-zinc-500">
+      Loading match...
+    </p>
+  </div>
+{:then match}
+  <MatchDetails {match} />
+{/await}
