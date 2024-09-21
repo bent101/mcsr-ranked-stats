@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { cn } from "$lib/utils";
+
   export let options: [string, string];
   export let onFirst: boolean = true;
   export let throttling = 0;
@@ -26,15 +28,17 @@
     }
   }}
 >
-  <div class="px-3 py-1" class:selected={onFirst}>{options[0]}</div>
-  <div class="px-3 py-1" class:selected={!onFirst}>{options[1]}</div>
+  {#each options as option, index}
+    {@const selected = onFirst === (index === 0)}
+    <div
+      class={cn(
+        "px-3 py-1",
+        selected
+          ? "bg-zinc-400 text-zinc-900"
+          : "text-zinc-400 hover:bg-white/5",
+      )}
+    >
+      {option}
+    </div>
+  {/each}
 </button>
-
-<style lang="postcss">
-  div {
-    @apply text-zinc-400 hover:bg-white/5;
-  }
-  div.selected {
-    @apply bg-zinc-400 text-zinc-900;
-  }
-</style>

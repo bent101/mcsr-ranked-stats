@@ -3,10 +3,11 @@
   import "../app.css";
   import Sidebar from "$lib/components/Sidebar.svelte";
   import Loading from "$lib/components/Loading.svelte";
-  import { beforeNavigate, invalidateAll } from "$app/navigation";
+  import { beforeNavigate, invalidate, invalidateAll } from "$app/navigation";
   import { dev } from "$app/environment";
   import { inject } from "@vercel/analytics";
   import { page } from "$app/stores";
+  import { getLeaderboardURL } from "$lib/urls";
   // import { onNavigate } from "$app/navigation";
 
   // onNavigate((navigation) => {
@@ -67,7 +68,7 @@
   on:keydown={(e) => {
     if (e.key === "Escape") hideLb();
   }}
-  on:focus={invalidateAll}
+  on:focus={() => invalidate(getLeaderboardURL())}
 />
 
 <div class="xl:flex">

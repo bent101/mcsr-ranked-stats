@@ -63,10 +63,7 @@
     "group flex items-center gap-2 rounded-lg border px-4 py-1.5 text-left",
     $state === "selected" && "border-zinc-500 bg-zinc-800",
     $state === "loading" && "border-pulse bg-zinc-800",
-    $state === "idle" && [
-      "border-transparent",
-      isLink && "hover-hover:hover:bg-zinc-800",
-    ],
+    $state === "idle" && ["border-transparent", isLink && "hover:bg-zinc-800"],
   );
 </script>
 
@@ -87,18 +84,3 @@
     <slot state={$state} />
   </div>
 {/if}
-
-<style lang="postcss">
-  @keyframes border-pulse-keyframes {
-    0%,
-    100% {
-      @apply border-zinc-600/0;
-    }
-    50% {
-      @apply border-zinc-600/100;
-    }
-  }
-  .border-pulse {
-    animation: border-pulse-keyframes 2s infinite;
-  }
-</style>

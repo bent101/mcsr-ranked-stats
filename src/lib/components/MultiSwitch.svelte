@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { cn } from "$lib/utils";
+
   export let options: string[] | readonly string[];
   export let selectedIdx = 0;
   export let label: string | null = null;
@@ -37,20 +39,15 @@
             // onClick(i);
           }
         }}
-        class="cursor-pointer px-3 py-1 uppercase"
-        class:selected={i === selectedIdx}
+        class={cn(
+          "cursor-pointer px-3 py-1 uppercase",
+          i === selectedIdx
+            ? "bg-zinc-400 text-zinc-900"
+            : "text-zinc-400 hover:bg-white/5",
+        )}
       >
         {option}
       </button>
     {/each}
   </div>
 </div>
-
-<style lang="postcss">
-  button {
-    @apply text-zinc-400 hover:bg-white/5;
-  }
-  button.selected {
-    @apply bg-zinc-400 text-zinc-900;
-  }
-</style>

@@ -87,12 +87,6 @@ importers:
       tailwindcss:
         specifier: ^3.4.12
         version: 3.4.12
-      tailwindcss-hocus:
-        specifier: ^0.0.7
-        version: 0.0.7(tailwindcss@3.4.12)
-      tailwindcss-touch:
-        specifier: ^1.0.1
-        version: 1.0.1
       tslib:
         specifier: ^2.7.0
         version: 2.7.0
@@ -2143,14 +2137,6 @@ packages:
     engines: {node: '>=12.13.0'}
     peerDependencies:
       tailwindcss: 3.x
-
-  tailwindcss-hocus@0.0.7:
-    resolution: {integrity: sha512-KY3jLlppAoPkCLRhDqbe503c1Ryq//G1bLQqFCZz1pnB0JFzHa3VK0bXvjTa8n/dwCxgkhi5uJm1d6gp8OzPhw==}
-    peerDependencies:
-      tailwindcss: ^3.0.0
-
-  tailwindcss-touch@1.0.1:
-    resolution: {integrity: sha512-h8A/S9+Mk2rnnaOB/NGCE7CxDhtGKbsAWf8Y2tCO6Zf381Y8dKcygPl1OXkFDnWXkL+FfHxmrGpwculDWAumbA==}
 
   tailwindcss@3.4.12:
     resolution: {integrity: sha512-Htf/gHj2+soPb9UayUNci/Ja3d8pTmu9ONTfh4QY8r3MATTZOzmv6UYWF7ZwikEIC8okpfqmGqrmDehua8mF8w==}
@@ -4355,12 +4341,6 @@ snapshots:
   tailwind-scrollbar@3.1.0(tailwindcss@3.4.12):
     dependencies:
       tailwindcss: 3.4.12
-
-  tailwindcss-hocus@0.0.7(tailwindcss@3.4.12):
-    dependencies:
-      tailwindcss: 3.4.12
-
-  tailwindcss-touch@1.0.1: {}
 
   tailwindcss@3.4.12:
     dependencies:

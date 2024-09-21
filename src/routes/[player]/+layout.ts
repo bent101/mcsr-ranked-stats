@@ -15,10 +15,10 @@ export const load = (async ({ fetch, params }) => {
   // const start = Date.now();
   const [playerData, matches] = await Promise.all([
     fetch(getPlayerURL(params.player), {
-      cache: "force-cache",
-      headers: {
-        "Cache-Control": "max-age=10, stale-while-revalidate=10",
-      },
+      // cache: "force-cache",
+      // headers: {
+      //   "Cache-Control": "max-age=10, stale-while-revalidate=10",
+      // },
     })
       .then((res) => res.json())
       .then((res) =>
@@ -26,10 +26,10 @@ export const load = (async ({ fetch, params }) => {
       ),
 
     fetch(getMatchesURL(params.player, 0), {
-      cache: "force-cache",
-      headers: {
-        "Cache-Control": "max-age=10, stale-while-revalidate=10",
-      },
+      // cache: "force-cache",
+      // headers: {
+      //   "Cache-Control": "max-age=10, stale-while-revalidate=10",
+      // },
     })
       .then((res) => res.json())
       .then((res) => formatMatches(res.data ?? [], params.player))

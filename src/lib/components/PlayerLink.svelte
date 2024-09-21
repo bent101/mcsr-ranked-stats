@@ -12,10 +12,10 @@
   const load = async () => {
     return {
       playerData: fetch(getPlayerURL(name), {
-        cache: "force-cache",
-        headers: {
-          "Cache-Control": "max-age=10, stale-while-revalidate=10",
-        },
+        // cache: "force-cache",
+        // headers: {
+        //   "Cache-Control": "max-age=10, stale-while-revalidate=10",
+        // },
       })
         .then((res) => res.json() as APIResponse<DetailedPlayer>)
         .then((res) => res.data),
