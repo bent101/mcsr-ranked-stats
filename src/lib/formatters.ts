@@ -260,6 +260,8 @@ export function formatDetailedMatch(
   };
 }
 
+export type FormattedDetailedMatch = ReturnType<typeof formatDetailedMatch>;
+
 export function getRank(elo: number | null) {
   if (elo === null) return null;
 

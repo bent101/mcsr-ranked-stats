@@ -26,20 +26,18 @@ export type MatchEvent = {
   color: string;
 
   /** nulls if there's no matching event in any other timeline */
-  diff: Diff | undefined;
+  diff?: Diff;
 
   /** The split for which this event is the start (nulls for the last event) */
-  splitAfter:
-    | {
-        name: string;
-        length: number;
-        pairToRight: boolean;
-        pairToLeft: boolean;
+  splitAfter?: {
+    name: string;
+    length: number;
+    pairToRight: boolean;
+    pairToLeft: boolean;
 
-        /** nulls if there's no matching event in any other timeline */
-        diff: Diff | undefined;
-      }
-    | undefined;
+    /** nulls if there's no matching event in any other timeline */
+    diff?: Diff;
+  };
 };
 
 type Diff = {
@@ -56,14 +54,14 @@ type Diff = {
 export function getTimelines(
   match: DetailedMatch,
   playerOrder: string[],
-  winnerUUID: string | null
+  winnerUUID: string | null,
 ) {
   if (!match.timelines) return;
 
   match.timelines.reverse(); // the api returns the timeline last event to first event
 
   return [0, 1, 2, 3].map((detailLevel) =>
-    getTimelinesAtDetailLevel(match, playerOrder, winnerUUID, detailLevel)
+    getTimelinesAtDetailLevel(match, playerOrder, winnerUUID, detailLevel),
   );
 }
 
@@ -75,7 +73,7 @@ function getTimelinesAtDetailLevel(
   match: DetailedMatch,
   playerOrder: string[],
   winnerUUID: string | null,
-  detailLevel: number
+  detailLevel: number,
 ) {
   const ret = getSplitTimelines(match.timelines!, playerOrder).map(
     (timeline, i) => {
@@ -92,13 +90,13 @@ function getTimelinesAtDetailLevel(
         newTimeline.push(newEvent("draw", 0, "#3b82f6", finalTime));
       } else if (winnerUUID === playerOrder[i]) {
         newTimeline.push(
-          newEvent(match.forfeited ? "win" : "finish", 0, "#22c55e", finalTime)
+          newEvent(match.forfeited ? "win" : "finish", 0, "#22c55e", finalTime),
         );
       } else if (!match.forfeited) {
         newTimeline.push(newEvent("lose", 0, "#ef4444", finalTime));
       } else if (
         !match.timelines?.find(
-          (event) => event.type === "projectelo.timeline.forfeit"
+          (event) => event.type === "projectelo.timeline.forfeit",
         )
       ) {
         newTimeline.push(newEvent("disconnected", 0, "#ef4444", finalTime));
@@ -108,7 +106,7 @@ function getTimelinesAtDetailLevel(
       addSplits(newTimeline);
       indexDuplicates(newTimeline);
       return newTimeline;
-    }
+    },
   );
 
   if (ret.length === 2) {
@@ -126,7 +124,7 @@ function getTimelinesAtDetailLevel(
 function pairTimelines(left: MatchEvent[], right: MatchEvent[]) {
   left.forEach((leftEvent, i) => {
     const matchingTimestampIdx = right.findIndex(
-      (event) => event.name === leftEvent.name
+      (event) => event.name === leftEvent.name,
     );
     if (matchingTimestampIdx === i) {
       leftEvent.pairToRight = true;
@@ -135,7 +133,7 @@ function pairTimelines(left: MatchEvent[], right: MatchEvent[]) {
 
     if (leftEvent.splitAfter) {
       const matchingSplitIdx = right.findIndex(
-        (event) => event.splitAfter?.name === leftEvent.splitAfter!.name
+        (event) => event.splitAfter?.name === leftEvent.splitAfter!.name,
       );
       if (matchingSplitIdx === i) {
         leftEvent.splitAfter.pairToRight = true;
@@ -152,7 +150,7 @@ function diffTimelines(mutating: MatchEvent[], comparingTo: MatchEvent[]) {
   mutating.forEach((event, i) => {
     // get timeDiffs for timestamps
     const matchingTimestamp = comparingTo.find(
-      (event2) => event.name === event2.name
+      (event2) => event.name === event2.name,
     );
     if (matchingTimestamp) {
       const timeDiff = event.timestamp - matchingTimestamp.timestamp;
@@ -169,7 +167,7 @@ function diffTimelines(mutating: MatchEvent[], comparingTo: MatchEvent[]) {
     if (!event.splitAfter) return;
 
     const matchingSplit = comparingTo.find(
-      (event2) => event.splitAfter!.name === event2.splitAfter?.name
+      (event2) => event.splitAfter!.name === event2.splitAfter?.name,
     );
     if (matchingSplit) {
       const timeDiff =
@@ -194,7 +192,7 @@ function diffTimelines(mutating: MatchEvent[], comparingTo: MatchEvent[]) {
     if (event.splitAfter?.diff) {
       event.splitAfter.diff = getDiff(
         event.splitAfter.diff.time,
-        biggestSplitDiff
+        biggestSplitDiff,
       );
     }
     mutating[i] = event;
@@ -204,7 +202,7 @@ function diffTimelines(mutating: MatchEvent[], comparingTo: MatchEvent[]) {
 function getDiff(timeDiff: number, biggestDiff: number): Diff {
   const importance = Math.abs(timeDiff) / biggestDiff;
   const color = `hsl(${timeDiff >= 0 ? 0 : 142}, 70%, ${Math.round(
-    90 - 40 * importance ** 1.5
+    90 - 40 * importance ** 1.5,
   )}%)`;
   return {
     time: timeDiff,
@@ -215,7 +213,7 @@ function getDiff(timeDiff: number, biggestDiff: number): Diff {
 
 function getSplitTimelines(
   timeline: DetailedMatch["timelines"],
-  playerOrder: string[]
+  playerOrder: string[],
 ) {
   const timelines: (typeof timeline)[] = playerOrder.map(() => []);
   for (const event of timeline) {
@@ -248,7 +246,8 @@ function addSplits(timeline: MatchEvent[]) {
     timeline[i].splitAfter = {
       name: splitName,
       length: splitLength,
-      diff: undefined,
+      pairToLeft: false,
+      pairToRight: false,
     };
   }
 }
@@ -266,23 +265,25 @@ function shortenSplitName(splitName: string) {
 
 /** mutates `timeline`, indexing duplicate events and splits (e.g. nether enter 2) */
 function indexDuplicates(timeline: MatchEvent[]) {
-  const numSeenEvents = new Map();
-  const numSeenSplits = new Map();
+  const numSeenEvents = new Map<string, number>();
+  const numSeenSplits = new Map<string, number>();
   for (const i in timeline) {
     // index event
     const eventName = timeline[i].name;
-    if (numSeenEvents.has(eventName)) {
-      numSeenEvents.set(eventName, numSeenEvents.get(eventName) + 1);
+    const eventCount = numSeenEvents.get(eventName) ?? 0;
+    if (eventCount > 0) {
+      numSeenEvents.set(eventName, eventCount + 1);
       timeline[i].name += " " + numSeenEvents.get(eventName);
     } else {
       numSeenEvents.set(eventName, 1);
     }
 
     // index split (almost copy paste)
-    const splitName = timeline[i].splitAfter?.name;
+    const splitName = timeline[i]?.splitAfter?.name;
     if (!splitName) continue;
-    if (numSeenSplits.has(splitName)) {
-      numSeenSplits.set(splitName, numSeenSplits.get(splitName) + 1);
+    const splitCount = numSeenSplits.get(splitName) ?? 0;
+    if (splitCount > 0) {
+      numSeenSplits.set(splitName, splitCount + 1);
       timeline[i].splitAfter!.name += " " + numSeenSplits.get(splitName);
     } else {
       numSeenSplits.set(splitName, 1);
@@ -294,8 +295,8 @@ function newEvent(
   name: string,
   detailLevel: number,
   color: string,
-  timestamp: number
-) {
+  timestamp: number,
+): MatchEvent {
   return {
     name,
     detailLevel,
@@ -303,7 +304,7 @@ function newEvent(
     timestamp,
     pairToLeft: false,
     pairToRight: false,
-  } as MatchEvent;
+  };
 }
 
 function getSimpleEvent(eventName: string, eventTimestamp: number) {
