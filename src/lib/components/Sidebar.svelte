@@ -191,7 +191,7 @@
         <img
           src={stopwatch}
           alt=""
-          class="h-5 select-none object-contain {$bestTimesSelected
+          class="size-5 select-none object-contain {$bestTimesSelected
             ? 'opacity-80'
             : 'opacity-30'} invert"
         />
