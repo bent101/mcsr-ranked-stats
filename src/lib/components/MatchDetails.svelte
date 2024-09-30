@@ -13,6 +13,7 @@
   import PlayerHead3D from "./PlayerHead3D.svelte";
   import PlayerLink from "./PlayerLink.svelte";
   import RefreshBtn from "./RefreshBtn.svelte";
+  import Badge from "./Badge.svelte";
 
   export let match: ReturnType<typeof formatDetailedMatch>;
 
@@ -30,33 +31,38 @@
 </script>
 
 <div class="flex h-full flex-col p-2 pb-8 pl-4 md:pb-2">
-  <div class="mb-2 ml-2 text-sm font-bold uppercase text-zinc-400">
-    <h2 class="flex items-center">
-      <div class="mr-1.5">{match.seedType} seed</div>
-      <div class="mr-auto text-zinc-500">
-        {formatRelativeTime($curDate - match.date)}
-      </div>
-      {#if match.timelines}
-        <span class="inline-block">
-          <Switch
-            bind:onFirst={$showingSplits}
-            options={["Splits", "Timestamps"]}
-          />
-        </span>
+  <div class="flex items-center pl-2 gap-1.5">
+    <p class="font-bold text-zinc-300">
+      {#if match.outcome === "draw"}
+        Draw
+      {:else if match.outcome === "won" || match.outcome === undefined}
+        {match.forfeit ? "Win" : formatTime(match.time)}
+      {:else if match.outcome === "lost"}
+        {match.forfeit ? "Forfeit" : "Loss"}
       {/if}
-      <a
-        href={"/" +
-          $page.url.pathname.split("/").filter(Boolean).slice(0, -1).join("/")}
-        data-sveltekit-noscroll
-        data-sveltekit-replacestate
-        class="ml-2 h-9 w-9 rounded-full stroke-zinc-500 stroke-2 hover:bg-zinc-700/50"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <line x1="6" y1="6" x2="18" y2="18" />
-          <line x1="6" y1="18" x2="18" y2="6" />
-        </svg>
-      </a>
-    </h2>
+      <span class=" text-zinc-600">•</span>
+      <span class="text-zinc-500">
+        {formatRelativeTime($curDate - match.date)}
+      </span>
+    </p>
+    <Badge>{match.seedType}</Badge>
+    {#if match.bastionType}
+      <Badge>{match.bastionType} bastion</Badge>
+    {/if}
+    <!-- <Badge>{formatRelativeTime($curDate - match.date)}</Badge> -->
+    <div class="flex-1" />
+    <a
+      href={"/" +
+        $page.url.pathname.split("/").filter(Boolean).slice(0, -1).join("/")}
+      data-sveltekit-noscroll
+      data-sveltekit-replacestate
+      class="ml-2 h-9 w-9 rounded-full stroke-zinc-500 stroke-2 hover:bg-zinc-700/50"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <line x1="6" y1="6" x2="18" y2="18" />
+        <line x1="6" y1="18" x2="18" y2="6" />
+      </svg>
+    </a>
   </div>
   {#if match.timelines}
     <div class="m-2">
@@ -162,7 +168,7 @@
                             class="mx-1 w-14 translate-y-0.5 text-center text-sm font-semibold"
                             style="color: {diff.color};"
                           >
-                            {formatTime(diff.time, true)}
+                            {formatTime(diff.time, { signed: true })}
                           </div>
                         {:else}
                           <div class="ml-1 w-14" />
@@ -177,7 +183,7 @@
                         <span
                           class="ml-2 translate-y-0.5 text-sm font-semibold"
                           style="color: {diff.color};"
-                          >{formatTime(diff.time, true)}</span
+                          >{formatTime(diff.time, { signed: true })}</span
                         >
                       {/if}
                     {/if}
@@ -191,11 +197,17 @@
     </div>
   </div>
   {#if match.timelines}
-    <MultiSwitch
-      bind:selectedIdx={$detailLevel}
-      label="Detail"
-      options={["low", "med", "high", "all"]}
-    />
+    <div class="flex justify-between pr-2">
+      <Switch
+        bind:onFirst={$showingSplits}
+        options={["Splits", "Timestamps"]}
+      />
+      <MultiSwitch
+        bind:selectedIdx={$detailLevel}
+        label="Detail"
+        options={["low", "med", "high", "all"]}
+      />
+    </div>
   {:else}
     <div class="p-12 font-semibold text-zinc-500">
       <div class="mx-auto w-max">

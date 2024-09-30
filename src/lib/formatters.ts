@@ -7,7 +7,7 @@ import type {
 } from "$lib/ranked-api";
 import { getTimelines } from "./match-timelines";
 import { getMatchesURL } from "./urls";
-import { flatten } from "./utils";
+import { flatten, toTitleCase } from "./utils";
 import { getFinalTime, getOutcome, getWinnerUUID } from "./getters";
 
 export type FormattedMatch = {
@@ -26,14 +26,31 @@ export type FormattedMatch = {
   id: number;
 };
 
-export const formatTime = (timeInMs: number, signed = false) => {
-  const seconds = Math.floor(Math.abs(timeInMs) / 1000);
+export const formatTime = (timeInMs: number, { signed = false } = {}) => {
+  const seconds = Math.abs(timeInMs) / 1000;
   const minutes = Math.floor(seconds / 60);
   const remainingSeconds = seconds % 60;
   const sign = timeInMs < 0 ? "-" : "+";
-  return `${signed ? sign : ""}${minutes}:${
-    remainingSeconds < 10 ? "0" : ""
-  }${remainingSeconds}`;
+
+  const formattedSeconds = Math.floor(remainingSeconds)
+    .toString()
+    .padStart(2, "0");
+
+  return `${signed ? sign : ""}${minutes}:${formattedSeconds}`;
+};
+
+export const formatTimeWithPrecision = (
+  timeInMs: number,
+  { precision }: { precision: number },
+) => {
+  const seconds = Math.abs(timeInMs) / 1000;
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+
+  const mainTime = `${minutes}:${Math.floor(remainingSeconds).toString().padStart(2, "0")}`;
+  const decimal = remainingSeconds.toFixed(precision).split(".")[1] || "";
+
+  return { mainTime, decimal };
 };
 
 /**
@@ -173,7 +190,12 @@ export function formatDetailedMatch(
   match: DetailedMatch,
   curPlayerName: string | undefined = undefined,
 ) {
-  const seedType = match.seedType?.replaceAll("_", " ") ?? "unknown";
+  const seedType = toTitleCase(
+    match.seedType?.replaceAll("_", " ") ?? "unknown",
+  );
+  const bastionType = match.bastionType
+    ? toTitleCase(match.bastionType)
+    : undefined;
 
   const curPlayerUUID = match.players.find(
     (member) => member.nickname.toLowerCase() === curPlayerName?.toLowerCase(),
@@ -230,6 +252,7 @@ export function formatDetailedMatch(
     curPlayerUUID,
     winnerUUID,
     seedType,
+    bastionType,
     date: match.date,
     time: getFinalTime(match),
     outcome,

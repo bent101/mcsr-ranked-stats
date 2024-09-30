@@ -73,3 +73,7 @@ export function avg(array: number[]) {
   if (array.length === 0) return null;
   return sum(array) / array.length;
 }
+
+export function toTitleCase(str: string) {
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}

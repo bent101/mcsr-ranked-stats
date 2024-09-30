@@ -207,7 +207,7 @@
     <SidebarTab href="/points-lb" selected={$pointsLbSelected}>
       <div class="flex items-center pl-8 gap-10">
         <PodiumIcon
-          className="select-none size-5 font-mono text-xs font-extrabold leading-3 text-white {$pointsLbSelected
+          className="select-none size-5 p-0.5 font-mono text-xs font-extrabold leading-3 text-white {$pointsLbSelected
             ? 'opacity-80'
             : 'opacity-30'}"
         />
@@ -223,7 +223,7 @@
     <SidebarTab href="/weekly-race" selected={$weeklyRaceSelected}>
       <div class="flex items-center pl-8 gap-10">
         <CalendarIcon
-          className="select-none size-5 font-mono text-xs font-extrabold leading-3 text-white {$weeklyRaceSelected
+          className="select-none size-5 p-0.5 font-mono text-xs font-extrabold leading-3 text-white {$weeklyRaceSelected
             ? 'opacity-80'
             : 'opacity-30'}"
         />

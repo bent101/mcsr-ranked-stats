@@ -20,7 +20,7 @@
 
 <div class="inline-flex w-max items-center font-extrabold">
   {#if label}
-    <span class="mr-2 inline-block text-sm uppercase text-zinc-400"
+    <span class="mr-2 inline-block text-sm uppercase text-zinc-500"
       >{label}:</span
     >
   {/if}

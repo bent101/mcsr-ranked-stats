@@ -13,6 +13,8 @@
 
   export let data;
   $: numMatches = data.playerData.statistics.season.playedMatches.ranked;
+  $: numWins = data.playerData.statistics.season.wins.ranked;
+  $: numLosses = data.playerData.statistics.season.loses.ranked;
 
   let infiniteScrollPadding: HTMLElement | undefined;
   let loadingAllMatches = false;
@@ -113,14 +115,18 @@
     <div class="h-2.5" />
     <div class="w-[30rem]">
       <div
-        class="mb-2 flex items-center border-b-2 border-zinc-800 p-4 pb-1 pl-4"
+        class="mb-2 flex text-sm items-center font-bold gap-1.5 border-b-2 border-zinc-800 p-4 pb-1 pl-4"
       >
-        <h2 class="text-sm font-bold uppercase text-zinc-400">Matches</h2>
-        <div
-          class="ml-2 rounded-full bg-zinc-400 px-2 py-0.5 text-xs font-extrabold text-zinc-900"
-        >
-          {numMatches}
-        </div>
+        <h2 class="uppercase text-zinc-400">
+          Matches <span class=" text-zinc-500">({numMatches})</span>
+        </h2>
+        <span class="text-zinc-700">•</span>
+        {#if numMatches > 0}
+          <div class="text-zinc-600">
+            <span class="text-zinc-500">{numWins}</span>W
+            <span class="text-zinc-500">{numLosses}</span>L
+          </div>
+        {/if}
         <div class="ml-auto"><RefreshBtn /></div>
       </div>
       {#if data.matches.data && data.matches.data.length > 0}
@@ -146,7 +152,9 @@
           {/if}
         </div>
       {:else}
-        <div class="text-center text-zinc-600">No matches yet this season</div>
+        <div class="text-center text-zinc-600 pt-16">
+          No matches yet this season
+        </div>
       {/if}
     </div>
   </div>

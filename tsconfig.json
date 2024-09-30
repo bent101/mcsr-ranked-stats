@@ -10,8 +10,7 @@
     "sourceMap": true,
     "strict": true,
     "allowSyntheticDefaultImports": true,
-    "noImplicitAny": true,
-    "noUncheckedIndexedAccess": true
+    "noImplicitAny": true
   }
   // Path aliases are handled by https://kit.svelte.dev/docs/configuration#alias
   //

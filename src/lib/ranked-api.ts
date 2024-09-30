@@ -102,7 +102,7 @@ export type Match = {
   };
   changes?: ScoreChange[];
   seedType: string;
-  bastionType: "HOUSING" | "BRIDGE" | "STABLES" | "TREASURE";
+  bastionType?: "HOUSING" | "BRIDGE" | "STABLES" | "TREASURE";
 } & (
   | {
       decayed: false;
