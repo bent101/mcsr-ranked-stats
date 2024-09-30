@@ -20,7 +20,7 @@ export const getMatchesURL = (
   name: string,
   page: number,
   perPage = matchesPerPage,
-  excludeDecay = false
+  excludeDecay = false,
 ) => {
   return `${base}/users/${name}/matches?type=2&page=${page}&count=${perPage}${
     excludeDecay ? "&excludedecay" : ""
@@ -48,6 +48,10 @@ export const getVersusURL = (player1: string, player2: string) => {
 
 export const getVersusMatchesURL = (player1: string, player2: string) => {
   return `${base}/users/${player1}/versus/${player2}/matches?type=2&count=50`;
+};
+
+export const getWeeklyRaceURL = () => {
+  return `${base}/weekly-race`;
 };
 
 export const getSkinURL = (uuidOrName: string) => {

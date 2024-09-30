@@ -17,16 +17,16 @@
   <title>Points leaderboard | MCSR Ranked stats</title>
 </svelte:head>
 
-<div class="mx-auto max-w-md py-[4.375rem] md:ml-16">
-  <h1
-    class="flex items-center justify-center gap-1 pt-2 text-xl font-bold text-zinc-300 md:justify-start"
-  >
-    {#if prevPointsLb}
-      <p>Season {prevPointsLb.phase.season} points leaderboard</p>
-    {:else}
-      <p>Points leaderboard</p>
-    {/if}
-    <div bind:this={infoEl} class="rounded-full p-2 hover:bg-zinc-800">
+<div class="mx-auto max-w-md pt-16 md:ml-16">
+  <div class="flex items-center justify-center gap-3 md:justify-start">
+    <h1 class="text-xl font-bold text-zinc-300">
+      {#if prevPointsLb}
+        Season {prevPointsLb.phase.season} points leaderboard
+      {:else}
+        Points leaderboard
+      {/if}
+    </h1>
+    <div bind:this={infoEl} class="rounded-full p-2 -m-2 hover:bg-zinc-800">
       <img src={info} alt="" class="h-4 w-4 select-none opacity-30 invert" />
       <Tooltip
         hoverable
@@ -44,7 +44,7 @@
         </p>
       </Tooltip>
     </div>
-  </h1>
+  </div>
 
   <p class="text-center text-sm text-zinc-500 md:text-left">
     Phase {pointsLb.phase.number}

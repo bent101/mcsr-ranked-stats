@@ -6,6 +6,7 @@
   import type { Player } from "$lib/ranked-api";
   import { derived } from "svelte/store";
   import PodiumIcon from "./icons/PodiumIcon.svelte";
+  import CalendarIcon from "./icons/CalendarIcon.svelte";
   import Leaderboard from "./Leaderboard.svelte";
   import RefreshBtn from "./RefreshBtn.svelte";
   import SidebarTab from "./SidebarTab.svelte";
@@ -18,6 +19,10 @@
   );
   const pointsLbSelected = derived(page, ($page) =>
     $page.url.pathname.includes("/points-lb"),
+  );
+
+  const weeklyRaceSelected = derived(page, ($page) =>
+    $page.url.pathname.includes("/weekly-race"),
   );
 
   export let lb: Player[] | undefined;
@@ -182,11 +187,11 @@
 
   <div class="pl-2">
     <SidebarTab href="/lb" selected={$bestTimesSelected}>
-      <div class="flex items-center pr-8">
+      <div class="flex items-center pl-8 gap-10">
         <img
           src={stopwatch}
           alt=""
-          class="h-5 w-20 select-none object-contain {$bestTimesSelected
+          class="h-5 select-none object-contain {$bestTimesSelected
             ? 'opacity-80'
             : 'opacity-30'} invert"
         />
@@ -200,9 +205,9 @@
       </div>
     </SidebarTab>
     <SidebarTab href="/points-lb" selected={$pointsLbSelected}>
-      <div class="flex items-center pr-8">
+      <div class="flex items-center pl-8 gap-10">
         <PodiumIcon
-          className="w-20 select-none text-center font-mono text-xs font-extrabold leading-3 text-white {$pointsLbSelected
+          className="select-none size-5 font-mono text-xs font-extrabold leading-3 text-white {$pointsLbSelected
             ? 'opacity-80'
             : 'opacity-30'}"
         />
@@ -215,10 +220,26 @@
         </div>
       </div>
     </SidebarTab>
-    <SidebarTab href="/vs" selected={$compareSelected}>
-      <div class="flex items-center pr-8">
+    <SidebarTab href="/weekly-race" selected={$weeklyRaceSelected}>
+      <div class="flex items-center pl-8 gap-10">
+        <CalendarIcon
+          className="select-none size-5 font-mono text-xs font-extrabold leading-3 text-white {$weeklyRaceSelected
+            ? 'opacity-80'
+            : 'opacity-30'}"
+        />
         <div
-          class="w-20 select-none text-center font-mono text-xs font-extrabold leading-3 text-white {$compareSelected
+          class="font-extrabold uppercase {$weeklyRaceSelected
+            ? 'text-zinc-300'
+            : 'text-zinc-500 group-hover:text-zinc-400'}"
+        >
+          Weekly race
+        </div>
+      </div>
+    </SidebarTab>
+    <SidebarTab href="/vs" selected={$compareSelected}>
+      <div class="flex items-center pl-8 gap-10">
+        <div
+          class="select-none size-5 grid place-items-center font-mono text-xs font-extrabold leading-3 text-white {$compareSelected
             ? 'opacity-80'
             : 'opacity-30'}"
         >
@@ -242,7 +263,7 @@
     {#if lb}
       <Leaderboard lb={displayedLb} animating={rawQuery === ""} />
     {:else}
-      <div class="mt-32 text-center font-bold text-red-400">
+      <div class="mt-32 font-bold text-red-400">
         Couldn't get leaderboard :/
       </div>
     {/if}

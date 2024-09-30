@@ -102,6 +102,7 @@ export type Match = {
   };
   changes?: ScoreChange[];
   seedType: string;
+  bastionType: "HOUSING" | "BRIDGE" | "STABLES" | "TREASURE";
 } & (
   | {
       decayed: false;
@@ -164,4 +165,18 @@ export type PointsLeaderboard = {
       phasePoint: number;
     };
   })[];
+};
+
+export type WeeklyRaceLeaderboard = {
+  id: number;
+  seed: {
+    overworld: string;
+    nether: string;
+  };
+  endsAt: number;
+  leaderboard: {
+    rank: number;
+    player: Player;
+    time: number;
+  }[];
 };
