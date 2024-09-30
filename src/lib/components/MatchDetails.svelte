@@ -1,21 +1,16 @@
 <script lang="ts">
+  import MatchSummary from "./MatchSummary.svelte";
   import MultiSwitch from "$lib/components/MultiSwitch.svelte";
   import Switch from "$lib/components/Switch.svelte";
-  import {
-    formatDetailedMatch,
-    formatTime,
-    formatRelativeTime,
-  } from "$lib/formatters";
+  import { formatTime, type FormattedDetailedMatch } from "$lib/formatters";
   import { createLocalStorageStore, isDarkColor } from "$lib/utils";
   import { page } from "$app/stores";
-  import { curDate } from "$lib/globals";
   import MatchTimeline from "./MatchTimeline.svelte";
   import PlayerHead3D from "./PlayerHead3D.svelte";
   import PlayerLink from "./PlayerLink.svelte";
   import RefreshBtn from "./RefreshBtn.svelte";
-  import Badge from "./Badge.svelte";
 
-  export let match: ReturnType<typeof formatDetailedMatch>;
+  export let match: FormattedDetailedMatch;
 
   const showingSplits = createLocalStorageStore("showingSplits", false);
   const detailLevel = createLocalStorageStore("detailLevel", 1);
@@ -31,26 +26,8 @@
 </script>
 
 <div class="flex h-full flex-col p-2 pb-8 pl-4 md:pb-2">
-  <div class="flex items-center pl-2 gap-1.5">
-    <p class="font-bold text-zinc-300">
-      {#if match.outcome === "draw"}
-        Draw
-      {:else if match.outcome === "won" || match.outcome === undefined}
-        {match.forfeit ? "Win" : formatTime(match.time)}
-      {:else if match.outcome === "lost"}
-        {match.forfeit ? "Forfeit" : "Loss"}
-      {/if}
-      <span class=" text-zinc-600">•</span>
-      <span class="text-zinc-500">
-        {formatRelativeTime($curDate - match.date)}
-      </span>
-    </p>
-    <Badge>{match.seedType}</Badge>
-    {#if match.bastionType}
-      <Badge>{match.bastionType} bastion</Badge>
-    {/if}
-    <!-- <Badge>{formatRelativeTime($curDate - match.date)}</Badge> -->
-    <div class="flex-1" />
+  <div class="flex items-center pl-2 justify-between">
+    <MatchSummary {match} />
     <a
       href={"/" +
         $page.url.pathname.split("/").filter(Boolean).slice(0, -1).join("/")}
