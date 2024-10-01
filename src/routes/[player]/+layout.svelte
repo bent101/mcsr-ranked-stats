@@ -120,8 +120,8 @@
         <h2 class="uppercase text-zinc-400">
           Matches <span class=" text-zinc-500">({numMatches})</span>
         </h2>
-        <span class="text-zinc-700">•</span>
         {#if numMatches > 0}
+          <span class="text-zinc-700">•</span>
           <div class="text-zinc-600">
             <span class="text-zinc-500">{numWins}</span>W
             <span class="text-zinc-500">{numLosses}</span>L
