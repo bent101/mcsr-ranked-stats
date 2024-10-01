@@ -1,8 +1,8 @@
 <script lang="ts">
-  import MatchDetailsFrame from "$lib/components/MatchDetailsFrame.svelte";
   import WeeklyRaceTableRow from "$lib/components/WeeklyRaceTableRow.svelte";
   import { formatRelativeTime } from "$lib/formatters.js";
   import { curDate } from "$lib/globals.js";
+  import { flip } from "svelte/animate";
 
   export let data;
 </script>
@@ -21,9 +21,9 @@
   <ol
     class="mx-auto mt-8 max-w-sm border-t-2 border-zinc-800 pb-[36rem] pt-8 md:ml-0"
   >
-    {#each data.weeklyRaceLeaderboard.leaderboard as match (match.player.uuid)}
+    {#each data.weeklyRaceLeaderboard.leaderboard as run (run.player.uuid)}
       <li>
-        <WeeklyRaceTableRow {match} />
+        <WeeklyRaceTableRow {run} />
       </li>
     {/each}
   </ol>

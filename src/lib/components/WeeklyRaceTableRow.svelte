@@ -4,9 +4,9 @@
   import PlayerLink from "./PlayerLink.svelte";
   import TableRow from "./TableRow.svelte";
 
-  export let match: WeeklyRaceLeaderboard["leaderboard"][number];
+  export let run: WeeklyRaceLeaderboard["leaderboard"][number];
 
-  const { mainTime, decimal } = formatTimeWithPrecision(match.time, {
+  const { mainTime, decimal } = formatTimeWithPrecision(run.time, {
     precision: 2,
   });
 </script>
@@ -17,10 +17,10 @@
       ? 'text-zinc-300'
       : 'text-zinc-600'}"
   >
-    {match.rank}
+    {run.rank}
   </div>
   <div class="flex-1 text-center text-zinc-300">
-    <PlayerLink name={match.player.nickname} uuid={match.player.uuid} />
+    <PlayerLink name={run.player.nickname} uuid={run.player.uuid} />
   </div>
   <div
     class="w-20 text-right font-extrabold tracking-wider

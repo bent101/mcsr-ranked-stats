@@ -3,24 +3,11 @@
   import "../app.css";
   import Sidebar from "$lib/components/Sidebar.svelte";
   import Loading from "$lib/components/Loading.svelte";
-  import { beforeNavigate, invalidate, invalidateAll } from "$app/navigation";
+  import { beforeNavigate, invalidate } from "$app/navigation";
   import { dev } from "$app/environment";
   import { inject } from "@vercel/analytics";
   import { page } from "$app/stores";
-  import { getLeaderboardURL } from "$lib/urls";
-  // import { onNavigate } from "$app/navigation";
-
-  // onNavigate((navigation) => {
-  // 	if (!document.startViewTransition) return;
-  // 	// if(!navigation.from?.
-
-  // 	return new Promise((resolve) => {
-  // 		document.startViewTransition(async () => {
-  // 			resolve();
-  // 			await navigation.complete;
-  // 		});
-  // 	});
-  // });
+  import { getLeaderboardURL, getWeeklyRaceURL } from "$lib/urls";
 
   inject({ mode: dev ? "development" : "production" });
 
@@ -44,10 +31,6 @@
   const stopSidebarScroll = async () => {
     if (!sidebar) return;
     sidebar.scrollTop = 0;
-    // sidebar.style.overflow = "hidden";
-    // setTimeout(() => {
-    // 	sidebar!.style.overflow = "";
-    // }, 0);
   };
   beforeNavigate(hideLb);
 </script>
@@ -68,7 +51,10 @@
   on:keydown={(e) => {
     if (e.key === "Escape") hideLb();
   }}
-  on:focus={() => invalidate(getLeaderboardURL())}
+  on:focus={() => {
+    invalidate(getLeaderboardURL());
+    invalidate(getWeeklyRaceURL());
+  }}
 />
 
 <div class="xl:flex">
