@@ -98,7 +98,9 @@
         >
           <div class="flex-1 text-center">
             {recent.player1}
-            <span class="text-zinc-700 group-hover:text-zinc-500">vs</span>
+            <span class="text-zinc-700 hover-hover:group-hover:text-zinc-500"
+              >vs</span
+            >
             {recent.player2}
           </div>
         </a>

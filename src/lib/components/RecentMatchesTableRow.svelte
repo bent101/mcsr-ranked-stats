@@ -21,14 +21,14 @@
     <span
       class="{state === 'selected'
         ? ' hidden'
-        : 'inline group-hover:hidden'} "
+        : 'inline hover-hover:group-hover:hidden'} "
     >
       {match.outcome}
     </span>
     <span
       class={state === "selected"
         ? " inline"
-        : "hidden group-hover:inline"}
+        : "hidden hover-hover:group-hover:inline"}
     >
       {match.eloChange >= 0 ? "+" : ""}{match.eloChange} elo
     </span>

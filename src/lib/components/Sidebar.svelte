@@ -198,7 +198,7 @@
         <div
           class="font-extrabold uppercase {$bestTimesSelected
             ? 'text-zinc-300'
-            : 'text-zinc-500 group-hover:text-zinc-400'}"
+            : 'text-zinc-500 hover-hover:group-hover:text-zinc-400'}"
         >
           Fastest times
         </div>
@@ -214,7 +214,7 @@
         <div
           class="font-extrabold uppercase {$pointsLbSelected
             ? 'text-zinc-300'
-            : 'text-zinc-500 group-hover:text-zinc-400'}"
+            : 'text-zinc-500 hover-hover:group-hover:text-zinc-400'}"
         >
           Points leaderboard
         </div>
@@ -230,7 +230,7 @@
         <div
           class="font-extrabold uppercase {$weeklyRaceSelected
             ? 'text-zinc-300'
-            : 'text-zinc-500 group-hover:text-zinc-400'}"
+            : 'text-zinc-500 hover-hover:group-hover:text-zinc-400'}"
         >
           Weekly race
         </div>
@@ -248,7 +248,7 @@
         <div
           class="font-extrabold uppercase {$compareSelected
             ? 'text-zinc-300'
-            : 'text-zinc-500 group-hover:text-zinc-400'}"
+            : 'text-zinc-500 hover-hover:group-hover:text-zinc-400'}"
         >
           Compare players
         </div>

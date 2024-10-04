@@ -20,6 +20,7 @@ export default {
   },
   plugins: [
     require("tailwind-scrollbar"),
+    require("tailwindcss-touch")(),
     require("tailwindcss/plugin")(({ addVariant }) => {
       addVariant("search-cancel", "&::-webkit-search-cancel-button");
     }),
