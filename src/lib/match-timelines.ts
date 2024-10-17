@@ -316,7 +316,10 @@ function getSimpleEvent(eventName: string, eventTimestamp: number) {
       return newEvent("forfeit", 0, "#ef4444", eventTimestamp);
 
     case "projectelo.timeline.death":
-      return newEvent("death", 2, "prev", eventTimestamp);
+      return newEvent("death", 0, "#5e5", eventTimestamp);
+
+    case "projectelo.timeline.death_spawnpoint":
+      return newEvent("death reset", 2, "prev", eventTimestamp);
 
     case "story.mine_stone":
       return newEvent("stone", 3, "prev", eventTimestamp);
