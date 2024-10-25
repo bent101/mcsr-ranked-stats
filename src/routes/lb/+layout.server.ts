@@ -1,4 +1,5 @@
 import { formatRecordLeaderboard } from "$lib/formatters";
+import type { APIResponse, RecordLeaderboard } from "$lib/ranked-api.js";
 import { getBestTimesURL } from "$lib/urls";
 
 export const config = {
@@ -8,29 +9,30 @@ export const config = {
 };
 
 const uniqueBestTimesThisSeasonPromise = fetch(
-  getBestTimesURL({ unique: true, allTime: false })
+  getBestTimesURL({ unique: true, allTime: false }),
 )
-  .then((res) => res.json())
+  .then((res) => res.json() as APIResponse<RecordLeaderboard>)
   .then((res) => formatRecordLeaderboard(res.data));
 
 const allBestTimesThisSeasonPromise = fetch(
-  getBestTimesURL({ unique: false, allTime: false })
+  getBestTimesURL({ unique: false, allTime: false }),
 )
-  .then((res) => res.json())
+  .then((res) => res.json() as APIResponse<RecordLeaderboard>)
   .then((res) => formatRecordLeaderboard(res.data));
 
 const uniqueBestTimesAllTimePromise = fetch(
-  getBestTimesURL({ unique: true, allTime: true })
+  getBestTimesURL({ unique: true, allTime: true }),
 )
-  .then((res) => res.json())
+  .then((res) => res.json() as APIResponse<RecordLeaderboard>)
   .then((res) => formatRecordLeaderboard(res.data));
 
 const allBestTimesAllTimePromise = fetch(
-  getBestTimesURL({ unique: false, allTime: true })
+  getBestTimesURL({ unique: false, allTime: true }),
 )
-  .then((res) => res.json())
-  .then((res) => formatRecordLeaderboard(res.data))
+  .then((res) => res.json() as APIResponse<RecordLeaderboard>)
+  .then((res) => formatRecordLeaderboard(res.data));
 
+export const load = async ({ fetch }) => {
   const [
     uniqueBestTimesThisSeason,
     allBestTimesThisSeason,
@@ -43,7 +45,6 @@ const allBestTimesAllTimePromise = fetch(
     allBestTimesAllTimePromise,
   ]);
 
-export const load = async ({ fetch }) => {
   return {
     uniqueBestTimesThisSeason,
     allBestTimesThisSeason,

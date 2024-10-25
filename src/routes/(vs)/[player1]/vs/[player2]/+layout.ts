@@ -44,7 +44,6 @@ export const load = async ({ params, fetch }) => {
   if (params.player1.toLowerCase() === params.player2.toLowerCase()) {
     throw error(404, { message: "same" });
   } else if (!player1 || !player2) {
-    // console.log(player1, player2);
     throw error(404, {
       message: player1 ? "player2" : player2 ? "player1" : "both",
     });

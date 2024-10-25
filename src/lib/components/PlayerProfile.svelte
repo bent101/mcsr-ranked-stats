@@ -58,8 +58,6 @@
     }, 2000);
   };
 
-  $: rank = getRank(playerData.eloRate);
-
   let scrollY = 0;
 </script>
 
@@ -172,6 +170,7 @@
       {#if playerData.eloRate === null}
         <b>Doing placements</b>
       {:else}
+        {@const rank = getRank(playerData.eloRate)}
         <span
           class="bg-gradient-to-r bg-clip-text font-extrabold text-transparent {rank.color}"
         >

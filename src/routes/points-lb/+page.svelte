@@ -18,7 +18,7 @@
 </svelte:head>
 
 <div class="mx-auto max-w-md pt-16 md:ml-16">
-  <div class="flex items-center justify-center gap-3 md:justify-start">
+  <div class="flex items-center gap-3">
     <h1 class="text-xl font-bold text-zinc-300">
       {#if prevPointsLb}
         Season {prevPointsLb.phase.season} points leaderboard
@@ -46,7 +46,7 @@
     </div>
   </div>
 
-  <p class="text-center text-sm text-zinc-500 md:text-left">
+  <p class="text-sm text-zinc-500">
     Phase {pointsLb.phase.number}
     {prevPointsLb ? ` for season ${pointsLb.phase.season}` : ""} ends
     {formatRelativeTime($curDate - pointsLb.phase.endsAt)}

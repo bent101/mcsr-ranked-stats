@@ -9,6 +9,9 @@
   import PlayerHead3D from "./PlayerHead3D.svelte";
   import PlayerLink from "./PlayerLink.svelte";
   import RefreshBtn from "./RefreshBtn.svelte";
+  import { goto } from "$app/navigation";
+  import { getContext } from "svelte";
+  import { showingLeaderboard } from "$lib/globals";
 
   export let match: FormattedDetailedMatch;
 
@@ -23,23 +26,28 @@
     }
   };
   $: match, resetScroll();
+
+  const close = () => {
+    goto(
+      "/" +
+        $page.url.pathname.split("/").filter(Boolean).slice(0, -1).join("/"),
+      { noScroll: true, replaceState: true },
+    );
+  };
 </script>
 
 <div class="flex h-full flex-col p-2 pb-8 pl-4 md:pb-2">
   <div class="flex items-center pl-2 justify-between">
     <MatchSummary {match} />
-    <a
-      href={"/" +
-        $page.url.pathname.split("/").filter(Boolean).slice(0, -1).join("/")}
-      data-sveltekit-noscroll
-      data-sveltekit-replacestate
+    <button
+      on:click={close}
       class="ml-2 h-9 w-9 rounded-full stroke-zinc-500 stroke-2 hover:bg-zinc-700/50"
     >
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
         <line x1="6" y1="6" x2="18" y2="18" />
         <line x1="6" y1="18" x2="18" y2="6" />
       </svg>
-    </a>
+    </button>
   </div>
   {#if match.timelines}
     <div class="m-2">
@@ -125,16 +133,16 @@
               <ol class="flex-1">
                 {#each displayedTimeline as event (event.name)}
                   {@const name = $showingSplits
-                    ? event.splitAfter.name
+                    ? event.splitAfter?.name
                     : event.name}
                   {@const diff = $showingSplits
-                    ? event.splitAfter.diff
+                    ? event.splitAfter?.diff
                     : event.diff}
                   {@const pairToRight = $showingSplits
-                    ? event.splitAfter.pairToRight
+                    ? event.splitAfter?.pairToRight
                     : event.pairToRight}
                   {@const pairToLeft = $showingSplits
-                    ? event.splitAfter.pairToLeft
+                    ? event.splitAfter?.pairToLeft
                     : event.pairToLeft}
                   <!-- in:scale={{ start: 0.7, duration: 150, delay: 150 }} -->
                   <li class="h-7 w-full origin-left">

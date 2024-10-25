@@ -1,5 +1,5 @@
 import { browser } from "$app/environment";
-import { readable } from "svelte/store";
+import { readable, writable } from "svelte/store";
 
 /** how many matches to load on page load, then on scroll */
 export const matchesPerPage = 30;
@@ -28,13 +28,15 @@ export const curDate = readable(
   function start(set) {
     const interval = setInterval(() => {
       set(Math.floor(Date.now() / 1000));
-    }, 1000 * 60);
+    }, 1000);
 
     return function stop() {
       clearInterval(interval);
     };
-  }
+  },
 );
+
+export const showingLeaderboard = writable(false);
 
 export type Outcome = "won" | "lost" | "draw" | undefined;
 export type Direction = "top" | "bottom" | "left" | "right";

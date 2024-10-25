@@ -1,4 +1,4 @@
-import type { PointsLeaderboard } from "$lib/ranked-api.js";
+import type { APIResponse, PointsLeaderboard } from "$lib/ranked-api.js";
 import { getPointsLeaderboardURL } from "$lib/urls.js";
 
 export const config = {
@@ -9,16 +9,16 @@ export const config = {
 
 export const load = async ({ fetch }) => {
   const pointsLb = await fetch(getPointsLeaderboardURL())
-    .then((res) => res.json())
-    .then((res) => res.data as PointsLeaderboard);
+    .then((res) => res.json() as APIResponse<PointsLeaderboard>)
+    .then((res) => res.data);
 
   const prevPointsLb =
     pointsLb.phase.number === 1
       ? await fetch(
-          getPointsLeaderboardURL({ season: pointsLb.phase.season - 1 })
+          getPointsLeaderboardURL({ season: pointsLb.phase.season - 1 }),
         )
-          .then((res) => res.json())
-          .then((res) => res.data as PointsLeaderboard)
+          .then((res) => res.json() as APIResponse<PointsLeaderboard>)
+          .then((res) => res.data)
       : null;
 
   return {
