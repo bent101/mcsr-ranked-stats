@@ -19,7 +19,7 @@
         ? 'text-zinc-400'
         : 'text-zinc-700 hover-hover:group-hover:text-zinc-400'}"
     >
-      {rank ?? "??"}
+      {rank}
     </div>
     <div
       class="flex-1 px-2 text-center {selected
@@ -33,7 +33,7 @@
         ? 'text-zinc-500'
         : ' text-zinc-600  hover-hover:group-hover:text-zinc-500'}"
     >
-      {elo ?? "????"}
+      {elo}
     </div>
   </SidebarTab>
 {/each}

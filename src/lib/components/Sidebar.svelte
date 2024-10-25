@@ -73,8 +73,8 @@
   $: extraOption = {
     name: `"${rawQuery}"`,
     href: `/${rawQuery}`,
-    elo: "????",
-    rank: "??",
+    elo: "",
+    rank: "",
     uuid: "extra",
   };
 
@@ -107,13 +107,6 @@
 <div
   class="min-h-screen w-80 border-r-2 border-zinc-700 bg-zinc-950 pb-32 text-sm"
 >
-  <a href="/" class="flex flex-col items-center p-4 pl-2 text-zinc-500">
-    <p class="font-extrabold uppercase tracking-wide">MCSR Ranked Stats</p>
-    <!-- <p class="text-xs text-zinc-600 font-normal">
-			S{curSeason} • ends {formatRelativeTime($curDate - seasonEnd)}
-		</p> -->
-  </a>
-
   <div
     class="sticky top-0 z-20 mb-2 bg-zinc-950/70 p-4 pl-2 text-zinc-500 backdrop-blur-md"
   >
@@ -146,7 +139,7 @@
           }
         }}
         placeholder="Search for players"
-        class="w-full appearance-none rounded-lg border focus:border-zinc-600 border-zinc-800 bg-transparent px-4 py-2 text-zinc-400 placeholder:text-zinc-600 search-cancel:hidden"
+        class="w-full appearance-none rounded-lg border focus:border-zinc-700 border-zinc-800 bg-transparent px-4 py-2 text-zinc-400 placeholder:text-zinc-600 search-cancel:hidden"
       />
       {#if rawQuery !== ""}
         <button
@@ -154,10 +147,10 @@
             rawQuery = "";
             searchInput?.blur();
           }}
-          class="absolute inset-y-0 right-2 my-auto h-6 w-6 rounded-full border border-zinc-600 bg-zinc-900"
+          class="absolute inset-y-0 right-2 my-auto h-6 w-6 rounded-full bg-zinc-900"
         >
           <svg
-            class="stroke-zinc-500 stroke-2"
+            class="stroke-zinc-600 stroke-1"
             xmlns="http://www.w3.org/2000/svg"
             width="100%"
             height="100%"
@@ -169,17 +162,9 @@
         </button>
       {:else if !inputIsFocused}
         <kbd
-          class="pointer-events-none absolute inset-y-0 right-2 my-auto h-6 w-6 select-none rounded-[0.25rem] border border-zinc-600 bg-zinc-900"
+          class="pointer-events-none text-center font-extrabold font-mono absolute inset-y-0 right-2 my-auto h-6 w-6 select-none rounded-[0.25rem] border border-zinc-700 border-b-2 bg-zinc-900"
         >
-          <svg
-            class="stroke-zinc-500 stroke-2"
-            xmlns="http://www.w3.org/2000/svg"
-            width="100%"
-            height="100%"
-            viewBox="0 0 24 24"
-          >
-            <line x1="8" y1="20" x2="16" y2="4" />
-          </svg>
+          /
         </kbd>
       {/if}
     </div>

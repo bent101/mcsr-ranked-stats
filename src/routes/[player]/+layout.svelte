@@ -142,8 +142,7 @@
   <title>{data.playerData.nickname} | MCSR Ranked stats</title>
 </svelte:head>
 
-<div class="hidden h-8 xl:block" />
-<div class="sticky top-0 z-10 bg-zinc-900/70 backdrop-blur-md">
+<div class="sticky top-16 z-10 bg-zinc-900/70 backdrop-blur-md">
   <PlayerProfile isHeader showAllStats playerData={data.playerData} />
 </div>
 
@@ -220,7 +219,7 @@
     </div>
   </div>
   <div class="hidden lg:contents">
-    <div class="sticky top-40 h-max flex-1">
+    <div class="sticky top-56 h-max flex-1">
       <div class="relative">
         <Graph matches={data.matches.data} />
         {#if browser}
