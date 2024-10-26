@@ -17,7 +17,7 @@
 
   const submitIfReady = () => {
     if (readyToSubmit) {
-      goto(`/${player1}/vs/${player2}`);
+      goto(`/stats/${player1}/vs/${player2}`);
     }
   };
 
@@ -28,7 +28,7 @@
   async function preloadFirst() {
     const first = $recentVs[0];
     if (first) {
-      const link = `/${first.player1}/vs/${first.player2}`;
+      const link = `/stats/${first.player1}/vs/${first.player2}`;
       await preloadData(link);
     }
   }
@@ -69,7 +69,7 @@
     />
 
     <a
-      href={readyToSubmit ? `/${player1}/vs/${player2}` : ""}
+      href={readyToSubmit ? `/stats/${player1}/vs/${player2}` : ""}
       tabindex={readyToSubmit ? 0 : -1}
       aria-disabled={!readyToSubmit}
       class="grid {readyToSubmit
@@ -93,7 +93,7 @@
       {@const recent = $recentVs[i]}
       {#if recent}
         <a
-          href="/{recent.player1}/vs/{recent.player2}"
+          href="/stats/{recent.player1}/vs/{recent.player2}"
           class="group flex h-24 items-center rounded-xl border border-zinc-700 bg-zinc-950 px-4 py-2 font-semibold text-zinc-500 hover:border-zinc-300 hover:text-zinc-300"
         >
           <div class="flex-1 text-center">

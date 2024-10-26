@@ -10,7 +10,7 @@
   export let match: ReturnType<typeof formatRecordLeaderboard>[number];
   export let place: number;
 
-  $: href = `/lb/${match.id}`;
+  $: href = `/stats/lb/${match.id}`;
 </script>
 
 <TableRow {href} let:state>

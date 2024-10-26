@@ -37,7 +37,7 @@
 
   const stopSidebarScroll = async () => {
     if (!sidebar) return;
-    sidebar.scrollTop = 0;
+    // sidebar.scrollTop = 0;
   };
   beforeNavigate(hideLb);
 </script>
@@ -156,7 +156,7 @@
       </div>
     </div>
   </div>
-  <div class="flex-1 pt-16">
+  <div class="flex-1 pt-16 xl:pl-3">
     <slot />
   </div>
 </main>

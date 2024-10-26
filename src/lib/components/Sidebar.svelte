@@ -64,7 +64,7 @@
 
   $: cleanedLb = filteredLb.map((player) => ({
     name: player.nickname,
-    href: `/${player.nickname}`,
+    href: `/stats/${player.nickname}`,
     elo: player.eloRate?.toString() ?? "",
     rank: player.eloRank?.toString() ?? "??",
     uuid: player.uuid,
@@ -72,7 +72,7 @@
 
   $: extraOption = {
     name: `"${rawQuery}"`,
-    href: `/${rawQuery}`,
+    href: `/stats/${rawQuery}`,
     elo: "",
     rank: "",
     uuid: "extra",
@@ -171,7 +171,7 @@
   </div>
 
   <div class="pl-2">
-    <SidebarTab href="/lb" selected={$bestTimesSelected}>
+    <SidebarTab href="/stats/lb" selected={$bestTimesSelected}>
       <div class="flex items-center pl-8 gap-10">
         <img
           src={stopwatch}
@@ -189,7 +189,7 @@
         </div>
       </div>
     </SidebarTab>
-    <SidebarTab href="/points-lb" selected={$pointsLbSelected}>
+    <SidebarTab href="/stats/points-lb" selected={$pointsLbSelected}>
       <div class="flex items-center pl-8 gap-10">
         <PodiumIcon
           className="select-none size-5 p-0.5 font-mono text-xs font-extrabold leading-3 text-white {$pointsLbSelected
@@ -205,7 +205,7 @@
         </div>
       </div>
     </SidebarTab>
-    <SidebarTab href="/weekly-race" selected={$weeklyRaceSelected}>
+    <SidebarTab href="/stats/weekly-race" selected={$weeklyRaceSelected}>
       <div class="flex items-center pl-8 gap-10">
         <CalendarIcon
           className="select-none size-5 p-0.5 font-mono text-xs font-extrabold leading-3 text-white {$weeklyRaceSelected
@@ -221,7 +221,7 @@
         </div>
       </div>
     </SidebarTab>
-    <SidebarTab href="/vs" selected={$compareSelected}>
+    <SidebarTab href="/stats/vs" selected={$compareSelected}>
       <div class="flex items-center pl-8 gap-10">
         <div
           class="select-none size-5 grid place-items-center font-mono text-xs font-extrabold leading-3 text-white {$compareSelected

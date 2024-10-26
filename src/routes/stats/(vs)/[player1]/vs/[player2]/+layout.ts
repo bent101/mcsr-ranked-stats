@@ -51,7 +51,7 @@ export const load = async ({ params, fetch }) => {
     params.player1 !== player1.nickname ||
     params.player2 !== player2.nickname
   ) {
-    throw redirect(301, `/${player1.nickname}/vs/${player2.nickname}`);
+    throw redirect(301, `/stats/${player1.nickname}/vs/${player2.nickname}`);
   }
 
   const winsPromise = fetch(getVersusURL(params.player1, params.player2), {

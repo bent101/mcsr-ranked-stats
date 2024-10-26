@@ -82,7 +82,7 @@
         {/if}
         {#if isLink}
           <a
-            href="/{playerData.nickname}"
+            href="/stats/{playerData.nickname}"
             class="underline-offset-4 hover:underline"
           >
             {playerData.nickname}

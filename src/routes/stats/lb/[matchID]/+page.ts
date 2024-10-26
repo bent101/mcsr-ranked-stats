@@ -1,9 +1,11 @@
+import type { PageLoad } from "./$types";
 import { formatDetailedMatch } from "$lib/formatters";
-import { getDetailedMatchURL } from "$lib/urls";
+import { getDetailedMatchURL, getSkinURL } from "$lib/urls";
 import { redirect } from "@sveltejs/kit";
 import type { DetailedMatch } from "$lib/ranked-api";
+import { browser } from "$app/environment";
 
-export const load = async ({ fetch, params }) => {
+export const load = (async ({ fetch, params }) => {
   const match = await fetch(getDetailedMatchURL(params.matchID), {
     cache: "force-cache",
   })
@@ -12,14 +14,21 @@ export const load = async ({ fetch, params }) => {
       if (res.data) {
         return formatDetailedMatch(res.data);
       } else {
-        throw redirect(301, `/${params.player1}/vs/${params.player2}`);
+        throw redirect(301, `/stats/lb`);
       }
     })
     .catch(() => {
-      throw redirect(301, `/${params.player1}/vs/${params.player2}`);
+      throw redirect(301, `/stats/lb`);
     });
+
+  if (browser) {
+    for (const uuid of match.playerUUIDs) {
+      const img = new Image();
+      img.src = getSkinURL(uuid);
+    }
+  }
 
   return {
     match,
   };
-};
+}) satisfies PageLoad;

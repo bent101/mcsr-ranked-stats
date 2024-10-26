@@ -97,13 +97,13 @@
   function preloadMatchIfExists(matchId: number | undefined) {
     if (matchId) {
       queueMicrotask(() =>
-        preloadData(`/${data.playerData.nickname}/${matchId}`),
+        preloadData(`/stats/${data.playerData.nickname}/${matchId}`),
       );
     }
   }
 
   function goToMatch(matchId: number) {
-    goto(`/${data.playerData.nickname}/${matchId}`, {
+    goto(`/stats/${data.playerData.nickname}/${matchId}`, {
       replaceState: true,
       noScroll: true,
     });
@@ -173,7 +173,7 @@
   </div>
 </div>
 
-<div class="flex flex-col items-center px-4 md:flex-row md:items-start">
+<div class="flex flex-col items-center pl-2 pr-4 md:flex-row md:items-start">
   <div>
     <div class="w-[30rem]">
       <div

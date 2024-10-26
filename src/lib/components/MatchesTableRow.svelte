@@ -6,7 +6,9 @@
   export let match: FormattedMatch;
   export let curDate: number;
 
-  $: href = match.isDecay ? undefined : `/${match.curPlayerName}/${match.id}`;
+  $: href = match.isDecay
+    ? undefined
+    : `/stats/${match.curPlayerName}/${match.id}`;
 </script>
 
 <TableRow {href} let:state>

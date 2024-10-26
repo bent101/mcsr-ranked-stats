@@ -12,13 +12,13 @@ export const load = (async ({ fetch, params }) => {
     .then((res) => res.json() as Promise<{ data: DetailedMatch | null }>)
     .then((res) => {
       if (res.data) {
-        return formatDetailedMatch(res.data);
+        return formatDetailedMatch(res.data, params.player);
       } else {
-        throw redirect(301, `/lb`);
+        throw redirect(301, `/stats/${params.player}`);
       }
     })
     .catch(() => {
-      throw redirect(301, `/lb`);
+      throw redirect(301, `/stats/${params.player}`);
     });
 
   if (browser) {
