@@ -45,6 +45,7 @@
     "@vercel/speed-insights": "^1.0.12",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
+    "tailwind-merge": "^2.5.4",
     "tailwindcss-touch": "^1.0.1"
   }
 }

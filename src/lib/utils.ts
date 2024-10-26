@@ -1,8 +1,11 @@
 import { writable } from "svelte/store";
 import { browser } from "$app/environment";
-import { clsx } from "clsx";
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 
-export const cn = clsx;
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
 
 export function createLocalStorageStore<T>(name: string, init: T) {
   const ret = writable(init);

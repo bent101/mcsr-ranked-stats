@@ -32,6 +32,9 @@ importers:
       date-fns:
         specifier: ^4.1.0
         version: 4.1.0
+      tailwind-merge:
+        specifier: ^2.5.4
+        version: 2.5.4
       tailwindcss-touch:
         specifier: ^1.0.1
         version: 1.0.1
@@ -2134,6 +2137,9 @@ packages:
   svelte@4.2.19:
     resolution: {integrity: sha512-IY1rnGr6izd10B0A8LqsBfmlT5OILVuZ7XsI0vdGPEvuonFV7NYEUK4dAkm9Zg2q0Um92kYjTpS1CAP3Nh/KWw==}
     engines: {node: '>=16'}
+
+  tailwind-merge@2.5.4:
+    resolution: {integrity: sha512-0q8cfZHMu9nuYP/b5Shb7Y7Sh1B7Nnl5GqNr1U+n2p6+mybvRtayrQ+0042Z5byvTA8ihjlP8Odo8/VnHbZu4Q==}
 
   tailwind-scrollbar@3.1.0:
     resolution: {integrity: sha512-pmrtDIZeHyu2idTejfV59SbaJyvp1VRjYxAjZBH0jnyrPRo6HL1kD5Glz8VPagasqr6oAx6M05+Tuw429Z8jxg==}
@@ -4343,6 +4349,8 @@ snapshots:
       locate-character: 3.0.0
       magic-string: 0.30.11
       periscopic: 3.1.0
+
+  tailwind-merge@2.5.4: {}
 
   tailwind-scrollbar@3.1.0(tailwindcss@3.4.12):
     dependencies:
