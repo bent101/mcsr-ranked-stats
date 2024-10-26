@@ -10,10 +10,10 @@
   import { fade, fly } from "svelte/transition";
   import "../app.css";
   import rankedLogo from "$lib/assets/ranked.png";
-  import { headerLinks } from "./headerLinks";
   import { page } from "$app/stores";
   import { cn } from "$lib/utils";
   import ExternalLinkIcon from "$lib/components/icons/ExternalLinkIcon.svelte";
+  import { headerLinks } from "$lib/config";
 
   inject({ mode: dev ? "development" : "production", debug: false });
 

@@ -2,28 +2,12 @@
   import { afterNavigate, goto } from "$app/navigation";
   import { page } from "$app/stores";
   import { ignFilter } from "$lib/actions";
-  import stopwatch from "$lib/assets/stopwatch.png";
+  import { sidebarLinks } from "$lib/config";
   import type { Player } from "$lib/ranked-api";
-  import { derived } from "svelte/store";
-  import PodiumIcon from "./icons/PodiumIcon.svelte";
-  import CalendarIcon from "./icons/CalendarIcon.svelte";
+  import { cn } from "$lib/utils";
   import Leaderboard from "./Leaderboard.svelte";
   import RefreshBtn from "./RefreshBtn.svelte";
   import SidebarTab from "./SidebarTab.svelte";
-
-  const bestTimesSelected = derived(page, ($page) =>
-    $page.url.pathname.includes("/lb"),
-  );
-  const compareSelected = derived(page, ($page) =>
-    $page.url.pathname.includes("/vs"),
-  );
-  const pointsLbSelected = derived(page, ($page) =>
-    $page.url.pathname.includes("/points-lb"),
-  );
-
-  const weeklyRaceSelected = derived(page, ($page) =>
-    $page.url.pathname.includes("/weekly-race"),
-  );
 
   export let lb: Player[] | undefined;
   export let stopSidebarScroll: () => void;
@@ -171,75 +155,29 @@
   </div>
 
   <div class="pl-2">
-    <SidebarTab href="/stats/lb" selected={$bestTimesSelected}>
-      <div class="flex items-center pl-8 gap-10">
-        <img
-          src={stopwatch}
-          alt=""
-          class="size-5 select-none object-contain {$bestTimesSelected
-            ? 'opacity-80'
-            : 'opacity-30'} invert"
-        />
-        <div
-          class="font-extrabold uppercase {$bestTimesSelected
-            ? 'text-zinc-300'
-            : 'text-zinc-500 hover-hover:group-hover:text-zinc-400'}"
-        >
-          Fastest times
+    {#each sidebarLinks as { href, label, Icon }}
+      {@const selected = $page.url.pathname.startsWith(href)}
+      <SidebarTab {href} {selected}>
+        <div class="flex items-center pl-8 gap-10">
+          <Icon
+            className={cn(
+              "select-none size-5",
+              selected ? "text-zinc-300" : "text-zinc-600",
+            )}
+          />
+          <div
+            class={cn(
+              "font-extrabold uppercase",
+              selected
+                ? "text-zinc-300"
+                : "text-zinc-500 hover-hover:group-hover:text-zinc-400",
+            )}
+          >
+            {label}
+          </div>
         </div>
-      </div>
-    </SidebarTab>
-    <SidebarTab href="/stats/points-lb" selected={$pointsLbSelected}>
-      <div class="flex items-center pl-8 gap-10">
-        <PodiumIcon
-          className="select-none size-5 p-0.5 font-mono text-xs font-extrabold leading-3 text-white {$pointsLbSelected
-            ? 'opacity-80'
-            : 'opacity-30'}"
-        />
-        <div
-          class="font-extrabold uppercase {$pointsLbSelected
-            ? 'text-zinc-300'
-            : 'text-zinc-500 hover-hover:group-hover:text-zinc-400'}"
-        >
-          Points leaderboard
-        </div>
-      </div>
-    </SidebarTab>
-    <SidebarTab href="/stats/weekly-race" selected={$weeklyRaceSelected}>
-      <div class="flex items-center pl-8 gap-10">
-        <CalendarIcon
-          className="select-none size-5 p-0.5 font-mono text-xs font-extrabold leading-3 text-white {$weeklyRaceSelected
-            ? 'opacity-80'
-            : 'opacity-30'}"
-        />
-        <div
-          class="font-extrabold uppercase {$weeklyRaceSelected
-            ? 'text-zinc-300'
-            : 'text-zinc-500 hover-hover:group-hover:text-zinc-400'}"
-        >
-          Weekly race
-        </div>
-      </div>
-    </SidebarTab>
-    <SidebarTab href="/stats/vs" selected={$compareSelected}>
-      <div class="flex items-center pl-8 gap-10">
-        <div
-          class="select-none size-5 grid place-items-center font-mono text-xs font-extrabold leading-3 text-white {$compareSelected
-            ? 'opacity-80'
-            : 'opacity-30'}"
-        >
-          VS
-        </div>
-        <div
-          class="font-extrabold uppercase {$compareSelected
-            ? 'text-zinc-300'
-            : 'text-zinc-500 hover-hover:group-hover:text-zinc-400'}"
-        >
-          Compare players
-        </div>
-      </div>
-    </SidebarTab>
-
+      </SidebarTab>
+    {/each}
     <div class="mr-2 flex scroll-mt-16 items-center">
       <hr class="m-2 flex-1 border-zinc-800" />
       <RefreshBtn dark />
