@@ -131,17 +131,17 @@
             rawQuery = "";
             searchInput?.blur();
           }}
-          class="absolute inset-y-0 right-2 my-auto h-6 w-6 rounded-full bg-zinc-900"
+          class="absolute inset-y-0 right-2 my-auto h-6 w-6 rounded-full hover:bg-zinc-900"
         >
           <svg
-            class="stroke-zinc-600 stroke-1"
+            class="stroke-zinc-700 stroke-2"
             xmlns="http://www.w3.org/2000/svg"
             width="100%"
             height="100%"
             viewBox="0 0 24 24"
           >
-            <line x1="6" y1="6" x2="18" y2="18" />
-            <line x1="6" y1="18" x2="18" y2="6" />
+            <line x1="8" y1="8" x2="16" y2="16" />
+            <line x1="8" y1="16" x2="16" y2="8" />
           </svg>
         </button>
       {:else if !inputIsFocused}
