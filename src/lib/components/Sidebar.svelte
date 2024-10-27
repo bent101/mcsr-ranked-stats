@@ -160,7 +160,7 @@
       <SidebarTab {href} {selected}>
         <div class="flex items-center pl-8 gap-10">
           <Icon
-            className={cn(
+            class={cn(
               "select-none size-5",
               selected ? "text-zinc-300" : "text-zinc-600",
             )}
