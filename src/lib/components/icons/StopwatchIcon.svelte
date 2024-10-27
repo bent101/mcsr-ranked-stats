@@ -1,8 +1,4 @@
-<script lang="ts">
-  export let className: string;
-</script>
-
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class={className}>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" {...$$props}>
   <g
     transform="translate(0,512) scale(0.100000,-0.100000)"
     fill="currentColor"

@@ -75,7 +75,7 @@
     on:click={toggleLb}
     class="rounded-full self-center p-2 hover:bg-white/5 xl:hidden"
   >
-    <MenuIcon className="size-6" />
+    <MenuIcon class="size-6" />
   </button>
   <a href="/" class="flex items-center p-2 gap-3 group">
     <img src={rankedLogo} alt="" class="w-9" />
@@ -112,7 +112,7 @@
       >
         {link.label}
         {#if isExternal}
-          <ExternalLinkIcon className="size-4" />
+          <ExternalLinkIcon class="size-4" />
         {/if}
       </p>
     </a>
