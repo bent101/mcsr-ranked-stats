@@ -6,7 +6,7 @@
 </script>
 
 <svelte:head>
-  <title>MCSR Ranked stats</title>
+  <title>MCSR Ranked</title>
 </svelte:head>
 
 <div class="grid h-screen place-items-center">

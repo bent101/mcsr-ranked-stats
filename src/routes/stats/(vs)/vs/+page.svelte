@@ -35,7 +35,7 @@
 </script>
 
 <svelte:head>
-  <title>Compare players | MCSR Ranked stats</title>
+  <title>Compare players | MCSR Ranked</title>
 </svelte:head>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->

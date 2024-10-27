@@ -19,7 +19,7 @@
 </script>
 
 <svelte:head>
-  <title>Fastest times | MCSR Ranked stats</title>
+  <title>Fastest times | MCSR Ranked</title>
 </svelte:head>
 
 <div class="mx-auto max-w-md pt-16 md:ml-16">

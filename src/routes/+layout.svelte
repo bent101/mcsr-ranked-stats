@@ -46,12 +46,13 @@
   <meta name="darkreader-lock" />
   <meta
     name="description"
-    content="Leaderboards, player statistics, match details, and more for MCSR Ranked (mcsrranked.com)"
+    content="Home of MCSR Ranked, a Minecraft Mod that adds a ranked system to Minecraft Speedruns."
   />
   <meta
     name="keywords"
     content="mcsr,minecraft,speedrun,ranked,mcsrranked,mcsrranked.com"
   />
+  <title>MCSR Ranked</title>
 </svelte:head>
 
 <svelte:window
@@ -67,7 +68,7 @@
 />
 
 <header
-  class="fixed flex *:whitespace-nowrap inset-x-0 top-0 z-50 bg-zinc-800 shadow-md px-2 h-16"
+  class="fixed flex *:whitespace-nowrap inset-x-0 top-0 z-50 bg-zinc-800 shadow-md px-2 py-1 h-16"
 >
   <button
     bind:this={lbButton}

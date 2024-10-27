@@ -14,7 +14,7 @@
 </script>
 
 <svelte:head>
-  <title>Points leaderboard | MCSR Ranked stats</title>
+  <title>Points leaderboard | MCSR Ranked</title>
 </svelte:head>
 
 <div class="mx-auto max-w-md pt-16 md:ml-16">

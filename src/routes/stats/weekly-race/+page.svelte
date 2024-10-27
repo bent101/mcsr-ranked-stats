@@ -8,7 +8,7 @@
 </script>
 
 <svelte:head>
-  <title>Weekly race | MCSR Ranked stats</title>
+  <title>Weekly race | MCSR Ranked</title>
 </svelte:head>
 
 <div class="mx-auto max-w-md pt-16 md:ml-16">

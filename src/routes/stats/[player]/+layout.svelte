@@ -139,7 +139,7 @@
 />
 
 <svelte:head>
-  <title>{data.playerData.nickname} | MCSR Ranked stats</title>
+  <title>{data.playerData.nickname} | MCSR Ranked</title>
 </svelte:head>
 
 <div class="sticky top-16 z-10 bg-zinc-900/70 backdrop-blur-md">

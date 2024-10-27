@@ -31,7 +31,8 @@
       ({ player1, player2 }) =>
         (player1 === data.player1.nickname &&
           player2 === data.player2.nickname) ||
-        (player1 === data.player2.nickname && player2 === data.player1.nickname)
+        (player1 === data.player2.nickname &&
+          player2 === data.player1.nickname),
     );
 
     if (i === -1) {
@@ -52,8 +53,7 @@
 </script>
 
 <svelte:head>
-  <title
-    >{data.player1.nickname} vs {data.player2.nickname} | MCSR Ranked stats</title
+  <title>{data.player1.nickname} vs {data.player2.nickname} | MCSR Ranked</title
   >
 </svelte:head>
 

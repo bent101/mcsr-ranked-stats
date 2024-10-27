@@ -1,9 +1,5 @@
-<script lang="ts">
-  import rankedMono from "$lib/assets/ranked-mono.png";
-</script>
-
 <svelte:head>
-  <title>MCSR Ranked stats</title>
+  <title>Leaderboards | MCSR Ranked</title>
 </svelte:head>
 
 <div class="min-h-[calc(100vh-4rem)] flex flex-col items-center justify-center">
