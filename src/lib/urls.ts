@@ -54,6 +54,10 @@ export const getWeeklyRaceURL = () => {
   return `${base}/weekly-race`;
 };
 
+export const getPlayoffsURL = () => {
+  return `${base}/playoffs`;
+};
+
 export const getSkinURL = (uuidOrName: string) => {
   return `https://mineskin.eu/skin/${uuidOrName}`;
 };

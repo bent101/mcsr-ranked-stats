@@ -181,3 +181,43 @@ export type WeeklyRaceLeaderboard = {
     time: number;
   }[];
 };
+
+export type PlayoffsResponse = {
+  data: PlayoffsData;
+  next: number | null;
+  prev: number | null;
+};
+
+export type PlayoffsData = {
+  players: {
+    uuid: string;
+    nickname: string;
+    seasonEloRate: number;
+    seasonEloRank: number;
+    seedNumber: number;
+    personalBest: number;
+  }[];
+
+  matches: PlayoffsMatch[];
+
+  results: {
+    player: number; // References player's seedNumber
+    place: number;
+    prize: number;
+  }[];
+
+  season: number;
+};
+
+export type PlayoffsMatch = {
+  id: number;
+  name: string;
+  nextMatchId: number | null;
+  maxRoundScore: number;
+  startTime: number;
+  state: "DONE"; // Could be expanded to include other possible states
+  participants: {
+    player: number; // References player's seedNumber
+    roundScore: number;
+  }[];
+};
