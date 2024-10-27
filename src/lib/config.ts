@@ -1,6 +1,7 @@
 import CalendarIcon from "./components/icons/CalendarIcon.svelte";
 import PodiumIcon from "./components/icons/PodiumIcon.svelte";
 import StopwatchIcon from "./components/icons/StopwatchIcon.svelte";
+import TrophyIcon from "./components/icons/TrophyIcon.svelte";
 import VsIcon from "./components/icons/VsIcon.svelte";
 
 export const headerLinks = [
@@ -11,10 +12,7 @@ export const headerLinks = [
   {
     label: "Leaderboards",
     href: "/stats",
-  },
-  {
-    label: "Playoffs",
-    href: "/playoffs",
+    hideUntilLg: true,
   },
   {
     label: "Download",
@@ -31,6 +29,11 @@ export const headerLinks = [
 ];
 
 export const sidebarLinks = [
+  {
+    label: "Playoffs",
+    href: "/stats/playoffs",
+    Icon: TrophyIcon,
+  },
   {
     label: "Fastest times",
     href: "/stats/lb",

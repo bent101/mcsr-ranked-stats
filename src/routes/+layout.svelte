@@ -67,19 +67,19 @@
 />
 
 <header
-  class="fixed gap-1 flex inset-x-0 top-0 items-center z-50 bg-zinc-800 shadow-md px-2 h-16"
+  class="fixed flex *:whitespace-nowrap inset-x-0 top-0 z-50 bg-zinc-800 shadow-md px-2 h-16"
 >
   <button
     bind:this={lbButton}
     on:click={toggleLb}
-    class="rounded-full p-2 hover:bg-white/5 xl:hidden"
+    class="rounded-full self-center p-2 hover:bg-white/5 xl:hidden"
   >
     <MenuIcon className="size-6" />
   </button>
   <a href="/" class="flex items-center p-2 gap-3 group">
     <img src={rankedLogo} alt="" class="w-9" />
     <p
-      class="text-zinc-300 font-semibold text-lg group-hover:underline underline-offset-4"
+      class="text-zinc-300 font-semibold group-hover:underline underline-offset-4"
     >
       MCSR Ranked
     </p>
@@ -101,18 +101,23 @@
       target={isExternal ? "_blank" : undefined}
       rel={isExternal ? "noopener noreferrer" : undefined}
       class={cn(
-        "px-2 py-1 rounded-md flex items-center gap-1 hover:bg-white/5 font-medium",
+        link.hideUntilLg ? "hidden xl:flex" : "flex",
+        "items-center group",
         isActive ? "text-zinc-300" : "text-zinc-400",
       )}
     >
-      {link.label}
-      {#if isExternal}
-        <ExternalLinkIcon className="size-4" />
-      {/if}
+      <p
+        class="flex items-center gap-1 group-hover:bg-white/5 text-sm p-2 rounded-md"
+      >
+        {link.label}
+        {#if isExternal}
+          <ExternalLinkIcon className="size-4" />
+        {/if}
+      </p>
     </a>
   {/each}
 </header>
-<main class="flex relative">
+<main class="flex relative gap-3">
   <div class="contents xl:hidden">
     <!-- svelte-ignore a11y-no-static-element-interactions -->
     {#if $showingLeaderboard}
@@ -140,23 +145,25 @@
       </div>
     {/if}
   </div>
-  <div class="hidden xl:contents">
-    <div class="w-80 border-r-2 border-zinc-700 bg-zinc-950" />
-    <div
-      bind:this={sidebar}
-      class="fixed top-16 z-40 h-screen shrink-0 overflow-y-scroll overscroll-y-contain scrollbar-thin scrollbar-track-zinc-950 scrollbar-thumb-zinc-900 [direction:rtl] hover:scrollbar-thumb-zinc-800"
-    >
-      <div class="[direction:ltr]">
-        <Sidebar
-          curSeason={data.lb.season.number}
-          seasonEnd={data.lb.season.endsAt}
-          {stopSidebarScroll}
-          lb={data.lb?.users}
-        />
+  {#if $page.url.pathname.startsWith("/stats")}
+    <div class="hidden xl:contents">
+      <div class="w-80 border-r-2 border-zinc-700 bg-zinc-950" />
+      <div
+        bind:this={sidebar}
+        class="fixed top-16 z-40 h-screen shrink-0 overflow-y-scroll overscroll-y-contain scrollbar-thin scrollbar-track-zinc-950 scrollbar-thumb-zinc-900 [direction:rtl] hover:scrollbar-thumb-zinc-800"
+      >
+        <div class="[direction:ltr]">
+          <Sidebar
+            curSeason={data.lb.season.number}
+            seasonEnd={data.lb.season.endsAt}
+            {stopSidebarScroll}
+            lb={data.lb.users}
+          />
+        </div>
       </div>
     </div>
-  </div>
-  <div class="flex-1 pt-16 xl:pl-3">
+  {/if}
+  <div class="flex-1 pt-16">
     <slot />
   </div>
 </main>
