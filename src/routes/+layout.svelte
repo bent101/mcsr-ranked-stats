@@ -103,13 +103,11 @@
       rel={isExternal ? "noopener noreferrer" : undefined}
       class={cn(
         link.hideUntilLg ? "hidden xl:flex" : "flex",
-        "items-center group",
+        "items-center group hover:[&>p]:bg-white/5",
         isActive ? "text-zinc-300" : "text-zinc-400",
       )}
     >
-      <p
-        class="flex items-center gap-1 hover-hover:group-hover:bg-white/5 text-sm p-2 rounded-md"
-      >
+      <p class="flex items-center gap-1 text-sm p-2 rounded-md">
         {link.label}
         {#if isExternal}
           <ExternalLinkIcon class="size-4" />
