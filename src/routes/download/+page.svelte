@@ -9,6 +9,8 @@
   import WindowsIcon from "$lib/components/icons/WindowsIcon.svelte";
   import AppleIcon from "$lib/components/icons/AppleIcon.svelte";
   import { Youtube } from "svelte-youtube-lite";
+  import ListIcon from "$lib/components/icons/ListIcon.svelte";
+  import DiscordIcon from "$lib/components/icons/DiscordIcon.svelte";
 
   const buttons: Record<
     (typeof downloads)[number]["name"],
@@ -71,7 +73,7 @@
               <strong><b>Import from zip</b></strong>
             </p>
             <div
-              class="w-full rounded-xl overflow-hidden bg-white/5 aspect-[1298/374]"
+              class="w-full rounded-xl overflow-hidden bg-white/5 aspect-[1298/311]"
             >
               <img src={importFromZipTab} alt="Import from zip" />
             </div>
@@ -114,19 +116,6 @@
                     </TooltipBtn>
                   </CopyBtn>
                   <CopyBtn
-                    message={download.links.windows}
-                    let:justCopied
-                    let:copyMessage
-                  >
-                    <TooltipBtn
-                      on:click={copyMessage}
-                      tooltip={justCopied ? "Copied!" : "Copy Windows Link"}
-                      class="rounded-full hover:bg-white/5 p-1"
-                    >
-                      <WindowsIcon class="size-6" />
-                    </TooltipBtn>
-                  </CopyBtn>
-                  <CopyBtn
                     message={download.links.mac}
                     let:justCopied
                     let:copyMessage
@@ -137,6 +126,19 @@
                       class="rounded-full hover:bg-white/5 p-1"
                     >
                       <AppleIcon class="size-6" />
+                    </TooltipBtn>
+                  </CopyBtn>
+                  <CopyBtn
+                    message={download.links.windows}
+                    let:justCopied
+                    let:copyMessage
+                  >
+                    <TooltipBtn
+                      on:click={copyMessage}
+                      tooltip={justCopied ? "Copied!" : "Copy Windows Link"}
+                      class="rounded-full hover:bg-white/5 p-1"
+                    >
+                      <WindowsIcon class="size-6" />
                     </TooltipBtn>
                   </CopyBtn>
                 </div>
@@ -152,13 +154,17 @@
           <div class="step-content">
             <p>Click OK, launch the instance, and <b>start playing!</b></p>
             <div class="flex gap-2">
-              <a href="/guidelines" class="btn"> Read the Guidelines </a>
+              <a href="/guidelines" class="btn">
+                <ListIcon class="size-5" />
+                Read the Guidelines
+              </a>
               <a
                 href="https://mcsrranked.com/discord"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="btn"
               >
+                <DiscordIcon class="size-5" />
                 Join the Discord
               </a>
             </div>
