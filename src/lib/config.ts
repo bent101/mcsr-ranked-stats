@@ -101,19 +101,19 @@ export const footerLinks = [
     href: "https://mcsrranked.com/discord",
   },
   {
-    label: "Privacy",
+    label: "Privacy Policy",
     href: "/privacy",
   },
   {
-    label: "Licences",
+    label: "mcsrranked@gmail.com",
+    href: "mailto:mcsrranked@gmail.com",
+  },
+  {
+    label: "OSS Licences",
     href: "/licences",
   },
   {
     label: "API Docs",
     href: "https://docs.mcsrranked.com",
-  },
-  {
-    label: "mcsrranked@gmail.com",
-    href: "mailto:mcsrranked@gmail.com",
   },
 ];
