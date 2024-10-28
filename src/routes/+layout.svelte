@@ -80,7 +80,7 @@
   <a href="/" class="flex items-center p-2 gap-3 group">
     <img src={rankedLogo} alt="" class="w-9" />
     <p
-      class="text-zinc-300 font-semibold group-hover:underline underline-offset-4"
+      class="text-zinc-300 font-semibold hover-hover:group-hover:underline underline-offset-4"
     >
       MCSR Ranked
     </p>
@@ -108,7 +108,7 @@
       )}
     >
       <p
-        class="flex items-center gap-1 group-hover:bg-white/5 text-sm p-2 rounded-md"
+        class="flex items-center gap-1 hover-hover:group-hover:bg-white/5 text-sm p-2 rounded-md"
       >
         {link.label}
         {#if isExternal}
