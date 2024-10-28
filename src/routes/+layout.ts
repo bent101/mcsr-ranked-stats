@@ -4,6 +4,12 @@ import { injectSpeedInsights } from "@vercel/speed-insights/sveltekit";
 
 injectSpeedInsights();
 
+export const config = {
+  isr: {
+    expiration: 20,
+  },
+};
+
 export const load = async ({ fetch }) => {
   return {
     lb: await fetch(getLeaderboardURL())
