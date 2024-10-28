@@ -3,17 +3,17 @@
   import type { DetailedPlayer } from "$lib/ranked-api";
 
   import diamond from "$lib/assets/diamond.webp";
-  import discordLogo from "$lib/assets/discord.svg";
   import fire from "$lib/assets/fire.png";
   import info from "$lib/assets/info.png";
   import iron from "$lib/assets/iron.webp";
   import stone from "$lib/assets/stone.webp";
-  import twitch from "$lib/assets/twitch.svg";
-  import youtube from "$lib/assets/youtube.svg";
 
   import PlayerHead3D from "./PlayerHead3D.svelte";
   import Tooltip from "./Tooltip.svelte";
   import { sum } from "$lib/utils";
+  import DiscordIcon from "./icons/DiscordIcon.svelte";
+  import TwitchIcon from "./icons/TwitchIcon.svelte";
+  import YoutubeIcon from "./icons/YoutubeIcon.svelte";
 
   export let playerData: DetailedPlayer;
   /**
@@ -126,28 +126,32 @@
       {/if}
       {#if playerData.connections.twitch}
         <a
-          class="h-full w-8 p-1 opacity-20 hover:opacity-100"
+          class="opacity-40 p-[3px] hover:opacity-100"
           href="https://twitch.tv/{playerData.connections.twitch.name}"
           rel="noreferrer"
-          target="_blank"><img src={twitch} alt="Twitch logo" /></a
+          target="_blank"
         >
+          <TwitchIcon class="size-[25px] scale-125 translate-y-px" />
+        </a>
       {/if}
       {#if playerData.connections.youtube}
         <a
-          class="h-full w-8 p-1 opacity-20 hover:opacity-100"
+          class="opacity-40 p-[3px] hover:opacity-100"
           rel="noreferrer"
           target="_blank"
           href="https://youtube.com/channel/{playerData.connections.youtube.id}"
-          ><img src={youtube} alt="Youtube logo" /></a
         >
+          <YoutubeIcon class="size-[25px] scale-110" />
+        </a>
       {/if}
       {#if playerData.connections.discord}
         <button
           bind:this={discord}
-          class="h-full w-8 p-1 opacity-20 hover:opacity-100"
+          class="opacity-40 p-[3px] hover:opacity-100"
           on:click|preventDefault={copyDiscord}
-          ><img src={discordLogo} alt="Discord logo" /></button
         >
+          <DiscordIcon class="size-[25px]" />
+        </button>
         <Tooltip anchor={discord}>
           {justCopiedDiscord ? "Copied!" : "Copy Discord"}
         </Tooltip>
