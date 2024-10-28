@@ -94,3 +94,26 @@ export const downloads = [
     },
   },
 ];
+
+export const footerLinks = [
+  {
+    label: "Discord",
+    href: "https://mcsrranked.com/discord",
+  },
+  {
+    label: "Privacy",
+    href: "/privacy",
+  },
+  {
+    label: "Licences",
+    href: "/licences",
+  },
+  {
+    label: "API Docs",
+    href: "https://docs.mcsrranked.com",
+  },
+  {
+    label: "mcsrranked@gmail.com",
+    href: "mailto:mcsrranked@gmail.com",
+  },
+];
