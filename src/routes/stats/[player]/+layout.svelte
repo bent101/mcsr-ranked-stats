@@ -177,7 +177,7 @@
   <div>
     <div class="w-[30rem]">
       <div
-        class="mb-2 flex text-sm items-center font-bold gap-1.5 border-b-2 border-zinc-800 p-4 pb-1 pl-4"
+        class="mb-2 flex text-sm items-center font-bold gap-1.5 border-b-2 border-zinc-800 p-4 pb-1 pr-1"
       >
         <h2 class="uppercase text-zinc-400">
           Matches <span class=" text-zinc-500">({numMatches})</span>

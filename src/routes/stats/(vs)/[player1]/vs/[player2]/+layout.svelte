@@ -135,7 +135,7 @@
   </div>
   <div class="mx-auto max-w-sm pb-[36rem] md:ml-16">
     <div
-      class="mb-2 flex items-center border-b-2 border-zinc-800 p-4 pb-1 pl-4"
+      class="mb-2 flex items-center border-b-2 border-zinc-800 p-4 pb-1 pr-1"
     >
       <h2 class="text-sm font-bold uppercase text-zinc-400">Matches</h2>
       <div
