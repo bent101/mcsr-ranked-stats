@@ -95,25 +95,34 @@ export const downloads = [
   },
 ];
 
-export const footerLinks = [
-  {
-    label: "Discord",
-    href: "https://mcsrranked.com/discord",
-  },
-  {
-    label: "Privacy Policy",
-    href: "/privacy",
-  },
-  {
-    label: "mcsrranked@gmail.com",
-    href: "mailto:mcsrranked@gmail.com",
-  },
-  {
-    label: "OSS Licences",
-    href: "/licences",
-  },
-  {
-    label: "API Docs",
-    href: "https://docs.mcsrranked.com",
-  },
+/** groups are put in columns on mobile */
+export const footerLinkGroups = [
+  [
+    {
+      label: "Store",
+      href: "https://mcsrranked.com/store",
+    },
+    {
+      label: "Discord",
+      href: "https://mcsrranked.com/discord",
+    },
+    {
+      label: "Contact",
+      href: "mailto:mcsrranked@gmail.com",
+    },
+  ],
+  [
+    {
+      label: "Privacy Policy",
+      href: "/privacy",
+    },
+    {
+      label: "OSS Licences",
+      href: "/licences",
+    },
+    {
+      label: "API Docs",
+      href: "https://docs.mcsrranked.com",
+    },
+  ],
 ];
