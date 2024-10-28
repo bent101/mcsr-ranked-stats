@@ -117,8 +117,8 @@ export const footerLinkGroups = [
       href: "/privacy",
     },
     {
-      label: "OSS Licences",
-      href: "/licences",
+      label: "OSS Licenses",
+      href: "/licenses",
     },
     {
       label: "API Docs",
