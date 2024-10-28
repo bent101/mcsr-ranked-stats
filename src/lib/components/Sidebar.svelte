@@ -139,6 +139,7 @@
             width="100%"
             height="100%"
             viewBox="0 0 24 24"
+            stroke-linecap="round"
           >
             <line x1="8" y1="8" x2="16" y2="16" />
             <line x1="8" y1="16" x2="16" y2="8" />

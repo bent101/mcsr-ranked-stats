@@ -10,21 +10,21 @@ export const headerLinks = [
     href: "/",
   },
   {
+    label: "Download",
+    href: "/download",
+  },
+  {
     label: "Leaderboards",
     href: "/stats",
     hideUntilLg: true,
-  },
-  {
-    label: "Download",
-    href: "/download",
   },
   {
     label: "Guidelines",
     href: "/guidelines",
   },
   {
-    label: "Shop",
-    href: "https://mcsrranked.tebex.io/",
+    label: "Store",
+    href: "https://mcsrranked.com/store",
   },
 ];
 
@@ -53,5 +53,44 @@ export const sidebarLinks = [
     label: "Compare players",
     href: "/stats/vs",
     Icon: VsIcon,
+  },
+];
+
+export const downloads = [
+  {
+    name: "Normal Pack" as const,
+    description: "Includes basic mods for MCSR Ranked",
+    recommended: true,
+    links: {
+      windows:
+        "https://redlime.github.io/MCSRMods/modpacks/v4/MCSRRanked-Windows-1.16.1.mrpack",
+      mac: "https://redlime.github.io/MCSRMods/modpacks/v4/MCSRRanked-OSX-1.16.1.mrpack",
+      linux:
+        "https://redlime.github.io/MCSRMods/modpacks/v4/MCSRRanked-Linux-1.16.1.mrpack",
+    },
+  },
+  {
+    name: "Pro Pack" as const,
+    description:
+      "Includes everything in Normal Pack, plus AntiResourceReload and StandardSettings. Requires Java 17+",
+    links: {
+      windows:
+        "https://redlime.github.io/MCSRMods/modpacks/v4/MCSRRanked-Windows-1.16.1-Pro.mrpack",
+      mac: "https://redlime.github.io/MCSRMods/modpacks/v4/MCSRRanked-OSX-1.16.1-Pro.mrpack",
+      linux:
+        "https://redlime.github.io/MCSRMods/modpacks/v4/MCSRRanked-Linux-1.16.1-Pro.mrpack",
+    },
+  },
+  {
+    name: "All-in Pack" as const,
+    description:
+      "Includes everything in Pro Pack, plus all other RSG mods. Requires Java 17+",
+    links: {
+      windows:
+        "https://redlime.github.io/MCSRMods/modpacks/v4/MCSRRanked-Windows-1.16.1-All.mrpack",
+      mac: "https://redlime.github.io/MCSRMods/modpacks/v4/MCSRRanked-OSX-1.16.1-All.mrpack",
+      linux:
+        "https://redlime.github.io/MCSRMods/modpacks/v4/MCSRRanked-Linux-1.16.1-All.mrpack",
+    },
   },
 ];

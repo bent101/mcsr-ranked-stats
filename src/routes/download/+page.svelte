@@ -1,12 +1,35 @@
 <script lang="ts">
   import ExternalLinkIcon from "$lib/components/icons/ExternalLinkIcon.svelte";
-  import importFromZip from "$lib/assets/import-from-zip.png";
-  import MultiSwitch from "$lib/components/MultiSwitch.svelte";
+  import importFromZipTab from "$lib/assets/import-from-zip-tab.png";
   import { downloads } from "$lib/config";
   import Badge from "$lib/components/Badge.svelte";
   import CopyBtn from "$lib/components/CopyBtn.svelte";
+  import LinuxIcon from "$lib/components/icons/LinuxIcon.svelte";
+  import TooltipBtn from "$lib/components/TooltipBtn.svelte";
+  import WindowsIcon from "$lib/components/icons/WindowsIcon.svelte";
+  import AppleIcon from "$lib/components/icons/AppleIcon.svelte";
+  import { Youtube } from "svelte-youtube-lite";
 
-  let selectedOS: "Windows" | "Mac" | "Linux" = "Windows";
+  const buttons: Record<
+    (typeof downloads)[number]["name"],
+    Record<keyof (typeof downloads)[number]["links"], Element | undefined>
+  > = {
+    "Normal Pack": {
+      linux: undefined,
+      windows: undefined,
+      mac: undefined,
+    },
+    "Pro Pack": {
+      linux: undefined,
+      windows: undefined,
+      mac: undefined,
+    },
+    "All-in Pack": {
+      linux: undefined,
+      windows: undefined,
+      mac: undefined,
+    },
+  };
 </script>
 
 <svelte:head>
@@ -14,10 +37,10 @@
 </svelte:head>
 
 <div class="px-4 py-16">
-  <div class="mx-auto max-w-7xl">
+  <div class="mx-auto max-w-xl lg:max-w-7xl">
     <h1 class="text-4xl text-zinc-300 font-bold">Download</h1>
     <div class="h-4" />
-    <div class="flex flex-col-reverse xl:flex-row gap-8">
+    <div class="flex flex-col-reverse lg:flex-row gap-8">
       <div class="flex-1">
         <div class="step">
           <div class="step-number">
@@ -43,13 +66,15 @@
           </div>
           <div class="step-content">
             <p>
-              Add Instance &gt; <b>Import from zip</b>
+              Click <strong>Add Instance</strong>
+              <span class="text-zinc-500">&gt;</span>
+              <strong><b>Import from zip</b></strong>
             </p>
-            <img
-              src={importFromZip}
-              alt="Import from zip"
-              class="rounded-md max-w-sm"
-            />
+            <div
+              class="w-full rounded-xl overflow-hidden bg-white/5 aspect-[1298/374]"
+            >
+              <img src={importFromZipTab} alt="Import from zip" />
+            </div>
           </div>
         </div>
         <div class="step">
@@ -62,17 +87,58 @@
               Copy a <b>download link</b> from below and paste it into MultiMC
             </p>
             {#each downloads as download}
-              {@const link = download.links[selectedOS]}
-              <div class="bg-zinc-800 rounded-xl shadow-md p-2 pl-4">
-                <div class="flex items-center justify-between gap-1">
-                  <p class="text-zinc-300 font-medium">{download.name}</p>
-                  {#if download.recommended}
-                    <Badge>Recommended</Badge>
-                  {/if}
+              <div class="bg-zinc-800 rounded-xl shadow-md p-2 pl-4 flex gap-4">
+                <div class="flex-1 space-y-1">
+                  <div class="flex items-center gap-2">
+                    <p class="text-zinc-300 font-medium">{download.name}</p>
+                    {#if download.recommended}
+                      <Badge>Recommended</Badge>
+                    {/if}
+                  </div>
+                  <p class="text-sm text-pretty">
+                    {@html download.description}
+                  </p>
                 </div>
-                <p class="text-sm">Includes basic mods for MCSR Ranked</p>
-                <div class="flex justify-end">
-                  <CopyBtn message={link} let:justCopied></CopyBtn>
+                <div class="flex flex-col">
+                  <CopyBtn
+                    message={download.links.linux}
+                    let:justCopied
+                    let:copyMessage
+                  >
+                    <TooltipBtn
+                      on:click={copyMessage}
+                      tooltip={justCopied ? "Copied!" : "Copy Linux Link"}
+                      class="rounded-full hover:bg-white/5 p-1"
+                    >
+                      <LinuxIcon class="size-6" />
+                    </TooltipBtn>
+                  </CopyBtn>
+                  <CopyBtn
+                    message={download.links.windows}
+                    let:justCopied
+                    let:copyMessage
+                  >
+                    <TooltipBtn
+                      on:click={copyMessage}
+                      tooltip={justCopied ? "Copied!" : "Copy Windows Link"}
+                      class="rounded-full hover:bg-white/5 p-1"
+                    >
+                      <WindowsIcon class="size-6" />
+                    </TooltipBtn>
+                  </CopyBtn>
+                  <CopyBtn
+                    message={download.links.mac}
+                    let:justCopied
+                    let:copyMessage
+                  >
+                    <TooltipBtn
+                      on:click={copyMessage}
+                      tooltip={justCopied ? "Copied!" : "Copy Mac Link"}
+                      class="rounded-full hover:bg-white/5 p-1"
+                    >
+                      <AppleIcon class="size-6" />
+                    </TooltipBtn>
+                  </CopyBtn>
                 </div>
               </div>
             {/each}
@@ -100,14 +166,15 @@
         </div>
       </div>
       <div class="flex-1">
-        <iframe
-          width="560"
-          height="315"
-          src="https://www.youtube.com/embed/GsVgmR0q0fc"
-          title="Youtube Player"
-          class="mx-auto mt-4 rounded-lg"
-          allowFullScreen
-        />
+        <div
+          class="sticky bg-white/5 rounded-lg overflow-hidden top-20 w-full aspect-video"
+        >
+          <Youtube
+            id="GsVgmR0q0fc"
+            title="How To Install Ranked"
+            thumbnail="maxresdefault"
+          />
+        </div>
       </div>
     </div>
   </div>
