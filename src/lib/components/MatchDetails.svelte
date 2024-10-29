@@ -43,7 +43,11 @@
       on:click={close}
       class="ml-2 h-9 w-9 rounded-full stroke-zinc-500 stroke-2 hover:bg-zinc-700/50"
     >
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        stroke-linecap="round"
+      >
         <line x1="6" y1="6" x2="18" y2="18" />
         <line x1="6" y1="18" x2="18" y2="6" />
       </svg>
