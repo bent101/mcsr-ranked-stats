@@ -126,3 +126,13 @@ export const footerLinkGroups = [
     },
   ],
 ];
+
+export const guidelines = [
+  "Do not modify the mod or attempt to cheat.",
+  "All runs must follow the rules of the speedrun.com Minecraft Any% Glitchless leaderboard.",
+  "Do not purposefully lose games or boost your account with the intention of queuing into players outside your skill level.",
+  "Do not post toxic messages or NSFW content in chat.",
+  "If you have had toxic tendencies recently in the MCSR community, your chat will be disabled for all opponents.",
+  "Do not use alternate accounts.",
+  "Only use <a href='https://gist.github.com/RedLime/bb1d3f49a01ff43f21bc218da964cdd8' target='_blank'>whitelisted mods</a>.",
+];
