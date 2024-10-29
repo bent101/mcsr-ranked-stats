@@ -136,3 +136,58 @@ export const guidelines = [
   "Do not use alternate accounts.",
   "Only use <a href='https://gist.github.com/RedLime/bb1d3f49a01ff43f21bc218da964cdd8' target='_blank'>whitelisted mods</a>.",
 ];
+
+export const licenses = [
+  {
+    title: "Java-WebSocket",
+    href: "javawebsocket",
+    license: "MIT License - Copyright © 2010-2020 Nathan Rajilich",
+    sourceLink: "https://github.com/TooTallNate/Java-WebSocket/",
+    licenseLink:
+      "https://github.com/TooTallNate/Java-WebSocket/blob/master/LICENSE",
+  },
+  {
+    title: "Fabric API",
+    href: "fabricapi",
+    license: "Apache License 2.0",
+    sourceLink: "https://github.com/FabricMC/fabric/",
+    licenseLink: "https://github.com/FabricMC/fabric/blob/1.20.1/LICENSE",
+  },
+  {
+    title: "Fabric-ASM",
+    href: "fabricasm",
+    license: "Mozilla Public License 2.0",
+    sourceLink: "https://github.com/Chocohead/Fabric-ASM/",
+    licenseLink: "https://github.com/Chocohead/Fabric-ASM/blob/master/LICENSE",
+  },
+  {
+    title: "SpeedRunIGT",
+    href: "speedrunigt",
+    license: "MIT License - Copyright © 2021 RedLime",
+    sourceLink: "https://github.com/RedLime/SpeedRunIGT/",
+    licenseLink: "https://github.com/RedLime/SpeedRunIGT/blob/1.16.1/LICENSE",
+  },
+  {
+    title: "prettytime",
+    href: "prettytime",
+    license: "Apache License 2.0",
+    sourceLink: "https://github.com/ocpsoft/prettytime/",
+    licenseLink: "https://github.com/ocpsoft/prettytime/blob/master/LICENSE",
+  },
+  {
+    title: "DiscordIPC",
+    href: "discordipc",
+    license: "Apache License 2.0",
+    sourceLink: "https://github.com/CDAGaming/DiscordIPC/",
+    licenseLink: "https://github.com/CDAGaming/DiscordIPC/blob/master/LICENSE",
+  },
+  {
+    title: "ChunkCacher",
+    href: "chunkcacher",
+    license: "MIT License",
+    sourceLink:
+      "https://github.com/Minecraft-Java-Edition-Speedrunning/mcsr-chunkcacher-1.16-1.17.1/",
+    licenseLink:
+      "https://github.com/Minecraft-Java-Edition-Speedrunning/mcsr-chunkcacher-1.16-1.17.1/blob/main/LICENSE",
+  },
+];

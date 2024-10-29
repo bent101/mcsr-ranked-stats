@@ -1,6 +1,7 @@
 <svelte:head>
   <title>Privacy Policy | MCSR Ranked</title>
 </svelte:head>
+
 <div class="px-4 pt-16 pb-32">
   <div class="mx-auto max-w-3xl">
     <hgroup>
