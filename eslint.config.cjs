@@ -1,12 +1,15 @@
+/** @type {import("eslint").Linter.Config} */
 module.exports = {
   root: true,
   parser: "@typescript-eslint/parser",
   extends: [
     "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "prettier",
+    "plugin:@typescript-eslint/strict-type-checked",
   ],
   plugins: ["svelte3", "@typescript-eslint"],
+  rules: {
+    "@typescript-eslint/no-unnecessary-condition": "warn",
+  },
   ignorePatterns: ["*.cjs"],
   overrides: [{ files: ["*.svelte"], processor: "svelte3/svelte3" }],
   settings: {

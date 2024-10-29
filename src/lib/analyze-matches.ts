@@ -14,7 +14,7 @@ export function getAverageTime(matches: Match[], curPlayerUUID: string) {
     (match): match is Match & { decayed: false } =>
       getWinnerUUID(match) === curPlayerUUID &&
       !match.forfeited &&
-      !match.decayed
+      !match.decayed,
   );
   return avg(completions.map((match) => getFinalTime(match)));
 }
