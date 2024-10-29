@@ -305,12 +305,19 @@
   h2 {
     @apply text-2xl text-zinc-300 font-bold mt-6 mb-2;
   }
+
   p {
-    @apply text-zinc-400 text-pretty mb-2;
+    @apply text-zinc-400 text-pretty;
   }
 
   ul {
     @apply list-disc pl-5 marker:text-zinc-600;
+  }
+  ol {
+    @apply list-decimal pl-5 marker:text-zinc-500;
+  }
+  li {
+    @apply mt-1;
   }
 
   strong {
