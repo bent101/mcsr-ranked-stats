@@ -10,9 +10,10 @@
     {#each footerLinkGroups as links}
       <div class="flex flex-col items-center md:flex-row">
         {#each links as { href, label }}
+          {@const internal = href.startsWith("/")}
           <a
             {href}
-            target="_blank"
+            target={internal ? "" : "_blank"}
             rel="noopener noreferrer"
             class="hover:underline relative underline-offset-4 px-4 py-2 flex items-center gap-1 decoration-zinc-800"
           >
