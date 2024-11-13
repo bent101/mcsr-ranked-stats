@@ -2,7 +2,9 @@
   <title>Leaderboards | MCSR Ranked</title>
 </svelte:head>
 
-<div class="min-h-[calc(100vh-4rem)] flex flex-col items-center justify-center">
+<div
+  class="min-h-screen-minus-header flex flex-col items-center justify-center"
+>
   <!-- <img
     src={rankedMono}
     class="w-96 opacity-20 select-none- invert [image-rendering:pixelated]"

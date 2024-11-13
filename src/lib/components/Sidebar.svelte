@@ -5,14 +5,15 @@
   import { sidebarLinks } from "$lib/config";
   import type { Player } from "$lib/ranked-api";
   import { cn } from "$lib/utils";
+  import XIcon from "./icons/XIcon.svelte";
   import Leaderboard from "./Leaderboard.svelte";
   import RefreshBtn from "./RefreshBtn.svelte";
   import SidebarTab from "./SidebarTab.svelte";
 
   export let lb: Player[] | undefined;
   export let stopSidebarScroll: () => void;
-  export let curSeason: number;
-  export let seasonEnd: number;
+  // export let curSeason: number;
+  // export let seasonEnd: number;
 
   let searchInput: HTMLElement | undefined;
 
@@ -123,7 +124,7 @@
           }
         }}
         placeholder="Search for players"
-        class="w-full appearance-none rounded-lg border focus:border-zinc-700 border-zinc-800 bg-transparent px-4 py-2 text-zinc-400 placeholder:text-zinc-600 search-cancel:hidden"
+        class="w-full appearance-none rounded-lg border border-zinc-800 bg-transparent px-4 py-2 text-zinc-400 placeholder:text-zinc-600 focus:border-zinc-700 search-cancel:hidden"
       />
       {#if rawQuery !== ""}
         <button
@@ -133,21 +134,11 @@
           }}
           class="absolute inset-y-0 right-2 my-auto h-6 w-6 rounded-full hover:bg-zinc-900"
         >
-          <svg
-            class="stroke-zinc-700 stroke-2"
-            xmlns="http://www.w3.org/2000/svg"
-            width="100%"
-            height="100%"
-            viewBox="0 0 24 24"
-            stroke-linecap="round"
-          >
-            <line x1="8" y1="8" x2="16" y2="16" />
-            <line x1="8" y1="16" x2="16" y2="8" />
-          </svg>
+          <XIcon class="stroke-zinc-700 stroke-2" />
         </button>
       {:else if !inputIsFocused}
         <kbd
-          class="pointer-events-none text-center font-extrabold font-mono absolute inset-y-0 right-2 my-auto h-6 w-6 select-none rounded-[0.25rem] border border-zinc-700 border-b-2 bg-zinc-900"
+          class="pointer-events-none absolute inset-y-0 right-2 my-auto h-6 w-6 select-none rounded-[0.25rem] border border-b-[2.5px] border-zinc-700/60 bg-zinc-900 text-center font-mono font-extrabold text-zinc-500/90"
         >
           /
         </kbd>
@@ -159,10 +150,10 @@
     {#each sidebarLinks as { href, label, Icon }}
       {@const selected = $page.url.pathname.startsWith(href)}
       <SidebarTab {href} {selected}>
-        <div class="flex items-center pl-8 gap-10">
+        <div class="flex items-center gap-10 pl-8">
           <Icon
             class={cn(
-              "select-none size-5",
+              "size-5 select-none",
               selected ? "text-zinc-300" : "text-zinc-600",
             )}
           />
@@ -171,7 +162,7 @@
               "font-extrabold uppercase",
               selected
                 ? "text-zinc-300"
-                : "text-zinc-500 hover-hover:group-hover:text-zinc-400",
+                : "text-zinc-500 group-hover:text-zinc-400",
             )}
           >
             {label}

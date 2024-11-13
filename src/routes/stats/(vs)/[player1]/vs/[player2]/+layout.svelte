@@ -60,7 +60,7 @@
 <div class="w-max p-4">
   <BackBtn />
 </div>
-<div class="sticky top-0 z-10 bg-zinc-900/70 backdrop-blur-md">
+<div class="top-header-height sticky z-10 bg-zinc-900/70 backdrop-blur-md">
   <div class="mx-auto max-w-max lg:ml-0 lg:max-w-5xl">
     <div class="flex flex-col justify-center lg:flex-row">
       <div class="flex-1">

@@ -84,7 +84,7 @@
   // 				</button>
   // 			</div>
   // 			<!-- <div
-  // 				class="overflow-x-scroll overscroll-none px-4 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-zinc-800 hover:scrollbar-thumb-zinc-700">
+  // 				class="overflow-x-scroll overscroll-none px-4 ">
   // 				<MultiSwitch bind:selectedIdx={curSeedFilterIdx} options={seedTypesWithAll} />
   // 			</div> -->
   // 		</div>

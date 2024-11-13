@@ -126,31 +126,31 @@
       {/if}
       {#if playerData.connections.twitch}
         <a
-          class="opacity-40 p-[3px] hover:opacity-100"
+          class="p-1 opacity-40 hover:opacity-100"
           href="https://twitch.tv/{playerData.connections.twitch.name}"
           rel="noreferrer"
           target="_blank"
         >
-          <TwitchIcon class="size-[25px] scale-125 translate-y-px" />
+          <TwitchIcon class="size-6 translate-y-px scale-125" />
         </a>
       {/if}
       {#if playerData.connections.youtube}
         <a
-          class="opacity-40 p-[3px] hover:opacity-100"
+          class="p-1 opacity-40 hover:opacity-100"
           rel="noreferrer"
           target="_blank"
           href="https://youtube.com/channel/{playerData.connections.youtube.id}"
         >
-          <YoutubeIcon class="size-[25px] scale-110" />
+          <YoutubeIcon class="size-6 scale-110" />
         </a>
       {/if}
       {#if playerData.connections.discord}
         <button
           bind:this={discord}
-          class="opacity-40 p-[3px] hover:opacity-100"
+          class="p-1 opacity-40 hover:opacity-100"
           on:click|preventDefault={copyDiscord}
         >
-          <DiscordIcon class="size-[25px]" />
+          <DiscordIcon class="size-6" />
         </button>
         <Tooltip anchor={discord}>
           {justCopiedDiscord ? "Copied!" : "Copy Discord"}

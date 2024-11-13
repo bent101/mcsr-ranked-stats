@@ -11,7 +11,7 @@
   let cube: HTMLElement | undefined;
 
   function handleMouseMove(
-    event: MouseEvent & { currentTarget: EventTarget & Window }
+    event: MouseEvent & { currentTarget: EventTarget & Window },
   ) {
     if (!cube) return;
 

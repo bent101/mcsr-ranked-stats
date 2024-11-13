@@ -1,12 +1,12 @@
 <script lang="ts">
-  import { cn } from "$lib/utils";
+  import { cn, type TimeoutId } from "$lib/utils";
 
   export let options: string[] | readonly string[];
   export let selectedIdx = 0;
   export let label: string | null = null;
   export let throttling = 0;
   let disabled = false;
-  let throttleTimeout = -1;
+  let throttleTimeout: TimeoutId = -1;
 
   const onClick = (i: number) => {
     selectedIdx = i;
@@ -20,7 +20,8 @@
 
 <div class="inline-flex w-max items-center font-extrabold">
   {#if label}
-    <span class="mr-2 inline-block text-sm uppercase text-zinc-500"
+    <span
+      class="mr-2 inline-block text-sm uppercase tracking-tight text-zinc-500"
       >{label}:</span
     >
   {/if}
@@ -40,7 +41,7 @@
           }
         }}
         class={cn(
-          "cursor-pointer px-3 py-1 uppercase",
+          "cursor-pointer px-2.5 py-1 uppercase",
           i === selectedIdx
             ? "bg-zinc-400 text-zinc-900"
             : "text-zinc-400 hover:bg-white/5",

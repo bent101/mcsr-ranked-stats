@@ -1,8 +1,9 @@
 <script lang="ts">
   import { invalidateAll } from "$app/navigation";
+  import type { TimeoutId } from "$lib/utils";
   let isRefreshing = false;
   let justRefreshed = false;
-  let timeoutIdx = -1;
+  let timeoutId: TimeoutId = -1;
 
   export let dark = false;
 
@@ -12,8 +13,8 @@
     isRefreshing = false;
 
     justRefreshed = true;
-    clearTimeout(timeoutIdx);
-    timeoutIdx = setTimeout(() => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
       justRefreshed = false;
     }, 2000);
   };

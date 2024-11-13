@@ -11,9 +11,9 @@
 
 <TableRow {href} let:state>
   <div class="flex-1 text-zinc-300">
-    <PlayerLink name={match.opponentName} uuid={match.opponentUUID} />
+    <PlayerLink name={match.opponentName}  />
     vs
-    <PlayerLink name={match.curPlayerName} uuid={match.winnerUUID} />
+    <PlayerLink name={match.curPlayerName}  />
   </div>
   <div
     class="w-28 text-center uppercase {match.outcomeColor} text-sm font-bold"
@@ -21,14 +21,14 @@
     <span
       class="{state === 'selected'
         ? ' hidden'
-        : 'inline hover-hover:group-hover:hidden'} "
+        : 'inline group-hover:hidden'} "
     >
       {match.outcome}
     </span>
     <span
       class={state === "selected"
         ? " inline"
-        : "hidden hover-hover:group-hover:inline"}
+        : "hidden group-hover:inline"}
     >
       {match.eloChange >= 0 ? "+" : ""}{match.eloChange} elo
     </span>

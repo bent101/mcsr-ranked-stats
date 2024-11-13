@@ -18,11 +18,11 @@
   <title>Download | MCSR Ranked</title>
 </svelte:head>
 
-<div class="px-4 pt-8 pb-32">
+<div class="px-4 pb-32 pt-8">
   <div class="mx-auto max-w-xl lg:max-w-7xl">
-    <h1 class="text-4xl text-zinc-300 font-bold">Download</h1>
+    <h1 class="text-4xl font-bold text-zinc-300">Download</h1>
     <div class="h-4" />
-    <div class="flex flex-col-reverse lg:flex-row gap-8">
+    <div class="flex flex-col-reverse gap-8 lg:flex-row">
       <div class="flex-1">
         <div class="step">
           <div class="step-number">
@@ -53,7 +53,7 @@
               <strong><b>Import from zip</b></strong>
             </p>
             <div
-              class="w-full rounded-xl overflow-hidden bg-white/5 aspect-[1298/234]"
+              class="aspect-[1298/234] w-full overflow-hidden rounded-xl bg-white/5"
             >
               <img src={importFromZipTab} alt="Import from zip" />
             </div>
@@ -69,10 +69,10 @@
               Copy a <b>download link</b> from below and paste it into MultiMC
             </p>
             {#each downloads as download}
-              <div class="bg-zinc-800 rounded-xl shadow-md p-2 pl-4 flex gap-4">
+              <div class="flex gap-4 rounded-xl bg-zinc-800 p-2 pl-4 shadow-md">
                 <div class="flex-1 space-y-1">
                   <div class="flex items-center gap-2">
-                    <p class="text-zinc-300 font-semibold text-lg">
+                    <p class="text-lg font-semibold text-zinc-300">
                       {download.name}
                     </p>
                     {#if download.recommended}
@@ -88,7 +88,7 @@
                         <TooltipBtn
                           on:click={copyMessage}
                           tooltip={justCopied ? "Copied!" : "Copy Windows Link"}
-                          class="rounded-full hover:bg-white/5 p-1"
+                          class="rounded-full p-1 hover:bg-white/5"
                         >
                           <WindowsIcon class="size-6" />
                         </TooltipBtn>
@@ -101,7 +101,7 @@
                         <TooltipBtn
                           on:click={copyMessage}
                           tooltip={justCopied ? "Copied!" : "Copy Mac Link"}
-                          class="rounded-full hover:bg-white/5 p-1"
+                          class="rounded-full p-1 hover:bg-white/5"
                         >
                           <AppleIcon class="size-6" />
                         </TooltipBtn>
@@ -114,14 +114,14 @@
                         <TooltipBtn
                           on:click={copyMessage}
                           tooltip={justCopied ? "Copied!" : "Copy Linux Link"}
-                          class="rounded-full hover:bg-white/5 p-1"
+                          class="rounded-full p-1 hover:bg-white/5"
                         >
                           <LinuxIcon class="size-6" />
                         </TooltipBtn>
                       </CopyBtn>
                     </div>
                   </div>
-                  <p class="text-sm text-pretty pr-2">
+                  <p class="text-pretty pr-2 text-sm">
                     {download.description}
                   </p>
                 </div>
@@ -139,16 +139,9 @@
               <p>Click OK, launch the instance, and <b>start playing!</b></p>
             </div>
             <p>
-              Visit the
-              <span
-                class="inline-block px-1.5 text-sm py-0.5 font-medium rounded bg-zinc-800 text-zinc-400"
-              >
-                <span
-                  class="text-zinc-500 inline-block translate-y-px pr-0.5 text-lg/none"
-                  >#</span
-                > tech-help
-              </span>
-              Discord channel if you ran into any issues.
+              Visit the <b>
+                <span class="mr-0.5 inline-block">#</span>tech-help</b
+              > Discord channel if you ran into any issues.
             </p>
             <div class="flex gap-2">
               <a
@@ -170,7 +163,7 @@
       </div>
       <div class="flex-1 pb-7">
         <div
-          class="sticky bg-white/5 rounded-lg overflow-hidden top-20 w-full aspect-video"
+          class="sticky top-20 aspect-video w-full overflow-hidden rounded-lg bg-white/5"
         >
           <Youtube
             id="GsVgmR0q0fc"
@@ -186,8 +179,8 @@
       <div class="flex-1 border-t border-zinc-800" />
     </div>
     <div class="h-4" />
-    <h2 class="text-2xl text-zinc-400 font-bold">Download .jar only</h2>
-    <p class=" text-zinc-500 text-pretty">
+    <h2 class="text-2xl font-bold text-zinc-400">Download .jar only</h2>
+    <p class=" text-pretty text-zinc-500">
       If you only want to download the mod file (.jar), go to the Modrinth page
       and download the most recent version.
     </p>
@@ -202,7 +195,7 @@
     </a>
     <div class="h-4" />
     <div
-      class="flex items-start gap-2 p-2 rounded-xl border border-zinc-800 text-zinc-500 max-w-2xl text-pretty text-sm"
+      class="flex max-w-2xl items-start gap-2 text-pretty rounded-xl border border-zinc-800 p-2 text-sm text-zinc-500"
     >
       <InfoIcon class="size-6 shrink-0 text-zinc-600" />
       <p>
@@ -211,13 +204,13 @@
         full list
         <a
           href="https://gist.github.com/RedLime/bb1d3f49a01ff43f21bc218da964cdd8"
-          class="text-zinc-400 inline-flex items-center group gap-0.5 underline decoration-zinc-600 underline-offset-2 hover:decoration-zinc-400"
+          class="group inline-flex items-center gap-0.5 text-zinc-400 underline decoration-zinc-600 underline-offset-2 hover:decoration-zinc-400"
           target="_blank"
           rel="noopener noreferrer"
         >
           here
           <ExternalLinkIcon
-            class="size-[1em] group-hover:text-zinc-400 text-zinc-600"
+            class="size-[1em] text-zinc-600 group-hover:text-zinc-400"
           />
         </a>
       </p>
@@ -235,15 +228,15 @@
   }
 
   .step-number {
-    @apply shrink-0 flex flex-col items-center;
+    @apply flex shrink-0 flex-col items-center;
   }
 
   .step-number p {
-    @apply grid place-items-center rounded-full size-12 text-lg bg-zinc-800 font-medium;
+    @apply grid size-12 place-items-center rounded-full bg-zinc-800 text-lg font-medium;
   }
 
   .step-number div {
-    @apply w-px bg-zinc-800 flex-1;
+    @apply w-px flex-1 bg-zinc-800;
   }
 
   .step:last-child .step-number div {
@@ -255,6 +248,6 @@
   }
 
   .btn {
-    @apply rounded-md border inline-flex items-center gap-2 hover:bg-zinc-700/50 border-zinc-700 bg-zinc-800 px-4 py-2 text-sm font-medium;
+    @apply inline-flex items-center gap-2 rounded-md border border-zinc-700 bg-zinc-800 px-4 py-2 text-sm font-medium hover:bg-zinc-700/50;
   }
 </style>

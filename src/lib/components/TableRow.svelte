@@ -6,6 +6,7 @@
   import { writable } from "svelte/store";
 
   export let href: string | undefined = undefined;
+  export let dashed = false;
 
   $: isLink = href && browser;
 
@@ -61,6 +62,7 @@
 
   $: classes = cn(
     "group flex items-center gap-2 rounded-lg border px-4 py-1.5 text-left",
+    dashed && "border-dashed",
     $state === "selected" && "border-zinc-500 bg-zinc-800 z-10",
     $state === "loading" && "border-pulse bg-zinc-800",
     $state === "idle" && ["border-transparent", isLink && "hover:bg-zinc-800"],

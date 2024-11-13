@@ -95,14 +95,14 @@ export type Match = {
   /** epoch time in seconds */
   date: number;
   players: Player[];
-  spectators: Player[];
+  // spectators: Player[];
   forfeited: boolean;
   rank: {
-    season: number;
-    allTime: number;
+    season: number | null;
+    allTime: number | null;
   };
   changes?: ScoreChange[];
-  seedType: string;
+  seedType?: string;
   bastionType?: "HOUSING" | "BRIDGE" | "STABLES" | "TREASURE";
 } & (
   | {
@@ -119,7 +119,9 @@ export type Match = {
     }
 );
 
-export type DetailedMatch = Match & {
+export type NonDecayMatch = Extract<Match, { decayed: false }>;
+
+export type DetailedMatch = NonDecayMatch & {
   completions: {
     uuid: string;
     /** in milliseconds */
@@ -168,7 +170,7 @@ export type PointsLeaderboard = {
   })[];
 };
 
-export type WeeklyRaceLeaderboard = {
+export type WeeklyRace = {
   id: number;
   seed: {
     overworld: string;

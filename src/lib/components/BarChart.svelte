@@ -1,9 +1,8 @@
 <script lang="ts">
-  import { VisXYContainer, VisLine, VisAxis, VisArea } from "@unovis/svelte";
-  import { Line } from "@unovis/ts";
   import { browser } from "$app/environment";
   import type { FormattedMatch } from "$lib/formatters";
   import { reversed } from "$lib/utils";
+  import { VisArea, VisAxis, VisLine, VisXYContainer } from "@unovis/svelte";
 
   type DataRecord = { x: number; y: number };
 
@@ -23,15 +22,11 @@
   $: yRange = roundedMax - roundedMin;
   $: yDomain = [roundedMax - Math.max(yRange, 250), roundedMax] as [
     number,
-    number
+    number,
   ];
 
   $: xMax = Math.max(data.length, 5);
   $: xDomain = [1, xMax] as [number, number];
-
-  const triggers = {
-    [Line.selectors.line]: (d: DataRecord) => `${d.x} ${d.y}`,
-  };
 </script>
 
 {#if browser}
@@ -58,6 +53,7 @@
         y={(d) => d.y}
       />
 
+      <!-- @ts-expect-error bad typedefs -->
       <VisAxis
         tickFormat={(tick) => `${xMax - tick}`}
         type="x"

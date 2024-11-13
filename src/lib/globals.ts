@@ -39,7 +39,9 @@ export const curDate = readable(
 export const showingLeaderboard = writable(false);
 
 export type Outcome = "won" | "lost" | "draw" | undefined;
+
 export type Direction = "top" | "bottom" | "left" | "right";
+
 export const seedTypes = [
   "buried treasure",
   "shipwreck",

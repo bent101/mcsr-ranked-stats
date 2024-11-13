@@ -2,10 +2,10 @@
   <title>Privacy Policy | MCSR Ranked</title>
 </svelte:head>
 
-<div class="px-4 pt-16 pb-32">
+<div class="px-4 pb-32 pt-16">
   <div class="mx-auto max-w-3xl">
     <hgroup>
-      <h1 class="text-4xl text-zinc-300 font-bold">Privacy Policy</h1>
+      <h1 class="text-4xl font-bold text-zinc-300">Privacy Policy</h1>
       <p class="text-zinc-500">Effective date: 11th of April, 2023</p>
     </hgroup>
     <div class="h-8" />
@@ -303,11 +303,11 @@
 
 <style lang="postcss">
   h2 {
-    @apply text-2xl text-zinc-300 font-bold mt-6 mb-2;
+    @apply mb-2 mt-6 text-2xl font-bold text-zinc-300;
   }
 
   p {
-    @apply text-zinc-400 text-pretty;
+    @apply text-pretty text-zinc-400;
   }
 
   ul {
@@ -325,6 +325,6 @@
   }
 
   a {
-    @apply text-zinc-500 underline underline-offset-2 decoration-zinc-700;
+    @apply text-zinc-500 underline decoration-zinc-700 underline-offset-2;
   }
 </style>

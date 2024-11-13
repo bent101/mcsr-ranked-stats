@@ -1,9 +1,9 @@
-<script lang="ts">
+<script lang="ts" generics="T extends Record<string, unknown> | undefined">
   import { backOut } from "svelte/easing";
-  import { afterNavigate } from "$app/navigation";
   import { clamp, sleep } from "$lib/utils";
   import type { Direction } from "$lib/globals";
   import { onDestroy, onMount, tick } from "svelte";
+  import { afterNavigate } from "$app/navigation";
   import { scale } from "svelte/transition";
   import { browser } from "$app/environment";
 
@@ -13,8 +13,7 @@
   export let hoverable = false;
 
   /** optional function that loads data for the popup */
-  export let load: (() => Promise<Record<string, unknown>>) | undefined =
-    undefined;
+  export let load: (() => Promise<T>) | undefined = undefined;
 
   export let directionPreference: Direction[] = [
     "top",
@@ -53,7 +52,7 @@
   /** in milliseconds; the grace period to switch mouse between anchor and popup */
   const outDelay = 150;
 
-  let data: any;
+  let data: T;
 
   let popupSizer: HTMLElement;
   let popupContainer: HTMLElement;
@@ -147,37 +146,24 @@
   const onMouseEnterAnchor = async () => {
     hovering = true;
     await sleep(delay);
-
     if (!hovering) return;
 
     if (load) {
-      const entries = Object.entries(await load());
-      const promises = entries.map(([key, promise]) =>
-        Promise.resolve(promise).then((value) => [key, value]),
-      );
-      const resolvedEntries = await Promise.all(promises);
-
+      const nextData = await load();
       if (!hovering) return;
-
-      data = Object.fromEntries(resolvedEntries);
+      data = nextData;
       await tick();
     }
 
     await positionPopup();
-
     await tick();
-
     popupExists = true;
   };
 
   const onMouseLeaveAnchor = async () => {
     hovering = false;
-
     if (hoverable) await sleep(outDelay);
-
-    if (!hovering) {
-      popupExists = false;
-    }
+    if (!hovering) popupExists = false;
   };
 
   const onMouseEnterPopup = () => {

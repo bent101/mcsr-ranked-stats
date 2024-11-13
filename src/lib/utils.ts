@@ -1,6 +1,6 @@
-import { writable } from "svelte/store";
 import { browser } from "$app/environment";
 import { clsx, type ClassValue } from "clsx";
+import { writable } from "svelte/store";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
@@ -94,3 +94,5 @@ export function isTyping(e: KeyboardEvent) {
     (e.target instanceof HTMLElement && e.target.isContentEditable)
   );
 }
+
+export type TimeoutId = NodeJS.Timeout | number;

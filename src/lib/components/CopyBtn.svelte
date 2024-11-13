@@ -8,7 +8,7 @@
     if (timeoutId) {
       clearTimeout(timeoutId);
     }
-    navigator.clipboard.writeText(message);
+    void navigator.clipboard.writeText(message);
     justCopied = true;
     timeoutId = setTimeout(() => {
       justCopied = false;

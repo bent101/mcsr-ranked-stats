@@ -8,31 +8,33 @@ export const config = {
   },
 };
 
-const uniqueBestTimesThisSeasonPromise = fetch(
-  getBestTimesURL({ unique: true, allTime: false }),
-)
-  .then((res) => res.json() as APIResponse<RecordLeaderboard>)
-  .then((res) => formatRecordLeaderboard(res.data));
-
-const allBestTimesThisSeasonPromise = fetch(
-  getBestTimesURL({ unique: false, allTime: false }),
-)
-  .then((res) => res.json() as APIResponse<RecordLeaderboard>)
-  .then((res) => formatRecordLeaderboard(res.data));
-
-const uniqueBestTimesAllTimePromise = fetch(
-  getBestTimesURL({ unique: true, allTime: true }),
-)
-  .then((res) => res.json() as APIResponse<RecordLeaderboard>)
-  .then((res) => formatRecordLeaderboard(res.data));
-
-const allBestTimesAllTimePromise = fetch(
-  getBestTimesURL({ unique: false, allTime: true }),
-)
-  .then((res) => res.json() as APIResponse<RecordLeaderboard>)
-  .then((res) => formatRecordLeaderboard(res.data));
+const a = `${{ a: 1 }}`;
 
 export const load = async ({ fetch }) => {
+  const uniqueBestTimesThisSeasonPromise = fetch(
+    getBestTimesURL({ unique: true, allTime: false }),
+  )
+    .then((res) => res.json() as APIResponse<RecordLeaderboard>)
+    .then((res) => formatRecordLeaderboard(res.data));
+
+  const allBestTimesThisSeasonPromise = fetch(
+    getBestTimesURL({ unique: false, allTime: false }),
+  )
+    .then((res) => res.json() as APIResponse<RecordLeaderboard>)
+    .then((res) => formatRecordLeaderboard(res.data));
+
+  const uniqueBestTimesAllTimePromise = fetch(
+    getBestTimesURL({ unique: true, allTime: true }),
+  )
+    .then((res) => res.json() as APIResponse<RecordLeaderboard>)
+    .then((res) => formatRecordLeaderboard(res.data));
+
+  const allBestTimesAllTimePromise = fetch(
+    getBestTimesURL({ unique: false, allTime: true }),
+  )
+    .then((res) => res.json() as APIResponse<RecordLeaderboard>)
+    .then((res) => formatRecordLeaderboard(res.data));
+
   const [
     uniqueBestTimesThisSeason,
     allBestTimesThisSeason,

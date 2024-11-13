@@ -3,4 +3,4 @@
   export let data;
 </script>
 
-<MatchDetails match={data.match} />
+<MatchDetails match={data.match} hideAllTimeRank hideSeasonRank />

@@ -1,19 +1,19 @@
 <script lang="ts">
   import { dev } from "$app/environment";
   import { beforeNavigate, invalidate } from "$app/navigation";
+  import { page } from "$app/stores";
+  import rankedLogo from "$lib/assets/ranked.png";
+  import ExternalLinkIcon from "$lib/components/icons/ExternalLinkIcon.svelte";
   import MenuIcon from "$lib/components/icons/MenuIcon.svelte";
   import Loading from "$lib/components/Loading.svelte";
   import Sidebar from "$lib/components/Sidebar.svelte";
+  import { headerLinks } from "$lib/config";
   import { showingLeaderboard } from "$lib/globals";
   import { getLeaderboardURL, getWeeklyRaceURL } from "$lib/urls";
+  import { cn } from "$lib/utils";
   import { inject } from "@vercel/analytics";
   import { fade, fly } from "svelte/transition";
   import "../app.css";
-  import rankedLogo from "$lib/assets/ranked.png";
-  import { page } from "$app/stores";
-  import { cn } from "$lib/utils";
-  import ExternalLinkIcon from "$lib/components/icons/ExternalLinkIcon.svelte";
-  import { headerLinks } from "$lib/config";
 
   inject({ mode: dev ? "development" : "production", debug: false });
 
@@ -68,19 +68,19 @@
 />
 
 <header
-  class="fixed flex *:whitespace-nowrap inset-x-0 top-0 z-50 bg-zinc-800 shadow-md px-2 py-1 h-16"
+  class="fixed inset-x-0 top-0 z-50 flex h-16 bg-zinc-800 px-2 py-1 shadow-md *:whitespace-nowrap"
 >
   <button
     bind:this={lbButton}
     on:click={toggleLb}
-    class="rounded-full self-center p-2 hover:bg-white/5 xl:hidden"
+    class="self-center rounded-full p-2 hover:bg-white/5 xl:hidden"
   >
     <MenuIcon class="size-6" />
   </button>
-  <a href="/" class="flex items-center p-2 gap-3 group">
+  <a href="/" class="group flex items-center gap-3 p-2">
     <img src={rankedLogo} alt="" class="w-9" />
     <p
-      class="text-zinc-300 font-semibold hover-hover:group-hover:underline underline-offset-4"
+      class="hover-hover:group-hover:underline font-semibold text-zinc-300 underline-offset-4"
     >
       MCSR Ranked
     </p>
@@ -103,11 +103,11 @@
       rel={isExternal ? "noopener noreferrer" : undefined}
       class={cn(
         link.hideUntilLg ? "hidden xl:flex" : "flex",
-        "items-center group hover:[&>p]:bg-white/5",
+        "group items-center hover:[&>p]:bg-white/5",
         isActive ? "text-zinc-300" : "text-zinc-400",
       )}
     >
-      <p class="flex items-center gap-1 text-sm p-2 rounded-md">
+      <p class="flex items-center gap-1 rounded-md p-2 text-sm">
         {link.label}
         {#if isExternal}
           <ExternalLinkIcon class="size-4" />
@@ -116,7 +116,7 @@
     </a>
   {/each}
 </header>
-<main class="flex relative gap-3">
+<main class="relative flex gap-3">
   <div class="contents xl:hidden">
     <!-- svelte-ignore a11y-no-static-element-interactions -->
     {#if $showingLeaderboard}
@@ -131,15 +131,12 @@
       <div
         bind:this={sidebar}
         transition:fly={{ x: -200, duration: 200 }}
-        class="fixed top-16 z-40 h-full overflow-y-scroll overscroll-y-contain scrollbar-thin scrollbar-track-zinc-950 scrollbar-thumb-zinc-900 [direction:rtl] hover:scrollbar-thumb-zinc-800"
+        class="fixed top-header-height z-40 h-full overflow-y-scroll overscroll-y-contain [direction:rtl]"
       >
         <div class="[direction:ltr]">
-          <Sidebar
-            curSeason={data.lb.season.number}
-            seasonEnd={data.lb.season.endsAt}
-            {stopSidebarScroll}
-            lb={data.lb?.users}
-          />
+          <!-- curSeason={data.lb.season.number}
+          seasonEnd={data.lb.season.endsAt} -->
+          <Sidebar {stopSidebarScroll} lb={data.lb?.users} />
         </div>
       </div>
     {/if}
@@ -149,20 +146,17 @@
       <div class="w-80 border-r-2 border-zinc-700 bg-zinc-950" />
       <div
         bind:this={sidebar}
-        class="fixed top-16 z-40 h-screen shrink-0 overflow-y-scroll overscroll-y-contain scrollbar-thin scrollbar-track-zinc-950 scrollbar-thumb-zinc-900 [direction:rtl] hover:scrollbar-thumb-zinc-800"
+        class="fixed top-header-height z-40 h-screen shrink-0 overflow-y-scroll overscroll-y-contain [direction:rtl]"
       >
         <div class="[direction:ltr]">
-          <Sidebar
-            curSeason={data.lb.season.number}
-            seasonEnd={data.lb.season.endsAt}
-            {stopSidebarScroll}
-            lb={data.lb.users}
-          />
+          <!-- curSeason={data.lb.season.number}
+          seasonEnd={data.lb.season.endsAt} -->
+          <Sidebar {stopSidebarScroll} lb={data.lb.users} />
         </div>
       </div>
     </div>
   {/if}
-  <div class="flex-1 pt-16">
+  <div class="flex-1 pt-header-height">
     <slot />
   </div>
 </main>
