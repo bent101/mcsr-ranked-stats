@@ -1,14 +1,21 @@
-import type { Outcome } from "./globals";
 import type {
   APIResponse,
   DetailedMatch,
   Match,
   RecordLeaderboard,
 } from "$lib/ranked-api";
-import { getTimelines } from "./match-timelines";
-import { getMatchesURL } from "./urls";
-import { flatten, toTitleCase } from "./utils";
 import { getFinalTime, getOutcome, getWinnerUUID } from "./getters";
+import type { Outcome } from "./globals";
+import {
+  addMissingEvents,
+  addSplits,
+  fillColors,
+  getSimpleEvent,
+  getTimelines,
+  indexDuplicates,
+} from "./match-timelines";
+import { getMatchesURL } from "./urls.js";
+import { flatten, toTitleCase } from "./utils";
 
 export type FormattedMatch = {
   isDecay: boolean;
@@ -125,14 +132,16 @@ export const formatMatch = (
     opponentName = opponentInfo?.nickname;
     opponentUUID = opponentInfo?.uuid;
     outcome = "draw";
-    if (winnerUUID) outcome = winnerUUID === curPlayerUUID ? "won" : "lost";
+    if (winnerUUID !== null)
+      outcome = winnerUUID === curPlayerUUID ? "won" : "lost";
     const rawFinalTime = getFinalTime(match);
     time = rawFinalTime ? formatTime(rawFinalTime) : undefined;
   }
 
   const scoreChange =
     changes?.find(
-      (member) => member.uuid === (curPlayerName ? curPlayerUUID : winnerUUID),
+      (member) =>
+        member.uuid === (curPlayerName != null ? curPlayerUUID : winnerUUID),
     ) ?? changes?.[0];
   const eloChange = scoreChange?.change ?? 0;
   const eloBefore = scoreChange?.eloRate ?? undefined;
@@ -188,14 +197,12 @@ export const formatRecordLeaderboard = (lb: RecordLeaderboard) => {
 
 export function formatDetailedMatch(
   match: DetailedMatch,
-  curPlayerName: string | undefined = undefined,
+  curPlayerName?: string,
 ) {
-  const seedType = toTitleCase(
-    match.seedType?.replaceAll("_", " ") ?? "unknown",
-  );
-  const bastionType = match.bastionType
-    ? toTitleCase(match.bastionType)
-    : undefined;
+  const seedType =
+    match.seedType != null && toTitleCase(match.seedType.replaceAll("_", " "));
+
+  const bastionType = match.bastionType && toTitleCase(match.bastionType);
 
   const curPlayerUUID = match.players.find(
     (member) => member.nickname.toLowerCase() === curPlayerName?.toLowerCase(),
@@ -210,7 +217,7 @@ export function formatDetailedMatch(
 
   // if `curPlayerUUID` is defined, put it first; otherwise, put the winner first
   const playerOrder = match.players.map((member) => member.uuid);
-  if (!curPlayerName) {
+  if (curPlayerName === undefined) {
     if (winnerIdx !== -1) {
       [playerOrder[winnerIdx], playerOrder[0]] = [
         playerOrder[0],
@@ -232,7 +239,7 @@ export function formatDetailedMatch(
 
   const eloChanges = playerOrder.map((uuid) => {
     const scoreChange = match.changes?.find((val) => val.uuid === uuid);
-    return scoreChange?.eloRate
+    return scoreChange?.eloRate != null
       ? {
           before: scoreChange.eloRate,
           change: scoreChange.change,
@@ -247,7 +254,7 @@ export function formatDetailedMatch(
     playerUUIDs: playerOrder,
     playerNames,
     eloChanges,
-    timelines: getTimelines(match, playerOrder, winnerUUID),
+    timelines: getTimelines(match, playerOrder),
     curPlayerName,
     curPlayerUUID,
     winnerUUID,
@@ -257,6 +264,8 @@ export function formatDetailedMatch(
     time: getFinalTime(match),
     outcome,
     forfeit: match.forfeited,
+    rank: match.rank,
+    season: match.season,
   };
 }
 
@@ -307,7 +316,7 @@ export async function getMatches(
 ) {
   return fetch(getMatchesURL(playerName, page, perPage, excludeDecay))
     .then((res) => res.json() as APIResponse<Match[]>)
-    .then((res) => formatMatches(res.data ?? [], playerName));
+    .then((res) => formatMatches(res.data, playerName));
 }
 
 export async function getAllMatches(playerName: string, numMatches: number) {
@@ -330,7 +339,7 @@ export async function getRawMatches(
 ) {
   return fetch(getMatchesURL(playerName, page, perPage, excludeDecay))
     .then((res) => res.json() as APIResponse<Match[]>)
-    .then((res) => res.data ?? []);
+    .then((res) => res.data);
 }
 
 export async function getAllRawMatches(playerName: string, numMatches: number) {
@@ -347,4 +356,33 @@ export async function getAllRawMatches(playerName: string, numMatches: number) {
 
 export function formatPercent(ratio: number) {
   return `${Math.round(ratio * 100)}%`;
+}
+
+export function parseWeeklyRaceRun(
+  run: string,
+  finalTime: number,
+  playerUUID: string,
+) {
+  const unformattedTimeline = run.split("\n").map((event) => {
+    const [eventName, timestamp] = event.split(":");
+    return { type: eventName, time: parseInt(timestamp) };
+  });
+
+  const timeline = unformattedTimeline
+    .map((event) => getSimpleEvent(event.type, event.time))
+    .filter(Boolean);
+
+  addMissingEvents(timeline, {
+    finalTime,
+    unformattedTimeline: run
+      .split("\n")
+      .map((event) => ({ type: event.split(":")[0] })),
+    winnerUUID: playerUUID,
+  });
+
+  fillColors(timeline);
+  addSplits(timeline);
+  indexDuplicates(timeline);
+
+  return timeline;
 }

@@ -142,7 +142,7 @@
   <title>{data.playerData.nickname} | MCSR Ranked</title>
 </svelte:head>
 
-<div class="sticky top-16 z-10 bg-zinc-900/70 backdrop-blur-md">
+<div class="sticky top-header-height z-10 bg-zinc-900/70 backdrop-blur-md">
   <PlayerProfile isHeader showAllStats playerData={data.playerData} />
 </div>
 
@@ -154,7 +154,7 @@
         <button
           on:click={showAllMatches}
           disabled={loadingAllMatches || data.matches.noMoreMatches}
-          class="absolute bottom-[calc(20px+2.4rem)] left-[calc(20px+3.9rem)] rounded-full border-[0.125rem] border-zinc-700 bg-zinc-950 px-3 py-1 text-xs font-extrabold uppercase tracking-wide text-zinc-500 disabled:opacity-70 hover:border-zinc-400 hover:text-zinc-300 disabled:hover:border-zinc-700 disabled:hover:text-zinc-500"
+          class="absolute bottom-[calc(20px+2.4rem)] left-[calc(16px+2.4rem)] rounded-full border-[0.125rem] border-zinc-700 bg-zinc-950 px-3 py-1 text-xs font-extrabold uppercase tracking-wide text-zinc-500 disabled:opacity-70 hover:border-zinc-400 hover:text-zinc-300 disabled:hover:border-zinc-700 disabled:hover:text-zinc-500"
         >
           {loadingAllMatches
             ? "Loading..."
@@ -173,50 +173,48 @@
   </div>
 </div>
 
-<div class="flex flex-col items-center pl-2 pr-4 md:flex-row md:items-start">
-  <div>
-    <div class="w-[30rem]">
-      <div
-        class="mb-2 flex text-sm items-center font-bold gap-1.5 border-b-2 border-zinc-800 p-4 pb-1 pr-1"
-      >
-        <h2 class="uppercase text-zinc-400">
-          Matches <span class=" text-zinc-500">({numMatches})</span>
-        </h2>
-        {#if numMatches > 0}
-          <span class="text-zinc-700">•</span>
-          <div class="text-zinc-600">
-            <span class="text-zinc-500">{numWins}</span>W
-            <span class="text-zinc-500">{numLosses}</span>L
-          </div>
-        {/if}
-        <div class="ml-auto"><RefreshBtn /></div>
-      </div>
-      {#if data.matches.data && data.matches.data.length > 0}
-        <div>
-          {#each data.matches.data as match}
-            <MatchesTableRow {match} curDate={$curDate} />
-          {/each}
-        </div>
-        <div
-          class="pb-[36rem] text-center text-zinc-600"
-          bind:this={infiniteScrollPadding}
-        >
-          {#if data.matches.noMoreMatches}
-            <p class="pt-16">No more matches</p>
-          {:else}
-            {#each { length: matchesPerPage } as _}
-              <div class="p-2.5">
-                <div class="h-5 animate-pulse rounded-full bg-zinc-800/50" />
-              </div>
-            {/each}
-          {/if}
-        </div>
-      {:else}
-        <div class="text-center text-zinc-600 pt-16">
-          No matches yet this season
+<div class="flex flex-col pl-2 pr-4 md:flex-row md:items-start">
+  <div class="max-w-md flex-1 overflow-hidden">
+    <div
+      class="mb-2 flex items-center gap-1.5 border-b-2 border-zinc-800 p-4 pb-1 pr-1 text-sm font-bold"
+    >
+      <h2 class="uppercase text-zinc-400">
+        Matches <span class=" text-zinc-500">({numMatches})</span>
+      </h2>
+      {#if numMatches > 0}
+        <span class="text-zinc-700">•</span>
+        <div class="text-zinc-600">
+          <span class="text-zinc-500">{numWins}</span>W
+          <span class="text-zinc-500">{numLosses}</span>L
         </div>
       {/if}
+      <div class="ml-auto"><RefreshBtn /></div>
     </div>
+    {#if data.matches.data && data.matches.data.length > 0}
+      <div>
+        {#each data.matches.data as match}
+          <MatchesTableRow {match} curDate={$curDate} />
+        {/each}
+      </div>
+      <div
+        class="pb-[36rem] text-center text-zinc-600"
+        bind:this={infiniteScrollPadding}
+      >
+        {#if data.matches.noMoreMatches}
+          <p class="pt-16">No more matches</p>
+        {:else}
+          {#each { length: matchesPerPage } as _}
+            <div class="p-2.5">
+              <div class="h-5 animate-pulse rounded-full bg-zinc-800/50" />
+            </div>
+          {/each}
+        {/if}
+      </div>
+    {:else}
+      <div class="pt-16 text-center text-zinc-600">
+        No matches yet this season
+      </div>
+    {/if}
   </div>
   <div class="hidden lg:contents">
     <div class="sticky top-56 h-max flex-1">
@@ -226,7 +224,7 @@
           <button
             on:click={showAllMatches}
             disabled={loadingAllMatches || data.matches.noMoreMatches}
-            class="absolute bottom-[58px] left-[78px] rounded-full border-[0.125rem] border-zinc-700 bg-zinc-950 px-3 py-1 text-xs font-extrabold uppercase tracking-wide text-zinc-500 disabled:opacity-70 hover:border-zinc-400 hover:text-zinc-300 disabled:hover:border-zinc-700 disabled:hover:text-zinc-500"
+            class="absolute bottom-[58px] left-[60px] rounded-full border-[0.125rem] border-zinc-700 bg-zinc-950 px-3 py-1 text-xs font-extrabold uppercase tracking-wide text-zinc-500 disabled:opacity-70 hover:border-zinc-400 hover:text-zinc-300 disabled:hover:border-zinc-700 disabled:hover:text-zinc-500"
           >
             {loadingAllMatches
               ? "Loading..."

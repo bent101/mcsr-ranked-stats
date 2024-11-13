@@ -3,23 +3,15 @@
   import { spring } from "svelte/motion";
   import { fade } from "svelte/transition";
   import { afterNavigate } from "$app/navigation";
+  import type { TimeoutId } from "$lib/utils";
 
   let progress = spring(0, { stiffness: 0.03, damping: 1 });
-
-  const animate = () => {
-    if ($navigating) {
-      $progress += (80 - $progress) / 1.3;
-      requestAnimationFrame(animate);
-    } else {
-      $progress = 100;
-    }
-  };
 
   $: if ($progress >= 100) {
     progress = spring(0);
   }
 
-  let timeoutId = -1;
+  let timeoutId: TimeoutId = -1;
 
   const beforeNavigationStart = () => {
     if ($navigating !== null) {

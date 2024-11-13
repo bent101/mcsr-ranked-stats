@@ -5,8 +5,30 @@
       "type": "npm",
       "script": "dev",
       "problemMatcher": [],
-      "label": "npm: dev",
-      "detail": "vite dev"
+      "label": "dev"
+    },
+    {
+      "type": "npm",
+      "script": "build",
+      "problemMatcher": [],
+      "label": "build"
+    },
+    {
+      "type": "npm",
+      "script": "preview",
+      "problemMatcher": [],
+      "label": "preview"
+    },
+    {
+      "type": "eslint",
+      "problemMatcher": ["$eslint-stylish"],
+      "label": "eslint"
+    },
+    {
+      "type": "npm",
+      "script": "format",
+      "problemMatcher": [],
+      "label": "format"
     }
   ]
 }

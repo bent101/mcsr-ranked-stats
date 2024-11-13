@@ -4,7 +4,6 @@
   import { browser } from "$app/environment";
   import type { FormattedMatch } from "$lib/formatters";
   import { onMount } from "svelte";
-  import { page } from "$app/stores";
 
   type DataRecord = { x: number; y: number };
   const x = (d: DataRecord) => d.x;
@@ -40,22 +39,18 @@
   $: yMin = Math.min(...data.map(({ y }) => y));
   $: yMax = Math.max(Math.max(...data.map(({ y }) => y)), 0);
   $: roundedMin = Math.floor(yMin / 50) * 50;
-  $: roundedMax = Math.ceil(yMax / 50) * 50;
+  $: roundedMax = Math.ceil(yMax / 50) * 50 + 2;
   $: yRange = roundedMax - roundedMin;
-  $: yDomain = [roundedMax - Math.max(yRange, 250), roundedMax] as [
+  $: yDomain = [roundedMax - Math.max(yRange, 252), roundedMax] as [
     number,
     number,
   ];
 
   $: xMax = Math.max(data.length, 5);
   $: xDomain = [xMax, 1] as [number, number];
-
-  const triggers = {
-    [Line.selectors.line]: (d: DataRecord) => `${d.x} ${d.y}`,
-  };
 </script>
 
-<div class="container h-[40vh] lg:h-[60vh] *:h-full">
+<div class="container h-80 pl-2 *:h-full lg:h-[max(calc(100vh-21rem),18rem)]">
   {#if browser}
     <VisXYContainer width="100%" {xDomain} {yDomain} data={paddedData}>
       <VisArea {duration} color="#a1a1aa28" curveType="linear" {x} {y} />
@@ -82,7 +77,7 @@
         tickTextFontSize={"0.8rem"}
         type="y"
         numTicks={3}
-        label="Elo"
+        tickFormat={(tick) => `${tick}`}
       />
     </VisXYContainer>
   {/if}
@@ -92,7 +87,7 @@
   .container {
     --vis-axis-grid-color: #27272a;
     --vis-axis-tick-color: #27272a;
-    --vis-axis-label-color: #71717a;
+    --vis-axis-label-color: #71717a80;
     --vis-axis-tick-label-color: #71717a80;
   }
 </style>

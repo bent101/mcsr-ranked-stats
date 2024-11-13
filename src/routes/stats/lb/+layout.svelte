@@ -7,7 +7,10 @@
   export let data;
 
   const showingAll = createLocalStorageStore("showingAll", false);
-  const showingAllTime = createLocalStorageStore("showingAllTime", false);
+  export const showingAllTime = createLocalStorageStore(
+    "showingAllTime",
+    false,
+  );
 
   $: matches = $showingAll
     ? $showingAllTime

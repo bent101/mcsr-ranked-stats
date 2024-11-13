@@ -6,7 +6,7 @@
   const dispatch = createEventDispatcher();
   const showNotifDot = createLocalStorageStore(
     "showMoreStatsNotifDot",
-    browser
+    browser,
   );
 </script>
 

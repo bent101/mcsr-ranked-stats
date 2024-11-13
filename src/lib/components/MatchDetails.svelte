@@ -1,4 +1,5 @@
 <script lang="ts">
+  import XIcon from "./icons/XIcon.svelte";
   import MatchSummary from "./MatchSummary.svelte";
   import MultiSwitch from "$lib/components/MultiSwitch.svelte";
   import Switch from "$lib/components/Switch.svelte";
@@ -10,10 +11,10 @@
   import PlayerLink from "./PlayerLink.svelte";
   import RefreshBtn from "./RefreshBtn.svelte";
   import { goto } from "$app/navigation";
-  import { getContext } from "svelte";
-  import { showingLeaderboard } from "$lib/globals";
 
   export let match: FormattedDetailedMatch;
+  export let hideSeasonRank = false;
+  export let hideAllTimeRank = false;
 
   const showingSplits = createLocalStorageStore("showingSplits", false);
   const detailLevel = createLocalStorageStore("detailLevel", 1);
@@ -36,21 +37,14 @@
   };
 </script>
 
-<div class="flex h-full flex-col p-2 pb-8 pl-4 md:pb-2">
-  <div class="flex items-center pl-2 justify-between">
-    <MatchSummary {match} />
+<div class="flex h-full flex-col p-2 pl-4 max-md:pb-6">
+  <div class="flex items-start justify-between pl-2">
+    <MatchSummary {match} {hideSeasonRank} {hideAllTimeRank} />
     <button
       on:click={close}
-      class="ml-2 h-9 w-9 rounded-full stroke-zinc-500 stroke-2 hover:bg-zinc-700/50"
+      class="h-9 w-9 shrink-0 rounded-full stroke-zinc-500 stroke-2 hover:bg-white/5"
     >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        stroke-linecap="round"
-      >
-        <line x1="6" y1="6" x2="18" y2="18" />
-        <line x1="6" y1="18" x2="18" y2="6" />
-      </svg>
+      <XIcon />
     </button>
   </div>
   {#if match.timelines}
@@ -70,7 +64,7 @@
 
   <div
     bind:this={scrollingContainer}
-    class="m-2 mr-0 flex-1 overflow-scroll overscroll-none scrollbar-thin scrollbar-track-zinc-800 scrollbar-thumb-zinc-600 hover:scrollbar-thumb-zinc-500"
+    class="m-2 mr-0 flex-1 overflow-scroll overscroll-none"
   >
     <div class="flex w-max gap-4">
       {#each match.playerUUIDs as playerUUID, i}
@@ -87,7 +81,7 @@
             </div>
             <div class="flex-1">
               <h3 class="-mb-2 origin-left text-lg font-semibold text-zinc-300">
-                <PlayerLink name={playerName} uuid={playerUUID} />
+                <PlayerLink name={playerName} />
 
                 {#if playerUUID === match.winnerUUID}
                   <span
@@ -186,7 +180,7 @@
     </div>
   </div>
   {#if match.timelines}
-    <div class="flex justify-between pr-2">
+    <div class="flex justify-between gap-6 overflow-auto pb-1 pr-2">
       <Switch
         bind:onFirst={$showingSplits}
         options={["Splits", "Timestamps"]}

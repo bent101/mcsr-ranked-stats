@@ -1,10 +1,10 @@
-import type { APIResponse, DetailedPlayer, Match } from "$lib/ranked-api";
-import type { LayoutLoad } from "./$types";
+import { browser } from "$app/environment";
 import { formatMatches } from "$lib/formatters";
 import { matchesPerPage } from "$lib/globals";
-import { error } from "@sveltejs/kit";
+import type { APIResponse, DetailedPlayer, Match } from "$lib/ranked-api";
 import { getMatchesURL, getPlayerURL, getSkinURL } from "$lib/urls";
-import { browser } from "$app/environment";
+import { error } from "@sveltejs/kit";
+import type { LayoutLoad } from "./$types";
 
 export const load = (async ({ fetch, params }) => {
   if (browser) {

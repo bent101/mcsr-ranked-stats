@@ -13,7 +13,7 @@
     {place}
   </div>
   <div class="flex-1 text-center text-zinc-300">
-    <PlayerLink name={player.nickname} uuid={player.uuid} />
+    <PlayerLink name={player.nickname} />
   </div>
   <div class="w-20 text-center text-zinc-600">
     {player.seasonResult.eloRate} elo

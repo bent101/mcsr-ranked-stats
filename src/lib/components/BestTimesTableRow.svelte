@@ -22,7 +22,7 @@
     {place}
   </div>
   <div class="flex-1 text-center text-zinc-300">
-    <PlayerLink name={match.playerName} uuid={match.playerUUID} />
+    <PlayerLink name={match.playerName} />
   </div>
   <div
     class="w-20 text-center font-extrabold tracking-wider

@@ -6,29 +6,29 @@
   <title>Licenses | MCSR Ranked</title>
 </svelte:head>
 
-<div class="px-4 pt-16 pb-32">
+<div class="px-4 pb-32 pt-16">
   <div class="mx-auto max-w-7xl">
-    <h1 class="text-4xl text-zinc-300 font-bold">OSS Licenses</h1>
+    <h1 class="text-4xl font-bold text-zinc-300">OSS Licenses</h1>
     <div class="h-8" />
-    <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {#each licenses as license}
         <div
-          class="rounded-lg bg-zinc-800 flex flex-col space-y-1 shadow-md px-4 py-2"
+          class="flex flex-col space-y-1 rounded-lg bg-zinc-800 px-4 py-2 shadow-md"
         >
-          <h2 class="text-lg text-zinc-300 font-bold">{license.title}</h2>
-          <p class="text-zinc-400 flex-1 text-sm">{license.license}</p>
+          <h2 class="text-lg font-bold text-zinc-300">{license.title}</h2>
+          <p class="flex-1 text-sm text-zinc-400">{license.license}</p>
           <div class="flex gap-2">
             <a
               href={license.sourceLink}
               target="_blank"
-              class="text-zinc-400 text-sm hover:text-zinc-300 underline underline-offset-2 decoration-zinc-600"
+              class="text-sm text-zinc-400 underline decoration-zinc-600 underline-offset-2 hover:text-zinc-300"
             >
               Source
             </a>
             <a
               href={license.licenseLink}
               target="_blank"
-              class="text-zinc-400 text-sm hover:text-zinc-300 underline underline-offset-2 decoration-zinc-600"
+              class="text-sm text-zinc-400 underline decoration-zinc-600 underline-offset-2 hover:text-zinc-300"
             >
               License
             </a>

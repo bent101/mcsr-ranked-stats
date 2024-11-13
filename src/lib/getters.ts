@@ -1,12 +1,13 @@
 import type { Outcome } from "./globals";
-import type { Match } from "./ranked-api";
+import type { Match, NonDecayMatch } from "./ranked-api";
 
-export function getWinnerUUID(match: Match) {
+export function getWinnerUUID(match: Pick<Match, "result">) {
   return match.result?.uuid ?? null;
 }
 
-export function getFinalTime(match: Match) {
-  if (match.decayed) throw new Error("Failed to get final time: match decayed");
+if (true) 1;
+
+export function getFinalTime(match: Pick<NonDecayMatch, "result">) {
   return match.result.time;
 }
 

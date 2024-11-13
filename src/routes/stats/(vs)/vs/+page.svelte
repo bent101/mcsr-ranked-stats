@@ -49,6 +49,7 @@
     class="flex items-center justify-center font-semibold text-zinc-500"
   >
     Compare
+    <!-- svelte-ignore a11y-autofocus -->
     <input
       use:ignFilter
       autofocus
@@ -56,7 +57,7 @@
       bind:value={player1}
       placeholder="a player"
       type="search"
-      class="mx-2 w-44 appearance-none rounded-lg border border-zinc-700 bg-transparent px-4 py-2 text-zinc-300 placeholder:text-zinc-700 search-cancel:hidden focus:border-zinc-500"
+      class="mx-2 w-44 appearance-none rounded-lg border border-zinc-700 bg-transparent px-4 py-2 text-zinc-300 placeholder:text-zinc-700 focus:border-zinc-500 search-cancel:hidden"
     />
     to
     <input
@@ -65,7 +66,7 @@
       bind:value={player2}
       placeholder="another player"
       type="search"
-      class="mx-2 w-44 appearance-none rounded-lg border border-zinc-700 bg-transparent px-4 py-2 text-zinc-300 placeholder:text-zinc-700 search-cancel:hidden focus:border-zinc-500"
+      class="mx-2 w-44 appearance-none rounded-lg border border-zinc-700 bg-transparent px-4 py-2 text-zinc-300 placeholder:text-zinc-700 focus:border-zinc-500 search-cancel:hidden"
     />
 
     <a
@@ -98,9 +99,7 @@
         >
           <div class="flex-1 text-center">
             {recent.player1}
-            <span class="text-zinc-700 hover-hover:group-hover:text-zinc-500"
-              >vs</span
-            >
+            <span class="text-zinc-700 group-hover:text-zinc-500">vs</span>
             {recent.player2}
           </div>
         </a>

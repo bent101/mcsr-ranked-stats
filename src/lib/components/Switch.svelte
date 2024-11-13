@@ -1,12 +1,12 @@
 <script lang="ts">
-  import { cn } from "$lib/utils";
+  import { cn, type TimeoutId } from "$lib/utils";
 
   export let options: [string, string];
   export let onFirst: boolean = true;
   export let throttling = 0;
 
   let disabled = false;
-  let throttleTimeout = -1;
+  let throttleTimeout: TimeoutId = -1;
 
   const onClick = () => {
     onFirst = !onFirst;
@@ -32,7 +32,7 @@
     {@const selected = onFirst === (index === 0)}
     <div
       class={cn(
-        "px-3 py-1",
+        "px-2.5 py-1",
         selected
           ? "bg-zinc-400 text-zinc-900"
           : "text-zinc-400 hover:bg-white/5",

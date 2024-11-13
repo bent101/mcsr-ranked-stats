@@ -1,7 +1,7 @@
 import { formatDetailedMatch } from "$lib/formatters";
+import type { DetailedMatch } from "$lib/ranked-api";
 import { getDetailedMatchURL } from "$lib/urls";
 import { redirect } from "@sveltejs/kit";
-import type { DetailedMatch } from "$lib/ranked-api";
 
 export const load = async ({ fetch, params }) => {
   const match = await fetch(getDetailedMatchURL(params.matchID), {

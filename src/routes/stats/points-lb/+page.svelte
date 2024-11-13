@@ -26,7 +26,7 @@
         Points leaderboard
       {/if}
     </h1>
-    <div bind:this={infoEl} class="rounded-full p-2 -m-2 hover:bg-zinc-800">
+    <div bind:this={infoEl} class="-m-2 rounded-full p-2 hover:bg-zinc-800">
       <img src={info} alt="" class="h-4 w-4 select-none opacity-30 invert" />
       <Tooltip
         hoverable

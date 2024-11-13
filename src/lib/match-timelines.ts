@@ -51,17 +51,11 @@ type Diff = {
   color: string;
 };
 
-export function getTimelines(
-  match: DetailedMatch,
-  playerOrder: string[],
-  winnerUUID: string | null,
-) {
-  if (!match.timelines) return;
-
+export function getTimelines(match: DetailedMatch, playerOrder: string[]) {
   match.timelines.reverse(); // the api returns the timeline last event to first event
 
   return [0, 1, 2, 3].map((detailLevel) =>
-    getTimelinesAtDetailLevel(match, playerOrder, winnerUUID, detailLevel),
+    getTimelinesAtDetailLevel(match, playerOrder, detailLevel),
   );
 }
 
@@ -72,35 +66,22 @@ export function getTimelines(
 function getTimelinesAtDetailLevel(
   match: DetailedMatch,
   playerOrder: string[],
-  winnerUUID: string | null,
   detailLevel: number,
 ) {
-  const ret = getSplitTimelines(match.timelines!, playerOrder).map(
+  const ret = getSplitTimelines(match.timelines, playerOrder).map(
     (timeline, i) => {
       const newTimeline = timeline
         .map((event) => getSimpleEvent(event.type, event.time))
         .filter(Boolean)
         .filter((event) => event.detailLevel <= detailLevel);
 
-      newTimeline.unshift(newEvent("start", 0, "#5e5", 0));
-      const finalTime = getFinalTime(match);
-      const winnerUUID = getWinnerUUID(match);
-
-      if (winnerUUID === null) {
-        newTimeline.push(newEvent("draw", 0, "#3b82f6", finalTime));
-      } else if (winnerUUID === playerOrder[i]) {
-        newTimeline.push(
-          newEvent(match.forfeited ? "win" : "finish", 0, "#22c55e", finalTime),
-        );
-      } else if (!match.forfeited) {
-        newTimeline.push(newEvent("lose", 0, "#ef4444", finalTime));
-      } else if (
-        !match.timelines?.find(
-          (event) => event.type === "projectelo.timeline.forfeit",
-        )
-      ) {
-        newTimeline.push(newEvent("disconnected", 0, "#ef4444", finalTime));
-      }
+      addMissingEvents(newTimeline, {
+        finalTime: getFinalTime(match),
+        winnerUUID: getWinnerUUID(match),
+        unformattedTimeline: match.timelines,
+        forfeited: match.forfeited,
+        curPlayerUUID: playerOrder[i],
+      });
 
       fillColors(newTimeline);
       addSplits(newTimeline);
@@ -131,12 +112,13 @@ function pairTimelines(left: MatchEvent[], right: MatchEvent[]) {
       right[matchingTimestampIdx].pairToLeft = true;
     }
 
-    if (leftEvent.splitAfter) {
+    const leftSplit = leftEvent.splitAfter;
+    if (leftSplit) {
       const matchingSplitIdx = right.findIndex(
-        (event) => event.splitAfter?.name === leftEvent.splitAfter!.name,
+        (event) => event.splitAfter?.name === leftSplit.name,
       );
       if (matchingSplitIdx === i) {
-        leftEvent.splitAfter.pairToRight = true;
+        leftSplit.pairToRight = true;
         right[matchingSplitIdx].splitAfter!.pairToLeft = true;
       }
     }
@@ -227,19 +209,19 @@ function getSplitTimelines(
 }
 
 /** Assign the `"prev"` colors to the previous color */
-function fillColors(timeline: MatchEvent[]) {
+export function fillColors(timeline: MatchEvent[]) {
   for (let i = 1; i < timeline.length; i++) {
-    if (timeline[i]!.color === "prev") {
-      timeline[i]!.color = timeline[i - 1]!.color;
+    if (timeline[i].color === "prev") {
+      timeline[i].color = timeline[i - 1].color;
     }
   }
 }
 
 /** mutates `timeline`, adding `splitAfter` to each event (except the last) */
-function addSplits(timeline: MatchEvent[]) {
+export function addSplits(timeline: MatchEvent[]) {
   for (let i = 0; i < timeline.length - 1; i++) {
-    const { name, timestamp } = timeline[i]!;
-    const next = timeline[i + 1]!;
+    const { name, timestamp } = timeline[i];
+    const next = timeline[i + 1];
     const nextTimestamp = next.timestamp;
     const splitName = shortenSplitName(`${name} → ${next.name}`);
     const splitLength = nextTimestamp - timestamp;
@@ -250,6 +232,43 @@ function addSplits(timeline: MatchEvent[]) {
       pairToRight: false,
     };
   }
+}
+
+export function addMissingEvents(
+  timeline: MatchEvent[],
+  {
+    finalTime,
+    forfeited = false,
+    unformattedTimeline,
+    winnerUUID,
+    curPlayerUUID = winnerUUID ?? undefined,
+  }: {
+    finalTime: number;
+    unformattedTimeline: { type: string }[];
+    forfeited?: boolean;
+    winnerUUID: string | null;
+    curPlayerUUID?: string;
+  },
+) {
+  timeline.unshift(newEvent("start", 0, "#5e5", 0));
+
+  if (winnerUUID === null) {
+    timeline.push(newEvent("draw", 0, "#3b82f6", finalTime));
+  } else if (winnerUUID === curPlayerUUID) {
+    timeline.push(
+      newEvent(forfeited ? "win" : "finish", 0, "#22c55e", finalTime),
+    );
+  } else if (!forfeited) {
+    timeline.push(newEvent("lose", 0, "#ef4444", finalTime));
+  } else if (
+    !unformattedTimeline.find(
+      (event) => event.type === "projectelo.timeline.forfeit",
+    )
+  ) {
+    timeline.push(newEvent("disconnected", 0, "#ef4444", finalTime));
+  }
+
+  return timeline;
 }
 
 function shortenSplitName(splitName: string) {
@@ -264,27 +283,27 @@ function shortenSplitName(splitName: string) {
 }
 
 /** mutates `timeline`, indexing duplicate events and splits (e.g. nether enter 2) */
-function indexDuplicates(timeline: MatchEvent[]) {
+export function indexDuplicates(timeline: MatchEvent[]) {
   const numSeenEvents = new Map<string, number>();
   const numSeenSplits = new Map<string, number>();
-  for (const i in timeline) {
+  for (let i = 0; i < timeline.length; i++) {
     // index event
     const eventName = timeline[i].name;
     const eventCount = numSeenEvents.get(eventName) ?? 0;
     if (eventCount > 0) {
       numSeenEvents.set(eventName, eventCount + 1);
-      timeline[i].name += " " + numSeenEvents.get(eventName);
+      timeline[i].name += ` ${eventCount + 1}`;
     } else {
       numSeenEvents.set(eventName, 1);
     }
 
     // index split (almost copy paste)
     const splitName = timeline[i]?.splitAfter?.name;
-    if (!splitName) continue;
+    if (splitName == null) continue;
     const splitCount = numSeenSplits.get(splitName) ?? 0;
     if (splitCount > 0) {
       numSeenSplits.set(splitName, splitCount + 1);
-      timeline[i].splitAfter!.name += " " + numSeenSplits.get(splitName);
+      timeline[i].splitAfter!.name += ` ${splitCount + 1}`;
     } else {
       numSeenSplits.set(splitName, 1);
     }
@@ -307,7 +326,7 @@ function newEvent(
   };
 }
 
-function getSimpleEvent(eventName: string, eventTimestamp: number) {
+export function getSimpleEvent(eventName: string, eventTimestamp: number) {
   switch (eventName) {
     case "projectelo.timeline.reset":
       return newEvent("reset", 0, "#5e5", eventTimestamp);

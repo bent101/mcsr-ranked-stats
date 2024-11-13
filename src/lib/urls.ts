@@ -9,7 +9,7 @@ export const getLeaderboardURL = () => {
 export const getPointsLeaderboardURL = ({
   season,
 }: { season?: number } = {}) => {
-  return `${base}/phase-leaderboard${season ? `?season=${season}` : ""}`;
+  return `${base}/phase-leaderboard${season != null ? `?season=${season}` : ""}`;
 };
 
 export const getPlayerURL = (name: string) => {
@@ -56,6 +56,16 @@ export const getWeeklyRaceURL = () => {
 
 export const getPlayoffsURL = () => {
   return `${base}/playoffs`;
+};
+
+export const getWeeklyRaceMatchURL = ({
+  playerUUID,
+  weeklyRaceId: weekId,
+}: {
+  playerUUID: string;
+  weeklyRaceId: number;
+}) => {
+  return `${base}/weekly-race/${weekId}/${playerUUID}`;
 };
 
 export const getSkinURL = (uuidOrName: string) => {

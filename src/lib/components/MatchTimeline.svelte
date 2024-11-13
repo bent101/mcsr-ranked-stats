@@ -6,9 +6,6 @@
   export let timeline: MatchEvent[] = [];
 
   let timelineContainer: HTMLElement | undefined;
-
-  /** in pixels */
-  const gap = 4;
 </script>
 
 {#key timeline}

@@ -4,8 +4,16 @@
 
 @layer base {
   :root {
-    font-size: calc(1600vw / 544);
-    @apply min-[544px]:[font-size:16px];
+    font-size: calc(1600vw / 470);
+    @apply min-[470px]:[font-size:16px];
+
+    --header-height: 4rem;
+
+    @apply overscroll-none bg-zinc-900 text-zinc-400 selection:bg-blue-400;
+  }
+
+  html * {
+    @apply scrollbar-thin scrollbar-track-transparent scrollbar-thumb-white/10 hover:scrollbar-thumb-white/15;
   }
 
   button:focus-visible,

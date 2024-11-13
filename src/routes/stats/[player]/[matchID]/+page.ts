@@ -1,9 +1,9 @@
-import type { PageLoad } from "./$types";
+import { browser } from "$app/environment";
 import { formatDetailedMatch } from "$lib/formatters";
+import type { DetailedMatch } from "$lib/ranked-api";
 import { getDetailedMatchURL, getSkinURL } from "$lib/urls";
 import { redirect } from "@sveltejs/kit";
-import type { DetailedMatch } from "$lib/ranked-api";
-import { browser } from "$app/environment";
+import type { PageLoad } from "./$types";
 
 export const load = (async ({ fetch, params }) => {
   const match = await fetch(getDetailedMatchURL(params.matchID), {
