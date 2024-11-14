@@ -131,7 +131,7 @@
       <div
         bind:this={sidebar}
         transition:fly={{ x: -200, duration: 200 }}
-        class="fixed top-header-height z-40 h-full overflow-y-scroll overscroll-y-contain [direction:rtl]"
+        class="fixed top-header-height z-40 h-full overflow-y-scroll overscroll-y-contain scrollbar-track-zinc-950 [direction:rtl]"
       >
         <div class="[direction:ltr]">
           <!-- curSeason={data.lb.season.number}
@@ -146,7 +146,7 @@
       <div class="w-80 border-r-2 border-zinc-700 bg-zinc-950" />
       <div
         bind:this={sidebar}
-        class="fixed top-header-height z-40 h-screen shrink-0 overflow-y-scroll overscroll-y-contain [direction:rtl]"
+        class="fixed top-header-height z-40 h-screen shrink-0 overflow-y-scroll overscroll-y-contain scrollbar-track-zinc-950 [direction:rtl]"
       >
         <div class="[direction:ltr]">
           <!-- curSeason={data.lb.season.number}

@@ -46,8 +46,8 @@
     }
   }
 
-  const left = { x: -12, y: -40 };
-  const right = { x: -12, y: 40 };
+  const left = { x: -5, y: -35 };
+  const right = { x: -5, y: 35 };
   const up = { x: 25, y: 0 };
   const down = { x: -20, y: 0 };
 </script>
@@ -60,7 +60,7 @@
 <div class="w-max p-4">
   <BackBtn />
 </div>
-<div class="top-header-height sticky z-10 bg-zinc-900/70 backdrop-blur-md">
+<div class="sticky top-header-height z-10 bg-zinc-900/70 backdrop-blur-md">
   <div class="mx-auto max-w-max lg:ml-0 lg:max-w-5xl">
     <div class="flex flex-col justify-center lg:flex-row">
       <div class="flex-1">
@@ -133,7 +133,7 @@
       </div>
     </div>
   </div>
-  <div class="mx-auto max-w-sm pb-[36rem] md:ml-16">
+  <div class="mx-auto max-w-sm pb-[34rem] md:ml-16">
     <div
       class="mb-2 flex items-center border-b-2 border-zinc-800 p-4 pb-1 pr-1"
     >

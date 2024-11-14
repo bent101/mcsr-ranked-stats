@@ -23,7 +23,7 @@
     <PlayerLink name={run.player.nickname} />
   </div>
   <div
-    class="w-20 text-right font-extrabold tracking-wider
+    class="w-20 text-right font-extrabold tabular-nums
              {state === 'selected' ? 'text-zinc-300' : 'text-zinc-400'}"
   >
     {mainTime}<span

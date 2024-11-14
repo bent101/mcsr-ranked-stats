@@ -1,6 +1,7 @@
 <script lang="ts">
   import { goto, preloadData } from "$app/navigation";
   import { ignFilter } from "$lib/actions";
+  import PlayerHead3D from "$lib/components/PlayerHead3D.svelte";
   import { createLocalStorageStore } from "$lib/utils";
   import { onMount } from "svelte";
 
@@ -46,7 +47,7 @@
         submitIfReady();
       }
     }}
-    class="flex items-center justify-center font-semibold text-zinc-500"
+    class="mx-auto flex max-w-xl items-center gap-2 px-4 font-semibold text-zinc-500"
   >
     Compare
     <!-- svelte-ignore a11y-autofocus -->
@@ -57,7 +58,7 @@
       bind:value={player1}
       placeholder="a player"
       type="search"
-      class="mx-2 w-44 appearance-none rounded-lg border border-zinc-700 bg-transparent px-4 py-2 text-zinc-300 placeholder:text-zinc-700 focus:border-zinc-500 search-cancel:hidden"
+      class="w-0 flex-1 appearance-none rounded-lg border border-zinc-700 bg-transparent p-2 text-sm text-zinc-300 placeholder:text-zinc-700 focus:border-zinc-500 search-cancel:hidden sm:px-4 sm:text-base"
     />
     to
     <input
@@ -66,7 +67,7 @@
       bind:value={player2}
       placeholder="another player"
       type="search"
-      class="mx-2 w-44 appearance-none rounded-lg border border-zinc-700 bg-transparent px-4 py-2 text-zinc-300 placeholder:text-zinc-700 focus:border-zinc-500 search-cancel:hidden"
+      class="w-0 flex-1 appearance-none rounded-lg border border-zinc-700 bg-transparent p-2 text-sm text-zinc-300 placeholder:text-zinc-700 focus:border-zinc-500 search-cancel:hidden sm:px-4 sm:text-base"
     />
 
     <a
@@ -75,7 +76,7 @@
       aria-disabled={!readyToSubmit}
       class="grid {readyToSubmit
         ? 'cursor-pointer opacity-100'
-        : 'cursor-default opacity-10'} h-12 w-12 select-none place-items-center rounded-full border-[0.125rem] border-zinc-700 bg-zinc-950 text-3xl text-zinc-300"
+        : 'cursor-default opacity-10'} h-12 w-12 shrink-0 select-none place-items-center rounded-full border-[0.125rem] border-zinc-700 bg-zinc-950 text-3xl text-zinc-300"
       >→</a
     >
   </div>
@@ -89,17 +90,36 @@
 </div>
 
 {#if $recentVs.length > 0}
-  <div class="mx-auto grid max-w-3xl grid-flow-row grid-cols-2 gap-2 p-8">
+  <div class="mx-auto grid max-w-3xl grid-flow-row grid-cols-2 gap-2 px-4 py-8">
     {#each { length: 6 } as _, i}
       {@const recent = $recentVs[i]}
       {#if recent}
         <a
           href="/stats/{recent.player1}/vs/{recent.player2}"
-          class="group flex h-24 items-center rounded-xl border border-zinc-700 bg-zinc-950 px-4 py-2 font-semibold text-zinc-500 hover:border-zinc-300 hover:text-zinc-300"
+          class="group relative flex h-24 items-center overflow-hidden rounded-xl border border-zinc-700 bg-zinc-950 px-4 py-2 font-semibold text-zinc-500 hover:border-zinc-500"
         >
-          <div class="flex-1 text-center">
+          <div
+            class="absolute -inset-2 flex items-center justify-between opacity-20 transition-all max-sm:hidden sm:group-hover:opacity-30"
+          >
+            <div class="scale-110">
+              <PlayerHead3D
+                uuid={recent.player1}
+                rotation={{ x: -4, y: +35 }}
+              />
+            </div>
+            <div class="scale-110">
+              <PlayerHead3D
+                uuid={recent.player2}
+                rotation={{ x: -4, y: -35 }}
+              />
+            </div>
+          </div>
+          <div
+            class="absolute inset-0 [box-shadow:inset_0_0_20px_10px_#09090B]"
+          ></div>
+          <div class="relative flex-1 text-center">
             {recent.player1}
-            <span class="text-zinc-700 group-hover:text-zinc-500">vs</span>
+            <span class="text-zinc-700">vs</span>
             {recent.player2}
           </div>
         </a>

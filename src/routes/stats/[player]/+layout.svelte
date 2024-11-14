@@ -197,7 +197,7 @@
         {/each}
       </div>
       <div
-        class="pb-[36rem] text-center text-zinc-600"
+        class="pb-[34rem] text-center text-zinc-600"
         bind:this={infiniteScrollPadding}
       >
         {#if data.matches.noMoreMatches}

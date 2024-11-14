@@ -9,7 +9,7 @@
 
     --header-height: 4rem;
 
-    @apply bg-zinc-900 text-zinc-400 selection:bg-blue-400;
+    @apply bg-zinc-900 text-zinc-400 selection:bg-blue-400 selection:text-zinc-900;
   }
 
   html * {

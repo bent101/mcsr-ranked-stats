@@ -17,74 +17,74 @@
   <title>Points leaderboard | MCSR Ranked</title>
 </svelte:head>
 
-<div class="mx-auto max-w-md pt-16 md:ml-16">
-  <div class="flex items-center gap-3">
-    <h1 class="text-xl font-bold text-zinc-300">
-      {#if prevPointsLb}
-        Season {prevPointsLb.phase.season} points leaderboard
-      {:else}
-        Points leaderboard
-      {/if}
-    </h1>
-    <div bind:this={infoEl} class="-m-2 rounded-full p-2 hover:bg-zinc-800">
-      <img src={info} alt="" class="h-4 w-4 select-none opacity-30 invert" />
-      <Tooltip
-        hoverable
-        anchor={infoEl}
-        directionPreference={["right", "top", "bottom", "left"]}
-      >
-        <p class=" max-w-xs text-left text-sm font-normal">
-          Phase Points are earned at the end of each phase and determine who
-          qualifies for Playoffs.
-          <a
-            href="https://docs.google.com/document/d/1f1MCooNaWbRKrqPSBAHznFR_blXME0p2h-4Ew49G5fQ/edit"
-            class="text-zinc-700 underline underline-offset-2"
-            target="_blank">Learn more</a
-          >
-        </p>
-      </Tooltip>
+<div class="max-w-lg px-4 pb-[34rem] pt-16">
+  <div class="mx-auto max-w-sm">
+    <div class="flex items-center gap-3">
+      <h1 class="text-xl font-bold text-zinc-300">
+        {#if prevPointsLb}
+          Season {prevPointsLb.phase.season} points leaderboard
+        {:else}
+          Points leaderboard
+        {/if}
+      </h1>
+      <div bind:this={infoEl} class="-m-2 rounded-full p-2 hover:bg-zinc-800">
+        <img src={info} alt="" class="h-4 w-4 select-none opacity-30 invert" />
+        <Tooltip
+          hoverable
+          anchor={infoEl}
+          directionPreference={["right", "top", "bottom", "left"]}
+        >
+          <p class=" max-w-xs text-left text-sm font-normal">
+            Phase Points are earned at the end of each phase and determine who
+            qualifies for Playoffs.
+            <a
+              href="https://docs.google.com/document/d/1f1MCooNaWbRKrqPSBAHznFR_blXME0p2h-4Ew49G5fQ/edit"
+              class="text-zinc-700 underline underline-offset-2"
+              target="_blank">Learn more</a
+            >
+          </p>
+        </Tooltip>
+      </div>
     </div>
+
+    <p class="text-sm text-zinc-500">
+      Phase {pointsLb.phase.number}
+      {prevPointsLb ? ` for season ${pointsLb.phase.season}` : ""} ends
+      {formatRelativeTime($curDate - pointsLb.phase.endsAt)}
+    </p>
+
+    <ol class="mt-8 border-t-2 border-zinc-800 pt-8 md:ml-0">
+      {#each users as player, i (player.uuid)}
+        {@const prevPlayer = users[i - 1]}
+        {@const nextPlayer = users[i + 1]}
+        {@const playerPts = player.seasonResult.phasePoint}
+        {@const prevPlayerPts = prevPlayer?.seasonResult.phasePoint}
+        {@const nextPlayerPts = nextPlayer?.seasonResult.phasePoint}
+        {@const samePtsAsPrev = prevPlayerPts === playerPts}
+        <PointsLbTableRow {player} place={i + 1} fadePts={samePtsAsPrev} />
+        {#if i === 11}
+          <div class="flex items-center gap-1 py-1">
+            <div class="flex-1 border-t border-dashed border-zinc-700" />
+            <p
+              class="text-xs font-semibold uppercase tracking-wide text-zinc-500"
+            >
+              Top 12 qualify
+            </p>
+            <div class="flex-1 border-t border-dashed border-zinc-700" />
+          </div>
+        {/if}
+        {#if (playerPts ?? 0) >= 15 && (nextPlayerPts ?? 0) < 15}
+          <div class="flex items-center gap-1 py-1">
+            <div class="flex-1 border-t border-dashed border-zinc-700" />
+            <p
+              class="text-xs font-semibold uppercase tracking-wide text-zinc-500"
+            >
+              15+ pts play in quals
+            </p>
+            <div class="flex-1 border-t border-dashed border-zinc-700" />
+          </div>
+        {/if}
+      {/each}
+    </ol>
   </div>
-
-  <p class="text-sm text-zinc-500">
-    Phase {pointsLb.phase.number}
-    {prevPointsLb ? ` for season ${pointsLb.phase.season}` : ""} ends
-    {formatRelativeTime($curDate - pointsLb.phase.endsAt)}
-  </p>
-
-  <ol
-    class="mx-auto mt-8 max-w-sm border-t-2 border-zinc-800 pb-[36rem] pt-8 md:ml-0"
-  >
-    {#each users as player, i (player.uuid)}
-      {@const prevPlayer = users[i - 1]}
-      {@const nextPlayer = users[i + 1]}
-      {@const playerPts = player.seasonResult.phasePoint}
-      {@const prevPlayerPts = prevPlayer?.seasonResult.phasePoint}
-      {@const nextPlayerPts = nextPlayer?.seasonResult.phasePoint}
-      {@const samePtsAsPrev = prevPlayerPts === playerPts}
-      <PointsLbTableRow {player} place={i + 1} fadePts={samePtsAsPrev} />
-      {#if i === 11}
-        <div class="flex items-center gap-1 py-1">
-          <div class="flex-1 border-t border-dashed border-zinc-700" />
-          <p
-            class="text-xs font-semibold uppercase tracking-wide text-zinc-500"
-          >
-            Top 12 qualify
-          </p>
-          <div class="flex-1 border-t border-dashed border-zinc-700" />
-        </div>
-      {/if}
-      {#if (playerPts ?? 0) >= 15 && (nextPlayerPts ?? 0) < 15}
-        <div class="flex items-center gap-1 py-1">
-          <div class="flex-1 border-t border-dashed border-zinc-700" />
-          <p
-            class="text-xs font-semibold uppercase tracking-wide text-zinc-500"
-          >
-            15+ pts play in quals
-          </p>
-          <div class="flex-1 border-t border-dashed border-zinc-700" />
-        </div>
-      {/if}
-    {/each}
-  </ol>
 </div>
