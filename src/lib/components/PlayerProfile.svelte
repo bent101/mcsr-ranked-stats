@@ -41,7 +41,7 @@
     playerData.statistics.season.completionTime.ranked / numCompletions;
   $: ffRatePercent = (100 * numForfeits) / numMatches;
   $: fmtdFFRate =
-    ffRatePercent < 1 ? ffRatePercent.toFixed(1) : Math.floor(ffRatePercent);
+    ffRatePercent < 10 ? ffRatePercent.toFixed(1) : Math.floor(ffRatePercent);
   $: points = sum(playerData.seasonResult.phases.map((phase) => phase.point));
 
   let justCopiedDiscord = false;
@@ -64,7 +64,7 @@
 <svelte:window bind:scrollY />
 
 <div
-  class="flex w-max flex-row items-center gap-2 px-4 py-2
+  class="flex w-max flex-row items-center gap-2 px-4 py-2 tabular-nums
 	{pos === 'first' ? 'lg:flex-row-reverse' : ''}"
 >
   <div class="pb-2">
@@ -76,7 +76,7 @@
     <div class="flex h-8 items-center">
       <div class="mr-2 text-xl font-bold opacity-80 {color}">
         {#if playerData.eloRank}
-          <span class="mr-2 font-extrabold text-white/30"
+          <span class="mr-2 font-extrabold tracking-tight text-white/30"
             >#{playerData.eloRank}</span
           >
         {/if}
@@ -181,7 +181,7 @@
           {rank.name}
         </span>
         (<span
-          class="bg-gradient-to-r bg-clip-text font-extrabold text-transparent {rank.color}"
+          class="bg-gradient-to-r bg-clip-text font-extrabold tracking-tight text-transparent {rank.color}"
         >
           {playerData.eloRate}
         </span>
@@ -192,7 +192,7 @@
           >
             •
           </span>
-          <b>{peakElo}</b> peak elo
+          <b class="tracking-tight">{peakElo}</b> peak elo
         {:else}
           <span
             class="ml-2 inline-block -translate-y-0.5 rounded-full bg-gradient-to-r from-red-700 to-orange-500 py-px pl-1 pr-2 text-xs font-semibold tracking-wide text-white"
@@ -209,24 +209,24 @@
     </div>
     <div class="text-white/50">
       {#if winrate !== -1 && !isNaN(winrate)}
-        <b>{winrate}</b>% winrate
+        <b class="tracking-tight">{winrate}</b>% winrate
         <span class="font-extrabold text-white/30">•</span>
       {/if}
       {#if bestTime !== 0}
-        <b>{formatTime(bestTime)}</b> pb
+        <b class="tracking-tight">{formatTime(bestTime)}</b> pb
         <span class="font-extrabold text-white/30">•</span>
       {/if}
-      <b>{bestWinstreak}</b> best winstreak
+      <b class="tracking-tight">{bestWinstreak}</b> best winstreak
     </div>
     {#if showAllStats && numMatches > 0}
       <p class="text-white/50">
         {#if avgTime}
-          <b>{formatTime(avgTime)}</b> average
+          <b class="tracking-tight">{formatTime(avgTime)}</b> average
           <span class="font-extrabold text-white/30">•</span>
         {/if}
-        <b>{fmtdFFRate}</b>% forfeit rate
+        <b class="tracking-tight">{fmtdFFRate}</b>% forfeit rate
         <span class="font-extrabold text-white/30">•</span>
-        <b>{points}</b> points
+        <b class="tracking-tight">{points}</b> points
       </p>
     {/if}
   </div>

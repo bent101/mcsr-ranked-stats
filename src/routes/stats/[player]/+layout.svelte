@@ -149,7 +149,11 @@
 <div class="contents lg:hidden">
   <div class="mx-auto max-w-3xl p-8 pl-2">
     <div class="relative">
-      <Graph matches={data.matches.data} />
+      <!-- {#key data.playerData.nickname} -->
+      {#if data.playerData.eloRate}
+        <Graph matches={data.matches.data} />
+      {/if}
+      <!-- {/key} -->
       {#if browser}
         <button
           on:click={showAllMatches}
@@ -174,18 +178,18 @@
 </div>
 
 <div class="flex flex-col pl-2 pr-4 md:flex-row md:items-start">
-  <div class="max-w-md flex-1 overflow-hidden">
+  <div class="mx-auto max-w-[26rem] flex-1 overflow-hidden sm:mx-0">
     <div
-      class="mb-2 flex items-center gap-1.5 border-b-2 border-zinc-800 p-4 pb-1 pr-1 text-sm font-bold"
+      class="mb-2 flex items-center gap-1.5 border-b-2 border-zinc-800 p-4 pb-1 pr-1 text-sm font-bold tabular-nums"
     >
       <h2 class="uppercase text-zinc-400">
-        Matches <span class=" text-zinc-500">({numMatches})</span>
+        Matches <span class="tracking-tight text-zinc-500">({numMatches})</span>
       </h2>
       {#if numMatches > 0}
         <span class="text-zinc-700">•</span>
         <div class="text-zinc-600">
-          <span class="text-zinc-500">{numWins}</span>W
-          <span class="text-zinc-500">{numLosses}</span>L
+          <span class="tracking-tight text-zinc-500">{numWins}</span>W
+          <span class="tracking-tight text-zinc-500">{numLosses}</span>L
         </div>
       {/if}
       <div class="ml-auto"><RefreshBtn /></div>
@@ -219,7 +223,11 @@
   <div class="hidden lg:contents">
     <div class="sticky top-56 h-max flex-1">
       <div class="relative">
-        <Graph matches={data.matches.data} />
+        <!-- {#key data.playerData.nickname} -->
+        {#if data.playerData.eloRate}
+          <Graph matches={data.matches.data} />
+        {/if}
+        <!-- {/key} -->
         {#if browser}
           <button
             on:click={showAllMatches}
@@ -244,9 +252,11 @@
   </div>
 </div>
 
-<MatchDetailsFrame>
-  <slot />
-</MatchDetailsFrame>
+{#key data.playerData.nickname}
+  <MatchDetailsFrame>
+    <slot />
+  </MatchDetailsFrame>
+{/key}
 
 <!-- {#if showingStats}
 	<DetailedPlayerStats

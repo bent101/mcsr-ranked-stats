@@ -1,6 +1,5 @@
 <script lang="ts">
   import { VisXYContainer, VisLine, VisAxis, VisArea } from "@unovis/svelte";
-  import { Line } from "@unovis/ts";
   import { browser } from "$app/environment";
   import type { FormattedMatch } from "$lib/formatters";
   import { onMount } from "svelte";
@@ -15,7 +14,7 @@
 
   onMount(() => {
     setTimeout(() => {
-      duration = 300;
+      duration = 250;
     }, 100);
   });
 

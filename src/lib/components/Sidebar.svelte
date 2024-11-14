@@ -148,7 +148,11 @@
 
   <div class="pl-2">
     {#each sidebarLinks as { href, label, Icon }}
-      {@const selected = $page.url.pathname.startsWith(href)}
+      {@const selected =
+        href === "/stats/vs"
+          ? $page.url.pathname.startsWith("/stats/vs") ||
+            $page.url.pathname.includes("/vs/")
+          : $page.url.pathname.startsWith(href)}
       <SidebarTab {href} {selected}>
         <div class="flex items-center gap-10 pl-8">
           <Icon

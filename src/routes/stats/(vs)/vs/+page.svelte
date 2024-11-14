@@ -98,25 +98,6 @@
           href="/stats/{recent.player1}/vs/{recent.player2}"
           class="group relative flex h-24 items-center overflow-hidden rounded-xl border border-zinc-700 bg-zinc-950 px-4 py-2 font-semibold text-zinc-500 hover:border-zinc-500"
         >
-          <div
-            class="absolute -inset-2 flex items-center justify-between opacity-20 transition-all max-sm:hidden sm:group-hover:opacity-30"
-          >
-            <div class="scale-110">
-              <PlayerHead3D
-                uuid={recent.player1}
-                rotation={{ x: -4, y: +35 }}
-              />
-            </div>
-            <div class="scale-110">
-              <PlayerHead3D
-                uuid={recent.player2}
-                rotation={{ x: -4, y: -35 }}
-              />
-            </div>
-          </div>
-          <div
-            class="absolute inset-0 [box-shadow:inset_0_0_20px_10px_#09090B]"
-          ></div>
           <div class="relative flex-1 text-center">
             {recent.player1}
             <span class="text-zinc-700">vs</span>

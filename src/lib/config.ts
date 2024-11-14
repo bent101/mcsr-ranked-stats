@@ -53,7 +53,7 @@ export const sidebarLinks = [
     href: "/stats/vs",
     Icon: VsIcon,
   },
-];
+] as const;
 
 export const downloads = [
   {
