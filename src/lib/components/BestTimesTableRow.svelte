@@ -23,20 +23,23 @@
   >
     {place}
   </div>
-  <div class="flex-1 text-center text-zinc-300">
+  <div class="flex-1 truncate text-center text-zinc-300">
     <PlayerLink name={match.playerName} />
   </div>
   <div
     class={cn(
-      "w-20 text-right font-extrabold tabular-nums tracking-wide",
+      "w-16 text-right font-extrabold tabular-nums tracking-wide",
       state === "selected" ? "text-zinc-300" : "text-zinc-400",
     )}
   >
-    {match.time}
+    {match.time.mainTime}<span
+      class={state === "selected" ? "text-zinc-500" : "text-zinc-600"}
+      >.{match.time.decimal}</span
+    >
   </div>
   <div
     class={cn(
-      "w-10 text-right",
+      "w-14 text-right",
       state === "selected" ? "text-zinc-300" : "text-zinc-600",
     )}
   >

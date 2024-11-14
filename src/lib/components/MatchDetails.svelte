@@ -37,7 +37,7 @@
   };
 </script>
 
-<div class="flex h-full flex-col p-2 pl-4 max-md:pb-6">
+<div class="flex h-full flex-col p-2 pl-4 max-md:pb-7">
   <div class="flex items-start justify-between pl-2">
     <MatchSummary {match} {hideSeasonRank} {hideAllTimeRank} />
     <button
@@ -75,7 +75,7 @@
         {@const eloChange = match.eloChanges[i]}
         {@const playerName = match.playerNames[i]}
         <div class="w-max min-w-[16rem] last:min-w-0 2xl:min-w-[18rem]">
-          <div class="flex bg-zinc-800/70 backdrop-blur-md">
+          <div class="flex">
             <div class="-mr-4 origin-top-left translate-y-1 scale-[60%]">
               <PlayerHead3D uuid={playerUUID} />
             </div>
@@ -180,16 +180,18 @@
     </div>
   </div>
   {#if match.timelines}
-    <div class="flex justify-between gap-6 overflow-auto pb-1 pr-2">
-      <Switch
-        bind:onFirst={$showingSplits}
-        options={["Splits", "Timestamps"]}
-      />
-      <MultiSwitch
-        bind:selectedIdx={$detailLevel}
-        label="Detail"
-        options={["low", "med", "high", "all"]}
-      />
+    <div class="overflow-auto pb-4 pr-2">
+      <div class="flex min-w-max justify-between gap-6">
+        <Switch
+          bind:onFirst={$showingSplits}
+          options={["Splits", "Timestamps"]}
+        />
+        <MultiSwitch
+          bind:selectedIdx={$detailLevel}
+          label="Detail"
+          options={["low", "med", "high", "all"]}
+        />
+      </div>
     </div>
   {:else}
     <div class="p-12 font-semibold text-zinc-500">

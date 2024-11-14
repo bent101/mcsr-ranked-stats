@@ -189,7 +189,7 @@ export const formatRecordLeaderboard = (lb: RecordLeaderboard) => {
   return lb.map((match) => ({
     playerName: match.user.nickname,
     playerUUID: match.user.uuid,
-    time: formatTime(match.time),
+    time: formatTimeWithPrecision(match.time, { precision: 2 }),
     date: match.date,
     id: match.id,
   }));

@@ -19,7 +19,7 @@
   >
     {run.rank}
   </div>
-  <div class="flex-1 text-center text-zinc-300">
+  <div class="flex-1 truncate text-center text-zinc-300">
     <PlayerLink name={run.player.nickname} />
   </div>
   <div

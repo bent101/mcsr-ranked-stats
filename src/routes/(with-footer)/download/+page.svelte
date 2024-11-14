@@ -194,7 +194,7 @@
       Download on Modrinth <ExternalLinkIcon class="size-4" />
     </a>
     <div class="h-4" />
-    <div
+    <!-- <div
       class="flex max-w-2xl items-start gap-2 text-pretty rounded-xl border border-zinc-800 p-2 text-sm text-zinc-500"
     >
       <InfoIcon class="size-6 shrink-0 text-zinc-600" />
@@ -214,7 +214,7 @@
           />
         </a>
       </p>
-    </div>
+    </div> -->
   </div>
 </div>
 
