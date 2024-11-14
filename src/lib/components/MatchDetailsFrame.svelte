@@ -23,7 +23,7 @@
       --top-margin: 5rem;
     }
 
-    --frame-height: min(33rem, calc(100vh - var(--top-margin)));
+    --frame-height: min(33rem, calc(100svh - var(--top-margin)));
   }
 
   .frame {
