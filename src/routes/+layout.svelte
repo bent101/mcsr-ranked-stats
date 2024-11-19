@@ -8,7 +8,7 @@
   import Loading from "$lib/components/Loading.svelte";
   import Sidebar from "$lib/components/Sidebar.svelte";
   import { headerLinks, store } from "$lib/config";
-  import { showingLeaderboard } from "$lib/globals";
+  import { curDate, showingLeaderboard } from "$lib/globals";
   import { getLeaderboardURL, getWeeklyRaceURL } from "$lib/urls";
   import { cn } from "$lib/utils";
   import { inject } from "@vercel/analytics";
@@ -192,3 +192,5 @@
 </main>
 
 <Loading />
+
+<div class="fixed right-0 top-0 z-50 p-2 tabular-nums">{$curDate}</div>
