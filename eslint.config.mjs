@@ -23,6 +23,7 @@ export default tsEslint.config(
       "@typescript-eslint/no-unused-expressions": "warn",
       "@typescript-eslint/no-unused-vars": "warn",
       "@typescript-eslint/strict-boolean-expressions": ["warn"],
+      "@typescript-eslint/no-confusing-void-expression": "off",
       "@typescript-eslint/restrict-template-expressions": [
         "error",
         { allowNumber: true },

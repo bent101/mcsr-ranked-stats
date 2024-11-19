@@ -7,13 +7,14 @@
   import MenuIcon from "$lib/components/icons/MenuIcon.svelte";
   import Loading from "$lib/components/Loading.svelte";
   import Sidebar from "$lib/components/Sidebar.svelte";
-  import { headerLinks } from "$lib/config";
+  import { headerLinks, store } from "$lib/config";
   import { showingLeaderboard } from "$lib/globals";
   import { getLeaderboardURL, getWeeklyRaceURL } from "$lib/urls";
   import { cn } from "$lib/utils";
   import { inject } from "@vercel/analytics";
   import { fade, fly } from "svelte/transition";
   import "../app.css";
+  import CartIcon from "$lib/components/icons/CartIcon.svelte";
 
   inject({ mode: dev ? "development" : "production", debug: false });
 
@@ -24,6 +25,10 @@
   let sidebar: HTMLElement | undefined;
 
   $: $showingLeaderboard, lbButton?.blur();
+
+  $: if ($page.url.pathname === "/stats") {
+    $showingLeaderboard = true;
+  }
 
   const toggleLb = () => {
     $showingLeaderboard = !$showingLeaderboard;
@@ -70,13 +75,15 @@
 <header
   class="fixed inset-x-0 top-0 z-50 flex h-16 bg-zinc-800 px-2 py-1 shadow-md *:whitespace-nowrap"
 >
-  <button
-    bind:this={lbButton}
-    on:click={toggleLb}
-    class="self-center rounded-full p-2 hover:bg-white/5 xl:hidden"
-  >
-    <MenuIcon class="size-6" />
-  </button>
+  <div class="flex flex-1 items-center sm:contents">
+    <button
+      bind:this={lbButton}
+      on:click={toggleLb}
+      class="self-center rounded-full p-2 hover:bg-white/5 xl:hidden"
+    >
+      <MenuIcon class="size-6" />
+    </button>
+  </div>
   <a href="/" class="group flex items-center gap-3 p-2">
     <img src={rankedLogo} alt="" class="w-9" />
     <p
@@ -91,32 +98,43 @@
     </p> -->
   </a>
   <div class="w-2" />
-  {#each headerLinks as link}
-    {@const isExternal = !link.href.startsWith("/")}
-    {@const isActive =
-      link.href === "/"
-        ? $page.url.pathname === "/"
-        : $page.url.pathname.startsWith(link.href)}
+  <div class="hidden sm:contents">
+    {#each headerLinks as link}
+      {@const isExternal = !link.href.startsWith("/")}
+      {@const isActive =
+        link.href === "/"
+          ? $page.url.pathname === "/"
+          : $page.url.pathname.startsWith(link.href)}
+      <a
+        href={link.href}
+        target={isExternal ? "_blank" : undefined}
+        rel={isExternal ? "noopener noreferrer" : undefined}
+        class={cn(
+          "group flex items-center hover:[&>p]:bg-white/5",
+          isActive ? "text-zinc-300" : "text-zinc-400",
+        )}
+      >
+        <p class="flex items-center gap-1 rounded-md p-2 text-sm">
+          {link.label}
+          {#if isExternal}
+            <ExternalLinkIcon class="size-4" />
+          {/if}
+        </p>
+      </a>
+    {/each}
+  </div>
+  <div class="flex flex-1 items-center justify-end sm:hidden">
     <a
-      href={link.href}
-      target={isExternal ? "_blank" : undefined}
-      rel={isExternal ? "noopener noreferrer" : undefined}
-      class={cn(
-        link.hideUntilLg ? "hidden xl:flex" : "flex",
-        "group items-center hover:[&>p]:bg-white/5",
-        isActive ? "text-zinc-300" : "text-zinc-400",
-      )}
+      href={store.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="self-center rounded-full p-2 hover:bg-white/5 xl:hidden"
     >
-      <p class="flex items-center gap-1 rounded-md p-2 text-sm">
-        {link.label}
-        {#if isExternal}
-          <ExternalLinkIcon class="size-4" />
-        {/if}
-      </p>
+      <CartIcon class="size-6" />
     </a>
-  {/each}
+  </div>
 </header>
-<main class="relative flex gap-3">
+<main class="relative flex">
   <div class="contents xl:hidden">
     <!-- svelte-ignore a11y-no-static-element-interactions -->
     {#if $showingLeaderboard}
@@ -143,12 +161,24 @@
   </div>
   {#if $page.url.pathname.startsWith("/stats")}
     <div class="hidden xl:contents">
-      <div class="w-80 border-r-2 border-zinc-700 bg-zinc-950" />
+      <!-- dummy sidebar to shift the main content to the right since the real sidebar is fixed -->
+      <!-- (i didnt wanna make it sticky cuz it scrolls weird on overscroll) -->
       <div
         bind:this={sidebar}
-        class="fixed top-header-height z-40 h-screen shrink-0 overflow-y-scroll overscroll-y-contain scrollbar-track-zinc-950 [direction:rtl]"
+        class="sticky top-header-height z-40 h-screen-minus-header shrink-0 overflow-y-scroll overscroll-y-contain scrollbar-track-zinc-950 [direction:rtl]"
       >
-        <div class="[direction:ltr]">
+        <div class="min-h-screen-minus-header [direction:ltr]">
+          <div
+            class="min-h-screen-minus-header w-80 border-r-2 border-transparent pb-32 text-sm"
+          ></div>
+        </div>
+      </div>
+      <!--  -->
+      <div
+        bind:this={sidebar}
+        class="fixed top-header-height z-40 h-screen-minus-header shrink-0 overflow-y-scroll overscroll-y-contain scrollbar-track-zinc-950 [direction:rtl]"
+      >
+        <div class="min-h-screen-minus-header [direction:ltr]">
           <!-- curSeason={data.lb.season.number}
           seasonEnd={data.lb.season.endsAt} -->
           <Sidebar {stopSidebarScroll} lb={data.lb.users} />
@@ -156,7 +186,7 @@
       </div>
     </div>
   {/if}
-  <div class="flex-1 pt-header-height">
+  <div class="flex-1 overflow-x-clip pt-header-height">
     <slot />
   </div>
 </main>

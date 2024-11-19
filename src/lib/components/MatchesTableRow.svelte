@@ -3,9 +3,9 @@
   import { cn } from "$lib/utils";
   import PlayerLink from "./PlayerLink.svelte";
   import TableRow from "./TableRow.svelte";
+  import { curDate } from "$lib/globals";
 
   export let match: FormattedMatch;
-  export let curDate: number;
 
   $: href = match.isDecay
     ? undefined
@@ -20,7 +20,7 @@
     </div>
     <div class="w-20" />
     <div class="w-10 text-right text-zinc-600">
-      {formatTimeAgoShort(curDate - match.date)}
+      {formatTimeAgoShort($curDate - match.date)}
     </div>
   {:else}
     <div class="flex-1 truncate text-zinc-300">
@@ -68,7 +68,7 @@
         state === "selected" ? "text-zinc-300" : "text-zinc-600",
       )}
     >
-      {formatTimeAgoShort(curDate - match.date)}
+      {formatTimeAgoShort($curDate - match.date)}
     </div>
   {/if}
 </TableRow>

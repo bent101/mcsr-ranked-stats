@@ -1,31 +1,42 @@
 import CalendarIcon from "./components/icons/CalendarIcon.svelte";
+import CartIcon from "./components/icons/CartIcon.svelte";
+import DownloadIcon from "./components/icons/DownloadIcon.svelte";
+import HomeIcon from "./components/icons/HomeIcon.svelte";
+import ListIcon from "./components/icons/ListIcon.svelte";
 import PodiumIcon from "./components/icons/PodiumIcon.svelte";
+import StatsIcon from "./components/icons/StatsIcon.svelte";
 import StopwatchIcon from "./components/icons/StopwatchIcon.svelte";
 import VsIcon from "./components/icons/VsIcon.svelte";
+
+export const store = {
+  label: "Store",
+  href: "https://mcsrranked.com/store",
+  Icon: CartIcon,
+} as const;
 
 export const headerLinks = [
   {
     label: "Home",
     href: "/",
+    Icon: HomeIcon,
   },
   {
     label: "Download",
     href: "/download",
+    Icon: DownloadIcon,
   },
   {
     label: "Leaderboards",
     href: "/stats",
-    hideUntilLg: true,
+    Icon: StatsIcon,
   },
   {
     label: "Guidelines",
     href: "/guidelines",
+    Icon: ListIcon,
   },
-  {
-    label: "Store",
-    href: "https://mcsrranked.com/store",
-  },
-];
+  store,
+] as const;
 
 export const sidebarLinks = [
   // {

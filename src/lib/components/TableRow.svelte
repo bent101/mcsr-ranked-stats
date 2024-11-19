@@ -1,7 +1,7 @@
 <script lang="ts">
   import { browser } from "$app/environment";
   import { afterNavigate, beforeNavigate } from "$app/navigation";
-  import { isMdScreen } from "$lib/globals";
+  import { minWMd } from "$lib/globals";
   import { cn, rem2px } from "$lib/utils";
   import { writable } from "svelte/store";
 
@@ -33,7 +33,7 @@
 
     if (navigation.to?.url.pathname.startsWith(href)) {
       $state = "selected";
-      if (!$isMdScreen) {
+      if (!$minWMd) {
         scrollIntoView();
       }
     } else {

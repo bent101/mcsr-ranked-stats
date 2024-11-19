@@ -4,9 +4,10 @@ import { readable, writable } from "svelte/store";
 /** how many matches to load on page load, then on scroll */
 export const matchesPerPage = 30;
 
-export const isMdScreen = mql("(min-width: 768px)");
-export const isLgScreen = mql("(min-width: 1024px)");
-export const isXlScreen = mql("(min-width: 1280px)");
+export const minWSm = mql("(min-width: 640px)");
+export const minWMd = mql("(min-width: 768px)");
+export const minWLg = mql("(min-width: 1024px)");
+export const minWXl = mql("(min-width: 1280px)");
 export const isTouchScreen = mql("(any-pointer: coarse)");
 
 function mql(query: string, { fallback = true } = {}) {
@@ -22,7 +23,7 @@ function mql(query: string, { fallback = true } = {}) {
   });
 }
 
-/** current date in seconds after epoch (updates every minute) */
+/** current date in seconds after epoch (updates every second) */
 export const curDate = readable(
   Math.floor(Date.now() / 1000),
   function start(set) {

@@ -4,7 +4,7 @@
   import MatchDetailsFrame from "$lib/components/MatchDetailsFrame.svelte";
   import PlayerProfile from "$lib/components/PlayerProfile.svelte";
   import RefreshBtn from "$lib/components/RefreshBtn.svelte";
-  import { isLgScreen } from "$lib/globals.js";
+  import { minWLg } from "$lib/globals.js";
   import { createLocalStorageStore } from "$lib/utils.js";
   import { onMount } from "svelte";
 
