@@ -179,7 +179,7 @@
   </div>
 
   <div class="flex flex-col pr-4 md:flex-row md:items-start">
-    <div class="mx-auto max-w-[26rem] flex-1 overflow-hidden sm:mx-0">
+    <div class="max-w-[27rem] flex-1 max-sm:mx-auto">
       <div
         class="mb-2 flex items-center gap-1.5 border-b-2 border-zinc-800 p-4 pb-1 pr-1 text-sm font-bold tabular-nums"
       >
@@ -198,11 +198,9 @@
         <div class="ml-auto"><RefreshBtn /></div>
       </div>
       {#if data.matches.data && data.matches.data.length > 0}
-        <div>
-          {#each data.matches.data as match}
-            <MatchesTableRow {match} />
-          {/each}
-        </div>
+        {#each data.matches.data as match}
+          <MatchesTableRow {match} />
+        {/each}
         <div
           class="pb-[34rem] text-center text-zinc-600"
           bind:this={infiniteScrollPadding}

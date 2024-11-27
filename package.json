@@ -18,6 +18,7 @@
     "@sveltejs/kit": "^2.5.28",
     "@total-typescript/ts-reset": "^0.6.1",
     "@types/d3": "^7.4.3",
+    "@types/lodash": "^4.17.13",
     "@types/node": "^22.9.0",
     "@typescript-eslint/eslint-plugin": "^8.6.0",
     "@typescript-eslint/parser": "^8.6.0",
@@ -53,9 +54,11 @@
     "date-fns": "^4.1.0",
     "eslint-plugin-svelte": "^2.46.0",
     "globals": "^15.11.0",
+    "lodash": "^4.17.21",
     "svelte-youtube-lite": "^0.6.0",
     "tailwind-merge": "^2.5.4",
     "tailwindcss-touch": "^1.0.1",
-    "typescript-eslint": "^8.12.2"
+    "typescript-eslint": "^8.12.2",
+    "zod": "^3.23.8"
   }
 }

@@ -47,6 +47,9 @@ importers:
       globals:
         specifier: ^15.11.0
         version: 15.11.0
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
       svelte-youtube-lite:
         specifier: ^0.6.0
         version: 0.6.0(svelte@4.2.19)
@@ -59,6 +62,9 @@ importers:
       typescript-eslint:
         specifier: ^8.12.2
         version: 8.12.2(eslint@9.10.0(jiti@1.21.6))(typescript@5.6.2)
+      zod:
+        specifier: ^3.23.8
+        version: 3.23.8
     devDependencies:
       '@sveltejs/adapter-vercel':
         specifier: ^5.4.4
@@ -75,6 +81,9 @@ importers:
       '@types/d3':
         specifier: ^7.4.3
         version: 7.4.3
+      '@types/lodash':
+        specifier: ^4.17.13
+        version: 4.17.13
       '@types/node':
         specifier: ^22.9.0
         version: 22.9.0
@@ -864,6 +873,9 @@ packages:
 
   '@types/leaflet@1.7.6':
     resolution: {integrity: sha512-Emkz3V08QnlelSbpT46OEAx+TBZYTOX2r1yM7W+hWg5+djHtQ1GbEXBDRLaqQDOYcDI51Ss0ayoqoKD4CtLUDA==}
+
+  '@types/lodash@4.17.13':
+    resolution: {integrity: sha512-lfx+dftrEZcdBPczf9d0Qv0x+j/rfNCMuC6OcfXmO8gkfeNAY88PgKUbvG56whcN23gc27yenwF6oJZXGFpYxg==}
 
   '@types/mapbox__point-geometry@0.1.4':
     resolution: {integrity: sha512-mUWlSxAmYLfwnRBmgYV86tgYmMIICX4kza8YnE/eIlywGe2XoOxlpVnXWwir92xRLjwyarqwpu2EJKD2pk0IUA==}
@@ -1927,6 +1939,9 @@ packages:
   lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
 
+  lodash@4.17.21:
+    resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
+
   loose-envify@1.4.0:
     resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
     hasBin: true
@@ -2709,6 +2724,9 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
 
+  zod@3.23.8:
+    resolution: {integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==}
+
 snapshots:
 
   '@alloc/quick-lru@5.2.0': {}
@@ -3415,6 +3433,8 @@ snapshots:
   '@types/leaflet@1.7.6':
     dependencies:
       '@types/geojson': 7946.0.14
+
+  '@types/lodash@4.17.13': {}
 
   '@types/mapbox__point-geometry@0.1.4': {}
 
@@ -4568,6 +4588,8 @@ snapshots:
 
   lodash.merge@4.6.2: {}
 
+  lodash@4.17.21: {}
+
   loose-envify@1.4.0:
     dependencies:
       js-tokens: 4.0.0
@@ -5283,3 +5305,5 @@ snapshots:
   yaml@2.5.1: {}
 
   yocto-queue@0.1.0: {}
+
+  zod@3.23.8: {}

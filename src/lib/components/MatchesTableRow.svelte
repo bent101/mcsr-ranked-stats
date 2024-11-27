@@ -23,7 +23,7 @@
       {formatTimeAgoShort($curDate - match.date)}
     </div>
   {:else}
-    <div class="flex-1 truncate text-zinc-300">
+    <div class="flex-1 overflow-hidden truncate text-zinc-300">
       <PlayerLink name={match.opponentName} />
     </div>
     <div

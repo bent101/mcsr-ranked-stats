@@ -8,8 +8,6 @@ export const config = {
   },
 };
 
-const a = `${{ a: 1 }}`;
-
 export const load = async ({ fetch }) => {
   const uniqueBestTimesThisSeasonPromise = fetch(
     getBestTimesURL({ unique: true, allTime: false }),

@@ -27,7 +27,7 @@
   data-sveltekit-replacestate="off"
   data-sveltekit-noscroll="off"
   href="/stats/{name}"
-  class="relative underline-offset-4 hover:underline"
+  class="pointer-events-auto relative underline-offset-4 hover:underline"
 >
   {name}
 </a>

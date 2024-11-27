@@ -23,7 +23,7 @@ export type MatchEvent = {
   pairToLeft: boolean;
 
   /** a hex code, or `"prev"` */
-  color: string;
+  color: `#${string}` | "prev";
 
   /** nulls if there's no matching event in any other timeline */
   diff?: Diff;
@@ -313,7 +313,7 @@ export function indexDuplicates(timeline: MatchEvent[]) {
 function newEvent(
   name: string,
   detailLevel: number,
-  color: string,
+  color: MatchEvent["color"],
   timestamp: number,
 ): MatchEvent {
   return {

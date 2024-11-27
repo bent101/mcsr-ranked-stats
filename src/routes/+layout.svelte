@@ -86,11 +86,7 @@
   </div>
   <a href="/" class="group flex items-center gap-3 p-2">
     <img src={rankedLogo} alt="" class="w-9" />
-    <p
-      class="hover-hover:group-hover:underline font-semibold text-zinc-300 underline-offset-4"
-    >
-      MCSR Ranked
-    </p>
+    <p class="font-semibold text-zinc-300 underline-offset-4">MCSR Ranked</p>
     <!-- <p class="text-xs text-zinc-600 font-normal">
       S{data.lb.season.number} • ends {formatRelativeTime(
         $curDate - data.lb.season.endsAt,
@@ -110,11 +106,13 @@
         target={isExternal ? "_blank" : undefined}
         rel={isExternal ? "noopener noreferrer" : undefined}
         class={cn(
-          "group flex items-center hover:[&>p]:bg-white/5",
+          "group flex items-center",
           isActive ? "text-zinc-300" : "text-zinc-400",
         )}
       >
-        <p class="flex items-center gap-1 rounded-md p-2 text-sm">
+        <p
+          class="flex items-center gap-1 rounded-md p-2 text-sm group-hover:bg-white/5"
+        >
           {link.label}
           {#if isExternal}
             <ExternalLinkIcon class="size-4" />
@@ -192,5 +190,3 @@
 </main>
 
 <Loading />
-
-<div class="fixed right-0 top-0 z-50 p-2 tabular-nums">{$curDate}</div>

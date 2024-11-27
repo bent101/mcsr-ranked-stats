@@ -9,7 +9,10 @@ export const getLeaderboardURL = () => {
 export const getPointsLeaderboardURL = ({
   season,
 }: { season?: number } = {}) => {
-  return `${base}/phase-leaderboard${season != null ? `?season=${season}` : ""}`;
+  const url = new URL(`${base}/phase-leaderboard`);
+  if (season != null) url.searchParams.set("season", season.toString());
+
+  return url.toString();
 };
 
 export const getPlayerURL = (name: string) => {
@@ -22,9 +25,13 @@ export const getMatchesURL = (
   perPage = matchesPerPage,
   excludeDecay = false,
 ) => {
-  return `${base}/users/${name}/matches?type=2&page=${page}&count=${perPage}${
-    excludeDecay ? "&excludedecay" : ""
-  }`;
+  const url = new URL(`${base}/users/${name}/matches`);
+  url.searchParams.set("type", "2");
+  url.searchParams.set("page", page.toString());
+  url.searchParams.set("count", perPage.toString());
+  if (excludeDecay) url.searchParams.set("excludedecay", "true");
+
+  return url.toString();
 };
 
 export const getDetailedMatchURL = (id: string | number) => {
@@ -38,16 +45,27 @@ export const getBestTimesURL = ({
   unique: boolean;
   allTime: boolean;
 }) => {
-  if (allTime) return `${base}/record-leaderboard${unique ? "?distinct" : ""}`;
-  return `${base}/record-leaderboard?season${unique ? "&distinct" : ""}`;
+  const url = new URL(`${base}/record-leaderboard`);
+  if (!allTime) {
+    url.searchParams.set("season", "");
+  }
+  if (unique) {
+    url.searchParams.set("distinct", "");
+  }
+  return url.toString();
 };
 
 export const getVersusURL = (player1: string, player2: string) => {
-  return `${base}/users/${player1}/versus/${player2}?type=2`;
+  const url = new URL(`${base}/users/${player1}/versus/${player2}`);
+  url.searchParams.set("type", "2");
+  return url.toString();
 };
 
 export const getVersusMatchesURL = (player1: string, player2: string) => {
-  return `${base}/users/${player1}/versus/${player2}/matches?type=2&count=50`;
+  const url = new URL(`${base}/users/${player1}/versus/${player2}/matches`);
+  url.searchParams.set("type", "2");
+  url.searchParams.set("count", "50");
+  return url.toString();
 };
 
 export const getWeeklyRaceURL = () => {

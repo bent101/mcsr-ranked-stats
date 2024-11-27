@@ -22,7 +22,7 @@
     // .toReversed()
     .filter((match) => match.eloBefore && match.eloBefore !== -1)
     .map((match, i) => ({
-      x: i + 1,
+      x: i,
       y: (match.eloBefore ?? 0) + match.eloChange,
     })) as DataRecord[];
 
@@ -46,7 +46,7 @@
   ];
 
   $: xMax = Math.max(data.length, 5);
-  $: xDomain = [xMax, 1] as [number, number];
+  $: xDomain = [xMax, 0] as [number, number];
 </script>
 
 <div class="container h-80 pl-2 *:h-full lg:h-[max(calc(100vh-21rem),18rem)]">

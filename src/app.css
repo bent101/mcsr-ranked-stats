@@ -16,6 +16,10 @@
     @apply scrollbar-thin scrollbar-track-transparent scrollbar-thumb-white/10 hover:scrollbar-thumb-white/15;
   }
 
+  ._ {
+    @apply bg-green-500/10;
+  }
+
   button:focus-visible,
   a:focus-visible {
     @apply outline outline-2 outline-blue-400;

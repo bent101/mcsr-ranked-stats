@@ -10,10 +10,10 @@ export const config = {
   },
 };
 
-export const load = async ({ fetch }) => {
+export async function load({ fetch }) {
   return {
     lb: await fetch(getLeaderboardURL())
       .then((res) => res.json() as Promise<{ data: EloLeaderboard }>)
       .then((res) => res.data),
   };
-};
+}

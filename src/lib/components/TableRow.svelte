@@ -1,58 +1,33 @@
 <script lang="ts">
-  import { browser } from "$app/environment";
-  import { afterNavigate, beforeNavigate } from "$app/navigation";
+  import { afterNavigate } from "$app/navigation";
+  import { navigating, page } from "$app/stores";
   import { minWMd } from "$lib/globals";
   import { cn, rem2px } from "$lib/utils";
-  import { writable } from "svelte/store";
 
   export let href: string | undefined = undefined;
   export let dashed = false;
 
-  $: isLink = href && browser;
+  $: isLink = href;
 
   let windowHeight = 0;
   let scrollY = 0;
 
   let elem: HTMLElement | null;
 
-  const state = writable<"selected" | "loading" | "idle">("idle");
-
-  beforeNavigate((navigation) => {
-    if (!href) return;
-
-    if (navigation.to?.url.pathname.startsWith(href)) {
-      $state = "loading";
-    }
-  });
-
-  afterNavigate((navigation) => {
-    if (!href) {
-      $state = "idle";
-      return;
-    }
-
-    if (navigation.to?.url.pathname.startsWith(href)) {
-      $state = "selected";
-      if (!$minWMd) {
-        scrollIntoView();
-      }
-    } else {
-      $state = "idle";
-    }
-  });
-
   function scrollIntoView() {
     if (!elem) return;
     const currElemHeight = elem.getBoundingClientRect().top;
-    const headerHeight = rem2px(7.5);
-    const bottomHeight = rem2px(39);
-    if (
-      currElemHeight > headerHeight &&
-      currElemHeight < windowHeight - bottomHeight
-    )
-      return;
+    const padding = rem2px($minWMd ? 6 : 2);
+    const headerHeight = rem2px(11.5);
+    const bottomHeight = $minWMd ? 0 : rem2px(39);
 
-    const newScrollY = currElemHeight + scrollY - windowHeight + bottomHeight;
+    // Calculate target position clamped between header and bottom
+    const targetPos = Math.max(
+      headerHeight + padding,
+      Math.min(windowHeight - bottomHeight - padding, currElemHeight),
+    );
+
+    const newScrollY = scrollY + (currElemHeight - targetPos);
 
     window.scrollTo({
       behavior: "smooth",
@@ -60,29 +35,45 @@
     });
   }
 
-  $: classes = cn(
-    "group flex items-center gap-2 rounded-lg border px-4 py-1.5 text-left",
-    dashed && "border-dashed",
-    $state === "selected" && "border-zinc-500 bg-zinc-800 z-10",
-    $state === "loading" && "border-pulse bg-zinc-800",
-    $state === "idle" && ["border-transparent", isLink && "hover:bg-zinc-800"],
-  );
+  $: state = !href
+    ? "idle"
+    : $navigating === null
+      ? $page.url.pathname.startsWith(href)
+        ? "selected"
+        : "idle"
+      : $navigating.to?.url.pathname.startsWith(href)
+        ? "loading"
+        : "idle";
+
+  afterNavigate(() => {
+    if (state === "selected") scrollIntoView();
+  });
+
+  $: if (state === "selected") scrollIntoView();
 </script>
 
 <svelte:window bind:innerHeight={windowHeight} bind:scrollY />
 
-{#if isLink}
-  <a
-    bind:this={elem}
-    {href}
-    data-sveltekit-replacestate
-    data-sveltekit-noscroll
-    class={classes}
+<div class="group relative">
+  {#if isLink}
+    <a
+      bind:this={elem}
+      {href}
+      data-sveltekit-replacestate
+      data-sveltekit-noscroll
+      class={cn(
+        "absolute inset-0 rounded-lg border px-4 py-1.5",
+        dashed && "border-dashed",
+        state === "selected" && "border-zinc-500 bg-zinc-800",
+        state === "loading" && "border-pulse bg-zinc-800",
+        state === "idle" && "border-transparent group-hover:bg-zinc-800",
+      )}
+    >
+    </a>
+  {/if}
+  <div
+    class="pointer-events-none relative flex items-center gap-2 rounded-lg bg-transparent px-4 py-1.5 text-left"
   >
-    <slot state={$state} />
-  </a>
-{:else}
-  <div class={classes}>
-    <slot state={$state} />
+    <slot {state} />
   </div>
-{/if}
+</div>

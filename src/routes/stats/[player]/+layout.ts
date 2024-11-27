@@ -41,7 +41,7 @@ export const load = (async ({ fetch, params }) => {
   // console.log(`${end - start}ms`);
 
   if (!playerData) {
-    throw error(404);
+    error(404);
   }
 
   return {
