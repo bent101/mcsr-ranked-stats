@@ -6,7 +6,7 @@ const supabase = createClient(
   "LE7vkFAFBsk5QBp9",
 );
 
-async function checkStorageState() {
+export async function checkStorageState() {
   const browserInfo = {
     userAgent: navigator.userAgent,
     browser: getBrowserInfo(),
