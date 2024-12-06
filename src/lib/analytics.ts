@@ -3,7 +3,7 @@ import { createClient } from "@supabase/supabase-js";
 // Initialize Supabase client
 const supabase = createClient(
   "https://photjrryzqlkjnxnypvm.supabase.co",
-  "LE7vkFAFBsk5QBp9",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBob3RqcnJ5enFsa2pueG55cHZtIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTczMzUxODc3NywiZXhwIjoyMDQ5MDk0Nzc3fQ.uNXcGmPTx9okOdLWzsd0ABfSpkFSmkISM5le-Gcg57Y",
 );
 
 export async function checkStorageState() {
