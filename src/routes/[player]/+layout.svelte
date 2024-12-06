@@ -1,6 +1,12 @@
 <script lang="ts">
   import { browser } from "$app/environment";
-  import { afterNavigate, invalidate } from "$app/navigation";
+  import {
+    afterNavigate,
+    goto,
+    invalidate,
+    preloadData,
+  } from "$app/navigation";
+  import { page } from "$app/stores";
   import Graph from "$lib/components/Graph.svelte";
   import MatchDetailsFrame from "$lib/components/MatchDetailsFrame.svelte";
   import MatchesTableRow from "$lib/components/MatchesTableRow.svelte";
@@ -9,7 +15,8 @@
   import { getAllMatches, getMatches } from "$lib/formatters";
   import { curDate, matchesPerPage } from "$lib/globals";
   import { getLeaderboardURL } from "$lib/urls";
-  import { onMount } from "svelte";
+  import { blurActiveElement, isTyping } from "$lib/utils";
+  import { getContext, onMount } from "svelte";
 
   export let data;
   $: numMatches = data.playerData.statistics.season.playedMatches.ranked;
@@ -71,7 +78,65 @@
       }
     }
   });
+
+  $: matchId = $page.params.matchID
+    ? parseInt($page.params.matchID)
+    : undefined;
+
+  $: nonDecayMatches = data.matches.data.filter((m) => !m.isDecay);
+  $: firstMatchId = nonDecayMatches[0].id;
+
+  function getMatchIdByDistance(distance: number) {
+    if (!matchId) return undefined;
+
+    const index = nonDecayMatches.findIndex((m) => m.id === matchId) + distance;
+
+    return nonDecayMatches[index]?.id;
+  }
+
+  function preloadMatchIfExists(matchId: number | undefined) {
+    if (matchId) {
+      queueMicrotask(() =>
+        preloadData(`/${data.playerData.nickname}/${matchId}`),
+      );
+    }
+  }
+
+  function goToMatch(matchId: number) {
+    goto(`/${data.playerData.nickname}/${matchId}`, {
+      replaceState: true,
+      noScroll: true,
+    });
+  }
 </script>
+
+<svelte:body
+  on:keydown={(e) => {
+    if (isTyping(e)) return;
+    if (e.metaKey || e.altKey || e.ctrlKey || e.shiftKey) return;
+
+    switch (e.key) {
+      case "j":
+      case "ArrowDown":
+        const nextMatchId = getMatchIdByDistance(1);
+        goToMatch(nextMatchId ?? firstMatchId);
+        preloadMatchIfExists(getMatchIdByDistance(2));
+        preloadMatchIfExists(getMatchIdByDistance(3));
+        break;
+      case "k":
+      case "ArrowUp":
+        const prevMatchId = getMatchIdByDistance(-1);
+        goToMatch(prevMatchId ?? firstMatchId);
+        preloadMatchIfExists(getMatchIdByDistance(-2));
+        preloadMatchIfExists(getMatchIdByDistance(-3));
+        break;
+      default:
+        return;
+    }
+    e.preventDefault();
+    blurActiveElement();
+  }}
+/>
 
 <svelte:head>
   <title>{data.playerData.nickname} | MCSR Ranked stats</title>
@@ -81,7 +146,6 @@
 <div class="sticky top-0 z-10 bg-zinc-900/70 backdrop-blur-md">
   <PlayerProfile isHeader showAllStats playerData={data.playerData} />
 </div>
-<div class="h-8 lg:hidden" />
 
 <div class="contents lg:hidden">
   <div class="mx-auto max-w-3xl p-8 pl-2">
@@ -112,7 +176,6 @@
 
 <div class="flex flex-col items-center px-4 md:flex-row md:items-start">
   <div>
-    <div class="h-2.5" />
     <div class="w-[30rem]">
       <div
         class="mb-2 flex text-sm items-center font-bold gap-1.5 border-b-2 border-zinc-800 p-4 pb-1 pl-4"
@@ -130,13 +193,11 @@
         <div class="ml-auto"><RefreshBtn /></div>
       </div>
       {#if data.matches.data && data.matches.data.length > 0}
-        <ol>
+        <div>
           {#each data.matches.data as match}
-            <li>
-              <MatchesTableRow {match} curDate={$curDate} />
-            </li>
+            <MatchesTableRow {match} curDate={$curDate} />
           {/each}
-        </ol>
+        </div>
         <div
           class="pb-[36rem] text-center text-zinc-600"
           bind:this={infiniteScrollPadding}

@@ -13,9 +13,10 @@ export type Player = {
 
 export type ScoreChange = {
   uuid: string;
-  change: number;
-  eloRate: number | null;
-};
+} & (
+  | { change: null; eloRate: null } // placements
+  | { change: number; eloRate: number }
+);
 
 export type VersusWinCount = {
   total: number;

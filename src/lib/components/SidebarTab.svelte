@@ -7,10 +7,7 @@
 
   $: if (arrowSelected) {
     setTimeout(() => {
-      if (arrowSelected) {
-        console.log("preloading", href);
-        preloadData(href);
-      }
+      if (arrowSelected) preloadData(href);
     }, 200);
   }
 </script>

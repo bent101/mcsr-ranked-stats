@@ -135,7 +135,7 @@ export const formatMatch = (
       (member) => member.uuid === (curPlayerName ? curPlayerUUID : winnerUUID),
     ) ?? changes?.[0];
   const eloChange = scoreChange?.change ?? 0;
-  const eloBefore = scoreChange?.eloRate;
+  const eloBefore = scoreChange?.eloRate ?? undefined;
 
   const getOutcomeColor = (outcome: Outcome) => {
     switch (outcome) {
@@ -232,7 +232,7 @@ export function formatDetailedMatch(
 
   const eloChanges = playerOrder.map((uuid) => {
     const scoreChange = match.changes?.find((val) => val.uuid === uuid);
-    return scoreChange
+    return scoreChange?.eloRate
       ? {
           before: scoreChange.eloRate,
           change: scoreChange.change,
@@ -262,9 +262,7 @@ export function formatDetailedMatch(
 
 export type FormattedDetailedMatch = ReturnType<typeof formatDetailedMatch>;
 
-export function getRank(elo: number | null) {
-  if (elo === null) return null;
-
+export function getRank(elo: number) {
   if (elo < 600) {
     return {
       color: "from-gray-700 to-gray-500",

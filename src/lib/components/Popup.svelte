@@ -153,7 +153,7 @@
     if (load) {
       const entries = Object.entries(await load());
       const promises = entries.map(([key, promise]) =>
-        promise.then((value) => [key, value])
+        Promise.resolve(promise).then((value) => [key, value]),
       );
       const resolvedEntries = await Promise.all(promises);
 
@@ -222,6 +222,7 @@
     top: {popupY}px; 
     left: {popupX}px;
 	"
+  role="tooltip"
 >
   {#if popupExists && (!load || data)}
     <div

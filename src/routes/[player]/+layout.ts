@@ -1,4 +1,4 @@
-import type { DetailedPlayer } from "$lib/ranked-api";
+import type { APIResponse, DetailedPlayer, Match } from "$lib/ranked-api";
 import type { LayoutLoad } from "./$types";
 import { formatMatches } from "$lib/formatters";
 import { matchesPerPage } from "$lib/globals";
@@ -20,10 +20,8 @@ export const load = (async ({ fetch, params }) => {
       //   "Cache-Control": "max-age=10, stale-while-revalidate=10",
       // },
     })
-      .then((res) => res.json())
-      .then((res) =>
-        res.status === "error" ? null : (res.data as DetailedPlayer),
-      ),
+      .then((res) => res.json() as APIResponse<DetailedPlayer>)
+      .then((res) => (res.status === "error" ? null : res.data)),
 
     fetch(getMatchesURL(params.player, 0), {
       // cache: "force-cache",
@@ -31,7 +29,7 @@ export const load = (async ({ fetch, params }) => {
       //   "Cache-Control": "max-age=10, stale-while-revalidate=10",
       // },
     })
-      .then((res) => res.json())
+      .then((res) => res.json() as APIResponse<Match[] | null>)
       .then((res) => formatMatches(res.data ?? [], params.player))
       .then((res) => ({
         data: res,

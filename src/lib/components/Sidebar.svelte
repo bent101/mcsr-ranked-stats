@@ -261,7 +261,7 @@
     </div>
 
     {#if lb}
-      <Leaderboard lb={displayedLb} animating={rawQuery === ""} />
+      <Leaderboard lb={displayedLb} />
     {:else}
       <div class="mt-32 font-bold text-red-400">
         Couldn't get leaderboard :/
