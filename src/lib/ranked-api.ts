@@ -50,7 +50,6 @@ export type DetailedPlayer = Player & {
   statistics: Record<
     "season" | "total",
     Record<
-      | "bestTime"
       | "highestWinStreak"
       | "currentWinStreak"
       | "playedMatches"
@@ -64,7 +63,14 @@ export type DetailedPlayer = Player & {
         ranked: number;
         casual: number;
       }
-    >
+    > &
+      Record<
+        "bestTime",
+        {
+          ranked: number | null;
+          casual: number | null;
+        }
+      >
   >;
   connections: Record<
     "discord" | "twitch" | "youtube",
