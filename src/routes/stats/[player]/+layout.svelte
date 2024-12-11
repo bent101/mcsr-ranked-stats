@@ -84,7 +84,7 @@
     : undefined;
 
   $: nonDecayMatches = data.matches.data.filter((m) => !m.isDecay);
-  $: firstMatchId = nonDecayMatches[0].id;
+  $: firstMatchId = nonDecayMatches[0]?.id;
 
   function getMatchIdByDistance(distance: number) {
     if (!matchId) return undefined;
@@ -149,32 +149,32 @@
 <div class="pl-4">
   <div class="contents lg:hidden">
     <div class="mx-auto max-w-3xl p-8 pl-2">
-      <div class="relative">
-        <!-- {#key data.playerData.nickname} -->
-        {#if data.playerData.eloRate}
+      {#if data.playerData.eloRate}
+        <div class="relative">
+          <!-- {#key data.playerData.nickname} -->
           <Graph matches={data.matches.data} />
-        {/if}
-        <!-- {/key} -->
-        {#if browser}
-          <button
-            on:click={showAllMatches}
-            disabled={loadingAllMatches || data.matches.noMoreMatches}
-            class="absolute bottom-[calc(20px+2.4rem)] left-[calc(16px+2.4rem)] rounded-full border-[0.125rem] border-zinc-700 bg-zinc-950 px-3 py-1 text-xs font-extrabold uppercase tracking-wide text-zinc-500 disabled:opacity-70 hover:border-zinc-400 hover:text-zinc-300 disabled:hover:border-zinc-700 disabled:hover:text-zinc-500"
-          >
-            {loadingAllMatches
-              ? "Loading..."
-              : data.matches.noMoreMatches
-                ? "Showing all"
-                : "Show all"}
-          </button>
-        {:else}
-          <div class="absolute inset-0 grid place-items-center">
-            <p class="animate-pulse text-lg font-semibold text-zinc-500">
-              Loading graph...
-            </p>
-          </div>
-        {/if}
-      </div>
+          <!-- {/key} -->
+          {#if browser}
+            <button
+              on:click={showAllMatches}
+              disabled={loadingAllMatches || data.matches.noMoreMatches}
+              class="absolute bottom-[calc(20px+2.4rem)] left-[calc(16px+2.4rem)] rounded-full border-[0.125rem] border-zinc-700 bg-zinc-950 px-3 py-1 text-xs font-extrabold uppercase tracking-wide text-zinc-500 disabled:opacity-70 hover:border-zinc-400 hover:text-zinc-300 disabled:hover:border-zinc-700 disabled:hover:text-zinc-500"
+            >
+              {loadingAllMatches
+                ? "Loading..."
+                : data.matches.noMoreMatches
+                  ? "Showing all"
+                  : "Show all"}
+            </button>
+          {:else}
+            <div class="absolute inset-0 grid place-items-center">
+              <p class="animate-pulse text-lg font-semibold text-zinc-500">
+                Loading graph...
+              </p>
+            </div>
+          {/if}
+        </div>
+      {/if}
     </div>
   </div>
 
@@ -223,32 +223,33 @@
     </div>
     <div class="hidden lg:contents">
       <div class="sticky top-56 h-max flex-1">
-        <div class="relative">
-          <!-- {#key data.playerData.nickname} -->
-          {#if data.playerData.eloRate}
+        {#if data.playerData.eloRate}
+          <div class="relative">
+            <!-- {#key data.playerData.nickname} -->
             <Graph matches={data.matches.data} />
-          {/if}
-          <!-- {/key} -->
-          {#if browser}
-            <button
-              on:click={showAllMatches}
-              disabled={loadingAllMatches || data.matches.noMoreMatches}
-              class="absolute bottom-[58px] left-[60px] rounded-full border-[0.125rem] border-zinc-700 bg-zinc-950 px-3 py-1 text-xs font-extrabold uppercase tracking-wide text-zinc-500 disabled:opacity-70 hover:border-zinc-400 hover:text-zinc-300 disabled:hover:border-zinc-700 disabled:hover:text-zinc-500"
-            >
-              {loadingAllMatches
-                ? "Loading..."
-                : data.matches.noMoreMatches
-                  ? "Showing all"
-                  : "Show all"}
-            </button>
-          {:else}
-            <div class="absolute inset-0 grid place-items-center">
-              <p class="animate-pulse text-lg font-semibold text-zinc-500">
-                Loading graph...
-              </p>
-            </div>
-          {/if}
-        </div>
+
+            <!-- {/key} -->
+            {#if browser}
+              <button
+                on:click={showAllMatches}
+                disabled={loadingAllMatches || data.matches.noMoreMatches}
+                class="absolute bottom-[58px] left-[60px] rounded-full border-[0.125rem] border-zinc-700 bg-zinc-950 px-3 py-1 text-xs font-extrabold uppercase tracking-wide text-zinc-500 disabled:opacity-70 hover:border-zinc-400 hover:text-zinc-300 disabled:hover:border-zinc-700 disabled:hover:text-zinc-500"
+              >
+                {loadingAllMatches
+                  ? "Loading..."
+                  : data.matches.noMoreMatches
+                    ? "Showing all"
+                    : "Show all"}
+              </button>
+            {:else}
+              <div class="absolute inset-0 grid place-items-center">
+                <p class="animate-pulse text-lg font-semibold text-zinc-500">
+                  Loading graph...
+                </p>
+              </div>
+            {/if}
+          </div>
+        {/if}
       </div>
     </div>
   </div>

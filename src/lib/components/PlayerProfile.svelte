@@ -212,11 +212,13 @@
         <b class="tracking-tight">{winrate}</b>% winrate
         <span class="font-extrabold text-white/30">•</span>
       {/if}
-      {#if bestTime !== 0}
+      {#if bestTime !== null}
         <b class="tracking-tight">{formatTime(bestTime)}</b> pb
         <span class="font-extrabold text-white/30">•</span>
       {/if}
-      <b class="tracking-tight">{bestWinstreak}</b> best winstreak
+      {#if bestWinstreak !== 0}
+        <b class="tracking-tight">{bestWinstreak}</b> best winstreak
+      {/if}
     </div>
     {#if showAllStats && numMatches > 0}
       <p class="text-white/50">
