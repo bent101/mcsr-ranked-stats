@@ -335,7 +335,7 @@ export function getSimpleEvent(eventName: string, eventTimestamp: number) {
       return newEvent("forfeit", 0, "#ef4444", eventTimestamp);
 
     case "projectelo.timeline.death":
-      return newEvent("death", 0, "#5e5", eventTimestamp);
+      return newEvent("death", 0, "prev", eventTimestamp);
 
     case "projectelo.timeline.death_spawnpoint":
       return newEvent("death reset", 2, "prev", eventTimestamp);
