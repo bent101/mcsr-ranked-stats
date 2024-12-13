@@ -93,7 +93,7 @@
               {#if eloChange}
                 {@const { before, change } = eloChange}
                 <div
-                  class="inline-block {change > 0
+                  class="inline-block tabular-nums {change > 0
                     ? 'text-green-400'
                     : change < 0
                       ? 'text-red-400'

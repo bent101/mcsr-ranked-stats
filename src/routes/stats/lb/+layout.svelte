@@ -34,10 +34,7 @@
           options={["all time", "this season"]}
           bind:onFirst={$showingAllTime}
         />
-        <Switch
-          options={["all", "unique players"]}
-          bind:onFirst={$showingAll}
-        />
+        <Switch options={["all", "1 per player"]} bind:onFirst={$showingAll} />
       </div>
     </div>
     <ol class="mx-auto max-w-sm border-t-2 border-zinc-800 pt-8 md:ml-0">
