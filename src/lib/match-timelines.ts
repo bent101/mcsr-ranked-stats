@@ -415,6 +415,9 @@ export function getSimpleEvent(eventName: string, eventTimestamp: number) {
     case "adventure.trade":
       return newEvent("villager trade", 3, "prev", eventTimestamp);
 
+    case "end.kill_dragon":
+      return newEvent("Free the End", 2, "prev", eventTimestamp);
+
     case "projectelo.timeline.dragon_death":
       return newEvent("dragon death", 2, "prev", eventTimestamp);
 
