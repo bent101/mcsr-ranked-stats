@@ -14,10 +14,24 @@
     $showingLeaderboard = !$showingLeaderboard;
     lbButton?.blur();
   };
+
+  let scrollY = 0;
+
+  $: headerBgOpacity = Math.min(scrollY / 200, 0.85);
+  $: headerBlur = Math.min(scrollY / 8.5, 20);
 </script>
 
+<svelte:window bind:scrollY />
+
 <header
-  class="fixed inset-x-0 top-0 z-50 flex h-16 bg-zinc-800 px-2 py-1 shadow-md *:whitespace-nowrap"
+  class={cn(
+    "fixed inset-x-0 top-0 z-50 flex h-16 bg-zinc-800 px-2 py-1 *:whitespace-nowrap",
+    $page.url.pathname !== "/" && "shadow-md",
+  )}
+  style={$page.url.pathname === "/"
+    ? `--tw-bg-opacity: ${headerBgOpacity};
+    backdrop-filter: blur(${headerBlur}px)`
+    : undefined}
 >
   <div class="flex flex-1 items-center sm:contents">
     <button
@@ -28,9 +42,9 @@
       <MenuIcon class="size-6" />
     </button>
   </div>
-  <a href="/" class="group flex items-center gap-3 p-2">
+  <a href="/" class="group flex items-center gap-1 p-2">
     <img src={rankedLogo} alt="" class="w-9" />
-    <p class="font-semibold text-zinc-300 underline-offset-4">MCSR Ranked</p>
+    <p class="font-semibold text-white/80 underline-offset-4">MCSR Ranked</p>
   </a>
   <div class="w-2" />
   <div class="hidden sm:contents">
@@ -45,8 +59,8 @@
         target={isExternal ? "_blank" : undefined}
         rel={isExternal ? "noopener noreferrer" : undefined}
         class={cn(
-          "group flex items-center",
-          isActive ? "text-zinc-300" : "text-zinc-400",
+          "group flex items-center font-medium",
+          isActive ? "text-white/80" : "text-white/50",
         )}
       >
         <p

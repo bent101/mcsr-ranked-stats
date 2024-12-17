@@ -1,5 +1,5 @@
-import type { EloLeaderboard } from "$lib/ranked-api";
-import { getLeaderboardURL } from "$lib/urls";
+import type { EloLeaderboard, Match } from "$lib/ranked-api";
+import { getLeaderboardURL, getRecentsURL } from "$lib/urls";
 import { injectSpeedInsights } from "@vercel/speed-insights/sveltekit";
 
 injectSpeedInsights();
@@ -11,9 +11,17 @@ export const config = {
 };
 
 export async function load({ fetch }) {
-  return {
-    lb: await fetch(getLeaderboardURL())
+  const [lb, recentMatches] = await Promise.all([
+    fetch(getLeaderboardURL())
       .then((res) => res.json() as Promise<{ data: EloLeaderboard }>)
       .then((res) => res.data),
+    fetch(getRecentsURL())
+      .then((res) => res.json() as Promise<{ data: Match[] }>)
+      .then((res) => res.data),
+  ]);
+
+  return {
+    lb,
+    recentMatches,
   };
 }

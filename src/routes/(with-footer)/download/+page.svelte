@@ -1,6 +1,5 @@
 <script lang="ts">
   import ExternalLinkIcon from "$lib/components/icons/ExternalLinkIcon.svelte";
-  import importFromZipTab from "$lib/assets/import-from-zip-tab.png";
   import { downloads } from "$lib/config";
   import Badge from "$lib/components/Badge.svelte";
   import CopyBtn from "$lib/components/CopyBtn.svelte";
@@ -20,7 +19,7 @@
 
 <div class="px-4 pb-32 pt-8">
   <div class="mx-auto max-w-xl lg:max-w-7xl">
-    <h1 class="text-4xl font-bold text-zinc-300">Download</h1>
+    <h1 class="text-4xl font-bold text-zinc-300">Download MCSR Ranked</h1>
     <div class="h-4" />
     <div class="flex flex-col-reverse gap-8 lg:flex-row">
       <div class="flex-1">
@@ -55,7 +54,7 @@
             <div
               class="aspect-[1298/234] w-full overflow-hidden rounded-xl bg-white/5"
             >
-              <img src={importFromZipTab} alt="Import from zip" />
+              <img src="/import-from-zip-tab.png" alt="Import from zip" />
             </div>
           </div>
         </div>
@@ -66,7 +65,8 @@
           </div>
           <div class="step-content">
             <p>
-              Copy a <b>download link</b> from below and paste it into MultiMC
+              Copy a <b>download link</b> from below, paste it into MultiMC, and
+              click OK
             </p>
             {#each downloads as download}
               <div class="flex gap-4 rounded-xl bg-zinc-800 p-2 pl-4 shadow-md">
@@ -136,7 +136,7 @@
           </div>
           <div class="step-content">
             <div>
-              <p>Click OK, launch the instance, and <b>start playing!</b></p>
+              <p>Launch the instance and <b>start playing!</b></p>
             </div>
             <p>
               Visit the <b>

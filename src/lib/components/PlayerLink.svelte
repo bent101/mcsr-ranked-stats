@@ -1,8 +1,8 @@
 <script lang="ts">
+  import type { APIResponse, DetailedPlayer } from "$lib/ranked-api";
   import { getPlayerURL } from "$lib/urls";
   import PlayerProfile from "./PlayerProfile.svelte";
   import Popup from "./Popup.svelte";
-  import type { DetailedPlayer, APIResponse } from "$lib/ranked-api";
 
   export let name = "";
 

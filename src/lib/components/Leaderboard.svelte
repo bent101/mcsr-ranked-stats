@@ -1,5 +1,6 @@
 <script lang="ts">
   import SidebarTab from "$lib/components/SidebarTab.svelte";
+  import { onlinePlayers } from "$lib/globals";
 
   export let lb: {
     name: string;
@@ -13,6 +14,7 @@
 </script>
 
 {#each lb as { name, elo, rank, uuid, href, selected, arrowSelected } (uuid)}
+  {@const isOnline = $onlinePlayers.has(name)}
   <SidebarTab {href} {selected} {arrowSelected}>
     <div
       class=" w-12 px-2 text-right font-extrabold {selected
@@ -22,11 +24,14 @@
       {rank}
     </div>
     <div
-      class="flex-1 px-2 text-center {selected
+      class="flex flex-1 items-center justify-center gap-2 px-2 text-center {selected
         ? ' text-zinc-300'
         : 'text-zinc-400 group-hover:text-zinc-300'}"
     >
       {name}
+      <!-- {#if isOnline}
+        <div class="size-1.5 rounded-full bg-white/15" />
+      {/if} -->
     </div>
     <div
       class=" w-16 px-2 font-semibold {selected

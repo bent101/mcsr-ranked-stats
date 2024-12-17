@@ -16,10 +16,10 @@
 <a
   {href}
   class={cn(
-    "group flex items-center rounded-l-full border-[0.125rem] border-r-0 py-1 transition-transform duration-300",
+    "group relative flex items-center rounded-l-full border-[0.125rem] border-r-0 py-1",
     selected
       ? [
-          "sticky bottom-24 top-28 z-10 translate-x-1 bg-zinc-900 sm:bottom-12 sm:top-20",
+          "sticky bottom-24 top-28 z-10  bg-zinc-900 sm:bottom-12 sm:top-20",
           arrowSelected ? "border-blue-500" : "border-zinc-700",
         ]
       : arrowSelected
@@ -28,4 +28,7 @@
   )}
 >
   <slot />
+  {#if selected}
+    <div class="absolute inset-y-0 left-full w-0.5 bg-zinc-900"></div>
+  {/if}
 </a>

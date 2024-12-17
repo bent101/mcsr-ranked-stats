@@ -1,3 +1,10 @@
+@font-face {
+  font-family: "MinecraftBold";
+  src: url("/fonts/MinecraftBold.otf") format("opentype");
+  font-weight: bold;
+  font-style: normal;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,12 +15,18 @@
     @apply min-[470px]:[font-size:16px];
 
     --header-height: 4rem;
+    --dark-green: hsl(188.9, 52.9%, 10%);
+    --light-green: hsl(88.5, 58.7%, 40.8%);
 
     @apply bg-zinc-900 text-zinc-400 selection:bg-blue-400 selection:text-zinc-900;
   }
 
   html * {
     @apply scrollbar-thin scrollbar-track-transparent scrollbar-thumb-white/10 hover:scrollbar-thumb-white/15;
+  }
+
+  * {
+    @apply text-pretty ease-out; /* tailwind is ease-in-out by default which is GROSS */
   }
 
   ._ {

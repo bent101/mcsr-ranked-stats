@@ -11,10 +11,15 @@ export default {
   },
   theme: {
     extend: {
+      fontFamily: {
+        minecraft: ["MinecraftBold", "sans-serif"],
+      },
       colors: {
         zinc: {
           925: "#121214",
         },
+        "dark-green": "var(--dark-green)",
+        "light-green": "var(--light-green)",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
@@ -36,7 +41,7 @@ export default {
     }),
     plugin(({ addVariant }) => {
       // e.g. hover:bg-tint actually does hover:bg-tint and focus-visible:bg-tint
-      addVariant("hover", ["@media(hover:hover){&:hover}", "&:focus-visible"]);
+      addVariant("hover", ["@media(hover:hover){&:hover}", "&:foc-us-visible"]);
       // e.g. group-hover:bg-tint actually does group-hover:bg-tint and group-focus-visible:bg-tint
       addVariant("group-hover", [
         "@media(hover: hover){.group:hover &}",

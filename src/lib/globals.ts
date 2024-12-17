@@ -10,6 +10,8 @@ export const minWLg = mql("(min-width: 1024px)");
 export const minWXl = mql("(min-width: 1280px)");
 export const isTouchScreen = mql("(any-pointer: coarse)");
 
+export const onlinePlayers = writable(new Set<string>());
+
 function mql(query: string, { fallback = true } = {}) {
   if (!browser) return readable(fallback);
   const matcher = window.matchMedia(query);

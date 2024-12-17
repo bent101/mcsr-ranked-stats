@@ -45,11 +45,13 @@
       <Badge>{match.bastionType} bastion</Badge>
     {/if}
 
-    {#if match.rank.season !== null && match.rank.season <= 100 && !hideSeasonRank}
-      <Badge>#{match.rank.season} season</Badge>
-    {/if}
-    {#if match.rank.allTime !== null && match.rank.allTime <= 100 && !hideAllTimeRank}
-      <Badge>#{match.rank.allTime} all-time</Badge>
+    {#if match.outcome === "won"}
+      {#if match.rank.season !== null && match.rank.season <= 100 && !hideSeasonRank}
+        <Badge>#{match.rank.season} season</Badge>
+      {/if}
+      {#if match.rank.allTime !== null && match.rank.allTime <= 100 && !hideAllTimeRank}
+        <Badge>#{match.rank.allTime} all-time</Badge>
+      {/if}
     {/if}
   </div>
   <div

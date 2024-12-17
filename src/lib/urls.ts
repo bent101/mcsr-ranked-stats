@@ -6,6 +6,10 @@ export const getLeaderboardURL = () => {
   return `${base}/leaderboard`;
 };
 
+export const getRecentsURL = () => {
+  return `${base}/matches?count=50&type=2`;
+};
+
 export const getPointsLeaderboardURL = ({
   season,
 }: { season?: number } = {}) => {

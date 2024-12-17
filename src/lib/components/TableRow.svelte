@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { afterNavigate } from "$app/navigation";
+  import { afterNavigate, goto } from "$app/navigation";
   import { navigating, page } from "$app/stores";
   import { minWMd } from "$lib/globals";
   import { cn, rem2px } from "$lib/utils";
@@ -17,8 +17,8 @@
   function scrollIntoView() {
     if (!elem) return;
     const currElemHeight = elem.getBoundingClientRect().top;
-    const padding = rem2px($minWMd ? 6 : 2);
-    const headerHeight = rem2px(11.5);
+    const padding = rem2px($minWMd ? 8 : 2);
+    const headerHeight = rem2px(7.5);
     const bottomHeight = $minWMd ? 0 : rem2px(39);
 
     // Calculate target position clamped between header and bottom
