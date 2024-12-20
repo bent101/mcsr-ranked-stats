@@ -1,12 +1,15 @@
 import CalendarIcon from "./components/icons/CalendarIcon.svelte";
 import CartIcon from "./components/icons/CartIcon.svelte";
+import DiscordIcon from "./components/icons/DiscordIcon.svelte";
 import DownloadIcon from "./components/icons/DownloadIcon.svelte";
 import HomeIcon from "./components/icons/HomeIcon.svelte";
 import ListIcon from "./components/icons/ListIcon.svelte";
 import PodiumIcon from "./components/icons/PodiumIcon.svelte";
 import StatsIcon from "./components/icons/StatsIcon.svelte";
 import StopwatchIcon from "./components/icons/StopwatchIcon.svelte";
+import TwitterIcon from "./components/icons/TwitterIcon.svelte";
 import VsIcon from "./components/icons/VsIcon.svelte";
+import YoutubeIcon from "./components/icons/YoutubeIcon.svelte";
 
 export const store = {
   label: "Store",
@@ -201,3 +204,21 @@ export const licenses = [
       "https://github.com/Minecraft-Java-Edition-Speedrunning/mcsr-chunkcacher-1.16-1.17.1/blob/main/LICENSE",
   },
 ];
+
+export const socialLinks = [
+  {
+    href: "https://x.com/mcsr_ranked",
+    icon: TwitterIcon,
+    label: "Twitter",
+  },
+  {
+    href: "https://www.youtube.com/@MCSR_Ranked",
+    icon: YoutubeIcon,
+    label: "YouTube",
+  },
+  {
+    href: "https://mcsrranked.com/discord",
+    icon: DiscordIcon,
+    label: "Discord",
+  },
+] as const;

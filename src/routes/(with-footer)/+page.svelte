@@ -49,14 +49,14 @@
       imagePosition: "object-center",
       bullets: [
         "Refine your route and push your time lower throughout the week",
-        "Learn from the best – Watch the fastest runners' replays or race their ghosts",
+        "Learn from the best – watch the fastest runners' replays or race their ghosts",
         "Uses the same RNG standardization as Ranked Mode",
       ],
     },
     {
       title: "MCSR Ranked Playoffs",
       description:
-        "Watch the 16 best speedrunners in the world compete live for a $3,000+ prize pool!",
+        "Watch the 16 best runners in the world compete live for a $3,000+ prize pool!",
       image: "/dying-dragon.jpeg",
       imagePosition: "object-center",
       bullets: [
@@ -201,7 +201,7 @@
     <div class="absolute bottom-0 h-1/2 w-full bg-zinc-950"></div>
     <div class="relative p-4 sm:p-8">
       <div
-        class="relative flex flex-col items-end gap-4 overflow-hidden rounded-2xl bg-[#599916] p-4 sm:rounded-3xl sm:p-8 md:flex-row md:items-center"
+        class="relative flex flex-col items-end gap-4 overflow-hidden rounded-2xl bg-[#599916] p-4 sm:rounded-3xl sm:p-8 lg:flex-row lg:items-center"
       >
         <div
           class="absolute bottom-12 right-0 size-12 bg-dark-green opacity-20"

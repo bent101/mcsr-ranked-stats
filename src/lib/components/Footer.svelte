@@ -1,8 +1,5 @@
 <script>
-  import { footerLinkGroups } from "$lib/config";
-  import DiscordIcon from "./icons/DiscordIcon.svelte";
-  import TwitterIcon from "./icons/TwitterIcon.svelte";
-  import YoutubeIcon from "./icons/YoutubeIcon.svelte";
+  import { footerLinkGroups, socialLinks } from "$lib/config";
 </script>
 
 <footer class="bg-zinc-950 p-8 pb-4 text-sm text-zinc-500">
@@ -11,30 +8,17 @@
       <p class="mr-2 text-nowrap text-lg font-semibold text-zinc-500">
         MCSR Ranked
       </p>
-      <a
-        href="https://x.com/mcsr_ranked"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="rounded-md p-1 hover:bg-zinc-900"
-      >
-        <TwitterIcon class="size-6" />
-      </a>
-      <a
-        href="https://www.youtube.com/@MCSR_Ranked"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="rounded-md p-1 hover:bg-zinc-900"
-      >
-        <YoutubeIcon class="size-6" />
-      </a>
-      <a
-        href="https://mcsrranked.com/discord"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="rounded-md p-1 hover:bg-zinc-900"
-      >
-        <DiscordIcon class="size-6" />
-      </a>
+      {#each socialLinks as { href, icon, label }}
+        <a
+          {href}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="p-1 text-zinc-600 hover:text-zinc-400"
+          aria-label={label}
+        >
+          <svelte:component this={icon} class="size-6" />
+        </a>
+      {/each}
     </div>
     <div class="flex">
       {#each footerLinkGroups as links}

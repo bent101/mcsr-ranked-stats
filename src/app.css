@@ -1,7 +1,6 @@
 @font-face {
   font-family: "MinecraftBold";
-  src: url("/fonts/MinecraftBold.otf") format("opentype");
-  font-weight: bold;
+  src: url("/minecraft-font/regular.otf") format("opentype");
   font-style: normal;
 }
 
