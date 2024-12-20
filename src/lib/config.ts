@@ -26,7 +26,7 @@ export const headerLinks = [
     Icon: DownloadIcon,
   },
   {
-    label: "Leaderboards",
+    label: "Leaderboard",
     href: "/stats",
     Icon: StatsIcon,
   },

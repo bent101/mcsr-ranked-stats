@@ -43,7 +43,9 @@
         : "idle"
       : $navigating.to?.url.pathname.startsWith(href)
         ? "loading"
-        : "idle";
+        : $navigating.from?.url.pathname.startsWith(href)
+          ? "selected"
+          : "idle";
 
   afterNavigate(() => {
     if (state === "selected") scrollIntoView();
