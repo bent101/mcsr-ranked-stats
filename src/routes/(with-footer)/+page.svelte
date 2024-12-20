@@ -24,7 +24,7 @@
       image: "/brent-village.jpeg",
       imagePosition: "object-center",
       bullets: [
-        "<b>Every seed has a good overworld and nether</b> &ndash; great for learning and fast-paced for pros",
+        "<b>Every seed has a good overworld and nether</b> – great for learning and fast-paced for pros",
         "<b>Standardized piglin trades, blaze drops, and more</b> even the playing field",
         "<b>Match replays and player statistics</b> let you learn from every game and track your progress",
       ],
@@ -49,14 +49,14 @@
       imagePosition: "object-center",
       bullets: [
         "Refine your route and push your time lower throughout the week",
-        "Watch the fastest runners' replays or race their ghosts",
+        "Learn from the best – Watch the fastest runners' replays or race their ghosts",
         "Uses the same RNG standardization as Ranked Mode",
       ],
     },
     {
       title: "MCSR Ranked Playoffs",
       description:
-        "Watch the 16 best speedrunners in the world compete live for a $2,000+ prize pool!",
+        "Watch the 16 best speedrunners in the world compete live for a $3,000+ prize pool!",
       image: "/dying-dragon.jpeg",
       imagePosition: "object-center",
       bullets: [
@@ -86,25 +86,14 @@
     )}
     style={`backdrop-filter: blur(${0.3 + (scrollPercent * 8) / 1000}vw)`}
   />
-  <p
-    class={cn(
-      "font-bold text-white/50 transition-[transform,opacity,tracking] duration-[1.3s]",
-      mounted
-        ? "tracking-[0.3em] opacity-100"
-        : "translate-y-4 tracking-[0.25em] opacity-0",
-    )}
-  >
-    WELCOME TO
-  </p>
-  <div class="h-4" />
   <div
     class={cn(
-      "flex gap-3 transition-[transform,opacity] delay-[0.25s] duration-[1.3s] *:h-36",
+      "flex w-full max-w-2xl items-start gap-2 transition-[transform,opacity] delay-[0.25s] duration-[1.3s]",
       mounted ? "opacity-100" : "translate-y-4 opacity-0",
     )}
   >
-    <TitleSvg />
-    <RankedSvg class="origin-top-left scale-[1.054]" />
+    <TitleSvg class="flex-[462]" />
+    <RankedSvg class="flex-[157] origin-top-left" />
     <div class="sr-only">Minecraft Speedrunning Ranked</div>
   </div>
   <div class="h-8" />
@@ -116,15 +105,15 @@
   >
     <a href="/download" class="group relative block h-16 w-44">
       <div
-        class="absolute bottom-1 left-0 right-1 top-0 bg-white transition-transform group-hover:-translate-x-0.5 group-hover:-translate-y-0.5"
+        class="absolute inset-0 bg-white transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1"
       ></div>
-      <div class="absolute bottom-0 left-1 right-0 top-1 bg-white"></div>
+      <div class="absolute inset-0 bg-white"></div>
       <div
-        class="absolute bottom-2 left-1 right-2 top-1 bg-dark-green transition-transform group-hover:-translate-x-0.5 group-hover:-translate-y-0.5"
+        class="absolute inset-1 bg-dark-green transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1"
       ></div>
-      <div class="absolute bottom-1 left-2 right-1 top-2 bg-dark-green"></div>
+      <div class="absolute inset-1 bg-dark-green"></div>
       <div
-        class="absolute bottom-3 left-2 right-3 top-2 flex items-center justify-center transition-transform group-hover:-translate-x-0.5 group-hover:-translate-y-0.5 group-hover:bg-light-green"
+        class="absolute inset-2 flex items-center justify-center transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1 group-hover:bg-light-green"
       >
         <span class="font-extrabold tracking-widest text-white">DOWNLOAD</span>
       </div>
@@ -170,7 +159,7 @@
             src={card.image}
             alt=""
             class={cn(
-              "absolute inset-0 size-full select-none object-cover opacity-50 blur-xl",
+              "absolute inset-0 size-full select-none object-cover opacity-90 blur-xl",
               card.imagePosition,
             )}
           />
@@ -190,10 +179,10 @@
               alt=""
               class="size-[400%] select-none object-cover blur-xl"
             />
-            <div class="absolute inset-0 bg-zinc-900/90" />
+            <div class="absolute inset-0 bg-zinc-900/85" />
           </div>
           <div>
-            <h2 class="text-3xl font-bold text-white/80">{card.title}</h2>
+            <h2 class="font-minecraft text-3xl text-white/80">{card.title}</h2>
             <p class="mt-1">{card.description}</p>
             <ul class="list-disc space-y-3 pl-4 pt-6">
               {#each card.bullets as bullet}
@@ -208,25 +197,65 @@
     {/each}
   </div>
 
-  <div class="flex justify-center gap-4 pt-8">
-    <a
-      href="/download"
-      class="rounded-lg bg-dark-green px-6 py-3 font-bold text-white transition-colors hover:bg-light-green"
-    >
-      Play Now
-    </a>
-    <a
-      href="/stats"
-      class="rounded-lg bg-zinc-800 px-6 py-3 font-bold text-white transition-colors hover:bg-zinc-700"
-    >
-      View Leaderboards
-    </a>
-    <a
-      href="https://discord.gg/mcsr"
-      class="rounded-lg bg-zinc-800 px-6 py-3 font-bold text-white transition-colors hover:bg-zinc-700"
-    >
-      Join Discord
-    </a>
+  <div class="relative">
+    <div class="absolute bottom-0 h-1/2 w-full bg-zinc-950"></div>
+    <div class="relative p-4 sm:p-8">
+      <div
+        class="relative flex flex-col items-end gap-4 overflow-hidden rounded-2xl bg-[#599916] p-4 sm:rounded-3xl sm:p-8 md:flex-row md:items-center"
+      >
+        <div
+          class="absolute bottom-12 right-0 size-12 bg-dark-green opacity-20"
+        />
+        <div
+          class="absolute bottom-0 right-12 size-12 bg-dark-green opacity-20"
+        />
+        <div
+          class="absolute bottom-0 right-48 size-12 bg-dark-green opacity-20"
+        />
+        <div
+          class="absolute right-[27rem] top-0 size-12 bg-dark-green opacity-20"
+        />
+        <div
+          class="absolute right-[24rem] top-12 size-12 bg-dark-green opacity-20"
+        />
+
+        <p
+          class="text-xl font-semibold text-white drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)] max-sm:text-lg"
+        >
+          MCSR Ranked is the best way to learn and play Minecraft Speedrunning.
+          Join our community of 4,000+ players and start your speedrunning
+          journey today!
+        </p>
+        <div class="flex-1" />
+        <div class="flex gap-2">
+          <a
+            href="https://mcsrranked.com/discord"
+            target="_blank"
+            rel="noopener noreferrer"
+            class=" relative flex h-16 w-44 shrink-0 items-center justify-center font-extrabold tracking-widest text-dark-green decoration-[3px] underline-offset-4 hover:underline"
+          >
+            JOIN DISCORD
+          </a>
+          <a href="/download" class="group relative block h-16 w-44 shrink-0">
+            <div
+              class="absolute inset-0 bg-white transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1"
+            ></div>
+            <div class="absolute inset-0 bg-white"></div>
+            <div
+              class="absolute inset-1 bg-dark-green transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1"
+            ></div>
+            <div class="absolute inset-1 bg-dark-green"></div>
+            <div
+              class="absolute inset-2 flex items-center justify-center transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1 group-hover:bg-light-green"
+            >
+              <span class="font-extrabold tracking-widest text-white"
+                >DOWNLOAD</span
+              >
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
