@@ -58,7 +58,7 @@
       bullets: [
         "Refine your route and push your time lower throughout the week",
         "Learn from the best – watch the fastest runners' replays or race their ghosts",
-        "Get the same flint drops, piglin trades, and blaze rates every run thanks to the same seed-based RNG as Ranked Mode",
+        "Get the same flint drops, piglin trades, and blaze drops every run",
       ],
     },
     {
