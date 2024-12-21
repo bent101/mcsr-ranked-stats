@@ -19,7 +19,7 @@
   // export let curSeason: number;
   // export let seasonEnd: number;
 
-  $: state =
+  let state =
     $page.url.pathname.startsWith("/stats") || $minWSm ? "leaderboard" : "root";
 
   let searchInput: HTMLElement | undefined;
