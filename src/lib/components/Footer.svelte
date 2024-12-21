@@ -38,7 +38,7 @@
       {/each}
     </div>
   </div>
-  <p class="text-balance pt-4 text-center text-xs text-zinc-600">
+  <p class="text-balance pt-2 text-center text-xs text-zinc-600">
     © 2022-24 MCSR Ranked. <span class="uppercase">
       This is not an official Minecraft product. Not approved by or associated
       with Mojang or Microsoft.

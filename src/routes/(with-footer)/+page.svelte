@@ -159,127 +159,137 @@
     class="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-b from-transparent to-[#161618]"
   ></div>
 </div>
-<div class="relative min-h-screen-minus-header bg-[#161618]">
-  <div class="mx-auto max-w-screen-3xl space-y-16 px-4 lg:px-8">
-    <div
-      class="text-balance text-center font-minecraft text-xl text-white/80 sm:text-2xl"
-    >
-      MCSR Ranked is the best way to learn and play Minecraft Speedrunning.
-      Practice with friends, fight for elo, or compete at the highest level –
-      <span class="text-light-green">First to kill the dragon wins.</span>
-    </div>
-    {#each cards as card, i}
-      <article
-        class={cn(
-          "relative flex min-h-[300px] flex-col backdrop-blur-lg lg:flex-row lg:gap-6 lg:even:flex-row-reverse",
-        )}
+<div class="relative bg-[#161618]">
+  <div class="mx-auto max-w-screen-3xl px-4 lg:px-8">
+    <div class="relative mx-auto max-w-7xl py-32">
+      <div
+        class="absolute inset-0 opacity-10"
+        style="background-image: linear-gradient(#6BA62A 1px, transparent 1px), linear-gradient(90deg, #6BA62A 1px, transparent 1px); background-size: 32px 32px;"
+      />
+      <div
+        class="absolute inset-0 bg-gradient-radial from-transparent to-[#161618] to-60%"
+      ></div>
+      <p
+        class="relative text-balance text-center font-minecraft text-xl text-white/80 sm:text-2xl"
       >
-        <div class="relative h-64 w-full lg:h-auto lg:w-[calc(50%+1rem)]">
-          <img
-            src={card.image}
-            alt=""
-            class={cn(
-              "absolute inset-0 size-full select-none rounded-2xl object-cover opacity-90 blur-xl",
-              card.imagePosition,
-            )}
-          />
-          <img
-            src={card.image}
-            alt=""
-            class={cn(
-              "absolute inset-0 size-full select-none rounded-2xl object-cover",
-              card.imagePosition,
-            )}
-          />
-          {#if i === 0}
-            <div
-              class="absolute left-4 top-4 font-minecraft text-xl leading-6"
-              style="text-shadow: 0.1em 0.1em 0px #333;"
-            >
-              <p class="font-bold text-[#F7FC62]">Current Match</p>
-              <p class="text-white">Ranked Mode</p>
-              <div class="h-[0.5lh]"></div>
-              <div class="flex gap-[0.25em]">
-                <img
-                  src="/alex-head.png"
-                  alt=""
-                  class="size-[1em] shrink-0 [image-rendering:pixelated]"
-                />
-                <p class="text-white">Alex</p>
-              </div>
-              <div class="flex gap-[0.25em]">
-                <img
-                  src="/nether-icon.png"
-                  alt=""
-                  class="size-[1em] shrink-0 [image-rendering:pixelated]"
-                />
-                <p class="italic text-zinc-300/80">Entered Nether</p>
-              </div>
-            </div>
-            <div
-              class="absolute bottom-4 right-4 flex flex-col items-end font-minecraft text-xl leading-none"
-              style="text-shadow: 0.1em 0.1em 0px #333;"
-            >
-              <p class="font-bold text-[#F7FC62]">Current Match</p>
-              <p class="text-white">Ranked Mode</p>
-              <div class="h-[0.5lh]"></div>
-              <div class="flex gap-[0.25em]">
-                <img
-                  src="/steve-head.png"
-                  alt=""
-                  class="size-[1em] shrink-0 [image-rendering:pixelated]"
-                />
-                <p class="text-white">Steve</p>
-              </div>
-              <div class="flex gap-[0.25em]">
-                <img
-                  src="/bastion-icon.png"
-                  alt=""
-                  class="size-[1em] shrink-0 [image-rendering:pixelated]"
-                />
-                <p class="italic text-zinc-300/80">Entered Bastion</p>
-              </div>
-            </div>
-            <div class="absolute inset-0 overflow-hidden">
-              <div
-                class="absolute inset-0 left-1/2 top-1/2 h-[200%] w-1 -translate-y-1/2 rotate-[14deg] bg-[#D9D7D0]"
-              ></div>
-            </div>
-          {/if}
-        </div>
-        <div class="relative flex-1 py-4 text-white/50">
-          {#if card.background}
+        MCSR Ranked is the best way to learn and play Minecraft Speedrunning.
+        Practice with friends, fight for elo, or compete at the highest level –
+        <span class="text-light-green">First to beat the game wins.</span>
+      </p>
+    </div>
+    <div class="space-y-16">
+      {#each cards as card, i}
+        <article
+          class={cn(
+            "relative flex min-h-[300px] flex-col lg:flex-row lg:gap-6 lg:odd:flex-row-reverse",
+          )}
+        >
+          <div class="relative h-64 w-full lg:h-auto lg:w-[calc(50%+1rem)]">
             <img
-              src={card.background}
+              src={card.image}
               alt=""
               class={cn(
-                "absolute -bottom-36 right-16 -z-10 w-80 select-none opacity-5 blur-[2.5px] grayscale",
-                card.backgroundClass,
+                "absolute inset-0 size-full select-none rounded-2xl object-cover opacity-90 blur-xl",
+                card.imagePosition,
               )}
             />
-          {/if}
-          <div>
-            <p
-              class="font-minecraft text-xl font-extrabold uppercase tracking-widest text-light-green"
-            >
-              {card.name}
-            </p>
-            <h2 class="font-minecraft text-3xl text-white/80">
-              {card.title}
-            </h2>
-            <p class="mt-1">{card.description}</p>
-
-            <ul class="list-disc space-y-3 pl-4 pt-6">
-              {#each card.bullets as bullet}
-                <li class="marker:text-white/20 [&>b]:text-white/70">
-                  {@html bullet}
-                </li>
-              {/each}
-            </ul>
+            <img
+              src={card.image}
+              alt=""
+              class={cn(
+                "absolute inset-0 size-full select-none rounded-2xl object-cover",
+                card.imagePosition,
+              )}
+            />
+            {#if i === 0}
+              <div
+                class="absolute left-4 top-4 font-minecraft text-xl leading-6"
+                style="text-shadow: 0.1em 0.1em 0px #333;"
+              >
+                <p class="font-bold text-[#F7FC62]">Current Match</p>
+                <p class="text-white">Ranked Mode</p>
+                <div class="h-[0.5lh]"></div>
+                <div class="flex gap-[0.25em]">
+                  <img
+                    src="/alex-head.png"
+                    alt=""
+                    class="size-[1em] shrink-0 [image-rendering:pixelated]"
+                  />
+                  <p class="text-white">Alex</p>
+                </div>
+                <div class="flex gap-[0.25em]">
+                  <img
+                    src="/nether-icon.png"
+                    alt=""
+                    class="size-[1em] shrink-0 [image-rendering:pixelated]"
+                  />
+                  <p class="italic text-zinc-300/80">Entered Nether</p>
+                </div>
+              </div>
+              <div
+                class="absolute bottom-4 right-4 flex flex-col items-end font-minecraft text-xl leading-none"
+                style="text-shadow: 0.1em 0.1em 0px #333;"
+              >
+                <p class="font-bold text-[#F7FC62]">Current Match</p>
+                <p class="text-white">Ranked Mode</p>
+                <div class="h-[0.5lh]"></div>
+                <div class="flex gap-[0.25em]">
+                  <img
+                    src="/steve-head.png"
+                    alt=""
+                    class="size-[1em] shrink-0 [image-rendering:pixelated]"
+                  />
+                  <p class="text-white">Steve</p>
+                </div>
+                <div class="flex gap-[0.25em]">
+                  <img
+                    src="/bastion-icon.png"
+                    alt=""
+                    class="size-[1em] shrink-0 [image-rendering:pixelated]"
+                  />
+                  <p class="italic text-zinc-300/80">Entered Bastion</p>
+                </div>
+              </div>
+              <div class="absolute inset-0 overflow-hidden">
+                <div
+                  class="absolute inset-0 left-1/2 top-1/2 h-[200%] w-1 -translate-y-1/2 rotate-[14deg] bg-[#D9D7D0]"
+                ></div>
+              </div>
+            {/if}
           </div>
-        </div>
-      </article>
-    {/each}
+          <div class="relative flex-1 py-4 text-white/50">
+            {#if card.background}
+              <img
+                src={card.background}
+                alt=""
+                class={cn(
+                  "absolute -bottom-36 right-16 w-80 select-none opacity-5 blur-[2.5px] grayscale",
+                  card.backgroundClass,
+                )}
+              />
+            {/if}
+            <div class="relative">
+              <p
+                class="font-minecraft text-xl font-extrabold uppercase tracking-widest text-light-green"
+              >
+                {card.name}
+              </p>
+              <h2 class="font-minecraft text-3xl text-white/80">
+                {card.title}
+              </h2>
+              <p class="mt-1">{card.description}</p>
+              <ul class="list-disc space-y-3 pl-4 pt-6">
+                {#each card.bullets as bullet}
+                  <li class="marker:text-white/20 [&>b]:text-white/70">
+                    {@html bullet}
+                  </li>
+                {/each}
+              </ul>
+            </div>
+          </div>
+        </article>
+      {/each}
+    </div>
   </div>
 
   <div class="relative">
