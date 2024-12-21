@@ -1,7 +1,29 @@
 @font-face {
-  font-family: "MinecraftBold";
+  font-family: "Minecraft";
   src: url("/minecraft-font/regular.otf") format("opentype");
   font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "Minecraft";
+  src: url("/minecraft-font/bold.otf") format("opentype");
+  font-style: normal;
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "Minecraft";
+  src: url("/minecraft-font/italic.otf") format("opentype");
+  font-style: italic;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "Minecraft";
+  src: url("/minecraft-font/bold-italic.otf") format("opentype");
+  font-style: italic;
+  font-weight: bold;
 }
 
 @tailwind base;
@@ -17,7 +39,7 @@
     --dark-green: hsl(188.9, 52.9%, 10%);
     --light-green: hsl(88.5, 58.7%, 40.8%);
 
-    @apply bg-zinc-900 text-zinc-400 selection:bg-blue-400 selection:text-zinc-900;
+    @apply bg-zinc-900 text-zinc-400 selection:bg-blue-400 selection:text-zinc-900 selection:[text-shadow:none];
   }
 
   html * {
@@ -25,7 +47,7 @@
   }
 
   * {
-    @apply text-pretty ease-out; /* tailwind is ease-in-out by default which is GROSS */
+    @apply text-pretty !ease-out; /* tailwind is ease-in-out by default, !ease-out overrides it */
   }
 
   ._ {

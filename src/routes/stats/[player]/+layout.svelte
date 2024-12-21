@@ -151,9 +151,9 @@
     <div class="mx-auto max-w-3xl p-8 pl-2">
       {#if data.playerData.eloRate}
         <div class="relative">
-          <!-- {#key data.playerData.nickname} -->
-          <Graph matches={data.matches.data} />
-          <!-- {/key} -->
+          {#key data.playerData.nickname}
+            <Graph matches={data.matches.data} />
+          {/key}
           {#if browser}
             <button
               on:click={showAllMatches}
@@ -225,10 +225,9 @@
       <div class="sticky top-56 h-max flex-1">
         {#if data.playerData.eloRate}
           <div class="relative">
-            <!-- {#key data.playerData.nickname} -->
-            <Graph matches={data.matches.data} />
-
-            <!-- {/key} -->
+            {#key data.playerData.nickname}
+              <Graph matches={data.matches.data} />
+            {/key}
             {#if browser}
               <button
                 on:click={showAllMatches}

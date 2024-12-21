@@ -2,20 +2,16 @@
   import { browser, dev } from "$app/environment";
   import { beforeNavigate, invalidate } from "$app/navigation";
   import { page } from "$app/stores";
-  import rankedLogo from "$lib/assets/ranked.png";
-  import CartIcon from "$lib/components/icons/CartIcon.svelte";
-  import ExternalLinkIcon from "$lib/components/icons/ExternalLinkIcon.svelte";
-  import MenuIcon from "$lib/components/icons/MenuIcon.svelte";
   import Header from "$lib/components/Header.svelte";
   import Loading from "$lib/components/Loading.svelte";
   import Sidebar from "$lib/components/Sidebar.svelte";
-  import { headerLinks, store } from "$lib/config";
   import { onlinePlayers, showingLeaderboard } from "$lib/globals";
   import { getLeaderboardURL, getWeeklyRaceURL } from "$lib/urls";
+  import { cn } from "$lib/utils";
   import { inject } from "@vercel/analytics";
+  import _ from "lodash";
   import { fade, fly } from "svelte/transition";
   import "../app.css";
-  import { cn } from "$lib/utils";
 
   inject({ mode: dev ? "development" : "production", debug: false });
 
@@ -44,6 +40,11 @@
     // sidebar.scrollTop = 0;
   };
   beforeNavigate(hideLb);
+
+  const debouncedInvalidate = _.throttle(() => {
+    invalidate(getLeaderboardURL());
+    invalidate(getWeeklyRaceURL());
+  }, 5000);
 </script>
 
 <svelte:head>
@@ -72,10 +73,7 @@
       hideLb();
     }
   }}
-  on:focus={() => {
-    invalidate(getLeaderboardURL());
-    invalidate(getWeeklyRaceURL());
-  }}
+  on:focus={debouncedInvalidate}
 />
 
 <Header bind:lbButton />

@@ -18,50 +18,60 @@
 
   const cards = [
     {
-      title: "Ranked Mode",
+      name: "Ranked Mode",
+      title: "Different worlds, same seed",
       description:
-        "Race in a Minecraft speedrun against an opponent of similar skill, in the same seed and at the same time. Put your elo on the line to climb the ranks!",
-      image: "/brent-village.jpeg",
+        "Race an opponent head-to-head in a Minecraft speedrun in separate worlds but on the same seed. Put your elo on the line to climb the ranks!",
+      image: "/ranked-mode.jpeg",
       imagePosition: "object-center",
+      background: "/ender-eye.png",
       bullets: [
-        "<b>Every seed has a good overworld and nether</b> – great for learning and fast-paced for pros",
+        "<b>Every seed has a good overworld and nether</b>, keeping it fun and fast-paced",
         "<b>Standardized piglin trades, blaze drops, and more</b> even the playing field",
         "<b>Match replays and player statistics</b> let you learn from every game and track your progress",
       ],
     },
     {
-      title: "Private Rooms",
+      name: "Private Rooms",
+      title: "Craft your perfect race",
       description:
-        "Practice with friends, host tournaments, or try new categories in private rooms of up to 32 players!",
-      image: "/couri-bastion.jpeg",
-      imagePosition: "object-center",
+        "Try new categories, host tournaments, or practice with friends in private rooms of up to 32 players!",
+      image: "/private-rooms.png",
+      imagePosition: "object-bottom",
+      background: "/crafting-table.png",
       bullets: [
         "Play random, filtered, or set seeds",
         "Customize game rules and speedrun categories",
-        "Perfect for community events or practice sessions",
+        "View live advancements and chat messages of all players",
       ],
     },
     {
-      title: "Weekly Race",
+      name: "Weekly Race",
+      title: "A new seed every week",
       description:
         "With a separate leaderboard and a new seed handpicked every week, Weekly Race brings set seed speedrunning to MCSR Ranked.",
       image: "/dolphin-rp.jpeg",
       imagePosition: "object-center",
+      background: "/map-item.png",
+      backgroundClass: "[image-rendering:pixelated] opacity-[0.03]",
       bullets: [
         "Refine your route and push your time lower throughout the week",
         "Learn from the best – watch the fastest runners' replays or race their ghosts",
-        "Uses the same RNG standardization as Ranked Mode",
+        "Get the same luck every time – uses the same seed-based RNG as Ranked Mode",
       ],
     },
     {
-      title: "MCSR Ranked Playoffs",
+      name: "MCSR Ranked Playoffs",
+      title: "$5,000 prize pool. 16 runners. 1 champion.",
       description:
-        "Watch the 16 best runners in the world compete live for a $3,000+ prize pool!",
+        "Watch the best runners in the world compete live for a $5,000 prize pool in our seasonal championship!",
       image: "/dying-dragon.jpeg",
       imagePosition: "object-center",
+      background: "/playoffs-trophy.png",
+      backgroundClass: "[image-rendering:pixelated] w-56 -bottom-16",
       bullets: [
         "Twelve spots go to the highest-scoring players across the season, with four more up for grabs in the last-chance qualifier",
-        "The tournament is a single-elimination best of 5 bracket, and best of 7 for Grand Finals",
+        "The tournament is a single-elimination Bo5 bracket, culminating in a Bo7 Grand Finals",
       ],
     },
   ];
@@ -99,7 +109,7 @@
   <div class="h-8" />
   <div
     class={cn(
-      "flex gap-3 transition-all delay-[0.45s] duration-[1.3s]",
+      "flex gap-3 transition-[transform,opacity] delay-[0.45s] duration-[1.3s]",
       mounted ? "opacity-100" : "translate-y-4 opacity-0",
     )}
   >
@@ -145,13 +155,13 @@
     </button>
   </div>
 </div>
-<div class="-z-10 h-16 bg-[#070709]"></div>
-<div class="relative min-h-screen-minus-header">
-  <div>
+<div class="relative min-h-screen-minus-header bg-[#161618]">
+  <div class="h-28 bg-gradient-to-b from-[#060608] to-transparent"></div>
+  <div class="mx-auto max-w-screen-3xl space-y-16 px-4 md:px-8">
     {#each cards as card, i}
       <article
         class={cn(
-          "relative flex min-h-[300px] flex-col backdrop-blur-lg md:flex-row md:odd:flex-row-reverse",
+          "relative flex min-h-[300px] flex-col backdrop-blur-lg md:flex-row md:gap-6 md:odd:flex-row-reverse",
         )}
       >
         <div class="relative h-64 w-full md:h-auto md:w-[calc(50%+1rem)]">
@@ -159,7 +169,7 @@
             src={card.image}
             alt=""
             class={cn(
-              "absolute inset-0 size-full select-none object-cover opacity-90 blur-xl",
+              "absolute inset-0 size-full select-none rounded-2xl object-cover opacity-90 blur-xl",
               card.imagePosition,
             )}
           />
@@ -167,23 +177,88 @@
             src={card.image}
             alt=""
             class={cn(
-              "absolute inset-0 size-full select-none object-cover ",
+              "absolute inset-0 size-full select-none rounded-2xl object-cover",
               card.imagePosition,
             )}
           />
+          {#if i === 0}
+            <div
+              class="absolute left-4 top-4 font-minecraft text-xl leading-6"
+              style="text-shadow: 0.1em 0.1em 0px #333;"
+            >
+              <p class="font-bold text-[#F7FC62]">Current Match</p>
+              <p class="text-white">Ranked Mode</p>
+              <div class="h-[0.5lh]"></div>
+              <div class="flex gap-[0.25em]">
+                <img
+                  src="/alex-head.png"
+                  alt=""
+                  class="size-[1em] shrink-0 [image-rendering:pixelated]"
+                />
+                <p class="text-white">Alex</p>
+              </div>
+              <div class="flex gap-[0.25em]">
+                <img
+                  src="/nether-icon.png"
+                  alt=""
+                  class="size-[1em] shrink-0 [image-rendering:pixelated]"
+                />
+                <p class="italic text-zinc-300/80">Entered Nether</p>
+              </div>
+            </div>
+            <div
+              class="absolute bottom-4 right-4 flex flex-col items-end font-minecraft text-xl leading-none"
+              style="text-shadow: 0.1em 0.1em 0px #333;"
+            >
+              <p class="font-bold text-[#F7FC62]">Current Match</p>
+              <p class="text-white">Ranked Mode</p>
+              <div class="h-[0.5lh]"></div>
+              <div class="flex gap-[0.25em]">
+                <img
+                  src="/steve-head.png"
+                  alt=""
+                  class="size-[1em] shrink-0 [image-rendering:pixelated]"
+                />
+                <p class="text-white">Steve</p>
+              </div>
+              <div class="flex gap-[0.25em]">
+                <img
+                  src="/bastion-icon.png"
+                  alt=""
+                  class="size-[1em] shrink-0 [image-rendering:pixelated]"
+                />
+                <p class="italic text-zinc-300/80">Entered Bastion</p>
+              </div>
+            </div>
+            <div class="absolute inset-0 overflow-hidden">
+              <div
+                class="absolute inset-0 left-1/2 top-1/2 h-[200%] w-1 -translate-y-1/2 rotate-[14deg] bg-[#D9D7D0]"
+              ></div>
+            </div>
+          {/if}
         </div>
-        <div class="relative flex-1 p-4 pb-16 text-white/50 md:p-8">
-          <div class="absolute inset-0 -z-10 overflow-hidden">
+        <div class="relative flex-1 py-4 text-white/50">
+          {#if card.background}
             <img
-              src={card.image}
+              src={card.background}
               alt=""
-              class="size-[400%] select-none object-cover blur-xl"
+              class={cn(
+                "absolute -bottom-36 right-16 -z-10 w-80 select-none opacity-5 blur-[2.5px] grayscale",
+                card.backgroundClass,
+              )}
             />
-            <div class="absolute inset-0 bg-zinc-900/85" />
-          </div>
+          {/if}
           <div>
-            <h2 class="font-minecraft text-3xl text-white/80">{card.title}</h2>
+            <p
+              class="font-minecraft text-lg font-extrabold uppercase tracking-widest text-light-green"
+            >
+              {card.name}
+            </p>
+            <h2 class="font-minecraft text-3xl text-white/80">
+              {card.title}
+            </h2>
             <p class="mt-1">{card.description}</p>
+
             <ul class="list-disc space-y-3 pl-4 pt-6">
               {#each card.bullets as bullet}
                 <li class="marker:text-white/20 [&>b]:text-white/70">

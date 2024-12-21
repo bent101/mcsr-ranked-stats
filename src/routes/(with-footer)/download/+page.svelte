@@ -1,16 +1,15 @@
 <script lang="ts">
-  import ExternalLinkIcon from "$lib/components/icons/ExternalLinkIcon.svelte";
-  import { downloads } from "$lib/config";
   import Badge from "$lib/components/Badge.svelte";
   import CopyBtn from "$lib/components/CopyBtn.svelte";
-  import LinuxIcon from "$lib/components/icons/LinuxIcon.svelte";
-  import TooltipBtn from "$lib/components/TooltipBtn.svelte";
-  import WindowsIcon from "$lib/components/icons/WindowsIcon.svelte";
   import AppleIcon from "$lib/components/icons/AppleIcon.svelte";
-  import { Youtube } from "svelte-youtube-lite";
-  import ListIcon from "$lib/components/icons/ListIcon.svelte";
   import DiscordIcon from "$lib/components/icons/DiscordIcon.svelte";
-  import InfoIcon from "$lib/components/icons/InfoIcon.svelte";
+  import ExternalLinkIcon from "$lib/components/icons/ExternalLinkIcon.svelte";
+  import LinuxIcon from "$lib/components/icons/LinuxIcon.svelte";
+  import ListIcon from "$lib/components/icons/ListIcon.svelte";
+  import WindowsIcon from "$lib/components/icons/WindowsIcon.svelte";
+  import TooltipBtn from "$lib/components/TooltipBtn.svelte";
+  import { downloads } from "$lib/config";
+  import { Youtube } from "svelte-youtube-lite";
 </script>
 
 <svelte:head>

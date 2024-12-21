@@ -12,7 +12,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        minecraft: ["MinecraftBold", "sans-serif"],
+        minecraft: ["Minecraft", "sans-serif"],
       },
       colors: {
         zinc: {
