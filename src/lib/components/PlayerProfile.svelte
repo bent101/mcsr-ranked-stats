@@ -96,7 +96,7 @@
       {#if playerData.roleType}
         <a
           bind:this={roleType}
-          href="https://www.patreon.com/mcsrranked"
+          href="https://mcsrranked.com/store"
           rel="noreferrer"
           class="relative right-2 grid place-items-center"
           target="_blank"
@@ -119,7 +119,7 @@
           directionPreference={["top", "bottom", "right", "left"]}
         >
           <div>
-            Tier {playerData.roleType} patreon :D
+            Tier {playerData.roleType} supporter :D
           </div>
           <div class="text-xs text-zinc-600">Click to learn more</div>
         </Tooltip>
