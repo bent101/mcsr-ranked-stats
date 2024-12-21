@@ -51,7 +51,7 @@
   <meta name="darkreader-lock" />
   <meta
     name="description"
-    content="Home of MCSR Ranked, a Minecraft Mod that adds a ranked system to Minecraft Speedruns."
+    content="Home of MCSR Ranked, a Minecraft mod that adds a ranked system to Minecraft speedruns."
   />
   <meta
     name="keywords"
