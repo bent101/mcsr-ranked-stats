@@ -1,8 +1,8 @@
 <script lang="ts">
   import {
-    formatTime,
-    formatRelativeTime,
     type FormattedDetailedMatch,
+    formatTime,
+    formatTimeAgoShort,
   } from "$lib/formatters";
   import { curDate } from "$lib/globals";
   import Badge from "./Badge.svelte";
@@ -34,8 +34,11 @@
         {match.forfeit ? "Forfeit" : "Loss"}
       {/if}
       <span class="text-zinc-600">•</span>
-      <span class="font-medium text-zinc-500">
-        {formatRelativeTime($curDate - match.date)}
+      <span
+        class="font-medium text-zinc-500"
+        title={new Date(match.date * 1000).toLocaleString()}
+      >
+        {formatTimeAgoShort($curDate - match.date, { withSuffix: true })}
       </span>
     </p>
     {#if match.seedType}

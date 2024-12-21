@@ -63,7 +63,10 @@ export const formatTimeWithPrecision = (
 /**
  * @returns 15s, 2h, 25d, 3mo, etc
  */
-export const formatTimeAgoShort = (secondsAgo: number) => {
+export const formatTimeAgoShort = (
+  secondsAgo: number,
+  { withSuffix = false } = {},
+) => {
   secondsAgo = Math.max(secondsAgo, 0);
   const minutes = Math.floor(secondsAgo / 60);
   const hours = Math.floor(minutes / 60);
@@ -71,12 +74,14 @@ export const formatTimeAgoShort = (secondsAgo: number) => {
   const months = Math.floor(days / 30.43685);
   const years = Math.floor(months / 12);
 
-  if (years > 1) return `${years}y`;
-  if (months > 1) return `${months}mo`;
-  if (days) return `${days}d`;
-  if (hours) return `${hours}h`;
-  if (minutes) return `${minutes}m`;
-  return "now";
+  const suffix = withSuffix ? " ago" : "";
+
+  if (years > 1) return `${years}y${suffix}`;
+  if (months > 1) return `${months}mo${suffix}`;
+  if (days) return `${days}d${suffix}`;
+  if (hours) return `${hours}h${suffix}`;
+  if (minutes) return `${minutes}m${suffix}`;
+  return withSuffix ? "just now" : "now";
 };
 
 const plural = (count: number, singular: string, plural = `${singular}s`) => {
