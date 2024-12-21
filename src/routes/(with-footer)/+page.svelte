@@ -80,7 +80,7 @@
 <svelte:window bind:scrollY bind:innerHeight={windowHeight} />
 
 <div
-  class="relative flex min-h-screen flex-col items-center justify-center px-4 pb-32 pt-16"
+  class="relative flex min-h-[calc(100svh+8rem)] flex-col items-center justify-center px-4 pb-32 pt-16"
 >
   <div class="absolute inset-0 -z-10 overflow-hidden">
     <img
@@ -138,7 +138,7 @@
   />
   <div
     class={cn(
-      "absolute inset-x-0 bottom-4 transition-[transform,opacity] delay-[0.8s] duration-[1.3s]",
+      "absolute inset-x-0 bottom-36 transition-[transform,opacity] delay-[0.8s] duration-[1.3s]",
       mounted ? "opacity-100" : "translate-y-4 opacity-0",
     )}
   >
@@ -154,9 +154,11 @@
       />
     </button>
   </div>
+  <div
+    class="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-b from-transparent to-[#161618]"
+  ></div>
 </div>
 <div class="relative min-h-screen-minus-header bg-[#161618]">
-  <div class="h-28 bg-gradient-to-b from-[#060608] to-transparent"></div>
   <div class="mx-auto max-w-screen-3xl space-y-16 px-4 md:px-8">
     {#each cards as card, i}
       <article
@@ -276,7 +278,7 @@
     <div class="absolute bottom-0 h-1/2 w-full bg-zinc-950"></div>
     <div class="relative p-4 sm:p-8">
       <div
-        class="relative flex flex-col items-end gap-4 overflow-hidden rounded-2xl bg-[#599916] p-4 sm:rounded-3xl sm:p-8 lg:flex-row lg:items-center"
+        class="relative flex flex-col items-end gap-4 overflow-hidden rounded-2xl bg-[#599916] p-6 sm:rounded-3xl sm:p-8 lg:flex-row lg:items-center"
       >
         <div
           class="absolute bottom-12 right-0 size-12 bg-dark-green opacity-20"
@@ -295,7 +297,7 @@
         />
 
         <p
-          class="text-xl font-semibold text-white drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)] max-sm:text-lg"
+          class="text-xl font-semibold text-white drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]"
         >
           MCSR Ranked is the best way to learn and play Minecraft Speedrunning.
           Join our community of 4,000+ players and start your speedrunning

@@ -142,7 +142,7 @@
                 <span class="mr-0.5 inline-block">#</span>tech-help</b
               > Discord channel if you ran into any issues.
             </p>
-            <div class="flex gap-2">
+            <div class="flex flex-col items-start gap-2 sm:flex-row">
               <a
                 href="https://mcsrranked.com/discord"
                 target="_blank"
