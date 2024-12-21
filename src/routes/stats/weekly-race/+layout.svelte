@@ -28,7 +28,7 @@
     </ol>
   </div>
 </div>
-
+<!-- 
 <MatchDetailsFrame>
   <slot />
-</MatchDetailsFrame>
+</MatchDetailsFrame> -->

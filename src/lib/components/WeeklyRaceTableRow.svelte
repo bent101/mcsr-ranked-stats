@@ -11,7 +11,8 @@
   });
 </script>
 
-<TableRow let:state href={`/stats/weekly-race/${run.player.uuid}`}>
+<!-- href={`/stats/weekly-race/${run.player.uuid}`} -->
+<TableRow let:state>
   <div
     class="mr-4 w-4 text-right font-extrabold {state === 'selected'
       ? 'text-zinc-300'

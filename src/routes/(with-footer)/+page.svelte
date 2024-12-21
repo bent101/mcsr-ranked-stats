@@ -164,7 +164,7 @@
     <div class="relative mx-auto max-w-7xl py-32">
       <div
         class="absolute inset-0 opacity-10"
-        style="background-image: linear-gradient(#6BA62A 1px, transparent 1px), linear-gradient(90deg, #6BA62A 1px, transparent 1px); background-size: 32px 32px;"
+        style="background-image: linear-gradient(#777 1px, transparent 1px), linear-gradient(90deg, #777 1px, transparent 1px); background-size: 32px 32px;"
       />
       <div
         class="absolute inset-0 bg-gradient-radial from-transparent to-[#161618] to-60%"
