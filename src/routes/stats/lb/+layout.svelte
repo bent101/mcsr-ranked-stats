@@ -31,16 +31,16 @@
       <h1 class="text-xl font-bold text-zinc-300">Fastest times</h1>
       <div class="flex gap-2 pt-1">
         <Switch
-          options={["all time", "this season"]}
+          options={["All time", "This season"]}
           bind:onFirst={$showingAllTime}
         />
         <Switch
-          options={["all", "Unique players"]}
+          options={["All runs", "Unique players"]}
           bind:onFirst={$showingAll}
         />
       </div>
     </div>
-    <ol class="mx-auto max-w-sm border-t-2 border-zinc-800 pt-8 md:ml-0">
+    <ol class="mx-auto max-w-sm border-t border-zinc-800 pt-8 md:ml-0">
       {#each matches as match, i (match.id)}
         <li>
           <BestTimesTableRow place={i + 1} {match} />

@@ -19,7 +19,7 @@
         $curDate - data.weeklyRace.endsAt,
       )}
     </p>
-    <ol class="mt-8 border-t-2 border-zinc-800 pt-8 md:ml-0">
+    <ol class="mt-8 border-t border-zinc-800 pt-8 md:ml-0">
       {#each data.weeklyRace.leaderboard as run (run.player.uuid)}
         <li>
           <WeeklyRaceTableRow {run} />

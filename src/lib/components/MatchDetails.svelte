@@ -189,7 +189,7 @@
         <MultiSwitch
           bind:selectedIdx={$detailLevel}
           label="Detail"
-          options={["low", "med", "high", "all"]}
+          options={["Low", "Med", "High", "All"]}
         />
       </div>
     </div>

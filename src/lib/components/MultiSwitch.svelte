@@ -18,16 +18,11 @@
   };
 </script>
 
-<div class="inline-flex w-max items-center font-extrabold">
+<div class="inline-flex w-max items-center font-medium">
   {#if label}
-    <span
-      class="mr-2 inline-block text-sm uppercase tracking-tight text-zinc-500"
-      >{label}:</span
-    >
+    <span class="mr-2 inline-block text-sm text-zinc-500">{label}:</span>
   {/if}
-  <div
-    class="inline-flex overflow-clip rounded-full border border-zinc-400 text-xs"
-  >
+  <div class="inline-flex text-xs">
     {#each options as option, i}
       <button
         {disabled}
@@ -35,16 +30,14 @@
         on:keydown={(e) => {
           if (e.key === "Enter" || e.key === " ") {
             e.preventDefault();
-            e.stopPropagation();
-            e.currentTarget.focus();
-            // onClick(i);
+            onClick(i);
           }
         }}
         class={cn(
-          "cursor-pointer px-2.5 py-1 uppercase",
+          "cursor-pointer border px-2 py-1.5 first:rounded-l-full first:pl-3 last:rounded-r-full last:pr-3 ",
           i === selectedIdx
-            ? "bg-zinc-400 text-zinc-900"
-            : "text-zinc-400 hover:bg-white/5",
+            ? "border-white/5 bg-white/[0.12] text-white/70"
+            : "border-transparent bg-white/5 text-white/50 hover:bg-white/[0.07]",
         )}
       >
         {option}

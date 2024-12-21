@@ -20,10 +20,11 @@
 
 <button
   {disabled}
-  class="inline-flex cursor-pointer overflow-clip rounded-full border border-zinc-400 text-xs font-extrabold uppercase"
+  class="inline-flex cursor-pointer text-xs font-medium"
   on:mousedown={onClick}
   on:keydown={(e) => {
     if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
       onClick();
     }
   }}
@@ -32,10 +33,11 @@
     {@const selected = onFirst === (index === 0)}
     <div
       class={cn(
-        "px-2.5 py-1",
+        "cursor-pointer border px-2 py-1.5 ",
+        index === 0 ? "rounded-l-full pl-3" : "rounded-r-full pr-3",
         selected
-          ? "bg-zinc-400 text-zinc-900"
-          : "text-zinc-400 hover:bg-white/5",
+          ? "border-white/5 bg-white/[0.12] text-white/70"
+          : "border-transparent bg-white/5 text-white/50 hover:bg-white/[0.07]",
       )}
     >
       {option}

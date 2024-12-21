@@ -53,7 +53,7 @@
       {formatRelativeTime($curDate - pointsLb.phase.endsAt)}
     </p>
 
-    <ol class="mt-8 border-t-2 border-zinc-800 pt-8 md:ml-0">
+    <ol class="mt-8 border-t border-zinc-800 pt-8 md:ml-0">
       {#each users as player, i (player.uuid)}
         {@const prevPlayer = users[i - 1]}
         {@const nextPlayer = users[i + 1]}
