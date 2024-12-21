@@ -296,7 +296,7 @@
     <div class="absolute bottom-0 h-1/2 w-full bg-zinc-950"></div>
     <div class="relative p-4 sm:p-8">
       <div
-        class="relative flex flex-col items-end gap-4 overflow-hidden rounded-2xl bg-[#599916] p-6 sm:rounded-3xl sm:p-8 lg:flex-row lg:items-center"
+        class="relative mx-auto flex max-w-screen-2xl flex-col items-end gap-4 overflow-hidden rounded-2xl bg-[#599916] p-6 sm:rounded-3xl sm:p-8 lg:flex-row lg:items-center"
       >
         <div
           class="absolute bottom-12 right-0 size-12 bg-dark-green opacity-20"
