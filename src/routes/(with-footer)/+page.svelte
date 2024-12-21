@@ -19,30 +19,31 @@
   const cards = [
     {
       name: "Ranked Mode",
-      title: "Different worlds, same seed",
+      title: "Put your elo on the line",
       description:
-        "Race an opponent head-to-head in a Minecraft speedrun in separate worlds but on the same seed. Put your elo on the line to climb the ranks!",
+        "Race an opponent head-to-head in a Minecraft speedrun in separate worlds but on the same seed!",
       image: "/ranked-mode.jpeg",
       imagePosition: "object-center",
       background: "/ender-eye.png",
       bullets: [
-        "<b>Every seed has a good overworld and nether</b>, keeping it fun and fast-paced",
+        "<b>Every seed has a good overworld and nether</b>, making it fast-paced and great for learning",
         "<b>Standardized piglin trades, blaze drops, and more</b> even the playing field",
+        "<b>Keep pace with your opponent</b> with live advancements and an overlay showing their split",
         "<b>Match replays and player statistics</b> let you learn from every game and track your progress",
       ],
     },
     {
       name: "Private Rooms",
-      title: "Craft your perfect race",
+      title: "Craft your gameplay",
       description:
-        "Try new categories, host tournaments, or practice with friends in private rooms of up to 32 players!",
+        "Try new categories, host tournaments, or practice with friends in private rooms of up to 33 players!",
       image: "/private-rooms.png",
       imagePosition: "object-bottom",
       background: "/crafting-table.png",
       bullets: [
         "Play random, filtered, or set seeds",
         "Customize game rules and speedrun categories",
-        "View live advancements and chat messages of all players",
+        "View live advancements, splits, and chat messages of all players",
       ],
     },
     {
@@ -57,7 +58,7 @@
       bullets: [
         "Refine your route and push your time lower throughout the week",
         "Learn from the best – watch the fastest runners' replays or race their ghosts",
-        "Get the same luck every time – uses the same seed-based RNG as Ranked Mode",
+        "Get the same flint drops, piglin trades, and blaze rates every run thanks to the same seed-based RNG as Ranked Mode",
       ],
     },
     {
@@ -159,14 +160,21 @@
   ></div>
 </div>
 <div class="relative min-h-screen-minus-header bg-[#161618]">
-  <div class="mx-auto max-w-screen-3xl space-y-16 px-4 md:px-8">
+  <div class="mx-auto max-w-screen-3xl space-y-16 px-4 lg:px-8">
+    <div
+      class="text-balance text-center font-minecraft text-xl text-white/80 sm:text-2xl"
+    >
+      MCSR Ranked is the best way to learn and play Minecraft Speedrunning.
+      Practice with friends, fight for elo, or compete at the highest level –
+      <span class="text-light-green">First to kill the dragon wins.</span>
+    </div>
     {#each cards as card, i}
       <article
         class={cn(
-          "relative flex min-h-[300px] flex-col backdrop-blur-lg md:flex-row md:gap-6 md:odd:flex-row-reverse",
+          "relative flex min-h-[300px] flex-col backdrop-blur-lg lg:flex-row lg:gap-6 lg:even:flex-row-reverse",
         )}
       >
-        <div class="relative h-64 w-full md:h-auto md:w-[calc(50%+1rem)]">
+        <div class="relative h-64 w-full lg:h-auto lg:w-[calc(50%+1rem)]">
           <img
             src={card.image}
             alt=""
@@ -252,7 +260,7 @@
           {/if}
           <div>
             <p
-              class="font-minecraft text-lg font-extrabold uppercase tracking-widest text-light-green"
+              class="font-minecraft text-xl font-extrabold uppercase tracking-widest text-light-green"
             >
               {card.name}
             </p>
