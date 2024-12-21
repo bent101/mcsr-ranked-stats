@@ -173,7 +173,7 @@
         class="relative text-balance text-center font-minecraft text-xl text-white/80 sm:text-2xl"
       >
         MCSR Ranked is the best way to learn and play Minecraft Speedrunning.
-        Practice with friends, fight for elo, or compete at the highest level –
+        Practice with friends, compete for elo, and climb the ranks –
         <span class="text-light-green">First to beat the game wins.</span>
       </p>
     </div>
@@ -318,7 +318,7 @@
           class="text-xl font-semibold text-white drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]"
         >
           MCSR Ranked is the best way to learn and play Minecraft Speedrunning.
-          Join our community of 4,000+ players and start your speedrunning
+          Join our community of 9,000+ players and start your speedrunning
           journey today!
         </p>
         <div class="flex-1" />
