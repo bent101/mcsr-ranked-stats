@@ -36,7 +36,7 @@
       name: "Private Rooms",
       title: "Craft your gameplay",
       description:
-        "Try new categories, host tournaments, or practice with friends in private rooms of up to 33 players!",
+        "Try new categories, host tournaments, or practice with friends in private rooms!",
       image: "/private-rooms.png",
       imagePosition: "object-bottom",
       background: "/crafting-table.png",
