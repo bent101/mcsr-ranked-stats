@@ -74,7 +74,7 @@
         class={cn(
           "relative w-full border-4 bg-gradient-to-br pt-1",
           [
-            "border-[#EBB331] from-[#c68711] to-[#FEF55F] text-[#ffef78]",
+            "border-[#EBB331] from-[#c68711] to-[#FEF55F] text-[#fff185]",
             "border-[#DEDEDE] from-[#939b9d] to-[#FFFFFF] text-[#FFFFFF]",
             "border-[#AB593D] from-[#6D3422] to-[#E77D55] text-[#ff956f]",
           ][i],

@@ -7,6 +7,7 @@
   import PlayoffsSchedule from "./PlayoffsSchedule.svelte";
   import { goto } from "$app/navigation";
   import { page } from "$app/stores";
+  import { cn } from "$lib/utils";
 
   export let data;
   $: ({ playoffs } = data);
@@ -25,30 +26,30 @@
 <div class="relative mx-auto max-w-screen-2xl px-4 pb-16 pt-8 font-minecraft">
   <div class="flex items-center justify-center gap-4">
     <div class="flex items-center gap-6">
-      <button
-        class="size-10 shrink-0 rounded-full font-minecraft text-3xl text-zinc-600 disabled:opacity-50 hover:bg-white/5"
-        disabled={playoffs.data.season === 1}
-        on:click={() => {
-          goto(`?season=${playoffs.prev}`);
-        }}
+      <a
+        class={cn(
+          "grid size-10 shrink-0 place-items-center rounded-full font-minecraft text-3xl text-zinc-600 hover:bg-white/5",
+          playoffs.data.season === 1 && "pointer-events-none opacity-50",
+        )}
+        href="?season={playoffs.prev}"
       >
         <span class="inline-block -translate-y-px">&lt;</span>
-      </button>
+      </a>
       <div class="flex flex-col items-center text-2xl sm:block sm:text-4xl">
         <h1 class="inline text-zinc-300" translate="no">
           MCSR Ranked Playoffs
         </h1>
         <span class="text-zinc-500">Season {playoffs.data.season}</span>
       </div>
-      <button
-        class="size-10 shrink-0 rounded-full font-minecraft text-3xl text-zinc-600 disabled:opacity-50 hover:bg-white/5"
-        disabled={playoffs.next === null}
-        on:click={() => {
-          goto(`?season=${playoffs.next}`);
-        }}
+      <a
+        class={cn(
+          "grid size-10 shrink-0 place-items-center rounded-full font-minecraft text-3xl text-zinc-600 hover:bg-white/5",
+          playoffs.next === null && "pointer-events-none opacity-50",
+        )}
+        href="?season={playoffs.next}"
       >
         <span class="inline-block -translate-y-px translate-x-0.5">&gt;</span>
-      </button>
+      </a>
     </div>
   </div>
   <div class="mx-auto flex max-w-2xl items-center gap-1 pt-1">
