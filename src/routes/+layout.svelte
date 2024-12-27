@@ -6,7 +6,11 @@
   import Loading from "$lib/components/Loading.svelte";
   import Sidebar from "$lib/components/Sidebar.svelte";
   import { onlinePlayers, showingLeaderboard } from "$lib/globals";
-  import { getLeaderboardURL, getWeeklyRaceURL } from "$lib/urls";
+  import {
+    getLeaderboardURL,
+    getWeeklyRaceURL,
+    getPlayoffsURL,
+  } from "$lib/urls";
   import { cn } from "$lib/utils";
   import { inject } from "@vercel/analytics";
   import _ from "lodash";
@@ -44,6 +48,7 @@
   const debouncedInvalidate = _.throttle(() => {
     invalidate(getLeaderboardURL());
     invalidate(getWeeklyRaceURL());
+    invalidate(getPlayoffsURL());
   }, 5000);
 </script>
 
