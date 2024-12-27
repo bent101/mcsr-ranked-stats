@@ -161,7 +161,7 @@
         </div>
       </div>
 
-      <div class="pl-2">
+      <div class="pl-2 pt-1">
         {#each sidebarLinks as { href, label, Icon }}
           {@const selected =
             href === "/stats/vs"

@@ -18,8 +18,8 @@ export default {
         zinc: {
           925: "#121214",
         },
-        "dark-green": "var(--dark-green)",
-        "light-green": "var(--light-green)",
+        "dark-green": "hsla(var(--dark-green))",
+        "light-green": "hsla(var(--light-green))",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
@@ -29,7 +29,7 @@ export default {
       },
       spacing: {
         "header-height": "var(--header-height)",
-        "screen-minus-header": "calc(100vh - var(--header-height))",
+        "screen-minus-header": "calc(100dvh - var(--header-height))",
       },
     },
   },

@@ -1,16 +1,18 @@
 <script lang="ts">
   import type { APIResponse, DetailedPlayer } from "$lib/ranked-api";
   import { getPlayerURL } from "$lib/urls";
+  import { cn } from "$lib/utils";
   import PlayerProfile from "./PlayerProfile.svelte";
   import Popup from "./Popup.svelte";
 
   export let name = "";
+  export let uuid: string | null = null;
 
   let anchor: Element | undefined;
 
   const load = async () => {
     return {
-      playerData: await fetch(getPlayerURL(name), {
+      playerData: await fetch(getPlayerURL(uuid ?? name), {
         // cache: "force-cache",
         // headers: {
         //   "Cache-Control": "max-age=10, stale-while-revalidate=10",
@@ -26,8 +28,12 @@
   bind:this={anchor}
   data-sveltekit-replacestate="off"
   data-sveltekit-noscroll="off"
-  href="/stats/{name}"
-  class="pointer-events-auto relative underline-offset-4 hover:underline"
+  href={uuid ? `/stats/${uuid}` : `/stats/${name}`}
+  {...$$props}
+  class={cn(
+    "pointer-events-auto relative underline-offset-4 hover:underline",
+    $$props.class,
+  )}
 >
   {name}
 </a>

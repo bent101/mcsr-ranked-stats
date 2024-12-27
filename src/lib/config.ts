@@ -7,6 +7,7 @@ import ListIcon from "./components/icons/ListIcon.svelte";
 import PodiumIcon from "./components/icons/PodiumIcon.svelte";
 import StatsIcon from "./components/icons/StatsIcon.svelte";
 import StopwatchIcon from "./components/icons/StopwatchIcon.svelte";
+import TrophyIcon from "./components/icons/TrophyIcon.svelte";
 import TwitterIcon from "./components/icons/TwitterIcon.svelte";
 import VsIcon from "./components/icons/VsIcon.svelte";
 import YoutubeIcon from "./components/icons/YoutubeIcon.svelte";
@@ -27,6 +28,11 @@ export const headerLinks = [
     label: "Download",
     href: "/download",
     Icon: DownloadIcon,
+  },
+  {
+    label: "Playoffs",
+    href: "/playoffs",
+    Icon: TrophyIcon,
   },
   {
     label: "Leaderboard",

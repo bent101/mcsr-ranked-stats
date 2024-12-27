@@ -4,7 +4,7 @@
 
   export let uuid: string;
   export let rotation = { x: 0, y: 0 };
-  export let isHeader = false;
+  export let followCursor = false;
 
   $: skinURL = getSkinURL(uuid);
 
@@ -31,8 +31,8 @@
 </script>
 
 <svelte:window
-  on:mousemove={isHeader ? handleMouseMove : null}
-  on:drag={isHeader ? handleMouseMove : null}
+  on:mousemove={followCursor ? handleMouseMove : null}
+  on:drag={followCursor ? handleMouseMove : null}
 />
 
 <div class="viewport m-2">

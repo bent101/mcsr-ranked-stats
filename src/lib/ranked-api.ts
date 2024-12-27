@@ -217,15 +217,27 @@ export type PlayoffsData = {
   season: number;
 };
 
+export const PLAYOFFS_ROUND_NAMES = [
+  "Round of 16",
+  "Round of 8",
+  "Semifinals",
+  "3rd Place",
+  "Grand Final",
+] as const;
+
+export type PlayoffsRoundName = (typeof PLAYOFFS_ROUND_NAMES)[number];
+
+type PlayoffsMatchParticipant = {
+  player: number; // References player's seedNumber
+  roundScore: number;
+};
+
 export type PlayoffsMatch = {
   id: number;
-  name: string;
+  name: PlayoffsRoundName;
   nextMatchId: number | null;
   maxRoundScore: number;
   startTime: number;
-  state: "DONE"; // Could be expanded to include other possible states
-  participants: {
-    player: number; // References player's seedNumber
-    roundScore: number;
-  }[];
+  state: "DONE" | "ACTIVE" | "SCHEDULED";
+  participants: [PlayoffsMatchParticipant, PlayoffsMatchParticipant];
 };

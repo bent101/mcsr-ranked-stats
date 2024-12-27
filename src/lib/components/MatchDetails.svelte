@@ -37,7 +37,7 @@
   };
 </script>
 
-<div class="flex h-full flex-col p-2 pl-4 max-md:pb-7">
+<div class="flex h-full flex-col p-2 pl-4">
   <div class="flex items-start justify-between pl-2">
     <MatchSummary {match} {hideSeasonRank} {hideAllTimeRank} />
     <button
@@ -180,7 +180,7 @@
     </div>
   </div>
   {#if match.timelines}
-    <div class="overflow-auto pb-4 pr-2">
+    <div class="overflow-auto pb-2 pr-2">
       <div class="flex min-w-max justify-between gap-6">
         <Switch
           bind:onFirst={$showingSplits}

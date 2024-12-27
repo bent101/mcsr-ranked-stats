@@ -81,7 +81,7 @@
 <svelte:window bind:scrollY bind:innerHeight={windowHeight} />
 
 <div
-  class="relative flex min-h-[calc(100svh+8rem)] flex-col items-center justify-center px-4 pb-32 pt-16"
+  class="relative flex min-h-[calc(100lvh+8rem)] flex-col items-center justify-center px-4 pb-32 pt-16"
 >
   <div class="absolute inset-0 -z-10 overflow-hidden">
     <img
@@ -164,7 +164,7 @@
     <div class="relative mx-auto max-w-7xl py-32">
       <div
         class="absolute inset-0 opacity-10"
-        style="background-image: linear-gradient(#777 1px, transparent 1px), linear-gradient(90deg, #777 1px, transparent 1px); background-size: 32px 32px;"
+        style="background-image: linear-gradient(#aaa 1px, transparent 1px), linear-gradient(90deg, #aaa 1px, transparent 1px); background-size: 32px 32px;"
       />
       <div
         class="absolute inset-0 bg-gradient-radial from-transparent to-[#161618] to-60%"
@@ -174,9 +174,7 @@
       >
         MCSR Ranked is the best place to learn and play Minecraft speedrunning.
         Practice with friends, compete for elo, and climb the ranks –
-        <span class="text-light-green drop-shadow-[0_0_3px_#6BA62A60]"
-          >First to beat the game wins.</span
-        >
+        <span class="text-light-green">First to beat the game wins.</span>
       </p>
     </div>
     <div class="space-y-16">
@@ -320,7 +318,7 @@
           class="text-xl font-semibold text-white drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]"
         >
           MCSR Ranked is the best place to learn and play Minecraft
-          speedrunning. Join our community of 9,000+ players and start your
+          speedrunning. Join our community of 10,000+ players and start your
           speedrunning journey today!
         </p>
         <div class="flex-1" />

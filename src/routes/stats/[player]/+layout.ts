@@ -3,7 +3,7 @@ import { formatMatches } from "$lib/formatters";
 import { matchesPerPage } from "$lib/globals";
 import type { APIResponse, DetailedPlayer, Match } from "$lib/ranked-api";
 import { getMatchesURL, getPlayerURL, getSkinURL } from "$lib/urls";
-import { error } from "@sveltejs/kit";
+import { error, redirect } from "@sveltejs/kit";
 import type { LayoutLoad } from "./$types";
 
 export const load = (async ({ fetch, params }) => {
@@ -12,7 +12,6 @@ export const load = (async ({ fetch, params }) => {
     skin.src = getSkinURL(params.player);
   }
 
-  // const start = Date.now();
   const [playerData, matches] = await Promise.all([
     fetch(getPlayerURL(params.player), {
       // cache: "force-cache",
@@ -36,14 +35,14 @@ export const load = (async ({ fetch, params }) => {
         noMoreMatches: res.length < matchesPerPage,
       })),
   ]);
-  // const end = Date.now();
-
-  // console.log(`${end - start}ms`);
 
   if (!playerData) {
     error(404);
   }
 
+  if (params.player === playerData.uuid) {
+    redirect(302, `/stats/${playerData.nickname}/`);
+  }
   return {
     matches,
     playerData,

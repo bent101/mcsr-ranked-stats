@@ -96,3 +96,64 @@ export function isTyping(e: KeyboardEvent) {
 }
 
 export type TimeoutId = NodeJS.Timeout | number;
+
+/**
+ * Split ordered array into groups by describing when to place "dividers"
+ */
+export function groupByDivideCondition<T>(
+  array: T[],
+  condition: (item1: T, item2: T) => boolean,
+) {
+  if (array.length === 0) return [];
+  const ret = [[array[0]]];
+  for (let i = 1; i < array.length; i++) {
+    if (condition(array[i - 1], array[i])) {
+      ret.push([array[i]]);
+    } else {
+      ret[ret.length - 1].push(array[i]);
+    }
+  }
+  return ret;
+}
+
+// export function formatDateRange(
+//   from: Date,
+//   to: Date,
+//   { withWeekday = false } = {},
+// ) {
+//   const isCurYear = isSameYear(from, new Date());
+//   const sameMonth = isSameMonth(from, to);
+//   const sameYear = isSameYear(from, to);
+
+//   if (withWeekday) {
+//     if (isSameDay(from, to)) {
+//       return formatDate(from, "EEE, MMM d");
+//     }
+
+//     if (sameYear) {
+//       return `${formatDate(from, "EEE, MMM d")} – ${formatDate(
+//         to,
+//         isCurYear ? "EEE, MMM d" : "EEE, MMM d, yyyy",
+//       )}`;
+//     }
+//   }
+
+//   if (isSameDay(from, to)) {
+//     const format = isCurYear ? "MMM d" : "MMM d, yyyy";
+//     return formatDate(from, format);
+//   }
+
+//   if (sameMonth && sameYear) {
+//     return `${formatDate(from, "MMM d")} – ${formatDate(
+//       to,
+//       isCurYear ? "d" : "d, yyyy",
+//     )}`;
+//   }
+//   if (sameYear) {
+//     return `${formatDate(from, "MMM d")} – ${formatDate(
+//       to,
+//       isCurYear ? "MMM d" : "MMM d, yyyy",
+//     )}`;
+//   }
+//   return `${formatDate(from, "MMM d, yyyy")} – ${formatDate(to, "MMM d, yyyy")}`;
+// }

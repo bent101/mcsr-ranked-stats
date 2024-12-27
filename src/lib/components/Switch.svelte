@@ -20,7 +20,7 @@
 
 <button
   {disabled}
-  class="inline-flex cursor-pointer text-xs font-medium"
+  class="inline-flex cursor-pointer text-xs font-semibold"
   on:mousedown={onClick}
   on:keydown={(e) => {
     if (e.key === "Enter" || e.key === " ") {

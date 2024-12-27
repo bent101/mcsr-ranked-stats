@@ -47,11 +47,11 @@
           ? "selected"
           : "idle";
 
-  afterNavigate(() => {
-    if (state === "selected") scrollIntoView();
-  });
+  // afterNavigate(() => {
+  //   if (state === "selected") scrollIntoView();
+  // });
 
-  $: if (state === "selected") scrollIntoView();
+  // $: if (state === "selected") scrollIntoView();
 </script>
 
 <svelte:window bind:innerHeight={windowHeight} bind:scrollY />

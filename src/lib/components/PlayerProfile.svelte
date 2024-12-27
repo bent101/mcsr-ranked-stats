@@ -16,6 +16,7 @@
   import YoutubeIcon from "./icons/YoutubeIcon.svelte";
 
   export let playerData: DetailedPlayer;
+
   /**
    * position on the compare page (it affects head rotation/position)
    */
@@ -24,7 +25,7 @@
   export let rotation = { x: -12, y: 20 };
   export let isLink = false;
   export let showAllStats = false;
-  export let isHeader = false;
+  export let followCursor = false;
 
   $: numWins = playerData.statistics.season.wins.ranked;
   $: numLosses = playerData.statistics.season.loses.ranked;
@@ -57,20 +58,14 @@
       justCopiedDiscord = false;
     }, 2000);
   };
-
-  let scrollY = 0;
 </script>
-
-<svelte:window bind:scrollY />
 
 <div
   class="flex w-max flex-row items-center gap-2 px-4 py-2 tabular-nums
 	{pos === 'first' ? 'lg:flex-row-reverse' : ''}"
 >
   <div class="pb-2">
-    {#key scrollY}
-      <PlayerHead3D {isHeader} {rotation} uuid={playerData.uuid} />
-    {/key}
+    <PlayerHead3D {followCursor} {rotation} uuid={playerData.uuid} />
   </div>
   <div class="pl-2">
     <div class="flex h-8 items-center">

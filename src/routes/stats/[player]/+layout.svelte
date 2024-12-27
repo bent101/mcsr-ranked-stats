@@ -143,7 +143,7 @@
 </svelte:head>
 
 <div class="sticky top-header-height z-10 bg-zinc-900/70 backdrop-blur-md">
-  <PlayerProfile isHeader showAllStats playerData={data.playerData} />
+  <PlayerProfile followCursor showAllStats playerData={data.playerData} />
 </div>
 
 <div class="pl-4">

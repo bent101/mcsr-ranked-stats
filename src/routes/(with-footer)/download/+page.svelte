@@ -18,7 +18,9 @@
 
 <div class="px-4 pb-32 pt-8">
   <div class="mx-auto max-w-xl lg:max-w-7xl">
-    <h1 class="text-4xl font-bold text-zinc-300">Download MCSR Ranked</h1>
+    <h1 class="text-2xl font-bold text-zinc-300 sm:text-4xl">
+      Download MCSR Ranked
+    </h1>
     <div class="h-4" />
     <div class="flex flex-col-reverse gap-8 lg:flex-row">
       <div class="flex-1">
@@ -223,15 +225,15 @@
   }
 
   .step {
-    @apply flex gap-4 text-zinc-400;
+    @apply flex flex-col text-zinc-400 max-sm:pt-4 sm:flex-row sm:gap-4;
   }
 
   .step-number {
-    @apply flex shrink-0 flex-col items-center;
+    @apply shrink-0 flex-col items-center sm:flex;
   }
 
   .step-number p {
-    @apply grid size-12 place-items-center rounded-full bg-zinc-800 text-lg font-medium;
+    @apply text-lg font-extrabold max-sm:text-zinc-600 sm:grid sm:size-12 sm:place-items-center sm:rounded-full sm:bg-zinc-800 sm:font-medium max-sm:[&::after]:content-['.'];
   }
 
   .step-number div {
