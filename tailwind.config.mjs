@@ -41,7 +41,7 @@ export default {
     }),
     plugin(({ addVariant }) => {
       // e.g. hover:bg-tint actually does hover:bg-tint and focus-visible:bg-tint
-      addVariant("hover", ["@media(hover:hover){&:hover}", "&:foc-us-visible"]);
+      addVariant("hover", ["@media(hover:hover){&:hover}", "&:focus-visible"]);
       // e.g. group-hover:bg-tint actually does group-hover:bg-tint and group-focus-visible:bg-tint
       addVariant("group-hover", [
         "@media(hover: hover){.group:hover &}",

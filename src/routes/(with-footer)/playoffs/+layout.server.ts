@@ -7,12 +7,14 @@ export const config = {
   },
 };
 
-export const load = async ({ fetch }) => {
-  const playoffsData = await fetch(getPlayoffsURL())
+export const load = async ({ fetch, url }) => {
+  const playoffs = await fetch(
+    getPlayoffsURL({ season: url.searchParams.get("season") }),
+  )
     .then((res) => res.json() as APIResponse<PlayoffsResponse>)
-    .then((res) => res.data.data);
+    .then((res) => res.data);
 
   return {
-    playoffsData,
+    playoffs,
   };
 };

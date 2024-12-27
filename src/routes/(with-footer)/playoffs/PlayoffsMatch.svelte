@@ -16,13 +16,17 @@
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
   class={cn(
-    "relative rounded-md bg-zinc-800 shadow-md",
-    match.name === "Grand Final" &&
-      "origin-left scale-125 shadow-lg shadow-light-green/10",
+    "relative rounded-md shadow-md",
+    match.name === "Grand Final"
+      ? "gf-glow origin-left scale-125 bg-gradient-to-bl from-light-green to-transparent to-40%"
+      : "bg-zinc-800",
   )}
   on:mouseenter={() => ($curHoveredMatchId = match.id)}
   on:mouseleave={() => ($curHoveredMatchId = null)}
 >
+  {#if match.name === "Grand Final"}
+    <div class="absolute inset-px -z-50 rounded-[0.3125rem] bg-zinc-800"></div>
+  {/if}
   {#if $curHoveredMatchId === match.id}
     <div class="pointer-events-none absolute inset-0 rounded-md bg-white/10" />
   {/if}
@@ -42,7 +46,7 @@
     <!-- svelte-ignore a11y-no-static-element-interactions -->
     <div
       class={cn(
-        "flex items-center gap-1 overflow-hidden",
+        "relative flex items-center gap-1 overflow-hidden",
         i === 0 && "rounded-t-md",
         i === match.participants.length - 1 && "rounded-b-md",
         isWinner && "bg-gradient-to-l from-light-green/10 to-transparent",
@@ -54,20 +58,20 @@
       <p class="w-5 shrink-0 text-right text-xs text-white/30">
         {seed}
       </p>
-      <div
-        class={cn(
-          "line-clamp-1 flex-1 text-sm",
-          (match.name === "Grand Final" || match.name === "3rd Place") && [
-            [1, 2, 3].includes(playerPlace) &&
-              "bg-gradient-to-r bg-clip-text text-transparent",
-            playerPlace === 1 && "from-yellow-200 to-amber-500",
-            playerPlace === 2 && "from-stone-100 to-stone-400",
-            playerPlace === 3 && "from-[#f1a58a] to-[#d3663f]",
-          ],
-        )}
-        translate="no"
-      >
-        {player.nickname}
+      <div class={cn("line-clamp-1 flex-1 text-sm")} translate="no">
+        <span
+          class={cn(
+            (match.name === "Grand Final" || match.name === "3rd Place") && [
+              [1, 2, 3].includes(playerPlace) &&
+                "bg-gradient-to-r bg-clip-text text-transparent",
+              playerPlace === 1 && "from-yellow-200 to-amber-500",
+              playerPlace === 2 && "from-blue-100 to-slate-400",
+              playerPlace === 3 && "from-[#fdbda6] to-[#e27852]",
+            ],
+          )}
+        >
+          {player.nickname}
+        </span>
       </div>
       <div
         class={cn(
@@ -82,3 +86,11 @@
     </div>
   {/each}
 </div>
+
+<style>
+  .gf-glow {
+    box-shadow:
+      2px -1px 4px hsla(var(--light-green), 10%),
+      8px -4px 22px hsla(var(--light-green), 20%);
+  }
+</style>

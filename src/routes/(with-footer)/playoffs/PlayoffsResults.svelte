@@ -15,6 +15,8 @@
     {@const result = results[i]}
     {@const player = players[result.player]}
     {@const name = player.nickname}
+    <!-- {@const name = "silverrruns"} -->
+
     <!-- svelte-ignore a11y-no-static-element-interactions -->
     <div
       class="flex flex-col items-center"
@@ -63,8 +65,8 @@
           uuid={player.uuid}
           rotation={[
             { x: 9, y: 0 },
-            { x: 0, y: -8 },
-            { x: 0, y: 8 },
+            { x: 0, y: -14 },
+            { x: 0, y: 14 },
           ][i]}
         />
       </div>
@@ -72,7 +74,7 @@
         class={cn(
           "relative w-full border-4 bg-gradient-to-br pt-1",
           [
-            "border-[#EBB331] from-[#c68711] to-[#FEF55F] text-[#fff79b]",
+            "border-[#EBB331] from-[#c68711] to-[#FEF55F] text-[#ffef78]",
             "border-[#DEDEDE] from-[#939b9d] to-[#FFFFFF] text-[#FFFFFF]",
             "border-[#AB593D] from-[#6D3422] to-[#E77D55] text-[#ff956f]",
           ][i],
@@ -92,8 +94,8 @@
         <div
           class={cn(
             "w-full truncate text-center font-minecraft text-xs",
-            (name.length <= 10 || name === "silverrruns") && i === 0
-              ? "text-xl"
+            name.length <= 11 && i === 0
+              ? "text-lg"
               : name.length <= 13
                 ? "text-sm"
                 : "text-xs",
@@ -103,7 +105,7 @@
           <PlayerLink {name} uuid={player.uuid} />
         </div>
         <div
-          class="text-center text-xs font-bold"
+          class={cn("text-center font-bold", i === 0 ? "text-base" : "text-xs")}
           style="text-shadow: 0 -1px 0 #0008, 0 0 2px #0007, 0 0 4px #0003;"
         >
           {result.prize.toLocaleString("en-US", {

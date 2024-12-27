@@ -76,8 +76,8 @@ export const getWeeklyRaceURL = () => {
   return `${base}/weekly-race`;
 };
 
-export const getPlayoffsURL = () => {
-  return `${base}/playoffs/2`;
+export const getPlayoffsURL = ({ season }: { season?: number | undefined }) => {
+  return `${base}/playoffs/${season ?? "last"}`;
 };
 
 export const getWeeklyRaceMatchURL = ({

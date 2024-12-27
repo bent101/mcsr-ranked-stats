@@ -59,6 +59,10 @@
     @apply outline outline-2 outline-blue-400;
   }
 
+  button:disabled {
+    @apply cursor-not-allowed;
+  }
+
   input:focus {
     @apply outline-none;
   }
