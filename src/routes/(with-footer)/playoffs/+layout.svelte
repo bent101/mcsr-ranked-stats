@@ -6,6 +6,7 @@
   import PlayoffsPlayers from "./PlayoffsPlayers.svelte";
   import PlayoffsResults from "./PlayoffsResults.svelte";
   import PlayoffsSchedule from "./PlayoffsSchedule.svelte";
+  import playoffsDeco from "$lib/assets/playoffs-deco.png";
 
   export let data;
   $: ({ playoffs } = data);
@@ -59,7 +60,7 @@
       class="h-px flex-1 bg-gradient-to-l from-white/60 to-transparent"
     ></div>
     <img
-      src="/playoffs-deco.png"
+      src={playoffsDeco}
       alt=""
       class=" size-5 -rotate-45 opacity-60 [image-rendering:pixelated]"
     />

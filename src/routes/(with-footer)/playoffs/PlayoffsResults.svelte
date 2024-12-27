@@ -4,6 +4,9 @@
   import type { PlayoffsData } from "$lib/ranked-api";
   import { cn } from "$lib/utils";
   import type { Writable } from "svelte/store";
+  import playoffs1 from "$lib/assets/playoffs_1.png";
+  import playoffs2 from "$lib/assets/playoffs_2.png";
+  import playoffs3 from "$lib/assets/playoffs_3.png";
 
   export let playoffsData: PlayoffsData;
   export let curHoveredPlayer: Writable<string | null>;
@@ -15,6 +18,7 @@
     {@const result = results[i]}
     {@const player = players[result.player]}
     {@const name = player.nickname}
+    {@const image = [playoffs1, playoffs2, playoffs3][i]}
     <!-- {@const name = "silverrruns"} -->
 
     <!-- svelte-ignore a11y-no-static-element-interactions -->
@@ -25,7 +29,7 @@
     >
       <div class="relative">
         <img
-          src={`/playoffs_${i + 1}.png`}
+          src={image}
           alt=""
           style="
 						height: {i === 0 ? '6rem' : '4rem'};
@@ -33,7 +37,7 @@
 					"
         />
         <img
-          src={`/playoffs_${i + 1}.png`}
+          src={image}
           alt=""
           class="absolute inset-0 -z-10 opacity-50"
           style="
@@ -44,7 +48,7 @@
         />
         {#if i === 0}
           <img
-            src={`/playoffs_${i + 1}.png`}
+            src={image}
             alt=""
             class="absolute inset-0 -z-10 opacity-80 transition-[scale] duration-300"
             style="
