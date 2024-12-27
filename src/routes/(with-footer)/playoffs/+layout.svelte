@@ -1,13 +1,11 @@
 <script lang="ts">
   import Tabs from "$lib/components/Tabs.svelte";
+  import { cn } from "$lib/utils";
   import { writable } from "svelte/store";
   import PlayoffsBracket from "./PlayoffsBracket.svelte";
   import PlayoffsPlayers from "./PlayoffsPlayers.svelte";
   import PlayoffsResults from "./PlayoffsResults.svelte";
   import PlayoffsSchedule from "./PlayoffsSchedule.svelte";
-  import { goto } from "$app/navigation";
-  import { page } from "$app/stores";
-  import { cn } from "$lib/utils";
 
   export let data;
   $: ({ playoffs } = data);
@@ -31,7 +29,7 @@
           "grid size-10 shrink-0 place-items-center rounded-full font-minecraft text-3xl text-zinc-600 hover:bg-white/5",
           playoffs.data.season === 1 && "pointer-events-none opacity-50",
         )}
-        href="?season={playoffs.prev}"
+        href={`/playoffs?season=${playoffs.prev}`}
       >
         <span class="inline-block -translate-y-px">&lt;</span>
       </a>
@@ -46,7 +44,7 @@
           "grid size-10 shrink-0 place-items-center rounded-full font-minecraft text-3xl text-zinc-600 hover:bg-white/5",
           playoffs.next === null && "pointer-events-none opacity-50",
         )}
-        href="?season={playoffs.next}"
+        href={`/playoffs?season=${playoffs.next}`}
       >
         <span class="inline-block -translate-y-px translate-x-0.5">&gt;</span>
       </a>
