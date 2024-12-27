@@ -27,6 +27,7 @@
       class="flex flex-1 items-center justify-center gap-2 px-2 text-center {selected
         ? ' text-zinc-300'
         : 'text-zinc-400 group-hover:text-zinc-300'}"
+      translate="no"
     >
       {name}
       <!-- {#if isOnline}

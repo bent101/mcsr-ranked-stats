@@ -44,7 +44,9 @@
   </div>
   <a href="/" class="group flex items-center gap-1 p-2">
     <img src={rankedLogo} alt="" class="w-9" />
-    <p class="font-semibold text-white/80 underline-offset-4">MCSR Ranked</p>
+    <p class="font-semibold text-white/80 underline-offset-4" translate="no">
+      MCSR Ranked
+    </p>
   </a>
   <div class="w-2" />
   <div class="hidden sm:contents">

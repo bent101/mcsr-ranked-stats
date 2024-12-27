@@ -22,7 +22,7 @@
 </svelte:head>
 
 <div class="relative mx-auto max-w-screen-2xl px-4 pb-16 pt-8 font-minecraft">
-  <h1 class="text-2xl font-bold text-zinc-300 sm:text-4xl">
+  <h1 class="text-2xl font-bold text-zinc-300 sm:text-4xl" translate="no">
     MCSR Ranked Playoffs
   </h1>
   <div class="flex">

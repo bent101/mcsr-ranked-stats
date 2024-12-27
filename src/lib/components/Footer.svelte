@@ -5,7 +5,10 @@
 <footer class="bg-zinc-950 p-8 pb-4 text-sm text-zinc-500">
   <div class="flex flex-col items-center justify-center lg:flex-row lg:gap-20">
     <div class="flex items-center">
-      <p class="mr-2 text-nowrap text-lg font-semibold text-zinc-500">
+      <p
+        class="mr-2 text-nowrap text-lg font-semibold text-zinc-500"
+        translate="no"
+      >
         MCSR Ranked
       </p>
       {#each socialLinks as { href, icon, label }}
@@ -39,7 +42,8 @@
     </div>
   </div>
   <p class="text-balance pt-2 text-center text-xs text-zinc-600">
-    © 2022-24 MCSR Ranked. <span class="uppercase">
+    © 2022-24 <span translate="no">MCSR Ranked.</span>
+    <span class="uppercase">
       This is not an official Minecraft product. Not approved by or associated
       with Mojang or Microsoft.
     </span>

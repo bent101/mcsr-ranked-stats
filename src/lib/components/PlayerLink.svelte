@@ -34,6 +34,7 @@
     "pointer-events-auto relative underline-offset-4 hover:underline",
     $$props.class,
   )}
+  translate="no"
 >
   {name}
 </a>

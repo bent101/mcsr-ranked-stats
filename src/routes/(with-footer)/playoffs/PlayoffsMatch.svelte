@@ -65,6 +65,7 @@
             playerPlace === 3 && "from-[#f1a58a] to-[#d3663f]",
           ],
         )}
+        translate="no"
       >
         {player.nickname}
       </div>

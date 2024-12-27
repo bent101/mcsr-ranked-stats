@@ -19,7 +19,7 @@
 <div class="px-4 pb-32 pt-8">
   <div class="mx-auto max-w-xl lg:max-w-7xl">
     <h1 class="text-2xl font-bold text-zinc-300 sm:text-4xl">
-      Download MCSR Ranked
+      Download <span translate="no"> MCSR Ranked</span>
     </h1>
     <div class="h-4" />
     <div class="flex flex-col-reverse gap-8 lg:flex-row">
@@ -140,7 +140,7 @@
               <p>Launch the instance and <b>start playing!</b></p>
             </div>
             <p>
-              Visit the <b>
+              Visit the <b translate="no">
                 <span class="mr-0.5 inline-block">#</span>tech-help</b
               > Discord channel if you ran into any issues.
             </p>

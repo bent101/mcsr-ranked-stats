@@ -79,11 +79,12 @@
           <a
             href="/stats/{playerData.nickname}"
             class="underline-offset-4 hover:underline"
+            translate="no"
           >
             {playerData.nickname}
           </a>
         {:else}
-          <h1 class="inline">
+          <h1 class="inline" translate="no">
             {playerData.nickname}
           </h1>
         {/if}
