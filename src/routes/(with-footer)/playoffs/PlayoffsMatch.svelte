@@ -18,7 +18,7 @@
   class={cn(
     "relative rounded-md shadow-md",
     match.name === "Grand Final"
-      ? "gf-glow origin-left scale-125 bg-gradient-to-bl from-light-green to-transparent to-40%"
+      ? "gf-glow origin-left scale-125 bg-gradient-to-bl from-light-green to-zinc-900 to-40%"
       : "bg-zinc-800",
   )}
   on:mouseenter={() => ($curHoveredMatchId = match.id)}
@@ -63,7 +63,7 @@
           class={cn(
             (match.name === "Grand Final" || match.name === "3rd Place") && [
               [1, 2, 3].includes(playerPlace) &&
-                "bg-gradient-to-r bg-clip-text text-transparent",
+                "bg-gradient-to-l bg-clip-text text-transparent",
               playerPlace === 1 && "from-yellow-200 to-amber-500",
               playerPlace === 2 && "from-blue-100 to-slate-400",
               playerPlace === 3 && "from-[#fdbda6] to-[#e27852]",
@@ -78,7 +78,7 @@
           "w-8 shrink-0 px-3 py-1 text-right text-sm font-semibold",
           isWinner
             ? "bg-light-green/80 text-white [text-shadow:1px_1px_1px_#0004]"
-            : "bg-zinc-700/50 text-zinc-400",
+            : "bg-white/5 text-zinc-400",
         )}
       >
         {roundScore}

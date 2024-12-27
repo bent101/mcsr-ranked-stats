@@ -26,10 +26,10 @@
     <div class="flex items-center gap-6">
       <a
         class={cn(
-          "grid size-10 shrink-0 place-items-center rounded-full font-minecraft text-3xl text-zinc-600 hover:bg-white/5",
-          playoffs.data.season === 1 && "pointer-events-none opacity-50",
+          "grid size-10 shrink-0 place-items-center rounded-full font-minecraft text-3xl text-zinc-400 hover:bg-white/5",
+          playoffs.data.season === 1 && "pointer-events-none opacity-30",
         )}
-        href={`/playoffs?season=${playoffs.prev}`}
+        href={`?season=${playoffs.prev}`}
       >
         <span class="inline-block -translate-y-px">&lt;</span>
       </a>
@@ -41,10 +41,10 @@
       </div>
       <a
         class={cn(
-          "grid size-10 shrink-0 place-items-center rounded-full font-minecraft text-3xl text-zinc-600 hover:bg-white/5",
-          playoffs.next === null && "pointer-events-none opacity-50",
+          "grid size-10 shrink-0 place-items-center rounded-full font-minecraft text-3xl text-zinc-400 hover:bg-white/5",
+          playoffs.next === null && "pointer-events-none opacity-30",
         )}
-        href={`/playoffs?season=${playoffs.next}`}
+        href={`?season=${playoffs.next}`}
       >
         <span class="inline-block -translate-y-px translate-x-0.5">&gt;</span>
       </a>
