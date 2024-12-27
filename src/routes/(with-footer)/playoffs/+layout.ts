@@ -5,6 +5,7 @@ import type { LayoutLoad } from "./$types";
 export const config = {
   isr: {
     expiration: 60,
+    allowQuery: ["season"],
   },
 };
 

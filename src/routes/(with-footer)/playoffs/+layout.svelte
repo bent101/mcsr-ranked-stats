@@ -92,7 +92,5 @@
     </div>
   </div>
 </div>
-<!-- 
-<MatchDetailsFrame>
-  <slot />
-</MatchDetailsFrame> -->
+
+<slot />
