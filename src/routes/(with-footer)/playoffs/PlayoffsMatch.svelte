@@ -34,7 +34,7 @@
     <h2
       class="pointer-events-none absolute inset-x-0 bottom-full pb-1 text-center text-sm font-bold uppercase tracking-[0.2em] text-zinc-500"
     >
-      Grand Final
+      Grand Finals
     </h2>
   {/if}
   {#each match.participants as { player: index, roundScore }, i}

@@ -26,10 +26,12 @@
     <div class="flex items-center gap-6">
       <a
         class={cn(
-          "grid size-10 shrink-0 place-items-center rounded-full font-minecraft text-3xl text-zinc-400 hover:bg-white/5",
+          "grid size-10 shrink-0 place-items-center rounded-full text-3xl text-zinc-400 hover:bg-white/5",
           playoffs.data.season === 1 && "pointer-events-none opacity-30",
         )}
         href={`?season=${playoffs.prev}`}
+        data-sveltekit-noscroll
+        data-sveltekit-replacestate
       >
         <span class="inline-block -translate-y-px">&lt;</span>
       </a>
@@ -45,6 +47,8 @@
           playoffs.next === null && "pointer-events-none opacity-30",
         )}
         href={`?season=${playoffs.next}`}
+        data-sveltekit-noscroll
+        data-sveltekit-replacestate
       >
         <span class="inline-block -translate-y-px translate-x-0.5">&gt;</span>
       </a>
@@ -63,7 +67,7 @@
       class="h-px flex-1 bg-gradient-to-r from-white/60 to-transparent"
     ></div>
   </div>
-  <div class="flex">
+  <div class="flex w-full overflow-hidden">
     <div class="flex-1 overflow-x-auto">
       <PlayoffsBracket
         playoffsData={playoffs.data}
@@ -71,7 +75,7 @@
         {curHoveredMatchId}
       />
     </div>
-    <div class="w-[24rem] shrink-0 pl-2">
+    <div class="w-[26rem] shrink-0 pl-2">
       <Tabs tabs={desktopTabs} bind:currentTab={desktopTab} />
       <div class="h-4" />
       {#if desktopTab === "Results"}

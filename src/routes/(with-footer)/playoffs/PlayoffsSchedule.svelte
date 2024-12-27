@@ -43,11 +43,11 @@
           on:mouseenter={() => ($curHoveredMatchId = match.id)}
           on:mouseleave={() => ($curHoveredMatchId = null)}
         >
-          <div class="line-clamp-1 flex-1 text-zinc-400">
-            <span class={cn(player1Won && "text-light-green")}>
+          <div class="flex-1 truncate text-zinc-400">
+            <span class={cn("inline-block", player1Won && "text-light-green")}>
               <PlayerLink name={player1.nickname} uuid={player1.uuid} />
             </span>
-            <span class="text-zinc-500">vs</span>
+            <span class="inline-block text-zinc-500">vs</span>
             <span class={cn(player2Won && "text-light-green")}>
               <PlayerLink name={player2.nickname} uuid={player2.uuid} />
             </span>
@@ -56,18 +56,18 @@
             <div
               class="w-max shrink-0 px-2 font-medium tabular-nums text-zinc-500"
             >
-              {match.participants[0].roundScore}
-              <span class="text-zinc-600">&ndash;</span>
-              {match.participants[1].roundScore}
+              {match.participants[0].roundScore}<span
+                class="inline-block px-1 text-zinc-600">&ndash;</span
+              >{match.participants[1].roundScore}
             </div>
           {/if}
-          <div class="w-20 shrink-0 text-right text-zinc-500">
+          <div class="w-16 shrink-0 text-right text-zinc-500">
             {#if match.state === "ACTIVE"}
               <a
                 href="https://www.twitch.tv/feinberg"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="flex items-center gap-1.5"
+                class="flex items-center justify-end gap-1.5"
               >
                 <div class="relative h-2 w-2 shrink-0 rounded-full bg-red-500">
                   <div

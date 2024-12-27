@@ -83,7 +83,7 @@
         </div>
       </div>
     {/each}
-    <div class="absolute bottom-4 right-0">
+    <div class="absolute -right-12 bottom-36">
       <div class="flex w-52 shrink-0 flex-col">
         <h2
           class="text-center text-sm font-bold uppercase tracking-[0.2em] text-zinc-500"
