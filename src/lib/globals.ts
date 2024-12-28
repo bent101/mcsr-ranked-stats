@@ -18,6 +18,7 @@ function mql(query: string, { fallback = true } = {}) {
   const matcher = window.matchMedia(query);
 
   return readable(matcher.matches, (set) => {
+    set(matcher.matches);
     function onChange() {
       set(matcher.matches);
     }
