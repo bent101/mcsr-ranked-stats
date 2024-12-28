@@ -1,11 +1,11 @@
 <script lang="ts">
+  import { onpress } from "$lib/actions";
   import ChevronDownIcon from "$lib/components/icons/ChevronDownIcon.svelte";
   import PlayerLink from "$lib/components/PlayerLink.svelte";
   import { formatTime } from "$lib/formatters";
   import type { PlayoffsData } from "$lib/ranked-api";
   import { cn } from "$lib/utils";
   import { type Writable } from "svelte/store";
-  import { onpress } from "$lib/actions";
 
   export let playoffsData: PlayoffsData;
   export let curHoveredPlayer: Writable<string | null>;
@@ -33,9 +33,6 @@
     >
       SEED
       {#if sort === "seed"}
-        <div
-          class="pointer-events-none absolute -left-1 top-0 h-40 w-full bg-gradient-to-b from-white/10 to-transparent blur"
-        ></div>
         <ChevronDownIcon
           class="absolute -right-1 top-1/2 size-4 -translate-y-1/2 text-zinc-500"
         />
@@ -51,9 +48,6 @@
     >
       ELO
       {#if sort === "elo"}
-        <div
-          class="pointer-events-none absolute left-1 top-0 h-40 w-full bg-gradient-to-b from-white/10 to-transparent blur"
-        ></div>
         <ChevronDownIcon
           class="absolute -right-1 top-1/2 size-4 -translate-y-1/2 text-zinc-500"
         />
@@ -68,9 +62,6 @@
     >
       PB
       {#if sort === "pb"}
-        <div
-          class="pointer-events-none absolute left-1.5 top-0 h-40 w-full bg-gradient-to-b from-white/10 to-transparent blur"
-        ></div>
         <ChevronDownIcon
           class="absolute -right-1 top-1/2 size-4 -translate-y-1/2 text-zinc-500"
         />

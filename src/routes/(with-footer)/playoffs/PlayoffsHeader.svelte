@@ -17,7 +17,7 @@
       data-sveltekit-noscroll
       data-sveltekit-replacestate
     >
-      <span class="inline-block -translate-y-px">&lt;</span>
+      <span class="inline-block -translate-y-px select-none">&lt;</span>
     </a>
     <div class="flex flex-col items-center text-xl md:block md:text-4xl">
       <h1 class="inline text-zinc-300" translate="no">MCSR Ranked Playoffs</h1>
@@ -32,16 +32,18 @@
       data-sveltekit-noscroll
       data-sveltekit-replacestate
     >
-      <span class="inline-block -translate-y-px translate-x-0.5">&gt;</span>
+      <span class="inline-block -translate-y-px translate-x-0.5 select-none"
+        >&gt;</span
+      >
     </a>
   </div>
 </div>
-<div class="mx-auto flex max-w-2xl items-center gap-1 pt-1">
-  <div class="h-px flex-1 bg-gradient-to-l from-white/60 to-transparent"></div>
+<div class="mx-auto flex max-w-2xl items-center gap-1 pt-1 opacity-40">
+  <div class="h-px flex-1 bg-gradient-to-l from-white to-transparent"></div>
   <img
     src={playoffsDeco}
     alt=""
-    class=" size-5 -rotate-45 opacity-60 [image-rendering:pixelated]"
+    class="size-6 -rotate-45 [image-rendering:pixelated]"
   />
-  <div class="h-px flex-1 bg-gradient-to-r from-white/60 to-transparent"></div>
+  <div class="h-px flex-1 bg-gradient-to-r from-white to-transparent"></div>
 </div>

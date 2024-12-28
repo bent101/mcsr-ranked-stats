@@ -33,7 +33,10 @@
 
   <!-- desktop layout -->
   <div class="hidden md:flex">
-    <div class="flex-1 overflow-x-auto">
+    <div class="relative flex-1 overflow-x-auto">
+      <div
+        class="pointer-events-none absolute inset-y-0 right-0 z-10 w-6 bg-gradient-to-r from-transparent to-zinc-900"
+      ></div>
       <PlayoffsBracket
         playoffsData={playoffs.data}
         {curHoveredPlayer}
@@ -66,15 +69,17 @@
     <div
       class="sticky top-header-height z-10 -mx-4 bg-zinc-900/90 px-4 backdrop-blur-md"
     >
-      <Tabs
-        tabs={mobileTabs}
-        bind:currentTab={mobileTab}
-        onSwitch={() => {
-          if (window.scrollY > rem2px(7.5)) {
-            window.scrollTo(0, rem2px(7.5));
-          }
-        }}
-      />
+      <div class="mx-auto max-w-md">
+        <Tabs
+          tabs={mobileTabs}
+          bind:currentTab={mobileTab}
+          onSwitch={() => {
+            if (window.scrollY > rem2px(7.5)) {
+              window.scrollTo(0, rem2px(7.5));
+            }
+          }}
+        />
+      </div>
     </div>
     <div class="h-4" />
     {#if mobileTab === "Bracket"}
@@ -84,19 +89,25 @@
         {curHoveredMatchId}
       />
     {:else if mobileTab === "Results"}
-      <PlayoffsResults playoffsData={playoffs.data} {curHoveredPlayer} />
+      <div class="mx-auto max-w-md">
+        <PlayoffsResults playoffsData={playoffs.data} {curHoveredPlayer} />
+      </div>
     {:else if mobileTab === "Schedule"}
-      <PlayoffsSchedule
-        playoffsData={playoffs.data}
-        {curHoveredPlayer}
-        {curHoveredMatchId}
-      />
+      <div class="mx-auto max-w-md">
+        <PlayoffsSchedule
+          playoffsData={playoffs.data}
+          {curHoveredPlayer}
+          {curHoveredMatchId}
+        />
+      </div>
     {:else if mobileTab === "Players"}
-      <PlayoffsPlayers
-        playoffsData={playoffs.data}
-        {curHoveredPlayer}
-        {curHoveredMatchId}
-      />
+      <div class="mx-auto max-w-md">
+        <PlayoffsPlayers
+          playoffsData={playoffs.data}
+          {curHoveredPlayer}
+          {curHoveredMatchId}
+        />
+      </div>
     {/if}
   </div>
 </div>
