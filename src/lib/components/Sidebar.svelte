@@ -15,7 +15,6 @@
   import SidebarTab from "./SidebarTab.svelte";
 
   export let lb: Player[] | undefined;
-  export let stopSidebarScroll: () => void;
   // export let curSeason: number;
   // export let seasonEnd: number;
 
@@ -46,7 +45,6 @@
 
   const onLbChange = () => {
     arrowSelectedIdx = rawQuery ? 0 : -1;
-    stopSidebarScroll();
   };
 
   $: filteredLb, onLbChange();

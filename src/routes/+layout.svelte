@@ -39,10 +39,6 @@
     lbButton?.blur();
   };
 
-  const stopSidebarScroll = async () => {
-    if (!sidebar) return;
-    // sidebar.scrollTop = 0;
-  };
   beforeNavigate(hideLb);
 
   const debouncedInvalidate = _.throttle(() => {
@@ -83,7 +79,7 @@
 
 <Header bind:lbButton />
 
-<main class="relative">
+<main class={cn("relative", $page.url.pathname.startsWith("/stats") && "flex")}>
   <div class="contents xl:hidden">
     {#if browser && $showingLeaderboard}
       <!-- svelte-ignore a11y-no-static-element-interactions -->
@@ -103,7 +99,7 @@
         <div class="[direction:ltr]">
           <!-- curSeason={data.lb.season.number}
           seasonEnd={data.lb.season.endsAt} -->
-          <Sidebar {stopSidebarScroll} lb={data.lb?.users} />
+          <Sidebar lb={data.lb?.users} />
         </div>
       </div>
     {/if}
@@ -113,7 +109,6 @@
       <!-- dummy sidebar to shift the main content to the right since the real sidebar is fixed -->
       <!-- (i didnt wanna make it sticky cuz it scrolls weird on overscroll) -->
       <div
-        bind:this={sidebar}
         class="sticky top-header-height z-40 h-screen-minus-header shrink-0 overflow-y-scroll overscroll-y-contain scrollbar-track-zinc-950 [direction:rtl]"
       >
         <div class="min-h-screen-minus-header [direction:ltr]">
@@ -124,13 +119,12 @@
       </div>
       <!--  -->
       <div
-        bind:this={sidebar}
         class="fixed top-header-height z-40 h-screen-minus-header shrink-0 overflow-y-scroll overscroll-y-contain scrollbar-track-zinc-950 [direction:rtl]"
       >
         <div class="min-h-screen-minus-header [direction:ltr]">
           <!-- curSeason={data.lb.season.number}
           seasonEnd={data.lb.season.endsAt} -->
-          <Sidebar {stopSidebarScroll} lb={data.lb.users} />
+          <Sidebar lb={data.lb.users} />
         </div>
       </div>
     </div>
