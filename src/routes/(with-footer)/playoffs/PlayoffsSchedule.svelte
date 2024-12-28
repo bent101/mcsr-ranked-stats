@@ -54,7 +54,7 @@
           </div>
           {#if match.state === "DONE"}
             <div
-              class="w-max shrink-0 px-2 font-medium tabular-nums text-zinc-500"
+              class="w-max shrink-0 border px-2 font-medium tabular-nums text-zinc-500"
             >
               {match.participants[0].roundScore}<span
                 class="inline-block px-1 text-zinc-600">&ndash;</span

@@ -5,9 +5,10 @@
   export let tabs: readonly T[];
   export let currentTab: T;
   export let onSwitch: ((oldTab: T, newTab: T) => void) | undefined = undefined;
+  export let spaceEvenly: boolean = false;
 </script>
 
-<div class="flex">
+<div class={cn("flex", spaceEvenly && "*:flex-1")}>
   {#each tabs as tab}
     <div
       class={cn(
@@ -19,7 +20,7 @@
     >
       <button
         class={cn(
-          "rounded-md px-3 py-1.5 text-sm font-medium hover:bg-white/5",
+          "w-full rounded-md px-3 py-1.5 text-sm font-medium hover:bg-white/5",
         )}
         use:onpress={() => {
           onSwitch?.(currentTab, tab);
@@ -30,5 +31,7 @@
       </button>
     </div>
   {/each}
-  <div class="flex-1 border-b border-white/5" />
+  {#if !spaceEvenly}
+    <div class="flex-1 border-b border-white/5" />
+  {/if}
 </div>

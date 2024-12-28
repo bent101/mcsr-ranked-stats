@@ -215,17 +215,9 @@ export type PlayoffsData = {
   }[];
 
   season: number;
+
+  type: "alpha" | "beta";
 };
-
-export const PLAYOFFS_ROUND_NAMES = [
-  "Round of 16",
-  "Round of 8",
-  "Semifinals",
-  "3rd Place",
-  "Grand Final",
-] as const;
-
-export type PlayoffsRoundName = (typeof PLAYOFFS_ROUND_NAMES)[number];
 
 type PlayoffsMatchParticipant = {
   player: number; // References player's seedNumber
@@ -234,7 +226,7 @@ type PlayoffsMatchParticipant = {
 
 export type PlayoffsMatch = {
   id: number;
-  name: PlayoffsRoundName;
+  name: string;
   nextMatchId: number | null;
   maxRoundScore: number;
   startTime: number;

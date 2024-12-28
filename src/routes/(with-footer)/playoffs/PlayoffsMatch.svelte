@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { cn } from "$lib/utils.js";
   import type { PlayoffsData, PlayoffsMatch } from "$lib/ranked-api.js";
+  import { cn } from "$lib/utils.js";
   import type { Writable } from "svelte/store";
 
   export let match: PlayoffsMatch;

@@ -16,7 +16,7 @@
   let curHoveredMatchId = writable<number | null>(null);
 
   const desktopTabs = ["Results", "Schedule", "Players"] as const;
-  const mobileTabs = ["Bracket", "Results", "Schedule", "Players"] as const;
+  const mobileTabs = ["Bracket", ...desktopTabs] as const;
 
   // these arent reactive by design -- if the tab list changes, the tab shouldnt change,
   // but the tab should start out as the first tab in the list
@@ -28,20 +28,16 @@
   <title>Playoffs | MCSR Ranked</title>
 </svelte:head>
 
-<div class="relative mx-auto max-w-screen-2xl px-4 pb-16 pt-8 font-minecraft">
+<div class="relative mx-auto max-w-[1600px] px-4 pb-16 pt-8 font-minecraft">
   <PlayoffsHeader {data} />
 
   <!-- desktop layout -->
-  <div class="hidden md:flex">
+  <div class="hidden lg:flex">
     <div class="relative flex-1 overflow-x-auto">
       <div
         class="pointer-events-none absolute inset-y-0 right-0 z-10 w-6 bg-gradient-to-r from-transparent to-zinc-900"
       ></div>
-      <PlayoffsBracket
-        playoffsData={playoffs.data}
-        {curHoveredPlayer}
-        {curHoveredMatchId}
-      />
+      <PlayoffsBracket {playoffs} {curHoveredPlayer} {curHoveredMatchId} />
     </div>
     <div class="w-[26rem] shrink-0 pl-2">
       <Tabs tabs={desktopTabs} bind:currentTab={desktopTab} />
@@ -65,13 +61,14 @@
   </div>
 
   <!-- mobile layout -->
-  <div class="md:hidden">
+  <div class="lg:hidden">
     <div
       class="sticky top-header-height z-10 -mx-4 bg-zinc-900/90 px-4 backdrop-blur-md"
     >
       <div class="mx-auto max-w-md">
         <Tabs
           tabs={mobileTabs}
+          spaceEvenly
           bind:currentTab={mobileTab}
           onSwitch={() => {
             if (window.scrollY > rem2px(7.5)) {
@@ -83,11 +80,7 @@
     </div>
     <div class="h-4" />
     {#if mobileTab === "Bracket"}
-      <PlayoffsBracket
-        playoffsData={playoffs.data}
-        {curHoveredPlayer}
-        {curHoveredMatchId}
-      />
+      <PlayoffsBracket {playoffs} {curHoveredPlayer} {curHoveredMatchId} />
     {:else if mobileTab === "Results"}
       <div class="mx-auto max-w-md">
         <PlayoffsResults playoffsData={playoffs.data} {curHoveredPlayer} />
