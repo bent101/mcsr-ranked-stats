@@ -16,7 +16,7 @@
   let curHoveredMatchId = writable<number | null>(null);
 
   const desktopTabs = ["Results", "Schedule", "Players"] as const;
-  const mobileTabs = ["Results", "Bracket", "Schedule", "Players"] as const;
+  const mobileTabs = ["Bracket", "Results", "Schedule", "Players"] as const;
 
   // these arent reactive by design -- if the tab list changes, the tab shouldnt change,
   // but the tab should start out as the first tab in the list
