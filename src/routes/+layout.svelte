@@ -83,9 +83,10 @@
 
 <Header bind:lbButton />
 
-<main class="relative flex">
+<main class="relative">
   <div class="contents xl:hidden">
     {#if browser && $showingLeaderboard}
+      <!-- svelte-ignore a11y-no-static-element-interactions -->
       <div
         transition:fade={{ duration: 100 }}
         on:click={hideLb}

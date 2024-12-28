@@ -33,7 +33,7 @@
     backdrop-filter: blur(${headerBlur}px)`
     : undefined}
 >
-  <div class="flex flex-1 items-center sm:contents">
+  <div class="flex flex-1 items-center sm-md:contents">
     <button
       bind:this={lbButton}
       on:click={toggleLb}
@@ -49,7 +49,7 @@
     </p>
   </a>
   <div class="w-2" />
-  <div class="hidden sm:contents">
+  <div class="hidden sm-md:contents">
     {#each headerLinks as link}
       {@const isExternal = !link.href.startsWith("/")}
       {@const isActive =
@@ -76,7 +76,7 @@
       </a>
     {/each}
   </div>
-  <div class="flex flex-1 items-center justify-end sm:hidden">
+  <div class="flex flex-1 items-center justify-end sm-md:hidden">
     <a
       href={store.href}
       target="_blank"

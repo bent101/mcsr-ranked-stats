@@ -5,6 +5,7 @@ import { readable, writable } from "svelte/store";
 export const matchesPerPage = 30;
 
 export const minWSm = mql("(min-width: 640px)");
+export const minWSmMd = mql("(min-width: 710px)");
 export const minWMd = mql("(min-width: 768px)");
 export const minWLg = mql("(min-width: 1024px)");
 export const minWXl = mql("(min-width: 1280px)");

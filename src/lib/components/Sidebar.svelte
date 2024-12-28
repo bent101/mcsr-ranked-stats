@@ -3,7 +3,7 @@
   import { page } from "$app/stores";
   import { ignFilter } from "$lib/actions";
   import { headerLinks, sidebarLinks } from "$lib/config";
-  import { minWSm } from "$lib/globals";
+  import { minWSmMd } from "$lib/globals";
   import type { Player } from "$lib/ranked-api";
   import { cn } from "$lib/utils";
   import ChevronLeftIcon from "./icons/ChevronLeftIcon.svelte";
@@ -20,7 +20,9 @@
   // export let seasonEnd: number;
 
   let state =
-    $page.url.pathname.startsWith("/stats") || $minWSm ? "leaderboard" : "root";
+    $page.url.pathname.startsWith("/stats") || $minWSmMd
+      ? "leaderboard"
+      : "root";
 
   let searchInput: HTMLElement | undefined;
 
@@ -106,7 +108,7 @@
       >
         <button
           on:click={() => (state = "root")}
-          class="flex items-center gap-2 rounded-full py-1 pl-1.5 pr-3 text-sm font-medium text-zinc-500 hover:bg-zinc-900 sm:hidden"
+          class="flex items-center gap-2 rounded-full py-1 pl-1.5 pr-3 text-sm font-medium text-zinc-500 hover:bg-zinc-900 sm-md:hidden"
         >
           <ChevronLeftIcon class="size-4" /> Menu
         </button>

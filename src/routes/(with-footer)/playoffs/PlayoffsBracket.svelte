@@ -12,7 +12,7 @@
 </script>
 
 <div
-  class="relative overflow-x-auto pr-12 scrollbar-thin scrollbar-track-zinc-900 scrollbar-thumb-zinc-800"
+  class="relative overflow-x-auto pr-20 scrollbar-thin scrollbar-track-zinc-900 scrollbar-thumb-zinc-800"
 >
   <div class="relative flex w-max pb-4 pt-4">
     {#each ["Round of 16", "Round of 8", "Semifinals", "Grand Final"] as roundName, i}

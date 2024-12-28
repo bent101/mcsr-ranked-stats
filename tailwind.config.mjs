@@ -25,6 +25,7 @@ export default {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
       },
       screens: {
+        "sm-md": "710px",
         "3xl": "1792px",
       },
       spacing: {
