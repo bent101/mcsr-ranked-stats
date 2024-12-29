@@ -157,11 +157,7 @@
           class="ml-2 inline-flex items-center gap-2 rounded-full bg-zinc-700 py-0.5 pl-3 pr-1 text-sm font-semibold uppercase tracking-wide text-white/90"
         >
           Unverified
-          <img
-            src={info}
-            alt=""
-            class="inline h-4 w-4 select-none opacity-30 invert"
-          />
+          <img src={info} alt="" class="inline h-4 w-4 opacity-30 invert" />
         </span>
         <Tooltip anchor={unverified}>Needs to link Discord</Tooltip>
       {/if}

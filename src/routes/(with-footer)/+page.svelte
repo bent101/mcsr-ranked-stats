@@ -189,7 +189,7 @@
               src={card.image}
               alt=""
               class={cn(
-                "absolute inset-0 size-full select-none rounded-2xl object-cover opacity-90 blur-xl",
+                "absolute inset-0 size-full rounded-2xl object-cover opacity-90 blur-xl",
                 card.imagePosition,
               )}
             />
@@ -197,7 +197,7 @@
               src={card.image}
               alt=""
               class={cn(
-                "absolute inset-0 size-full select-none rounded-2xl object-cover",
+                "absolute inset-0 size-full rounded-2xl object-cover",
                 card.imagePosition,
               )}
             />
@@ -263,7 +263,7 @@
                 src={card.background}
                 alt=""
                 class={cn(
-                  "absolute -bottom-36 right-16 w-80 select-none opacity-5 blur-[2.5px] grayscale",
+                  "absolute -bottom-36 right-16 w-80 opacity-5 blur-[2.5px] grayscale",
                   card.backgroundClass,
                 )}
               />
@@ -353,9 +353,3 @@
     </div>
   </div>
 </div>
-
-<style>
-  img {
-    @apply select-none;
-  }
-</style>

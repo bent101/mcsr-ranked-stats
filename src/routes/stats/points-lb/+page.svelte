@@ -28,7 +28,7 @@
         {/if}
       </h1>
       <div bind:this={infoEl} class="-m-2 rounded-full p-2 hover:bg-zinc-800">
-        <img src={info} alt="" class="h-4 w-4 select-none opacity-30 invert" />
+        <img src={info} alt="" class="h-4 w-4 opacity-30 invert" />
         <Tooltip
           hoverable
           anchor={infoEl}

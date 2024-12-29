@@ -3,11 +3,11 @@
 </svelte:head>
 
 <div
-  class="min-h-screen-minus-header flex flex-col items-center justify-center"
+  class="flex min-h-screen-minus-header flex-col items-center justify-center"
 >
   <!-- <img
     src={rankedMono}
-    class="w-96 opacity-20 select-none- invert [image-rendering:pixelated]"
+    class="w-96 opacity-20 invert [image-rendering:pixelated]"
   /> -->
   <div class="text-xl font-semibold text-zinc-500">
     Click or search for a player to see their stats

@@ -218,7 +218,7 @@
               >
                 {label}
               </div>
-              <ChevronRightIcon class="size-7 select-none text-zinc-600" />
+              <ChevronRightIcon class="size-7 text-zinc-600" />
             </div>
           </button>
         {:else}
@@ -231,7 +231,7 @@
                 {label}
               </div>
               {#if !href.startsWith("/")}
-                <ExternalLinkIcon class="size-5 select-none text-zinc-600" />
+                <ExternalLinkIcon class="size-5 text-zinc-600" />
               {/if}
             </div>
           </a>

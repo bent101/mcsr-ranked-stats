@@ -50,6 +50,10 @@
     @apply text-pretty !ease-out; /* tailwind is ease-in-out by default, !ease-out overrides it */
   }
 
+  img {
+    @apply select-none;
+  }
+
   ._ {
     @apply bg-green-500/10;
   }
