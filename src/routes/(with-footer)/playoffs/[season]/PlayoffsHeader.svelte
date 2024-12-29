@@ -13,7 +13,7 @@
         "grid size-10 shrink-0 place-items-center rounded-full text-3xl text-zinc-400 hover:bg-white/5",
         playoffs.data.season === 1 && "pointer-events-none opacity-30",
       )}
-      href={`?season=${playoffs.prev}`}
+      href={`/playoffs/${playoffs.prev}`}
       data-sveltekit-noscroll
       data-sveltekit-replacestate
     >
@@ -28,7 +28,7 @@
         "grid size-10 shrink-0 place-items-center rounded-full font-minecraft text-3xl text-zinc-400 hover:bg-white/5",
         playoffs.next === null && "pointer-events-none opacity-30",
       )}
-      href={`?season=${playoffs.next}`}
+      href={`/playoffs/${playoffs.next}`}
       data-sveltekit-noscroll
       data-sveltekit-replacestate
     >
