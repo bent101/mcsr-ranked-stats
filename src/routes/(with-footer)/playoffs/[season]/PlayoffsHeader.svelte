@@ -11,7 +11,7 @@
   <div class="flex items-center gap-6">
     <a
       class={cn(
-        "grid size-10 shrink-0 place-items-center rounded-full text-3xl text-zinc-400 hover:bg-white/5",
+        "grid size-10 shrink-0 translate-y-[0.09375rem] place-items-center rounded-full text-3xl text-zinc-400 hover:bg-white/5",
         playoffs.data.season === 1 && "pointer-events-none opacity-30",
       )}
       href={`/playoffs/${playoffs.prev}`}
@@ -26,7 +26,7 @@
     </div>
     <a
       class={cn(
-        "grid size-10 shrink-0 place-items-center rounded-full font-minecraft text-3xl text-zinc-400 hover:bg-white/5",
+        "grid size-10 shrink-0 translate-y-[0.09375rem] place-items-center rounded-full font-minecraft text-3xl text-zinc-400 hover:bg-white/5",
         playoffs.next === null && "pointer-events-none opacity-30",
       )}
       href={playoffs.next === lastPlayoffsSeason

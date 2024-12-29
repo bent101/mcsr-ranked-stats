@@ -23,10 +23,10 @@
 
 <div
   class={cn(
-    "relative w-max [--col-width:11.5rem] [--gf-scale:1.25] [--matches-hgap:1.5rem]",
+    "relative w-max [--col-width:11rem] [--gf-scale:1.25] ",
     playoffs.data.type === "alpha"
-      ? "[--matches-vgap:1rem]"
-      : "[--matches-vgap:2rem]",
+      ? "[--matches-hgap:1.5rem] [--matches-vgap:1rem]"
+      : "[--matches-hgap:0.6rem] [--matches-vgap:2rem]",
   )}
 >
   <div class="relative flex pb-4 pr-12 pt-4">
