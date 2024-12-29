@@ -6,6 +6,7 @@
   import type { PlayoffsData } from "$lib/ranked-api";
   import { cn } from "$lib/utils";
   import { type Writable } from "svelte/store";
+  import Hoverable from "$lib/components/Hoverable.svelte";
 
   export let playoffsData: PlayoffsData;
   export let curHoveredPlayer: Writable<string | null>;
@@ -70,27 +71,26 @@
   </div>
   {#each sortedPlayers as player (player.uuid)}
     {@const seed = player.seedNumber + 1}
-    <!-- svelte-ignore a11y-no-static-element-interactions -->
-    <div
-      class={cn(
-        "flex items-center gap-1 rounded-lg px-4 py-1.5",
-        $curHoveredPlayer === player.uuid ? "bg-zinc-800" : "hover:bg-zinc-800",
-      )}
-      on:mouseenter={() => ($curHoveredPlayer = player.uuid)}
-      on:mouseleave={() => ($curHoveredPlayer = null)}
-    >
-      <div class="w-8 shrink-0 pr-1 font-semibold text-zinc-600">
-        {seed}
+    <Hoverable store={curHoveredPlayer} value={player.uuid} let:isHovered>
+      <div
+        class={cn(
+          "flex items-center gap-1 rounded-lg px-4 py-1.5",
+          isHovered ? "bg-zinc-800" : "hover:bg-zinc-800",
+        )}
+      >
+        <div class="w-8 shrink-0 pr-1 font-semibold text-zinc-600">
+          {seed}
+        </div>
+        <div class="flex-1 truncate">
+          <PlayerLink name={player.nickname} uuid={player.uuid} />
+        </div>
+        <div class="w-14 shrink-0 text-center tabular-nums text-zinc-500">
+          {player.seasonEloRate}
+        </div>
+        <div class="w-14 shrink-0 text-right tabular-nums text-zinc-500">
+          {formatTime(player.personalBest)}
+        </div>
       </div>
-      <div class="flex-1 truncate">
-        <PlayerLink name={player.nickname} uuid={player.uuid} />
-      </div>
-      <div class="w-14 shrink-0 text-center tabular-nums text-zinc-500">
-        {player.seasonEloRate}
-      </div>
-      <div class="w-14 shrink-0 text-right tabular-nums text-zinc-500">
-        {formatTime(player.personalBest)}
-      </div>
-    </div>
+    </Hoverable>
   {/each}
 </div>
