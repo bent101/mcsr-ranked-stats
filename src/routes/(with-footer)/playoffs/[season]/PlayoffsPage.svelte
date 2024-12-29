@@ -28,7 +28,9 @@
   <title>Playoffs | MCSR Ranked</title>
 </svelte:head>
 
-<div class="relative mx-auto max-w-[1600px] px-4 pb-16 pt-8 font-minecraft">
+<div
+  class="relative mx-auto max-w-[1600px] px-4 pb-16 pt-4 font-minecraft md:pt-8"
+>
   <PlayoffsHeader {playoffs} />
 
   <!-- desktop layout -->
@@ -71,8 +73,8 @@
           spaceEvenly
           bind:currentTab={mobileTab}
           onSwitch={() => {
-            if (window.scrollY > rem2px(7.5)) {
-              window.scrollTo(0, rem2px(7.5));
+            if (window.scrollY > rem2px(6.5)) {
+              window.scrollTo(0, rem2px(6.5));
             }
           }}
         />
