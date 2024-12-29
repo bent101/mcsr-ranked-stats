@@ -2,9 +2,9 @@
   import playoffsDeco from "$lib/assets/playoffs-deco.png";
   import { lastPlayoffsSeason } from "$lib/last-playoffs-season";
   import { cn } from "$lib/utils";
+  import type { PlayoffsResponse } from "$lib/ranked-api";
 
-  export let data;
-  $: ({ playoffs } = data);
+  export let playoffs: PlayoffsResponse;
 </script>
 
 <div class="flex items-center justify-center gap-4">

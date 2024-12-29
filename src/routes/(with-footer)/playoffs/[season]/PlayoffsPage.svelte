@@ -8,9 +8,9 @@
   import PlayoffsResults from "./PlayoffsResults.svelte";
   import PlayoffsSchedule from "./PlayoffsSchedule.svelte";
   import { rem2px } from "$lib/utils";
+  import type { PlayoffsResponse } from "$lib/ranked-api";
 
-  export let data;
-  $: ({ playoffs } = data);
+  export let playoffs: PlayoffsResponse;
 
   let curHoveredPlayer = writable<string | null>(null);
   let curHoveredMatchId = writable<number | null>(null);
@@ -29,7 +29,7 @@
 </svelte:head>
 
 <div class="relative mx-auto max-w-[1600px] px-4 pb-16 pt-8 font-minecraft">
-  <PlayoffsHeader {data} />
+  <PlayoffsHeader {playoffs} />
 
   <!-- desktop layout -->
   <div class="hidden lg:flex">

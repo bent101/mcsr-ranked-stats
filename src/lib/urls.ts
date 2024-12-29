@@ -1,4 +1,5 @@
 import { matchesPerPage } from "./globals";
+import { lastPlayoffsSeason } from "./last-playoffs-season";
 
 const base = "https://mcsrranked.com/api";
 
@@ -79,7 +80,7 @@ export const getWeeklyRaceURL = () => {
 export const getPlayoffsURL = ({
   season,
 }: { season?: number | string | undefined } = {}) => {
-  return `${base}/playoffs/${season ?? "last"}`;
+  return `${base}/playoffs/${season ?? lastPlayoffsSeason}`;
 };
 
 export const getWeeklyRaceMatchURL = ({

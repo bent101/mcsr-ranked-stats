@@ -14,7 +14,7 @@ export const entries = () => {
 
 export const load = async ({ fetch, params }) => {
   const playoffsURL = getPlayoffsURL({
-    season: params.season ?? lastPlayoffsSeason,
+    season: params.season,
   });
 
   const playoffs = await fetch(playoffsURL)
