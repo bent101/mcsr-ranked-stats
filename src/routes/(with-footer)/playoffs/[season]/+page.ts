@@ -8,7 +8,9 @@ export const prerender = true;
 
 export const entries = () => {
   // e.g. if last season is 4 then /playoffs/1, /playoffs/2, /playoffs/3 will be prerendered
-  return _.range(1, lastPlayoffsSeason).map((season) => ({ season }));
+  return _.range(1, lastPlayoffsSeason).map((season) => ({
+    season: season.toString(),
+  }));
 };
 
 export const load: LayoutLoad = async ({ fetch, params }) => {
