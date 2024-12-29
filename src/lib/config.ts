@@ -11,7 +11,6 @@ import TrophyIcon from "./components/icons/TrophyIcon.svelte";
 import TwitterIcon from "./components/icons/TwitterIcon.svelte";
 import VsIcon from "./components/icons/VsIcon.svelte";
 import YoutubeIcon from "./components/icons/YoutubeIcon.svelte";
-import { lastPlayoffsSeason } from "./last-playoffs-season";
 
 export const store = {
   label: "Store",
@@ -32,7 +31,7 @@ export const headerLinks = [
   },
   {
     label: "Playoffs",
-    href: `/playoffs/${lastPlayoffsSeason}`,
+    href: `/playoffs`,
     Icon: TrophyIcon,
   },
   {

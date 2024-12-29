@@ -61,7 +61,9 @@
                 >{match.participants[1].roundScore}
               </div>
             {/if}
-            <div class="w-16 shrink-0 text-right text-zinc-500">
+            <div
+              class="w-16 shrink-0 text-right text-zinc-500 min-[500px]:w-20"
+            >
               {#if match.state === "ACTIVE"}
                 <a
                   href="https://www.twitch.tv/feinberg"

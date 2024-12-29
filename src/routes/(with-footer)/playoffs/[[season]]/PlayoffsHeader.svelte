@@ -1,5 +1,6 @@
 <script lang="ts">
   import playoffsDeco from "$lib/assets/playoffs-deco.png";
+  import { lastPlayoffsSeason } from "$lib/last-playoffs-season";
   import { cn } from "$lib/utils";
 
   export let data;
@@ -28,7 +29,9 @@
         "grid size-10 shrink-0 place-items-center rounded-full font-minecraft text-3xl text-zinc-400 hover:bg-white/5",
         playoffs.next === null && "pointer-events-none opacity-30",
       )}
-      href={`/playoffs/${playoffs.next}`}
+      href={playoffs.next === lastPlayoffsSeason
+        ? `/playoffs`
+        : `/playoffs/${playoffs.next}`}
       data-sveltekit-noscroll
       data-sveltekit-replacestate
     >

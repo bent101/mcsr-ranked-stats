@@ -2,7 +2,6 @@ import { lastPlayoffsSeason } from "$lib/last-playoffs-season";
 import type { APIResponse, PlayoffsResponse } from "$lib/ranked-api";
 import { getPlayoffsURL } from "$lib/urls";
 import _ from "lodash";
-import type { LayoutLoad } from "./$types";
 
 export const prerender = true;
 
@@ -13,8 +12,10 @@ export const entries = () => {
   }));
 };
 
-export const load: LayoutLoad = async ({ fetch, params }) => {
-  const playoffsURL = getPlayoffsURL({ season: params.season });
+export const load = async ({ fetch, params }) => {
+  const playoffsURL = getPlayoffsURL({
+    season: params.season ?? lastPlayoffsSeason,
+  });
 
   const playoffs = await fetch(playoffsURL)
     .then((res) => res.json() as APIResponse<PlayoffsResponse>)
