@@ -271,6 +271,7 @@ export function formatDetailedMatch(
     forfeit: match.forfeited,
     rank: match.rank,
     season: match.season,
+    id: match.id,
   };
 }
 
