@@ -27,7 +27,7 @@
       background: "/ender-eye.png",
       bullets: [
         "<b>Every seed has a good overworld and nether</b>, making it fast-paced and great for learning",
-        "<b>Standardized piglin trades, blaze drops, and more</b> even the playing field",
+        "<b>Standardized piglin trades, blaze rates, and more</b> even the playing field",
         "<b>Keep pace with your opponent</b> with live advancements and an overlay showing their split",
         "<b>Match replays and player statistics</b> let you learn from every game and track your progress",
       ],
@@ -58,7 +58,7 @@
       bullets: [
         "Refine your route and push your time lower throughout the week",
         "Learn from the best – watch the fastest runners' replays or race their ghosts",
-        "Get the same flint drops, piglin trades, and blaze drops every run",
+        "Get the same flint drops, piglin trades, and blaze rates every run",
       ],
     },
     {
