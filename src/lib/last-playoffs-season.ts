@@ -6,4 +6,3 @@
 //   .then((res) => res.data.data.season);
 
 export const lastPlayoffsSeason = 5;
-export const lastPlayoffsIsDone = true;
