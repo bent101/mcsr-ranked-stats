@@ -9,6 +9,7 @@
   import WindowsIcon from "$lib/components/icons/WindowsIcon.svelte";
   import TooltipBtn from "$lib/components/TooltipBtn.svelte";
   import { downloads } from "$lib/config";
+  import { cn } from "$lib/utils";
   import { Youtube } from "svelte-youtube-lite";
 </script>
 
@@ -70,8 +71,23 @@
               click OK
             </p>
             {#each downloads as download}
-              <div class="flex gap-4 rounded-xl bg-zinc-800 p-2 pl-4 shadow-md">
-                <div class="flex-1 space-y-1">
+              <div
+                class={cn(
+                  "relative flex gap-4 overflow-hidden rounded-xl p-2 pl-4 shadow-md",
+                  download.recommended
+                    ? "bg-gradient-to-l from-light-green/60 to-transparent to-50%"
+                    : "bg-zinc-800",
+                )}
+              >
+                {#if download.recommended}
+                  <div
+                    class="absolute inset-px rounded-[0.6875rem] bg-zinc-800"
+                  />
+                  <div
+                    class="absolute inset-0 bg-gradient-to-l from-light-green/20 to-transparent"
+                  />
+                {/if}
+                <div class="relative flex-1 space-y-1">
                   <div class="flex items-center gap-2">
                     <p class="text-lg font-semibold text-zinc-300">
                       {download.name}

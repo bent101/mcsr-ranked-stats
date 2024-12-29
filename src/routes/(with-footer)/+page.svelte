@@ -126,7 +126,10 @@
       <div
         class="absolute inset-2 flex items-center justify-center transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1 group-hover:bg-light-green"
       >
-        <span class="font-extrabold tracking-widest text-white">DOWNLOAD</span>
+        <span
+          class="font-minecraft text-lg font-extrabold tracking-widest text-white"
+          >DOWNLOAD</span
+        >
       </div>
     </a>
   </div>
@@ -327,7 +330,7 @@
             href="https://mcsrranked.com/discord"
             target="_blank"
             rel="noopener noreferrer"
-            class=" relative flex h-16 w-44 shrink-0 items-center justify-center font-extrabold tracking-widest text-dark-green decoration-[3px] underline-offset-4 hover:underline"
+            class=" relative flex h-16 w-44 shrink-0 items-center justify-center font-minecraft text-lg font-extrabold tracking-widest text-dark-green decoration-[3px] underline-offset-4 hover:underline"
           >
             JOIN DISCORD
           </a>
@@ -343,7 +346,8 @@
             <div
               class="absolute inset-2 flex items-center justify-center transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1 group-hover:bg-light-green"
             >
-              <span class="font-extrabold tracking-widest text-white"
+              <span
+                class="font-minecraft text-lg font-extrabold tracking-widest text-white"
                 >DOWNLOAD</span
               >
             </div>
