@@ -81,7 +81,7 @@
 <svelte:window bind:scrollY bind:innerHeight={windowHeight} />
 
 <div
-  class="relative flex min-h-[calc(100lvh+8rem)] flex-col items-center justify-center px-4 pb-32 pt-16"
+  class="relative flex min-h-[calc(100svh+8rem)] flex-col items-center justify-center px-4 pb-32 pt-16"
 >
   <div class="absolute inset-0 -z-10 overflow-hidden">
     <img
