@@ -23,17 +23,24 @@
 
 <div
   class={cn(
-    "relative overflow-x-auto pr-20 scrollbar-thin scrollbar-track-zinc-900 scrollbar-thumb-zinc-800",
+    "relative w-max [--col-width:11.5rem] [--gf-scale:1.25] [--matches-hgap:1.5rem]",
     playoffs.data.type === "alpha"
-      ? "[--matches-gap:1rem]"
-      : "[--matches-gap:2rem]",
+      ? "[--matches-vgap:1rem]"
+      : "[--matches-vgap:2rem]",
   )}
 >
-  <div class="relative flex w-max pb-4 pt-4">
+  <div class="relative flex pb-4 pr-12 pt-4">
     {#each roundNames as roundName, i}
       {@const roundMatches = matches.filter((m) => m.name === roundName)}
       <div
-        class={cn("flex shrink-0 flex-col", i === 0 ? "w-[11.5rem]" : "w-52")}
+        class={cn(
+          "flex shrink-0 flex-col",
+          i === 0
+            ? "w-[var(--col-width)]"
+            : roundName === "Grand Final"
+              ? "w-[calc(var(--matches-hgap)+var(--col-width)*var(--gf-scale))] pr-[calc(var(--col-width)*(var(--gf-scale)-1))]" // lol
+              : "w-[calc(var(--matches-hgap)+var(--col-width))]",
+        )}
       >
         {#if roundName !== "Grand Final"}
           <h2
@@ -46,7 +53,7 @@
           </h2>
         {/if}
         <div
-          class="flex flex-1 flex-col justify-around gap-[var(--matches-gap)] pt-2"
+          class="flex flex-1 flex-col justify-around gap-[var(--matches-vgap)] pt-2"
         >
           {#each roundMatches as match}
             {@const player1Id = match.participants[0].player}
@@ -59,10 +66,10 @@
               {#if i > 0}
                 {#if playoffs.data.type === "alpha"}
                   <div
-                    class="flex w-2.5 shrink-0 flex-col space-y-0.5"
+                    class="flex w-[calc(var(--matches-hgap)/2-0.125rem)] shrink-0 flex-col space-y-0.5"
                     style="height: calc(
                       {(roundSizes[0] / roundSizes[i] / 2) * 100}% +
-                      {roundSizes[0] / roundSizes[i] / 2} * var(--matches-gap)
+                      {roundSizes[0] / roundSizes[i] / 2} * var(--matches-vgap)
                     )"
                   >
                     <div
@@ -80,14 +87,14 @@
                   </div>
                   <div
                     class={cn(
-                      "-ml-0.5 w-3 shrink-0 border-t-2",
+                      "-ml-0.5 w-[calc(var(--matches-hgap)/2)] shrink-0 border-t-2",
                       player1Hovered || player2Hovered
                         ? "border-white/70"
                         : "border-white/10",
                     )}
                   ></div>
                 {:else}
-                  <div class="w-6" />
+                  <div class="w-[var(--matches-hgap)]" />
                 {/if}
               {/if}
               <div class="flex-1">
@@ -106,8 +113,8 @@
     {/each}
     <div
       class={cn(
-        "absolute -right-12",
-        playoffs.data.type === "alpha" ? "bottom-36" : "bottom-0",
+        "absolute right-12",
+        playoffs.data.type === "alpha" ? "bottom-36" : "bottom-4",
       )}
     >
       <div class="flex w-52 shrink-0 flex-col">

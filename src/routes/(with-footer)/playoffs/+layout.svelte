@@ -33,13 +33,13 @@
 
   <!-- desktop layout -->
   <div class="hidden lg:flex">
-    <div class="relative flex-1 overflow-x-auto">
-      <div
-        class="pointer-events-none absolute inset-y-0 right-0 z-10 w-6 bg-gradient-to-r from-transparent to-zinc-900"
-      ></div>
+    <div class="flex-1 overflow-x-auto">
       <PlayoffsBracket {playoffs} {curHoveredPlayer} {curHoveredMatchId} />
     </div>
-    <div class="w-[26rem] shrink-0 pl-2">
+    <div class="relative w-[26rem] shrink-0 pl-2">
+      <div
+        class="pointer-events-none absolute inset-y-0 right-full z-10 w-6 bg-gradient-to-r from-transparent to-zinc-900"
+      ></div>
       <Tabs tabs={desktopTabs} bind:currentTab={desktopTab} />
       <div class="h-4" />
       {#if desktopTab === "Results"}
@@ -80,7 +80,11 @@
     </div>
     <div class="h-4" />
     {#if mobileTab === "Bracket"}
-      <PlayoffsBracket {playoffs} {curHoveredPlayer} {curHoveredMatchId} />
+      {#key playoffs.data.season}
+        <div class="overflow-x-auto">
+          <PlayoffsBracket {playoffs} {curHoveredPlayer} {curHoveredMatchId} />
+        </div>
+      {/key}
     {:else if mobileTab === "Results"}
       <div class="mx-auto max-w-md">
         <PlayoffsResults playoffsData={playoffs.data} {curHoveredPlayer} />

@@ -20,7 +20,7 @@
     class={cn(
       "relative rounded-md shadow-md",
       match.name === "Grand Final"
-        ? "gf-glow origin-left scale-125 bg-gradient-to-bl from-light-green to-zinc-900 to-40%"
+        ? "gf-glow origin-left scale-[var(--gf-scale)] bg-gradient-to-bl from-light-green to-zinc-900 to-40%"
         : "bg-zinc-800",
     )}
   >
