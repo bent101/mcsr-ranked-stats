@@ -1,14 +1,14 @@
 import { lastPlayoffsSeason } from "$lib/last-playoffs-season";
 import type { APIResponse, PlayoffsResponse } from "$lib/ranked-api";
 import { getPlayoffsURL } from "$lib/urls";
-import { range } from "lodash";
+import _ from "lodash";
 import type { LayoutLoad } from "./$types";
 
 export const prerender = true;
 
 export const entries = () => {
   // e.g. if last season is 4 then /playoffs/1, /playoffs/2, /playoffs/3 will be prerendered
-  return range(1, lastPlayoffsSeason).map((season) => ({ season }));
+  return _.range(1, lastPlayoffsSeason).map((season) => ({ season }));
 };
 
 export const load: LayoutLoad = async ({ fetch, params }) => {
