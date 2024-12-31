@@ -1,20 +1,12 @@
 <script lang="ts">
-  import { cn, type TimeoutId } from "$lib/utils";
+  import { cn } from "$lib/utils";
 
   export let options: string[] | readonly string[];
   export let selectedIdx = 0;
   export let label: string | null = null;
-  export let throttling = 0;
-  let disabled = false;
-  let throttleTimeout: TimeoutId = -1;
 
   const onClick = (i: number) => {
     selectedIdx = i;
-    disabled = true;
-    clearTimeout(throttleTimeout);
-    throttleTimeout = setTimeout(() => {
-      disabled = false;
-    }, throttling);
   };
 </script>
 
@@ -25,7 +17,6 @@
   <div class="inline-flex text-xs">
     {#each options as option, i}
       <button
-        {disabled}
         on:mousedown={() => onClick(i)}
         on:keydown={(e) => {
           if (e.key === "Enter" || e.key === " ") {

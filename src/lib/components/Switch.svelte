@@ -1,25 +1,15 @@
 <script lang="ts">
-  import { cn, type TimeoutId } from "$lib/utils";
+  import { cn } from "$lib/utils";
 
   export let options: [string, string];
   export let onFirst: boolean = true;
-  export let throttling = 0;
-
-  let disabled = false;
-  let throttleTimeout: TimeoutId = -1;
 
   const onClick = () => {
     onFirst = !onFirst;
-    disabled = true;
-    clearTimeout(throttleTimeout);
-    throttleTimeout = setTimeout(() => {
-      disabled = false;
-    }, throttling);
   };
 </script>
 
 <button
-  {disabled}
   class="inline-flex cursor-pointer text-xs font-semibold"
   on:mousedown={onClick}
   on:keydown={(e) => {
