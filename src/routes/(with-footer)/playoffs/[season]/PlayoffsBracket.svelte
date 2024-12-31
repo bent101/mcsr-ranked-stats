@@ -19,6 +19,8 @@
   $: roundSizes = roundNames.map(
     (name) => matches.filter((m) => m.name === name).length,
   );
+
+  $: thirdPlaceMatch = matches.find((m) => m.name === "3rd Place");
 </script>
 
 <div
@@ -29,7 +31,7 @@
       : "[--matches-hgap:0.6rem] [--matches-vgap:2rem]",
   )}
 >
-  <div class="relative flex pb-4 pr-12 pt-4">
+  <div class="relative flex pb-4 pr-10 pt-4">
     {#each roundNames as roundName, i}
       {@const roundMatches = matches.filter((m) => m.name === roundName)}
       <div
@@ -117,24 +119,24 @@
         playoffs.data.type === "alpha" ? "bottom-36" : "bottom-4",
       )}
     >
-      <div class="flex w-52 shrink-0 flex-col">
-        <h2
-          class="text-center text-sm font-bold uppercase tracking-[0.2em] text-zinc-500"
-        >
-          3rd Place
-        </h2>
-        <div class="flex flex-1 flex-col justify-around gap-2 pt-2">
-          {#each matches.filter((m) => m.name === "3rd Place") as match}
+      {#if thirdPlaceMatch}
+        <div class="flex w-[var(--col-width)] shrink-0 flex-col">
+          <h2
+            class="text-center text-sm font-bold uppercase tracking-[0.2em] text-zinc-500"
+          >
+            3rd Place
+          </h2>
+          <div class="flex flex-1 flex-col justify-around gap-2 pt-2">
             <PlayoffsMatch
-              {match}
+              match={thirdPlaceMatch}
               {players}
               {results}
               {curHoveredPlayer}
               {curHoveredMatchId}
             />
-          {/each}
+          </div>
         </div>
-      </div>
+      {/if}
     </div>
   </div>
 </div>
