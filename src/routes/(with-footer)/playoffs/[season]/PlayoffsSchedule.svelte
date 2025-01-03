@@ -11,7 +11,9 @@
   export let curHoveredMatchId: Writable<number | null>;
   $: ({ players, matches, results } = playoffsData);
   $: scheduleDays = groupByDivideCondition(
-    matches.toSorted((a, b) => a.startTime - b.startTime),
+    matches
+      .filter((m) => m.startTime !== null)
+      .toSorted((a, b) => a.startTime - b.startTime),
     (a, b) => b.startTime - a.startTime > 8 * 60 * 60,
   );
 </script>
@@ -20,19 +22,23 @@
   {#each scheduleDays as dayMatches}
     {@const start = new Date(1000 * dayMatches[0].startTime)}
     <div>
-      <h3 class="pb-1 pl-4 text-xl font-semibold text-zinc-300">
-        {formatDate(
-          start,
-          start < new Date() ? "EEE, MMM d, yyyy" : "EEE, MMM d",
-        )}
+      <h3 class="pb-1 pl-4 text-xl font-bold text-zinc-300">
+        {formatDate(start, "EEE, MMM dd")}
+        <span class="text-zinc-600">{formatDate(start, "yyyy")}</span>
       </h3>
       {#each dayMatches as match}
-        {@const player1 = players[match.participants[0].player]}
-        {@const player2 = players[match.participants[1].player]}
+        {@const player1 =
+          match.participants[0]?.player != null
+            ? players[match.participants[0].player]
+            : null}
+        {@const player2 =
+          match.participants[1]?.player != null
+            ? players[match.participants[1].player]
+            : null}
         {@const player1Won =
-          match.participants[0].roundScore === match.maxRoundScore}
+          match.participants[0]?.roundScore === match.maxRoundScore}
         {@const player2Won =
-          match.participants[1].roundScore === match.maxRoundScore}
+          match.participants[1]?.roundScore === match.maxRoundScore}
         <!-- svelte-ignore a11y-no-static-element-interactions -->
         <Hoverable store={curHoveredMatchId} value={match.id} let:isHovered>
           <div
@@ -42,15 +48,21 @@
             )}
           >
             <div class="flex-1 truncate text-zinc-400">
-              <span
-                class={cn("inline-block", player1Won && "text-light-green")}
-              >
-                <PlayerLink name={player1.nickname} uuid={player1.uuid} />
-              </span>
+              {#if player1}
+                <span
+                  class={cn("inline-block", player1Won && "text-light-green")}
+                >
+                  <PlayerLink name={player1.nickname} uuid={player1.uuid} />
+                </span>
+              {:else}
+                <span class="italic text-zinc-500">TBD</span>{/if}
               <span class="inline-block text-zinc-500">vs</span>
-              <span class={cn(player2Won && "text-light-green")}>
-                <PlayerLink name={player2.nickname} uuid={player2.uuid} />
-              </span>
+              {#if player2}
+                <span class={cn(player2Won && "text-light-green")}>
+                  <PlayerLink name={player2.nickname} uuid={player2.uuid} />
+                </span>
+              {:else}
+                <span class="italic text-zinc-500">TBD</span>{/if}
             </div>
             {#if match.state === "DONE"}
               <div

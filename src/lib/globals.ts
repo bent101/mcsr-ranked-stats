@@ -28,11 +28,11 @@ function mql(query: string, { fallback = true } = {}) {
 }
 
 /** current date in seconds after epoch (updates every second) */
-export const curDate = readable(
+export const curDate = writable(
   Math.floor(Date.now() / 1000),
-  function start(set) {
+  function start(set, update) {
     const interval = setInterval(() => {
-      set(Math.floor(Date.now() / 1000));
+      update((n) => n + 1);
     }, 1000);
 
     return function stop() {

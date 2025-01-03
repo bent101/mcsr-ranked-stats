@@ -16,9 +16,7 @@ export function ignFilter(node: HTMLInputElement) {
   };
 }
 
-type OnPressCallback = () => void;
-
-export function onpress(node: HTMLElement, callback: OnPressCallback) {
+export function onpress(node: HTMLElement, callback: () => void) {
   function handleMouseDown(event: MouseEvent) {
     if (event.button === 0) {
       // Left click only
@@ -51,7 +49,7 @@ export function onpress(node: HTMLElement, callback: OnPressCallback) {
       node.removeEventListener("mousedown", handleMouseDown);
       node.removeEventListener("keydown", handleKeyDown);
     },
-    update(newCallback: OnPressCallback) {
+    update(newCallback: () => void) {
       callback = newCallback;
     },
   };

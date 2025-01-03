@@ -10,7 +10,8 @@
     "sourceMap": true,
     "strict": true,
     "allowSyntheticDefaultImports": true,
-    "noImplicitAny": true
+    "noImplicitAny": true,
+    "noUncheckedIndexedAccess": true
   },
   "exclude": ["eslint.config.mjs"]
 

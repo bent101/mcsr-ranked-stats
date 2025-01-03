@@ -4,8 +4,9 @@
 
   export let store: Writable<T | null>;
   export let value: T;
+  export let disabled: boolean = false;
 
-  $: isHovered = value === $store && !$isTouchScreen;
+  $: isHovered = !disabled && value === $store && !$isTouchScreen;
 </script>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->

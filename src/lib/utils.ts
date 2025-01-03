@@ -103,7 +103,7 @@ export type TimeoutId = NodeJS.Timeout | number;
 export function groupByDivideCondition<T>(
   array: T[],
   condition: (item1: T, item2: T) => boolean,
-) {
+): T[][] {
   if (array.length === 0) return [];
   const ret = [[array[0]]];
   for (let i = 1; i < array.length; i++) {

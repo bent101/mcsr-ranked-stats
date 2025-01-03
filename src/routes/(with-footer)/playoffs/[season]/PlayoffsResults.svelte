@@ -148,7 +148,7 @@
   {/each}
   <div class="h-2"></div>
   <div class="grid grid-flow-col grid-cols-2 grid-rows-6">
-    {#each results.slice(4) as result}
+    {#each results.slice(4) as result, i}
       {@const player = players[result.player]}
       <Hoverable store={curHoveredPlayer} value={player.uuid} let:isHovered>
         <div
@@ -157,7 +157,13 @@
             isHovered ? "bg-zinc-800" : "hover:bg-zinc-800",
           )}
         >
-          <div class="text-zinc-600">
+          <div
+            class={cn(
+              "text-zinc-600",
+              i >= 6 &&
+                "w-8 text-right" /* aligns the right column without adding unnecessary padding to the left column */,
+            )}
+          >
             {result.place}<small>th</small>
           </div>
           <div>

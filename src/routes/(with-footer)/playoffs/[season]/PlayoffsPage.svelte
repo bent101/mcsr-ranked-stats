@@ -2,34 +2,71 @@
   import PlayoffsHeader from "./PlayoffsHeader.svelte";
 
   import Tabs from "$lib/components/Tabs.svelte";
+  import type { PlayoffsResponse } from "$lib/ranked-api";
+  import { rem2px } from "$lib/utils";
   import { writable } from "svelte/store";
+  import { playoffsTimeTravel } from "./playoffs-time-travel";
   import PlayoffsBracket from "./PlayoffsBracket.svelte";
   import PlayoffsPlayers from "./PlayoffsPlayers.svelte";
   import PlayoffsResults from "./PlayoffsResults.svelte";
   import PlayoffsSchedule from "./PlayoffsSchedule.svelte";
-  import { rem2px } from "$lib/utils";
-  import type { PlayoffsResponse } from "$lib/ranked-api";
+  import { curDate } from "$lib/globals";
+  import { formatDate } from "date-fns";
 
-  export let playoffs: PlayoffsResponse;
+  export let realPlayoffs: PlayoffsResponse;
+
+  $: playoffs = playoffsTimeTravel(realPlayoffs, $curDate);
 
   let curHoveredPlayer = writable<string | null>(null);
   let curHoveredMatchId = writable<number | null>(null);
 
-  const desktopTabs = ["Results", "Schedule", "Players"] as const;
-  const mobileTabs = ["Bracket", ...desktopTabs] as const;
+  $: desktopTabs =
+    playoffs.data.results != null && playoffs.data.results.length > 0
+      ? ["Results", "Schedule", "Players"]
+      : ["Schedule", "Players"];
+  $: mobileTabs = ["Bracket", ...desktopTabs];
 
-  // these arent reactive by design -- if the tab list changes, the tab shouldnt change,
-  // but the tab should start out as the first tab in the list
-  let desktopTab: (typeof desktopTabs)[number] = desktopTabs[0];
-  let mobileTab: (typeof mobileTabs)[number] = mobileTabs[0];
+  let desktopTab = "Schedule";
+  let mobileTab = "Schedule";
 </script>
 
 <svelte:head>
   <title>Playoffs | MCSR Ranked</title>
 </svelte:head>
 
+{#if realPlayoffs.data.matches.length > 0}
+  {@const times = realPlayoffs.data.matches
+    .filter((m) => m.startTime !== null)
+    .map((m) => m.startTime)}
+  {@const minTime = Math.min(...times) - 2 * 60 * 60}
+  {@const maxTime = Math.max(...times) + 2 * 60 * 60}
+  <div class="p-4">
+    <div
+      class="flex justify-between text-sm tabular-nums tracking-tighter text-zinc-500"
+    >
+      <span>
+        {formatDate(new Date(minTime * 1000), "MM/dd/yy, h:mm aa")}
+      </span>
+      <span>
+        {formatDate(new Date($curDate * 1000), "MM/dd/yy, hh:mm:ss aa")}
+      </span>
+      <span>
+        {formatDate(new Date(maxTime * 1000), "MM/dd/yy, h:mm aa")}
+      </span>
+    </div>
+    <input
+      type="range"
+      min={minTime}
+      max={maxTime}
+      step={60 * 15}
+      bind:value={$curDate}
+      class="h-2 w-full cursor-pointer appearance-none rounded-lg bg-zinc-700 accent-light-green"
+    />
+  </div>
+{/if}
+
 <div
-  class="relative mx-auto max-w-[1600px] px-4 pb-16 pt-4 font-minecraft md:pt-8"
+  class="relative mx-auto max-w-[1470px] px-4 pb-16 pt-4 font-minecraft md:pt-8"
 >
   <PlayoffsHeader {playoffs} />
 

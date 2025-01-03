@@ -58,12 +58,14 @@
           class="flex flex-1 flex-col justify-around gap-[var(--matches-vgap)] pt-2"
         >
           {#each roundMatches as match}
-            {@const player1Id = match.participants[0].player}
-            {@const player2Id = match.participants[1].player}
+            {@const player1Id = match.participants[0]?.player}
+            {@const player2Id = match.participants[1]?.player}
             {@const player1Hovered =
-              $curHoveredPlayer === players[player1Id].uuid}
+              player1Id != null &&
+              $curHoveredPlayer === players[player1Id]?.uuid}
             {@const player2Hovered =
-              $curHoveredPlayer === players[player2Id].uuid}
+              player2Id != null &&
+              $curHoveredPlayer === players[player2Id]?.uuid}
             <div class="flex items-center">
               {#if i > 0}
                 {#if playoffs.data.type === "alpha"}

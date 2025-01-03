@@ -229,7 +229,14 @@ export type PlayoffsMatch = {
   name: string;
   nextMatchId: number | null;
   maxRoundScore: number;
-  startTime: number;
-  state: "DONE" | "ACTIVE" | "SCHEDULED";
-  participants: [PlayoffsMatchParticipant, PlayoffsMatchParticipant];
-};
+  participants: PlayoffsMatchParticipant[];
+} & (
+  | {
+      startTime: null;
+      state: null;
+    }
+  | {
+      startTime: number;
+      state: "DONE" | "ACTIVE" | "SCHEDULED";
+    }
+);
