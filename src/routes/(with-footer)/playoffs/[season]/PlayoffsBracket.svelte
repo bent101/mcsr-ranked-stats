@@ -44,16 +44,18 @@
               : "w-[calc(var(--matches-hgap)+var(--col-width))]",
         )}
       >
-        {#if roundName !== "Grand Final"}
-          <h2
-            class={cn(
-              "text-center text-sm font-bold uppercase tracking-[0.2em] text-zinc-500",
-              i !== 0 && "pl-6",
-            )}
-          >
+        <h2
+          class={cn(
+            "text-center text-sm font-bold uppercase tracking-[0.2em] text-zinc-500",
+            i !== 0 && "pl-6",
+          )}
+        >
+          {#if roundName !== "Grand Final"}
             {roundName}
-          </h2>
-        {/if}
+          {:else}
+            <div class="h-[1lh]" />
+          {/if}
+        </h2>
         <div
           class="flex flex-1 flex-col justify-around gap-[var(--matches-vgap)] pt-5"
         >
