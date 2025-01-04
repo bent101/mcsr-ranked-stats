@@ -14,9 +14,9 @@
   export let curHoveredMatchId: Writable<number | null>;
   $: ({ players, matches, results } = playoffsData);
   $: scheduleDays = groupByDivideCondition(
-    matches
-      .filter((m) => m.startTime !== null)
-      .toSorted((a, b) => a.startTime - b.startTime),
+    [...matches.filter((m) => m.startTime !== null)].sort(
+      (a, b) => a.startTime - b.startTime,
+    ),
     (a, b) => b.startTime - a.startTime > 8 * 60 * 60,
   );
 </script>
