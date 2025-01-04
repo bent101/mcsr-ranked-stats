@@ -125,7 +125,12 @@
       {#if thirdPlaceMatch}
         <div class="flex w-[var(--col-width)] shrink-0 flex-col">
           <h2
-            class="text-center text-sm font-bold uppercase tracking-[0.2em] text-zinc-500"
+            class={cn(
+              "text-center text-sm font-bold uppercase tracking-[0.2em] text-zinc-500",
+              thirdPlaceMatch.state !== "SCHEDULED" &&
+                thirdPlaceMatch.state !== "ACTIVE" &&
+                "translate-y-4",
+            )}
           >
             3rd Place
           </h2>

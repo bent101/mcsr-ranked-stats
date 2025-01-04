@@ -1,7 +1,6 @@
 <script lang="ts">
   import Hoverable from "$lib/components/Hoverable.svelte";
   import ExternalLinkIcon from "$lib/components/icons/ExternalLinkIcon.svelte";
-  import { formatTime } from "$lib/formatters";
   import { curDate } from "$lib/globals";
   import type { PlayoffsData, PlayoffsMatch } from "$lib/ranked-api.js";
   import { cn } from "$lib/utils.js";
@@ -84,7 +83,12 @@
     {/if}
     {#if match.name === "Grand Final"}
       <h2
-        class="pointer-events-none absolute inset-x-0 bottom-full pb-5 text-center text-sm font-bold uppercase tracking-[0.2em] text-zinc-500"
+        class={cn(
+          "pointer-events-none absolute inset-x-0 bottom-full pb-5 text-center text-sm font-bold uppercase tracking-[0.2em] text-zinc-500",
+          match.state !== "SCHEDULED" &&
+            match.state !== "ACTIVE" &&
+            "translate-y-4",
+        )}
       >
         Grand Finals
       </h2>
