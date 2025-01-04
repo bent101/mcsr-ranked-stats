@@ -15,7 +15,7 @@
 
   let sort: "seed" | "elo" | "pb" = "seed";
 
-  $: sortedPlayers = players.toSorted((a, b) => {
+  $: sortedPlayers = [...players].sort((a, b) => {
     if (sort === "seed") return a.seedNumber - b.seedNumber;
     if (sort === "elo") return b.seasonEloRate - a.seasonEloRate;
     if (sort === "pb") return a.personalBest - b.personalBest;
