@@ -3,6 +3,8 @@
   import { lastPlayoffsSeason } from "$lib/last-playoffs-season";
   import { cn } from "$lib/utils";
   import type { PlayoffsResponse } from "$lib/ranked-api";
+  import PixelChevronLeft from "$lib/components/PixelChevronLeft.svelte";
+  import PixelChevronRight from "$lib/components/PixelChevronRight.svelte";
 
   export let playoffs: PlayoffsResponse;
 </script>
@@ -11,14 +13,14 @@
   <div class="flex items-center gap-6">
     <a
       class={cn(
-        "grid size-10 shrink-0 translate-y-[0.09375rem] place-items-center rounded-full text-3xl text-zinc-400 hover:bg-white/5",
+        "translate-y-0.5 rounded-full p-2 hover:bg-white/5",
         playoffs.data.season === 1 && "pointer-events-none opacity-30",
       )}
       href={`/playoffs/${playoffs.prev}`}
       data-sveltekit-noscroll
       data-sveltekit-replacestate
     >
-      <span class="inline-block -translate-y-px select-none">&lt;</span>
+      <PixelChevronLeft class="size-6 fill-zinc-400" />
     </a>
     <div class="flex flex-col items-center text-xl md:block md:text-4xl">
       <h1 class="inline text-zinc-300" translate="no">MCSR Ranked Playoffs</h1>
@@ -26,7 +28,7 @@
     </div>
     <a
       class={cn(
-        "grid size-10 shrink-0 translate-y-[0.09375rem] place-items-center rounded-full font-minecraft text-3xl text-zinc-400 hover:bg-white/5",
+        "translate-y-0.5 rounded-full p-2 hover:bg-white/5",
         playoffs.next === null && "pointer-events-none opacity-30",
       )}
       href={playoffs.next === lastPlayoffsSeason
@@ -35,9 +37,7 @@
       data-sveltekit-noscroll
       data-sveltekit-replacestate
     >
-      <span class="inline-block -translate-y-px translate-x-0.5 select-none"
-        >&gt;</span
-      >
+      <PixelChevronRight class="size-6 fill-zinc-400" />
     </a>
   </div>
 </div>

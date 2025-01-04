@@ -4,4 +4,4 @@
   $: ({ playoffs } = data);
 </script>
 
-<PlayoffsPage realPlayoffs={playoffs} desktopTab="Results" />
+<PlayoffsPage realPlayoffs={playoffs} desktopTab="Schedule" />

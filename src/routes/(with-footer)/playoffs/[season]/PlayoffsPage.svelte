@@ -58,7 +58,7 @@
       type="range"
       min={minTime}
       max={maxTime}
-      step={60 * 15}
+      step={60}
       bind:value={$curDate}
       class="h-2 w-full cursor-pointer appearance-none rounded-lg bg-zinc-700 accent-light-green"
     />
