@@ -13,9 +13,9 @@
   import PlayoffsResults from "./PlayoffsResults.svelte";
   import PlayoffsSchedule from "./PlayoffsSchedule.svelte";
 
-  export let realPlayoffs: PlayoffsResponse;
+  export let playoffs: PlayoffsResponse;
 
-  $: playoffs = playoffsTimeTravel(realPlayoffs, $curDate);
+  // $: playoffs = playoffsTimeTravel(realPlayoffs, $curDate);
 
   let curHoveredPlayer = writable<string | null>(null);
   let curHoveredMatchId = writable<number | null>(null);
@@ -34,7 +34,7 @@
   <title>Playoffs | MCSR Ranked</title>
 </svelte:head>
 
-{#if realPlayoffs.data.matches.length > 0}
+<!-- {#if realPlayoffs.data.matches.length > 0}
   {@const times = realPlayoffs.data.matches
     .filter((m) => m.startTime !== null)
     .map((m) => m.startTime)}
@@ -63,7 +63,7 @@
       class="h-2 w-full cursor-pointer appearance-none rounded-lg bg-zinc-700 accent-light-green"
     />
   </div>
-{/if}
+{/if} -->
 
 <div
   class="relative mx-auto max-w-[1470px] px-4 pb-16 pt-4 font-minecraft md:pt-8"
