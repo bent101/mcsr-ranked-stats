@@ -49,7 +49,7 @@
       </a>
     {/if}
     {#if match.state === "SCHEDULED"}
-      {#if match.startTime - $curDate <= 30 * 60 && !playoffs.matches.some((m) => m.state === "ACTIVE")}
+      <!-- {#if match.startTime - $curDate <= 30 * 60 && !playoffs.matches.some((m) => m.state === "ACTIVE")}
         <a
           href="https://www.twitch.tv/feinberg"
           target="_blank"
@@ -61,13 +61,13 @@
           Starting in {formatTime((match.startTime - $curDate) * 1000)}
           <ExternalLinkIcon class="size-4" />
         </a>
-      {:else}
-        <div
-          class="absolute inset-x-2 bottom-full rounded-t-md bg-light-green/80 px-2 py-px text-center text-xs font-medium text-white [text-shadow:1px_1px_1px_#0004]"
-        >
-          {formatDate(new Date(1000 * match.startTime), "MMM d, h:mmaaa")}
-        </div>
-      {/if}
+      {:else} -->
+      <div
+        class="absolute inset-x-2 bottom-full rounded-t-md bg-light-green/80 px-2 py-px text-center text-xs font-medium text-white [text-shadow:1px_1px_1px_#0004]"
+      >
+        {formatDate(new Date(1000 * match.startTime), "MMM d, h:mmaaa")}
+      </div>
+      <!-- {/if} -->
     {/if}
     {#if match.name === "Grand Final"}
       <div

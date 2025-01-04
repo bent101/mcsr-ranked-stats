@@ -94,7 +94,7 @@
                   <div class="text-xs font-bold">LIVE</div>
                   <ExternalLinkIcon class="size-4" />
                 </a>
-              {:else if match.state === "SCHEDULED" && match.startTime - $curDate <= 30 * 60 && !matches.some((m) => m.state === "ACTIVE")}
+                <!-- {:else if match.state === "SCHEDULED" && match.startTime - $curDate <= 30 * 60 && !matches.some((m) => m.state === "ACTIVE")}
                 <a
                   href="https://www.twitch.tv/feinberg"
                   target="_blank"
@@ -103,7 +103,7 @@
                 >
                   {formatTime((match.startTime - $curDate) * 1000)}
                   <ExternalLinkIcon class="size-4" />
-                </a>
+                </a> -->
               {:else}
                 {formatDate(
                   new Date(1000 * match.startTime),
