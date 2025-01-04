@@ -2,16 +2,16 @@
   import PlayoffsHeader from "./PlayoffsHeader.svelte";
 
   import Tabs from "$lib/components/Tabs.svelte";
+  import { curDate } from "$lib/globals";
   import type { PlayoffsResponse } from "$lib/ranked-api";
   import { rem2px } from "$lib/utils";
+  import { formatDate } from "date-fns";
   import { writable } from "svelte/store";
   import { playoffsTimeTravel } from "./playoffs-time-travel";
   import PlayoffsBracket from "./PlayoffsBracket.svelte";
   import PlayoffsPlayers from "./PlayoffsPlayers.svelte";
   import PlayoffsResults from "./PlayoffsResults.svelte";
   import PlayoffsSchedule from "./PlayoffsSchedule.svelte";
-  import { curDate } from "$lib/globals";
-  import { formatDate } from "date-fns";
 
   export let realPlayoffs: PlayoffsResponse;
 
@@ -26,8 +26,8 @@
       : ["Schedule", "Players"];
   $: mobileTabs = ["Bracket", ...desktopTabs];
 
-  let desktopTab = "Schedule";
-  let mobileTab = "Schedule";
+  export let desktopTab: (typeof desktopTabs)[number] = "Schedule";
+  let mobileTab: (typeof mobileTabs)[number] = "Bracket";
 </script>
 
 <svelte:head>

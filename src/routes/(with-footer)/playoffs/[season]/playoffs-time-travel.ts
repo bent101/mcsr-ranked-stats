@@ -37,15 +37,9 @@ export function playoffsTimeTravel(
       m.participants[0].roundScore = 0;
       m.participants[1].roundScore = 0;
 
-      if (t < -16 * 60 * 60) {
-        m.startTime = null;
-      }
-      if (t < -17 * 60 * 60) {
-        m.participants = [m.participants[0]];
-      }
-      if (t < -18 * 60 * 60) {
-        m.participants = [];
-      }
+      if (t < -17 * 60 * 60) m.participants = [m.participants[0]];
+      if (t < -18 * 60 * 60) m.participants = [];
+      if (t < -19 * 60 * 60) m.startTime = null;
     }
 
     m.state =

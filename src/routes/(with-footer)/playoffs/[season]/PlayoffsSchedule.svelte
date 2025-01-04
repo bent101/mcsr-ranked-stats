@@ -5,6 +5,9 @@
   import { formatDate, getMinutes } from "date-fns";
   import { type Writable } from "svelte/store";
   import Hoverable from "$lib/components/Hoverable.svelte";
+  import ExternalLinkIcon from "$lib/components/icons/ExternalLinkIcon.svelte";
+  import { formatTime } from "$lib/formatters";
+  import { curDate } from "$lib/globals";
 
   export let playoffsData: PlayoffsData;
   export let curHoveredPlayer: Writable<string | null>;
@@ -48,21 +51,19 @@
             )}
           >
             <div class="flex-1 truncate text-zinc-400">
-              {#if player1}
+              {#if !player1 || !player2}
+                <span class="text-zinc-400">{match.name}</span>
+              {:else}
                 <span
                   class={cn("inline-block", player1Won && "text-light-green")}
                 >
                   <PlayerLink name={player1.nickname} uuid={player1.uuid} />
                 </span>
-              {:else}
-                <span class="italic text-zinc-500">TBD</span>{/if}
-              <span class="inline-block text-zinc-500">vs</span>
-              {#if player2}
+                <span class="inline-block text-zinc-500">vs</span>
                 <span class={cn(player2Won && "text-light-green")}>
                   <PlayerLink name={player2.nickname} uuid={player2.uuid} />
                 </span>
-              {:else}
-                <span class="italic text-zinc-500">TBD</span>{/if}
+              {/if}
             </div>
             {#if match.state === "DONE"}
               <div
@@ -81,7 +82,7 @@
                   href="https://www.twitch.tv/feinberg"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="flex items-center justify-end gap-1.5"
+                  class="flex items-center justify-end gap-1.5 text-red-500"
                 >
                   <div
                     class="relative h-2 w-2 shrink-0 rounded-full bg-red-500"
@@ -90,7 +91,18 @@
                       class="absolute inset-0 animate-ping rounded-full bg-red-500"
                     />
                   </div>
-                  <div class="text-xs font-bold text-red-500">LIVE</div>
+                  <div class="text-xs font-bold">LIVE</div>
+                  <ExternalLinkIcon class="size-4" />
+                </a>
+              {:else if match.state === "SCHEDULED" && match.startTime - $curDate <= 30 * 60 && !matches.some((m) => m.state === "ACTIVE")}
+                <a
+                  href="https://www.twitch.tv/feinberg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex items-center justify-end gap-1.5 text-red-500"
+                >
+                  {formatTime((match.startTime - $curDate) * 1000)}
+                  <ExternalLinkIcon class="size-4" />
                 </a>
               {:else}
                 {formatDate(

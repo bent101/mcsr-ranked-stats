@@ -55,7 +55,7 @@
           </h2>
         {/if}
         <div
-          class="flex flex-1 flex-col justify-around gap-[var(--matches-vgap)] pt-2"
+          class="flex flex-1 flex-col justify-around gap-[var(--matches-vgap)] pt-5"
         >
           {#each roundMatches as match}
             {@const player1Id = match.participants[0]?.player}
@@ -104,8 +104,7 @@
               <div class="flex-1">
                 <PlayoffsMatch
                   {match}
-                  {players}
-                  {results}
+                  playoffs={playoffs.data}
                   {curHoveredPlayer}
                   {curHoveredMatchId}
                 />
@@ -128,11 +127,10 @@
           >
             3rd Place
           </h2>
-          <div class="flex flex-1 flex-col justify-around gap-2 pt-2">
+          <div class="flex flex-1 flex-col justify-around gap-2 pt-5">
             <PlayoffsMatch
               match={thirdPlaceMatch}
-              {players}
-              {results}
+              playoffs={playoffs.data}
               {curHoveredPlayer}
               {curHoveredMatchId}
             />

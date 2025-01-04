@@ -3,8 +3,8 @@
   import { onpress } from "$lib/actions";
 
   export let tabs: readonly T[];
-  export let currentTab: T;
-  export let onSwitch: ((oldTab: T, newTab: T) => void) | undefined = undefined;
+  export let currentTab: T | undefined;
+  export let onSwitch: (() => void) | undefined = undefined;
   export let spaceEvenly: boolean = false;
 </script>
 
@@ -23,7 +23,7 @@
           "w-full rounded-md px-3 py-1.5 text-sm font-medium hover:bg-white/5",
         )}
         use:onpress={() => {
-          onSwitch?.(currentTab, tab);
+          onSwitch?.();
           currentTab = tab;
         }}
       >
