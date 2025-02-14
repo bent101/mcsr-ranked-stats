@@ -10,8 +10,11 @@
   import { getLeaderboardURL, getWeeklyRaceURL } from "$lib/urls";
   import { setContext } from "svelte";
   import { showingLeaderboard } from "$lib/globals";
+  import { checkStorageState } from "$lib/analytics";
 
   inject({ mode: dev ? "development" : "production", debug: false });
+
+  void checkStorageState();
 
   export let data;
 
